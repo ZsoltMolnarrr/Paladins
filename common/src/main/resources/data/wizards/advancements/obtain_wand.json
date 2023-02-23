@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "paladins:wand_novice"
+    },
+    "title": {
+      "translate": "advancements.paladins.obtain_wand.title"
+    },
+    "description": {
+      "translate": "advancements.paladins.obtain_wand.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "paladins:root",
+  "criteria": {
+    "wand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "paladins:wand_novice", "paladins:wand_arcane", "paladins:wand_fire", "paladins:wand_frost"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "wand"
+    ]
+  ]
+}

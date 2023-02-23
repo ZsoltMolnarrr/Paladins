@@ -1,0 +1,116 @@
+{
+  "paladin_robes_equip": {
+    "sounds": [
+      "paladins:paladin_robes_equip_1",
+      "paladins:paladin_robes_equip_2",
+      "paladins:paladin_robes_equip_3"
+    ]
+  },
+
+  "arcane_missile_release": {
+    "sounds": [
+      "paladins:arcane_missile_release"
+    ]
+  },
+  "arcane_missile_impact": {
+    "sounds": [
+      "paladins:arcane_missile_impact"
+    ]
+  },
+
+  "arcane_blast_release": {
+    "sounds": [
+      "paladins:arcane_blast_release"
+    ]
+  },
+  "arcane_blast_impact": {
+    "sounds": [
+      "paladins:arcane_blast_impact"
+    ]
+  },
+
+  "arcane_beam_start": {
+    "sounds": [
+      "paladins:arcane_beam_start"
+    ]
+  },
+  "arcane_beam_casting": {
+    "sounds": [
+      "paladins:arcane_beam_casting"
+    ]
+  },
+  "arcane_beam_impact": {
+    "sounds": [
+      "paladins:arcane_beam_impact"
+    ]
+  },
+  "arcane_beam_release": {
+    "sounds": [
+      "paladins:arcane_beam_release"
+    ]
+  },
+
+  "fireball_impact": {
+    "sounds": [
+      "paladins:fireball_impact"
+    ]
+  },
+  "fire_breath_start": {
+    "sounds": [
+      "paladins:fire_breath_start"
+    ]
+  },
+  "fire_breath_casting": {
+    "sounds": [
+      "paladins:fire_breath_casting"
+    ]
+  },
+  "fire_breath_release": {
+    "sounds": [
+      "paladins:fire_breath_release"
+    ]
+  },
+  "fire_breath_impact": {
+    "sounds": [
+      "paladins:fire_breath_impact"
+    ]
+  },
+
+  "fire_meteor_release": {
+    "sounds": [
+      "paladins:fire_meteor_release"
+    ]
+  },
+  "fire_meteor_impact": {
+    "sounds": [
+      "paladins:fire_meteor_impact"
+    ]
+  },
+
+  "frost_nova_release": {
+    "sounds": [
+      "paladins:frost_nova_release"
+    ]
+  },
+  "frost_nova_damage_impact": {
+    "sounds": [
+      "paladins:frost_nova_damage_impact"
+    ]
+  },
+  "frost_nova_effect_impact": {
+    "sounds": [
+      "paladins:frost_nova_effect_impact"
+    ]
+  },
+
+  "frost_shield_release": {
+    "sounds": [
+      "paladins:frost_shield_release"
+    ]
+  },
+  "frost_shield_impact": {
+    "sounds": [
+      "paladins:frost_shield_impact"
+    ]
+  }
+}

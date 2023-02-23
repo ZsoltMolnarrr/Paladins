@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "paladins",
+  "version": "${version}",
+  "name": "Paladins",
+  "description": "Protect and heal your friends as a Paladin.",
+  "authors": [
+    "Daedelus"
+  ],
+  "contact": {
+    "repo": "https://github.com/ZsoltMolnarrr/Paladins",
+    "issues": "https://github.com/ZsoltMolnarrr/Paladins/issues"
+  },
+  "license": "All Rights Reserved",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.paladins.fabric.client.FabricClientMod"
+    ],
+    "main": [
+      "net.paladins.fabric.FabricMod"
+    ],
+    "modmenu": [
+      "net.spell_engine.fabric.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "paladins.mixins.json"
+  ],
+  "depends": {
+    "minecraft": ">=1.19.0 <1.19.3",
+    "fabricloader": ">=0.14.0",
+    "geckolib3": "*",
+    "spell_engine": ">=${spell_engine_version}",
+    "spell_power": "*",
+    "runes": ">=${runes_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/KN9b3pjFTM"
+      }
+    }
+  }
+}

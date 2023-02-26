@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "paladins:item/arcane_robe_head"
-  }
-}

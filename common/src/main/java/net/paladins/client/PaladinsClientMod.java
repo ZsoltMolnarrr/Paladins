@@ -24,17 +24,17 @@ public class PaladinsClientMod {
                     entry.armorSet().legs,
                     entry.armorSet().feet);
         }
-        CustomModels.registerModelIds(List.of(
-                new Identifier(PaladinsMod.ID, "projectile/arcane_missile"),
-                new Identifier(PaladinsMod.ID, "projectile/fireball_projectile"),
-                new Identifier(PaladinsMod.ID, "projectile/fire_meteor"),
-                new Identifier(PaladinsMod.ID, "projectile/frostbolt_projectile"),
-                FrozenRenderer.modelId,
-                FrostShieldRenderer.modelId_base,
-                FrostShieldRenderer.modelId_overlay
-        ));
-        CustomModelStatusEffect.register(Effects.frozen, new FrozenRenderer());
-        CustomParticleStatusEffect.register(Effects.frozen, new FrozenRenderer());
-        CustomModelStatusEffect.register(Effects.frostShield, new FrostShieldRenderer());
+//        CustomModels.registerModelIds(List.of(
+//                new Identifier(PaladinsMod.ID, "projectile/arcane_missile"),
+//                new Identifier(PaladinsMod.ID, "projectile/fireball_projectile"),
+//                new Identifier(PaladinsMod.ID, "projectile/fire_meteor"),
+//                new Identifier(PaladinsMod.ID, "projectile/frostbolt_projectile"),
+//                FrozenRenderer.modelId,
+//                FrostShieldRenderer.modelId_base,
+//                FrostShieldRenderer.modelId_overlay
+//        ));
+//        CustomModelStatusEffect.register(Effects.frozen, new FrozenRenderer());
+//        CustomParticleStatusEffect.register(Effects.frozen, new FrozenRenderer());
+//        CustomModelStatusEffect.register(Effects.frostShield, new FrostShieldRenderer());
     }
 }

@@ -82,16 +82,16 @@ public class PaladinVillagers {
                 Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.ARCANE), 8), 2, 128, 1, 0.01f),
                 Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.FIRE), 8), 2, 128, 1, 0.01f),
                 Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.FROST), 8), 2, 128, 1, 0.01f),
-                Offer.sell(2, Weapons.noviceWand.item().getDefaultStack(), 4, 12, 5, 0.2f),
-                Offer.sell(2, Weapons.arcaneWand.item().getDefaultStack(), 18, 12, 8, 0.1f),
-                Offer.sell(2, Weapons.fireWand.item().getDefaultStack(), 18, 12, 8, 0.1f),
-                Offer.sell(2, Weapons.frostWand.item().getDefaultStack(), 18, 12, 8, 0.1f),
+//                Offer.sell(2, Weapons.noviceWand.item().getDefaultStack(), 4, 12, 5, 0.2f),
+//                Offer.sell(2, Weapons.arcaneWand.item().getDefaultStack(), 18, 12, 8, 0.1f),
+//                Offer.sell(2, Weapons.fireWand.item().getDefaultStack(), 18, 12, 8, 0.1f),
+//                Offer.sell(2, Weapons.frostWand.item().getDefaultStack(), 18, 12, 8, 0.1f),
                 Offer.buy(2, new ItemStack(Items.WHITE_WOOL, 5), 8, 12, 10, 0.05f),
                 Offer.buy(2, new ItemStack(Items.LAPIS_LAZULI, 6), 12, 12, 10, 0.05f),
-                Offer.sell(3, Armors.paladinRobeSet.head.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(3, Armors.paladinRobeSet.feet.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(4, Armors.paladinRobeSet.chest.getDefaultStack(), 20, 12, 15, 0.1f),
-                Offer.sell(4, Armors.paladinRobeSet.legs.getDefaultStack(), 20, 12, 15, 0.1f)
+                Offer.sell(3, Armors.paladinArmorSet.head.getDefaultStack(), 15, 12, 13, 0.1f),
+                Offer.sell(3, Armors.paladinArmorSet.feet.getDefaultStack(), 15, 12, 13, 0.1f),
+                Offer.sell(4, Armors.paladinArmorSet.chest.getDefaultStack(), 20, 12, 15, 0.1f),
+                Offer.sell(4, Armors.paladinArmorSet.legs.getDefaultStack(), 20, 12, 15, 0.1f)
             );
 
         for(var offer: paladinMerchantOffers) {
@@ -104,27 +104,27 @@ public class PaladinVillagers {
             });
         }
         TradeOfferHelper.registerVillagerOffers(paladinMerchantProfession, 5, factories -> {
-            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    Weapons.arcaneStaff.item(),
-                    40,
-                    3,
-                    30,
-                    0.2F).create(entity, random)
-            ));
-            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    Weapons.fireStaff.item(),
-                    40,
-                    3,
-                    30,
-                    0.2F).create(entity, random)
-            ));
-            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    Weapons.frostStaff.item(),
-                    40,
-                    3,
-                    30,
-                    0.2F).create(entity, random)
-            ));
+//            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+//                    Weapons.arcaneStaff.item(),
+//                    40,
+//                    3,
+//                    30,
+//                    0.2F).create(entity, random)
+//            ));
+//            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+//                    Weapons.fireStaff.item(),
+//                    40,
+//                    3,
+//                    30,
+//                    0.2F).create(entity, random)
+//            ));
+//            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+//                    Weapons.frostStaff.item(),
+//                    40,
+//                    3,
+//                    30,
+//                    0.2F).create(entity, random)
+//            ));
         });
     }
 }

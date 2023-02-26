@@ -18,21 +18,21 @@ public class FabricMod implements ModInitializer {
     public void onInitialize() {
         preInit();
         PaladinsMod.init();
-        SoundHelper.registerSounds();
-        subscribeEvents();
+//        SoundHelper.registerSounds();
+//        subscribeEvents();
     }
 
     private void preInit() {
         Group.PALADINS = FabricItemGroupBuilder.build(
                 new Identifier(PaladinsMod.ID, "general"),
-                () -> new ItemStack(Armors.paladinRobeSet.head));
+                () -> new ItemStack(Armors.paladinArmorSet.head));
     }
 
     private void subscribeEvents() {
-        ServerLifecycleEvents.SERVER_STARTING.register(PaladinWorldGen::init);
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            LootHelper.configure(id, tableBuilder, PaladinsMod.lootConfig.value);
-        });
+//        ServerLifecycleEvents.SERVER_STARTING.register(PaladinWorldGen::init);
+//        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+//            LootHelper.configure(id, tableBuilder, PaladinsMod.lootConfig.value);
+//        });
     }
 
 }

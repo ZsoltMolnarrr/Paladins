@@ -4,9 +4,6 @@
   "package": "net.paladins.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "effect.LivingEntityFrostShield",
-    "effect.LivingEntityFrozen",
-    "effect.ServerWorldFrostShield",
     "worldgen.StructurePoolAccessor"
   ],
   "client": [

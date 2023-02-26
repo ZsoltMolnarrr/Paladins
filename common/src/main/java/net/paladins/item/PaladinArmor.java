@@ -19,7 +19,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class PaladinArmor extends ArmorItem implements IAnimatable, ConfigurableAttributes {
-    public static final Identifier equipSoundId = new Identifier(PaladinsMod.ID, "paladin_robes_equip");
+    public static final Identifier equipSoundId = new Identifier(PaladinsMod.ID, "paladin_armor_equip");
     public static final SoundEvent equipSound = new SoundEvent(equipSoundId);
     public final Armor.CustomMaterial customMaterial;
 
@@ -52,7 +52,7 @@ public class PaladinArmor extends ArmorItem implements IAnimatable, Configurable
     }
     @Override
     public void registerControllers(AnimationData data) {
-        // data.addAnimationController(new AnimationController(this, "controller", 20, this::predicate));
+        // paladins.addAnimationController(new AnimationController(this, "controller", 20, this::predicate));
     }
     @Override
     public AnimationFactory getFactory() {

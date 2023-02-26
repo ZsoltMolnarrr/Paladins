@@ -1,6 +1,0 @@
-{
-  "parent": "paladins:item/medium_staff",
-  "textures": {
-    "layer0": "paladins:item/staff_netherite_frost"
-  }
-}

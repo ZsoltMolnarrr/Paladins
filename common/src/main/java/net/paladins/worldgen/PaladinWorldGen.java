@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public class PaladinWorldGen {
     public static void init(MinecraftServer server) {
-        var config = PaladinsMod.worldGenConfig.value;
-        for(var entry: config.entries) {
-            // System.out.println("Adding structure: " + entry.getValue() + " to: " + entry.getKey());
-            addToStructurePool(server, new Identifier(entry.pool), new Identifier(entry.structure), entry.weight);
-        }
+//        var config = PaladinsMod.worldGenConfig.value;
+//        for(var entry: config.entries) {
+//            // System.out.println("Adding structure: " + entry.getValue() + " to: " + entry.getKey());
+//            addToStructurePool(server, new Identifier(entry.pool), new Identifier(entry.structure), entry.weight);
+//        }
     }
 
     private static final RegistryKey<StructureProcessorList> EMPTY_PROCESSOR_LIST_KEY = RegistryKey.of(

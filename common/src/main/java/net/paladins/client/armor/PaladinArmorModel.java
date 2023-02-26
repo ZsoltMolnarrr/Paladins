@@ -8,7 +8,7 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class PaladinArmorModel extends AnimatedGeoModel<PaladinArmor> {
     @Override
     public Identifier getModelResource(PaladinArmor object) {
-        return new Identifier(PaladinsMod.ID, "geo/paladin_robes.geo.json");
+        return new Identifier(PaladinsMod.ID, "geo/paladin_armor.geo.json");
     }
 
     @Override

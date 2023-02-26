@@ -1,0 +1,9 @@
+{
+  "paladin_armor_equip": {
+    "sounds": [
+      "paladins:paladin_armor_equip_1",
+      "paladins:paladin_armor_equip_2",
+      "paladins:paladin_armor_equip_3"
+    ]
+  }
+}

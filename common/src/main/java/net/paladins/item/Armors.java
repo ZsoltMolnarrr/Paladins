@@ -41,10 +41,10 @@ public class Armors {
         return new Armor.Entry(material, null, defaults);
     }
 
-    public static final Armor.Set paladinRobeSet =
+    public static final Armor.Set paladinArmorSet =
             create(
                     new Armor.CustomMaterial(
-                        "paladin_robe",
+                        "paladin_armor",
                         10,
                         9,
                         PaladinArmor.equipSound,
@@ -52,13 +52,13 @@ public class Armors {
                     ),
                     ItemConfig.ArmorSet.with(
                         new ItemConfig.ArmorSet.Piece(1)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.ARCANE, MagicSchool.FIRE, MagicSchool.FROST), 1)),
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
                         new ItemConfig.ArmorSet.Piece(3)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.ARCANE, MagicSchool.FIRE, MagicSchool.FROST), 1)),
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
                         new ItemConfig.ArmorSet.Piece(2)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.ARCANE, MagicSchool.FIRE, MagicSchool.FROST), 1)),
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
                         new ItemConfig.ArmorSet.Piece(1)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.ARCANE, MagicSchool.FIRE, MagicSchool.FROST), 1))
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1))
                     ))
             .armorSet(material -> new Armor.Set(PaladinsMod.ID,
                     new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
@@ -66,127 +66,6 @@ public class Armors {
                     new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
                     new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
             ), entries);
-
-
-    private static final float specializedRobeSpellPower = 0.25F;
-    private static final float specializedRobeCritDamage = 0.1F;
-    private static final float specializedRobeCritChance = 0.02F;
-    private static final float specializedRobeHaste = 0.03F;
-
-    public static final Armor.Set arcaneRobeSet =
-            create(
-                    new Armor.CustomMaterial(
-                            "arcane_robe",
-                            20,
-                            10,
-                            PaladinArmor.equipSound,
-                            WOOL_INGREDIENTS
-                    ),
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.ARCANE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_DAMAGE, specializedRobeCritDamage)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(3)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.ARCANE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_DAMAGE, specializedRobeCritDamage)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(2)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.ARCANE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_DAMAGE, specializedRobeCritDamage)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.ARCANE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_DAMAGE, specializedRobeCritDamage)
-                                    ))
-                    ))
-                    .armorSet(material -> new Armor.Set(PaladinsMod.ID,
-                            new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
-                    ), entries);
-
-    public static final Armor.Set fireRobeSet =
-            create(
-                    new Armor.CustomMaterial(
-                            "fire_robe",
-                            20,
-                            10,
-                            PaladinArmor.equipSound,
-                            WOOL_INGREDIENTS
-                    ),
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FIRE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_CHANCE, specializedRobeCritChance)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(3)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FIRE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_CHANCE, specializedRobeCritChance)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(2)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FIRE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_CHANCE, specializedRobeCritChance)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FIRE), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.CRITICAL_CHANCE, specializedRobeCritChance)
-                                    ))
-                    ))
-                    .armorSet(material -> new Armor.Set(PaladinsMod.ID,
-                            new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
-                    ), entries);
-
-    public static final Armor.Set frostRobeSet =
-            create(
-                    new Armor.CustomMaterial(
-                            "frost_robe",
-                            20,
-                            10,
-                            PaladinArmor.equipSound,
-                            WOOL_INGREDIENTS
-                    ),
-                    ItemConfig.ArmorSet.with(
-                            new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FROST), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, specializedRobeHaste)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(3)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FROST), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, specializedRobeHaste)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(2)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FROST), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, specializedRobeHaste)
-                                    )),
-                            new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(List.of(
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.FROST), specializedRobeSpellPower),
-                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, specializedRobeHaste)
-                                    ))
-                    ))
-                    .armorSet(material -> new Armor.Set(PaladinsMod.ID,
-                            new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
-                            new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
-                    ), entries);
-
 
     public static void register(Map<String, ItemConfig.ArmorSet> configs) {
         Armor.register(configs, entries);

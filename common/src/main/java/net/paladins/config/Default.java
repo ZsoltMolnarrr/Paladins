@@ -23,32 +23,32 @@ public class Default {
         }
 
         lootConfig = new LootConfig();
-        lootConfig.item_groups.put("wands_tier_0", new LootConfig.ItemGroup(List.of(
-                Weapons.noviceWand.id().toString()),
-                1
-        ));
-        lootConfig.item_groups.put("wands_tier_1", new LootConfig.ItemGroup(List.of(
-                Weapons.arcaneWand.id().toString(),
-                Weapons.fireWand.id().toString(),
-                Weapons.frostWand.id().toString()),
-                1
-        ).chance(0.3F));
-        lootConfig.item_groups.put("staves_tier_1", new LootConfig.ItemGroup(List.of(
-                Weapons.arcaneStaff.id().toString(),
-                Weapons.fireStaff.id().toString(),
-                Weapons.frostStaff.id().toString()),
-                1
-        ).chance(0.3F));
-        lootConfig.item_groups.put("robes_tier_1", new LootConfig.ItemGroup(joinLists(
-                Armors.paladinRobeSet.idStrings()),
-                1
-        ).chance(0.25F));
-        lootConfig.item_groups.put("robes_tier_2", new LootConfig.ItemGroup(joinLists(
-                Armors.arcaneRobeSet.idStrings(),
-                Armors.fireRobeSet.idStrings(),
-                Armors.frostRobeSet.idStrings()),
-                1
-        ).chance(0.5F));
+//        lootConfig.item_groups.put("wands_tier_0", new LootConfig.ItemGroup(List.of(
+//                Weapons.noviceWand.id().toString()),
+//                1
+//        ));
+//        lootConfig.item_groups.put("wands_tier_1", new LootConfig.ItemGroup(List.of(
+//                Weapons.arcaneWand.id().toString(),
+//                Weapons.fireWand.id().toString(),
+//                Weapons.frostWand.id().toString()),
+//                1
+//        ).chance(0.3F));
+//        lootConfig.item_groups.put("staves_tier_1", new LootConfig.ItemGroup(List.of(
+//                Weapons.arcaneStaff.id().toString(),
+//                Weapons.fireStaff.id().toString(),
+//                Weapons.frostStaff.id().toString()),
+//                1
+////        ).chance(0.3F));
+//        lootConfig.item_groups.put("robes_tier_1", new LootConfig.ItemGroup(joinLists(
+//                Armors.paladinArmorSet.idStrings()),
+//                1
+//        ).chance(0.25F));
+//        lootConfig.item_groups.put("robes_tier_2", new LootConfig.ItemGroup(joinLists(
+//                Armors.arcaneRobeSet.idStrings(),
+//                Armors.fireRobeSet.idStrings(),
+//                Armors.frostRobeSet.idStrings()),
+//                1
+//        ).chance(0.5F));
 
         List.of("minecraft:chests/abandoned_mineshaft",
                         "minecraft:chests/igloo_chest",

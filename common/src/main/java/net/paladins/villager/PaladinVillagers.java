@@ -88,10 +88,10 @@ public class PaladinVillagers {
 //                Offer.sell(2, Weapons.frostWand.item().getDefaultStack(), 18, 12, 8, 0.1f),
                 Offer.buy(2, new ItemStack(Items.WHITE_WOOL, 5), 8, 12, 10, 0.05f),
                 Offer.buy(2, new ItemStack(Items.LAPIS_LAZULI, 6), 12, 12, 10, 0.05f),
-                Offer.sell(3, Armors.paladinArmorSet.head.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(3, Armors.paladinArmorSet.feet.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(4, Armors.paladinArmorSet.chest.getDefaultStack(), 20, 12, 15, 0.1f),
-                Offer.sell(4, Armors.paladinArmorSet.legs.getDefaultStack(), 20, 12, 15, 0.1f)
+                Offer.sell(3, Armors.paladinArmorSet_t1.head.getDefaultStack(), 15, 12, 13, 0.1f),
+                Offer.sell(3, Armors.paladinArmorSet_t1.feet.getDefaultStack(), 15, 12, 13, 0.1f),
+                Offer.sell(4, Armors.paladinArmorSet_t1.chest.getDefaultStack(), 20, 12, 15, 0.1f),
+                Offer.sell(4, Armors.paladinArmorSet_t1.legs.getDefaultStack(), 20, 12, 15, 0.1f)
             );
 
         for(var offer: paladinMerchantOffers) {

@@ -41,24 +41,24 @@ public class Armors {
         return new Armor.Entry(material, null, defaults);
     }
 
-    public static final Armor.Set paladinArmorSet =
+    public static final Armor.Set paladinArmorSet_t1 =
             create(
                     new Armor.CustomMaterial(
-                        "paladin_armor",
+                        "crusader_armor",
                         10,
                         9,
                         PaladinArmor.equipSound,
                         WOOL_INGREDIENTS
                     ),
                     ItemConfig.ArmorSet.with(
-                        new ItemConfig.ArmorSet.Piece(1)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
-                        new ItemConfig.ArmorSet.Piece(3)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
                         new ItemConfig.ArmorSet.Piece(2)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
-                        new ItemConfig.ArmorSet.Piece(1)
-                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1))
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F)),
+                        new ItemConfig.ArmorSet.Piece(6)
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F)),
+                        new ItemConfig.ArmorSet.Piece(5)
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F)),
+                        new ItemConfig.ArmorSet.Piece(2)
+                                .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F))
                     ))
             .armorSet(material -> new Armor.Set(PaladinsMod.ID,
                     new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
@@ -66,6 +66,33 @@ public class Armors {
                     new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
                     new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
             ), entries);
+
+    public static final Armor.Set paladinArmorSet_t2 =
+            create(
+                    new Armor.CustomMaterial(
+                            "paladin_armor",
+                            10,
+                            9,
+                            PaladinArmor.equipSound,
+                            WOOL_INGREDIENTS
+                    ),
+                    ItemConfig.ArmorSet.with(
+                            new ItemConfig.ArmorSet.Piece(2)
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
+                            new ItemConfig.ArmorSet.Piece(6)
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
+                            new ItemConfig.ArmorSet.Piece(5)
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
+                            new ItemConfig.ArmorSet.Piece(2)
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1))
+                    ))
+                    .armorSet(material -> new Armor.Set(PaladinsMod.ID,
+                            new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
+                            new PaladinArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
+                            new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
+                            new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
+                    ), entries);
+
 
     public static void register(Map<String, ItemConfig.ArmorSet> configs) {
         Armor.register(configs, entries);

@@ -25,7 +25,7 @@ public class FabricMod implements ModInitializer {
     private void preInit() {
         Group.PALADINS = FabricItemGroupBuilder.build(
                 new Identifier(PaladinsMod.ID, "general"),
-                () -> new ItemStack(Armors.paladinArmorSet.head));
+                () -> new ItemStack(Armors.paladinArmorSet_t2.head));
     }
 
     private void subscribeEvents() {

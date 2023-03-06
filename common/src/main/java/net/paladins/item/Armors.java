@@ -44,7 +44,7 @@ public class Armors {
     public static final Armor.Set paladinArmorSet_t1 =
             create(
                     new Armor.CustomMaterial(
-                        "crusader_armor",
+                        "guard_armor",
                         10,
                         9,
                         PaladinArmor.equipSound,

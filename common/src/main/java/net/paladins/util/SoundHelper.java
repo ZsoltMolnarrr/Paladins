@@ -9,7 +9,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
 import net.paladins.effect.FrostShieldStatusEffect;
-import net.paladins.item.PaladinArmor;
+import net.paladins.item.armor.PaladinArmor;
+import net.paladins.item.armor.PriestArmor;
 
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,7 @@ public class SoundHelper {
 
         Registry.register(Registry.SOUND_EVENT, FrostShieldStatusEffect.soundId, FrostShieldStatusEffect.sound);
         Registry.register(Registry.SOUND_EVENT, PaladinArmor.equipSoundId, PaladinArmor.equipSound);
+        Registry.register(Registry.SOUND_EVENT, PriestArmor.equipSoundId, PaladinArmor.equipSound);
     }
 
     public static void playSoundEvent(World world, Entity entity, SoundEvent soundEvent) {

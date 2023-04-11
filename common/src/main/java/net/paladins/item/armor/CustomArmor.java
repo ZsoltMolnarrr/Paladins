@@ -1,4 +1,4 @@
-package net.paladins.item;
+package net.paladins.item.armor;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -6,11 +6,9 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.item.Item;
 import net.spell_engine.api.item.ConfigurableAttributes;
 import net.spell_engine.api.item.armor.Armor;
-import net.paladins.PaladinsMod;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -18,12 +16,10 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class PaladinArmor extends ArmorItem implements IAnimatable, ConfigurableAttributes {
-    public static final Identifier equipSoundId = new Identifier(PaladinsMod.ID, "paladin_armor_equip");
-    public static final SoundEvent equipSound = new SoundEvent(equipSoundId);
+public class CustomArmor extends ArmorItem implements IAnimatable, ConfigurableAttributes {
     public final Armor.CustomMaterial customMaterial;
 
-    public PaladinArmor(Armor.CustomMaterial material, EquipmentSlot slot, Settings settings) {
+    public CustomArmor(Armor.CustomMaterial material, EquipmentSlot slot, Item.Settings settings) {
         super(material, slot, settings);
         this.customMaterial = material;
     }
@@ -58,4 +54,5 @@ public class PaladinArmor extends ArmorItem implements IAnimatable, Configurable
     public AnimationFactory getFactory() {
         return this.factory;
     }
+
 }

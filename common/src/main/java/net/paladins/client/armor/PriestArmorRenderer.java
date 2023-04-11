@@ -5,13 +5,13 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.paladins.item.armor.PaladinArmor;
+import net.paladins.item.armor.PriestArmor;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
-public class PaladinArmorRenderer extends GeoArmorRenderer<PaladinArmor> {
-    public PaladinArmorRenderer() {
-        super(new PaladinArmorModel());
+public class PriestArmorRenderer extends GeoArmorRenderer<PriestArmor> {
+    public PriestArmorRenderer() {
+        super(new PriestArmorModel());
 
         //These values are what each bone name is in blockbench. So if your head bone is named "bone545",
         // make sure to do this.headBone = "bone545";
@@ -28,7 +28,7 @@ public class PaladinArmorRenderer extends GeoArmorRenderer<PaladinArmor> {
     }
 
     @Override
-    public RenderLayer getRenderType(PaladinArmor animatable, float partialTick, MatrixStack poseStack, @Nullable VertexConsumerProvider bufferSource, @Nullable VertexConsumer buffer, int packedLight, Identifier texture) {
+    public RenderLayer getRenderType(PriestArmor animatable, float partialTick, MatrixStack poseStack, @Nullable VertexConsumerProvider bufferSource, @Nullable VertexConsumer buffer, int packedLight, Identifier texture) {
         return RenderLayer.getEntityTranslucent(texture);
     }
 }

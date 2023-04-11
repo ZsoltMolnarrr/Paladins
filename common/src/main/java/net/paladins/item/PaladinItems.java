@@ -2,6 +2,7 @@ package net.paladins.item;
 
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
+import net.paladins.item.armor.Armors;
 
 import java.util.HashMap;
 

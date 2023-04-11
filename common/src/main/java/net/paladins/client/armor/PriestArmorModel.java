@@ -2,23 +2,23 @@ package net.paladins.client.armor;
 
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
-import net.paladins.item.armor.PaladinArmor;
+import net.paladins.item.armor.PriestArmor;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class PaladinArmorModel extends AnimatedGeoModel<PaladinArmor> {
+public class PriestArmorModel extends AnimatedGeoModel<PriestArmor> {
     @Override
-    public Identifier getModelResource(PaladinArmor object) {
-        return new Identifier(PaladinsMod.ID, "geo/paladin_armor.geo.json");
+    public Identifier getModelResource(PriestArmor object) {
+        return new Identifier(PaladinsMod.ID, "geo/priest_robes.geo.json");
     }
 
     @Override
-    public Identifier getTextureResource(PaladinArmor armor) {
+    public Identifier getTextureResource(PriestArmor armor) {
         var texture = armor.customMaterial.name();
         return new Identifier(PaladinsMod.ID, "textures/armor/" + texture + ".png");
     }
 
     @Override
-    public Identifier getAnimationResource(PaladinArmor animatable) {
+    public Identifier getAnimationResource(PriestArmor animatable) {
         return null; // new Identifier(PaladinsMod.ID, "animations/armor_idle.json");
     }
 }

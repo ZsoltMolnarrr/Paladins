@@ -10,15 +10,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.runes.api.RuneItems;
 import net.runes.crafting.RuneCraftingBlock;
 import net.paladins.PaladinsMod;
-import net.paladins.item.Armors;
-import net.paladins.item.Weapons;
-import net.paladins.item.PaladinArmor;
+import net.paladins.item.armor.Armors;
+import net.paladins.item.armor.PaladinArmor;
 
 import java.util.List;
 

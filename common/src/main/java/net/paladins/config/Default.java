@@ -1,7 +1,7 @@
 package net.paladins.config;
 
 import net.spell_engine.api.item.ItemConfig;
-import net.paladins.item.Armors;
+import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 
 import java.util.Arrays;

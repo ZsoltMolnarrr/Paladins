@@ -2,16 +2,11 @@ package net.paladins.fabric;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
-import net.paladins.item.Armors;
+import net.paladins.item.armor.Armors;
 import net.paladins.item.Group;
-import net.paladins.util.LootHelper;
-import net.paladins.util.SoundHelper;
-import net.paladins.worldgen.PaladinWorldGen;
 
 public class FabricMod implements ModInitializer {
     @Override
@@ -25,7 +20,7 @@ public class FabricMod implements ModInitializer {
     private void preInit() {
         Group.PALADINS = FabricItemGroupBuilder.build(
                 new Identifier(PaladinsMod.ID, "general"),
-                () -> new ItemStack(Armors.paladinArmorSet_t2.head));
+                () -> new ItemStack(Armors.paladinArmorSet_t2.chest));
     }
 
     private void subscribeEvents() {

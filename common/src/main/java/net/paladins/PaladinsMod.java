@@ -1,7 +1,7 @@
 package net.paladins;
 
 import net.paladins.config.Default;
-import net.paladins.item.Armors;
+import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 import net.spell_engine.api.item.ItemConfig;
 import net.tinyconfig.ConfigManager;

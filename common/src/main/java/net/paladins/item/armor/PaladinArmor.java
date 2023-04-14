@@ -7,7 +7,7 @@ import net.paladins.PaladinsMod;
 import net.spell_engine.api.item.armor.Armor;
 
 public class PaladinArmor extends CustomArmor {
-    public static final Identifier equipSoundId = new Identifier(PaladinsMod.ID, "paladin_armor_equip");
+    public static final Identifier equipSoundId = new Identifier(PaladinsMod.ID, "crusader_armor_equip");
     public static final SoundEvent equipSound = new SoundEvent(equipSoundId);
 
     public PaladinArmor(Armor.CustomMaterial material, EquipmentSlot slot, Settings settings) {

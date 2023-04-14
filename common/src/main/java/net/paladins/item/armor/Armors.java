@@ -9,9 +9,11 @@ import net.paladins.item.Group;
 import net.spell_engine.api.item.ItemConfig;
 import net.spell_engine.api.item.armor.Armor;
 import net.spell_power.api.MagicSchool;
+import net.spell_power.api.attributes.SpellAttributes;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -132,6 +134,8 @@ public class Armors {
             .put(priestEntries)
             .armorSet();
 
+    public static float priestRobeHaste = 0.05F;
+    private static final float specializedRobeSpellPower = 0.25F;
     public static final Armor.Set priestArmorSet_t2 =
             create(
                     new Armor.CustomMaterial(
@@ -143,13 +147,25 @@ public class Armors {
                     ),
                     ItemConfig.ArmorSet.with(
                             new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
+                                    .addAll(List.of(
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.HEALING), specializedRobeSpellPower),
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, priestRobeHaste)
+                                    )),
                             new ItemConfig.ArmorSet.Piece(3)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
+                                    .addAll(List.of(
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.HEALING), specializedRobeSpellPower),
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, priestRobeHaste)
+                                    )),
                             new ItemConfig.ArmorSet.Piece(2)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1)),
+                                    .addAll(List.of(
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.HEALING), specializedRobeSpellPower),
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, priestRobeHaste)
+                                    )),
                             new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1))
+                                    .addAll(List.of(
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.POWER.get(MagicSchool.HEALING), specializedRobeSpellPower),
+                                            ItemConfig.SpellAttribute.multiply(SpellAttributes.HASTE, priestRobeHaste)
+                                    ))
                     )
             )
             .bundle(material -> new Armor.Set(PaladinsMod.ID,

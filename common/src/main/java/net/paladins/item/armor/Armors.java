@@ -115,13 +115,13 @@ public class Armors {
                     ),
                     ItemConfig.ArmorSet.with(
                             new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F)),
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1F)),
                             new ItemConfig.ArmorSet.Piece(3)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F)),
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1F)),
                             new ItemConfig.ArmorSet.Piece(2)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F)),
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1F)),
                             new ItemConfig.ArmorSet.Piece(1)
-                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 0.5F))
+                                    .addAll(ItemConfig.SpellAttribute.bonuses(EnumSet.of(MagicSchool.HEALING), 1F))
                     )
             )
             .bundle(material -> new Armor.Set(PaladinsMod.ID,

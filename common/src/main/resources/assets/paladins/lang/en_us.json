@@ -19,7 +19,7 @@
   "item.paladins.prior_robe_feet": "Prior Boots",
 
   "spell.paladins.flash_heal.name": "Flash Heal",
-  "spell.paladins.flash_heal.description": "...",
+  "spell.paladins.flash_heal.description": "Heals you or a friendly target by {heal} health points.",
   "spell.paladins.divine_protection.name": "Divine Protection",
   "spell.paladins.divine_protection.description": "...",
   "spell.paladins.judgement.name": "Judgement",

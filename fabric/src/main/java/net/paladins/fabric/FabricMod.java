@@ -7,14 +7,15 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Group;
+import net.paladins.util.SoundHelper;
 
 public class FabricMod implements ModInitializer {
     @Override
     public void onInitialize() {
         preInit();
         PaladinsMod.init();
-//        SoundHelper.registerSounds();
-//        subscribeEvents();
+        SoundHelper.registerSounds();
+        subscribeEvents();
     }
 
     private void preInit() {

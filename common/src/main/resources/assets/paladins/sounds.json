@@ -5,5 +5,11 @@
       "paladins:paladin_armor_equip_2",
       "paladins:paladin_armor_equip_3"
     ]
+  },
+
+  "flash_heal_impact": {
+    "sounds": [
+      "paladins:flash_heal_impact"
+    ]
   }
 }

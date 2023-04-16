@@ -1,19 +1,23 @@
 {
-  "school": "FIRE",
-  "range": 64,
+  "school": "HEALING",
+  "range": 0,
   "learn": {
     "tier": 2
   },
   "cast": {
-    "duration": 1.5,
-    "animation": "spell_engine:one_handed_projectile_charge",
+    "duration": 0
+  },
+  "release": {
+    "target": {
+      "type": "SELF"
+    },
+    "animation": "spell_engine:one_handed_area_release",
     "sound": {
-      "id": "spell_engine:generic_fire_casting",
-      "randomness": 0
+      "id": "paladins:frost_shield_release"
     },
     "particles": [
       {
-        "particle_id": "spell_engine:flame",
+        "particle_id": "spell_engine:holy_ascend",
         "shape": "PIPE",
         "origin": "FEET",
         "count": 1.0,
@@ -22,59 +26,22 @@
       }
     ]
   },
-  "release": {
-    "target": {
-      "type": "PROJECTILE",
-      "projectile": {
-        "velocity": 1.0,
-        "homing_angle": 1.0,
-        "client_data": {
-          "travel_particles": [
-            {
-              "particle_id": "spell_engine:flame",
-              "shape": "CIRCLE",
-              "rotation": "LOOK",
-              "origin": "CENTER",
-              "count": 3.0,
-              "min_speed": 0.0,
-              "max_speed": 0.1
-            }
-          ],
-          "model_id": "paladins:projectile/fireball_projectile",
-          "render": "DEEP",
-          "scale": 0.75
-        }
-      }
-    },
-    "animation": "spell_engine:one_handed_projectile_release",
-    "sound": {
-      "id": "spell_engine:generic_fire_release"
-    }
-  },
   "impact": [
     {
       "action": {
-        "type": "DAMAGE",
-        "damage": {
-          "spell_power_coefficient": 0.9
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "paladins:divine_protection",
+          "duration": 8,
+          "apply_mode": "SET",
+          "show_particles": false
         }
-      },
-      "particles": [
-        {
-          "particle_id": "lava",
-          "shape": "CIRCLE",
-          "origin": "CENTER",
-          "count": 30.0,
-          "min_speed": 0.5,
-          "max_speed": 3.0
-        }
-      ],
-      "sound": {
-        "id": "paladins:fireball_impact"
       }
     }
   ],
   "cost": {
-    "item_id": "runes:fire_stone"
+    "exhaust": 0.3,
+    "item_id": "runes:healing_stone",
+    "cooldown_duration": 30
   }
 }

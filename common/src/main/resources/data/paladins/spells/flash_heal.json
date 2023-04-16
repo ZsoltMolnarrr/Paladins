@@ -6,7 +6,7 @@
   },
   "cast": {
     "duration": 0.5,
-    "animation": "spell_engine:one_handed_projectile_charge",
+    "animation": "spell_engine:one_handed_healing_charge",
     "sound": {
       "id": "spell_engine:generic_healing_casting",
       "randomness": 0
@@ -29,7 +29,7 @@
         "use_caster_as_fallback": true
       }
     },
-    "animation": "spell_engine:one_handed_projectile_release",
+    "animation": "spell_engine:one_handed_healing_release",
     "sound": {
       "id": "paladins:arcane_missile_release"
     }
@@ -48,12 +48,12 @@
           "shape": "PILLAR",
           "origin": "FEET",
           "count": 30,
-          "min_speed": 0.05,
-          "max_speed": 0.2
+          "min_speed": 0.02,
+          "max_speed": 0.15
         }
       ],
       "sound": {
-        "id": "paladins:arcane_blast_impact"
+        "id": "paladins:flash_heal_impact"
       }
     }
   ],

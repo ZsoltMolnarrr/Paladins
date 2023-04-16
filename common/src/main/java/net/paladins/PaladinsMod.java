@@ -1,6 +1,7 @@
 package net.paladins;
 
 import net.paladins.config.Default;
+import net.paladins.effect.Effects;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 import net.spell_engine.api.item.ItemConfig;
@@ -36,7 +37,7 @@ public class PaladinsMod {
         Armors.register(itemConfig.value.armor_sets);
         itemConfig.save();
 //        worldGenConfig.refresh();
-        // Effects.register();
+        Effects.register();
         // PaladinVillagers.register();
     }
 }

@@ -31,7 +31,8 @@ public class PaladinsClientMod {
         }
         CustomModels.registerModelIds(List.of(
 //                new Identifier(PaladinsMod.ID, "projectile/arcane_missile"),
-                DivineProtectionRenderer.modelId
+                DivineProtectionRenderer.modelId_base,
+                DivineProtectionRenderer.modelId_overlay
         ));
         CustomModelStatusEffect.register(Effects.DIVINE_PROTECTION, new DivineProtectionRenderer());
     }

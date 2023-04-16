@@ -14,7 +14,8 @@ import java.util.Map;
 
 public class SoundHelper {
     public static List<String> soundKeys = List.of(
-            "flash_heal_impact"
+            "flash_heal_impact",
+            "divine_protection_release"
             // "frost_shield_release"
     );
 

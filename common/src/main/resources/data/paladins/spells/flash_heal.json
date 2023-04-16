@@ -31,7 +31,7 @@
     },
     "animation": "spell_engine:one_handed_healing_release",
     "sound": {
-      "id": "paladins:arcane_missile_release"
+      "id": "spell_engine:generic_healing_release"
     }
   },
   "impact": [

@@ -11,5 +11,10 @@
     "sounds": [
       "paladins:flash_heal_impact"
     ]
+  },
+  "divine_protection_release": {
+    "sounds": [
+      "paladins:divine_protection_release"
+    ]
   }
 }

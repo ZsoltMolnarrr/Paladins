@@ -13,15 +13,15 @@
     },
     "animation": "spell_engine:one_handed_area_release",
     "sound": {
-      "id": "paladins:frost_shield_release"
+      "id": "paladins:divine_protection_release"
     },
     "particles": [
       {
         "particle_id": "spell_engine:holy_ascend",
         "shape": "PIPE",
         "origin": "FEET",
-        "count": 1.0,
-        "min_speed": 0.05,
+        "count": 20.0,
+        "min_speed": 0.01,
         "max_speed": 0.1
       }
     ]

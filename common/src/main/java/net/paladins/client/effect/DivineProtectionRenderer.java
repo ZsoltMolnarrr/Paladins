@@ -16,7 +16,7 @@ import net.spell_engine.api.render.CustomModels;
 
 public class DivineProtectionRenderer implements CustomModelStatusEffect.Renderer {
     public static final Identifier modelId_base = new Identifier(PaladinsMod.ID, "effect/divine_protection");
-    public static final Identifier modelId_overlay = new Identifier(PaladinsMod.ID, "effect/divine_protection_overlay");
+    public static final Identifier modelId_overlay = new Identifier(PaladinsMod.ID, "effect/divine_protection_glow");
 
     private static final RenderLayer BASE_RENDER_LAYER = RenderLayer.getTranslucentMovingBlock();
     private static final RenderLayer OVERLAY_RENDER_LAYER = CustomLayers.projectile(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false);
@@ -45,10 +45,14 @@ public class DivineProtectionRenderer implements CustomModelStatusEffect.Rendere
         matrixStack.push();
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(rotation));
         matrixStack.translate(0, verticalOffset, -horizontalOffset);
+        matrixStack.push();
         CustomModels.render(OVERLAY_RENDER_LAYER, itemRenderer, modelId_overlay,
                 matrixStack, vertexConsumers, light, livingEntity.getId());
+        matrixStack.pop();
+        matrixStack.push();
         CustomModels.render(BASE_RENDER_LAYER, itemRenderer, modelId_base,
                 matrixStack, vertexConsumers, light, livingEntity.getId());
+        matrixStack.pop();
         matrixStack.pop();
     }
 }

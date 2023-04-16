@@ -16,5 +16,10 @@
     "sounds": [
       "paladins:divine_protection_release"
     ]
+  },
+  "judgement_impact": {
+    "sounds": [
+      "paladins:judgement_impact"
+    ]
   }
 }

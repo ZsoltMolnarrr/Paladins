@@ -24,7 +24,8 @@
   "spell.paladins.divine_protection.description": "Reduces all forms of damage taken by 50%% for {effect_duration} seconds.",
   "effect.paladins.divine_protection": "Divine Protection",
   "spell.paladins.judgement.name": "Judgement",
-  "spell.paladins.judgement.description": "...",
+  "effect.paladins.judgement": "Stunned",
+  "spell.paladins.judgement.description": "Strikes your target and enemies around it, within {impact_range} blocks, causing up to {damage} damage and stunning them for {effect_duration} seconds.",
 
   "spell.paladins.holy_shock.name": "Holy Shock",
   "spell.paladins.holy_shock.description": "...",

@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.item.weapon.SpellSwordItem;
 import net.spell_engine.api.item.weapon.StaffItem;
 import net.spell_engine.api.item.weapon.Weapon;
 import net.spell_power.api.MagicSchool;
@@ -85,43 +86,39 @@ public class Weapons {
 //    private static final float staffAttackDamage = 4;
 //    private static final float staffAttackSpeed = -3F;
 //
-    private static Weapon.Entry claymore(String name, Weapon.CustomMaterial material) {
-        return claymore(null, name, material);
+    private static Weapon.Entry claymore(String name, Weapon.CustomMaterial material, float damage) {
+        return claymore(null, name, material, damage);
     }
 
-    private static Weapon.Entry claymore(String requiredMod, String name, Weapon.CustomMaterial material) {
+    private static Weapon.Entry claymore(String requiredMod, String name, Weapon.CustomMaterial material, float damage) {
         var settings = new Item.Settings().group(Group.PALADINS);
-        var item = new StaffItem(material, settings);
-        return entry(requiredMod, name, material, item, new ItemConfig.Weapon(5, -3F));
+        var item = new SpellSwordItem(material, settings);
+        return entry(requiredMod, name, material, item, new ItemConfig.Weapon(damage, -3F));
     }
 
-    public static final Weapon.Entry ironClaymore = claymore("iron_claymore",
-            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)))
+
+    public static final Weapon.Entry stone_claymore = claymore("stone_claymore",
+            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 7.5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
 
-//
-//    public static final Weapon.Entry arcaneStaff = staff("staff_arcane",
-//            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.ARCANE), 4));
-//    public static final Weapon.Entry fireStaff = staff("staff_fire",
-//            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FIRE), 4));
-//    public static final Weapon.Entry frostStaff = staff("staff_frost",
-//            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FROST), 4));
-//
-//    public static final Weapon.Entry netheriteArcaneStaff = staff("staff_netherite_arcane",
-//            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.ARCANE), 5));
-//    public static final Weapon.Entry netheriteFireStaff = staff("staff_netherite_fire",
-//            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FIRE), 5));
-//    public static final Weapon.Entry netheriteFrostStaff = staff("staff_netherite_frost",
-//            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FROST), 5));
-//
+    public static final Weapon.Entry iron_claymore = claymore("iron_claymore",
+            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)), 8F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry golden_claymore = claymore("golden_claymore",
+            Weapon.CustomMaterial.matching(ToolMaterials.GOLD, () -> Ingredient.ofItems(Items.GOLD_INGOT)), 5F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry diamond_claymore = claymore("diamond_claymore",
+            Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)), 9.5F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry netherite_claymore = claymore("netherite_claymore",
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)), 11F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
 //    // MARK: Register
-//
+
     public static void register(Map<String, ItemConfig.Weapon> configs) {
 //        if (Platform.isModLoaded("betternether")) {
 //            staff("betternether", "staff_crystal_arcane",

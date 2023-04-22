@@ -15,6 +15,18 @@
   "item.paladins.diamond_claymore": "Diamond Claymore",
   "item.paladins.netherite_claymore": "Netherite Claymore",
 
+  "item.paladins.stone_great_hammer": "Stone Hammer",
+  "item.paladins.iron_great_hammer": "Iron Hammer",
+  "item.paladins.golden_great_hammer": "Golden Hammer",
+  "item.paladins.diamond_great_hammer": "Diamond Hammer",
+  "item.paladins.netherite_great_hammer": "Netherite Hammer",
+
+  "item.paladins.stone_mace": "Stone Mace",
+  "item.paladins.iron_mace": "Iron Mace",
+  "item.paladins.golden_mace": "Golden Mace",
+  "item.paladins.diamond_mace": "Diamond Mace",
+  "item.paladins.netherite_mace": "Netherite Mace",
+
   "item.paladins.priest_robe_head": "Priest Hood",
   "item.paladins.priest_robe_chest": "Priest Robe",
   "item.paladins.priest_robe_legs": "Priest Trousers",

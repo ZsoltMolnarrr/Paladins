@@ -9,6 +9,7 @@ import net.minecraft.util.registry.Registry;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.item.ItemConfig;
 import net.spell_engine.api.item.weapon.SpellSwordItem;
+import net.spell_engine.api.item.weapon.SpellWeaponItem;
 import net.spell_engine.api.item.weapon.StaffItem;
 import net.spell_engine.api.item.weapon.Weapon;
 import net.spell_power.api.MagicSchool;
@@ -80,12 +81,10 @@ public class Weapons {
 //            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
 //            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FROST), 3));
 //
-//
-//    // MARK: Staves
-//
-//    private static final float staffAttackDamage = 4;
-//    private static final float staffAttackSpeed = -3F;
-//
+
+
+    // MARK: Claymores
+
     private static Weapon.Entry claymore(String name, Weapon.CustomMaterial material, float damage) {
         return claymore(null, name, material, damage);
     }
@@ -95,7 +94,6 @@ public class Weapons {
         var item = new SpellSwordItem(material, settings);
         return entry(requiredMod, name, material, item, new ItemConfig.Weapon(damage, -3F));
     }
-
 
     public static final Weapon.Entry stone_claymore = claymore("stone_claymore",
             Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 7.5F)
@@ -117,7 +115,73 @@ public class Weapons {
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)), 11F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
 
-//    // MARK: Register
+    // MARK: Hammers
+
+    private static Weapon.Entry hammer(String name, Weapon.CustomMaterial material, float damage) {
+        return hammer(null, name, material, damage);
+    }
+
+    private static Weapon.Entry hammer(String requiredMod, String name, Weapon.CustomMaterial material, float damage) {
+        var settings = new Item.Settings().group(Group.PALADINS);
+        var item = new SpellWeaponItem(material, settings);
+        return entry(requiredMod, name, material, item, new ItemConfig.Weapon(damage, -3.2F));
+    }
+
+    public static final Weapon.Entry stone_great_hammer = hammer("stone_great_hammer",
+            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 8F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry iron_great_hammer = hammer("iron_great_hammer",
+            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)), 10F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry golden_great_hammer = hammer("golden_great_hammer",
+            Weapon.CustomMaterial.matching(ToolMaterials.GOLD, () -> Ingredient.ofItems(Items.GOLD_INGOT)), 10F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry diamond_great_hammer = hammer("diamond_great_hammer",
+            Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)), 11F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry netherite_great_hammer = hammer("netherite_great_hammer",
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)), 13F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+
+    // MARK: Maces
+
+    private static Weapon.Entry mace(String name, Weapon.CustomMaterial material, float damage) {
+        return mace(null, name, material, damage);
+    }
+
+    private static Weapon.Entry mace(String requiredMod, String name, Weapon.CustomMaterial material, float damage) {
+        var settings = new Item.Settings().group(Group.PALADINS);
+        var item = new SpellWeaponItem(material, settings);
+        return entry(requiredMod, name, material, item, new ItemConfig.Weapon(damage, -2.8F));
+    }
+
+    public static final Weapon.Entry stone_mace = mace("stone_mace",
+            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 5F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry iron_mace = mace("iron_mace",
+            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)), 6F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry golden_mace = mace("golden_mace",
+            Weapon.CustomMaterial.matching(ToolMaterials.GOLD, () -> Ingredient.ofItems(Items.GOLD_INGOT)), 5F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry diamond_mace = mace("diamond_mace",
+            Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)), 8F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+    public static final Weapon.Entry netherite_mace = mace("netherite_mace",
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)), 9F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
+
+    // MARK: Register
 
     public static void register(Map<String, ItemConfig.Weapon> configs) {
 //        if (Platform.isModLoaded("betternether")) {

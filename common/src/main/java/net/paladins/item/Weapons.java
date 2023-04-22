@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.paladins.PaladinsMod;
@@ -127,8 +128,12 @@ public class Weapons {
         return entry(requiredMod, name, material, item, new ItemConfig.Weapon(damage, -3.2F));
     }
 
+    public static final Weapon.Entry wooden_great_hammer = hammer("wooden_great_hammer",
+            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.PLANKS)), 8F)
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+
     public static final Weapon.Entry stone_great_hammer = hammer("stone_great_hammer",
-            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 8F)
+            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS)), 8F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
 
     public static final Weapon.Entry iron_great_hammer = hammer("iron_great_hammer",

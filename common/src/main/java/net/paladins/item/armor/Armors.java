@@ -2,8 +2,10 @@ package net.paladins.item.armor;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.ItemTags;
 import net.paladins.PaladinsMod;
 import net.paladins.item.Group;
 import net.spell_engine.api.item.ItemConfig;
@@ -18,25 +20,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class Armors {
-    private static final Supplier<Ingredient> WOOL_INGREDIENTS = () -> { return Ingredient.ofItems(
-            Items.WHITE_WOOL,
-            Items.ORANGE_WOOL,
-            Items.MAGENTA_WOOL,
-            Items.LIGHT_BLUE_WOOL,
-            Items.YELLOW_WOOL,
-            Items.LIME_WOOL,
-            Items.PINK_WOOL,
-            Items.GRAY_WOOL,
-            Items.LIGHT_GRAY_WOOL,
-            Items.CYAN_WOOL,
-            Items.PURPLE_WOOL,
-            Items.BLUE_WOOL,
-            Items.BROWN_WOOL,
-            Items.GREEN_WOOL,
-            Items.RED_WOOL,
-            Items.BLACK_WOOL);
-    };
-
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
     public static final ArrayList<Armor.Entry> paladinEntries = new ArrayList<>();
     public static final ArrayList<Armor.Entry> priestEntries = new ArrayList<>();
@@ -48,10 +31,10 @@ public class Armors {
             create(
                     new Armor.CustomMaterial(
                         "paladin_armor",
-                        10,
+                        15,
                         9,
                         PaladinArmor.equipSound,
-                        WOOL_INGREDIENTS
+                        () -> { return Ingredient.ofItems(Items.IRON_INGOT); }
                     ),
                     ItemConfig.ArmorSet.with(
                         new ItemConfig.ArmorSet.Piece(2)
@@ -78,10 +61,10 @@ public class Armors {
             create(
                     new Armor.CustomMaterial(
                             "crusader_armor",
+                            25,
                             10,
-                            9,
                             PaladinArmor.equipSound,
-                            WOOL_INGREDIENTS
+                            () -> { return Ingredient.ofItems(Items.GOLD_INGOT); }
                     ),
                     ItemConfig.ArmorSet.with(
                             new ItemConfig.ArmorSet.Piece(2)
@@ -111,7 +94,7 @@ public class Armors {
                             10,
                             9,
                             PaladinArmor.equipSound,
-                            WOOL_INGREDIENTS
+                            () -> { return Ingredient.fromTag(ItemTags.WOOL); }
                     ),
                     ItemConfig.ArmorSet.with(
                             new ItemConfig.ArmorSet.Piece(1)
@@ -140,10 +123,10 @@ public class Armors {
             create(
                     new Armor.CustomMaterial(
                             "prior_robe",
+                            20,
                             10,
-                            9,
                             PaladinArmor.equipSound,
-                            WOOL_INGREDIENTS
+                            () -> { return Ingredient.ofItems(Items.GOLD_INGOT); }
                     ),
                     ItemConfig.ArmorSet.with(
                             new ItemConfig.ArmorSet.Piece(1)

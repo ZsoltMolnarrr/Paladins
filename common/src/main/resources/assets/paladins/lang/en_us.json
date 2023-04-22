@@ -56,10 +56,10 @@
 
   "spell.paladins.holy_shock.name": "Holy Shock",
   "spell.paladins.holy_shock.description": "Heals you or friends by {heal}, smites enemies dealing {damage} spell damage.",
-  "spell.paladins.holy_beam.name": "Holy Beam",
-  "spell.paladins.holy_beam.description": "Continuously heals friendly targets, ",
+  "spell.paladins.holy_beam.name": "Holy Light",
+  "spell.paladins.holy_beam.description": "Channels a beam of light, healing friends by {heal}, and dealing {damage} spell damage to enemies every second.",
   "spell.paladins.circle_of_healing.name": "Circle of Healing",
-  "spell.paladins.circle_of_healing.description": "...",
+  "spell.paladins.circle_of_healing.description": "Heals you and friendly around you by {heal}",
 
 
   "advancements.paladins.root.title": "Paladins",

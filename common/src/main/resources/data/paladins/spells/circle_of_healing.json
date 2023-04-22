@@ -1,19 +1,19 @@
 {
-  "school": "FIRE",
-  "range": 64,
+  "range": 8.0,
+  "school": "HEALING",
   "learn": {
     "tier": 3
   },
   "cast": {
-    "duration": 1.5,
-    "animation": "spell_engine:one_handed_projectile_charge",
+    "duration": 0.5,
+    "animation": "spell_engine:one_handed_area_charge",
     "sound": {
-      "id": "spell_engine:generic_fire_casting",
+      "id": "spell_engine:generic_healing_casting",
       "randomness": 0
     },
     "particles": [
       {
-        "particle_id": "spell_engine:flame",
+        "particle_id": "spell_engine:holy_ascend",
         "shape": "PIPE",
         "origin": "FEET",
         "count": 1.0,
@@ -24,57 +24,78 @@
   },
   "release": {
     "target": {
-      "type": "PROJECTILE",
-      "projectile": {
-        "velocity": 1.0,
-        "homing_angle": 1.0,
-        "client_data": {
-          "travel_particles": [
-            {
-              "particle_id": "spell_engine:flame",
-              "shape": "CIRCLE",
-              "rotation": "LOOK",
-              "origin": "CENTER",
-              "count": 3.0,
-              "min_speed": 0.0,
-              "max_speed": 0.1
-            }
-          ],
-          "model_id": "paladins:projectile/fireball_projectile",
-          "render": "DEEP",
-          "scale": 0.75
-        }
+      "type": "AREA",
+      "area": {
+        "vertical_range_multiplier": 0.6,
+        "include_caster": true
       }
     },
-    "animation": "spell_engine:one_handed_projectile_release",
+    "animation": "spell_engine:one_handed_area_release",
     "sound": {
-      "id": "spell_engine:generic_fire_release"
-    }
+      "id": "spell_engine:generic_healing_release"
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:holy_spark",
+        "shape": "CIRCLE",
+        "origin": "CENTER",
+        "count": 130.0,
+        "min_speed": 0.7,
+        "max_speed": 0.7
+      },
+      {
+        "particle_id": "spell_engine:holy_spell",
+        "shape": "PILLAR",
+        "origin": "FEET",
+        "count": 50.0,
+        "min_speed": 0.1,
+        "max_speed": 3,
+        "extent": 7.5
+      },
+      {
+        "particle_id": "spell_engine:holy_spark_mini",
+        "shape": "PILLAR",
+        "origin": "FEET",
+        "count": 70.0,
+        "min_speed": 0.1,
+        "max_speed": 0.2,
+        "extent": 7.5
+      }
+    ]
   },
   "impact": [
     {
       "action": {
-        "type": "DAMAGE",
-        "damage": {
-          "spell_power_coefficient": 0.9
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.5
         }
       },
       "particles": [
         {
-          "particle_id": "lava",
-          "shape": "CIRCLE",
-          "origin": "CENTER",
-          "count": 30.0,
-          "min_speed": 0.5,
-          "max_speed": 3.0
+          "particle_id": "spell_engine:healing_ascend",
+          "shape": "PILLAR",
+          "origin": "FEET",
+          "count": 15,
+          "min_speed": 0.02,
+          "max_speed": 0.15
+        },
+        {
+          "particle_id": "spell_engine:holy_ascend",
+          "shape": "PILLAR",
+          "origin": "FEET",
+          "count": 15,
+          "min_speed": 0.02,
+          "max_speed": 0.15
         }
       ],
       "sound": {
-        "id": "paladins:fireball_impact"
+        "id": "paladins:flash_heal_impact"
       }
     }
   ],
   "cost": {
-    "item_id": "runes:fire_stone"
+    "exhaust": 0.3,
+    "item_id": "runes:healing_stone"
   }
 }

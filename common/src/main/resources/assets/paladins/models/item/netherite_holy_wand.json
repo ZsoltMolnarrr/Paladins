@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "paladins:item/netherite_acolyte_wand"
+    "layer0": "paladins:item/netherite_holy_wand"
   }
 }

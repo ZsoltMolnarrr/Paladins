@@ -40,7 +40,7 @@
     "target": {
       "type": "BEAM",
       "beam": {
-        "color_rgba": 4291585791,
+        "color_rgba": 4292712959,
         "width": 0.1,
         "flow": 1.5,
         "block_hit_particles": [

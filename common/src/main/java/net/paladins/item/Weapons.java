@@ -36,54 +36,6 @@ public class Weapons {
         return entry;
     }
 
-    private static Supplier<Ingredient> ingredient(String idString) {
-        return ingredient(idString, Items.DIAMOND);
-    }
-
-    private static Supplier<Ingredient> ingredient(String idString, Item fallback) {
-        var id = new Identifier(idString);
-        return () -> { 
-            var item = Registry.ITEM.get(id);
-            var ingredient = item != null ? item : fallback;
-            return Ingredient.ofItems(ingredient); 
-        };
-    }
-
-    // MARK: Wands
-
-//    private static final float wandAttackDamage = 2;
-//    private static final float wandAttackSpeed = -2.4F;
-//    private static Weapon.Entry wand(String name, Weapon.CustomMaterial material) {
-//        var settings = new Item.Settings().group(Group.PALADINS);
-//        var item = new StaffItem(material, settings);
-//        return entry(name, material, item, new ItemConfig.Weapon(wandAttackDamage, wandAttackSpeed));
-//    }
-//
-//    public static final Weapon.Entry noviceWand = wand("wand_novice",
-//            Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FIRE), 1));
-//    public static final Weapon.Entry arcaneWand = wand("wand_arcane",
-//            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.ARCANE), 2));
-//    public static final Weapon.Entry fireWand = wand("wand_fire",
-//            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FIRE), 2));
-//    public static final Weapon.Entry frostWand = wand("wand_frost",
-//            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FROST), 2));
-//
-//    public static final Weapon.Entry netheriteArcaneWand = wand("wand_netherite_arcane",
-//            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.ARCANE), 3));
-//    public static final Weapon.Entry netheriteFireWand = wand("wand_netherite_fire",
-//            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FIRE), 3));
-//    public static final Weapon.Entry netheriteFrostWand = wand("wand_netherite_frost",
-//            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FROST), 3));
-//
-
-
     // MARK: Claymores
 
     private static Weapon.Entry claymore(String name, Weapon.CustomMaterial material, float damage) {
@@ -99,19 +51,15 @@ public class Weapons {
     public static final Weapon.Entry stone_claymore = claymore("stone_claymore",
             Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 7.5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry iron_claymore = claymore("iron_claymore",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)), 8F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry golden_claymore = claymore("golden_claymore",
             Weapon.CustomMaterial.matching(ToolMaterials.GOLD, () -> Ingredient.ofItems(Items.GOLD_INGOT)), 5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry diamond_claymore = claymore("diamond_claymore",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)), 9.5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry netherite_claymore = claymore("netherite_claymore",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)), 11F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
@@ -131,23 +79,18 @@ public class Weapons {
     public static final Weapon.Entry wooden_great_hammer = hammer("wooden_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.PLANKS)), 8F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry stone_great_hammer = hammer("stone_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS)), 8F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry iron_great_hammer = hammer("iron_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)), 10F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry golden_great_hammer = hammer("golden_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.GOLD, () -> Ingredient.ofItems(Items.GOLD_INGOT)), 10F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry diamond_great_hammer = hammer("diamond_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)), 11F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry netherite_great_hammer = hammer("netherite_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)), 13F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
@@ -168,23 +111,60 @@ public class Weapons {
     public static final Weapon.Entry stone_mace = mace("stone_mace",
             Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry iron_mace = mace("iron_mace",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)), 6F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry golden_mace = mace("golden_mace",
             Weapon.CustomMaterial.matching(ToolMaterials.GOLD, () -> Ingredient.ofItems(Items.GOLD_INGOT)), 5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry diamond_mace = mace("diamond_mace",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)), 8F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
-
     public static final Weapon.Entry netherite_mace = mace("netherite_mace",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)), 9F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
 
+    // MARK: Wands
+
+    private static final float wandAttackDamage = 2;
+    private static final float wandAttackSpeed = -2.4F;
+    private static Weapon.Entry wand(String name, Weapon.CustomMaterial material) {
+        var settings = new Item.Settings().group(Group.PALADINS);
+        var item = new StaffItem(material, settings);
+        return entry(name, material, item, new ItemConfig.Weapon(wandAttackDamage, wandAttackSpeed));
+    }
+
+    public static final Weapon.Entry acolyte_wand = wand("acolyte_wand",
+            Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 1));
+    public static final Weapon.Entry holy_wand = wand("holy_wand",
+            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+    public static final Weapon.Entry netherite_holy_wand = wand("netherite_holy_wand",
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 3));
+
+    // MARK: Staves
+
+    private static final float staffAttackDamage = 4;
+    private static final float staffAttackSpeed = -3F;
+
+    private static Weapon.Entry staff(String name, Weapon.CustomMaterial material) {
+        return staff(null, name, material);
+    }
+
+    private static Weapon.Entry staff(String requiredMod, String name, Weapon.CustomMaterial material) {
+        var settings = new Item.Settings().group(Group.PALADINS);
+        var item = new StaffItem(material, settings);
+        return entry(requiredMod, name, material, item, new ItemConfig.Weapon(staffAttackDamage, staffAttackSpeed));
+    }
+
+    public static final Weapon.Entry holy_staff = staff("holy_staff",
+            Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 4));
+    public static final Weapon.Entry netherite_holy_staff = staff("netherite_holy_staff",
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 5));
 
     // MARK: Register
 

@@ -2,8 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "iron_mace_handheld",
-		"particle": "iron_mace_handheld"
+		"1": "iron_mace"
 	},
 	"elements": [
 		{
@@ -197,14 +196,14 @@
 		},
 		"thirdperson_lefthand": {
 			"rotation": [0, -180, 0],
-			"translation": [0, 2, 1]
+			"translation": [0, 2.5, 1.75]
 		},
 		"firstperson_righthand": {
-			"rotation": [-10, -180, 0],
+			"rotation": [0, -180, 0],
 			"translation": [3, 2, 0]
 		},
 		"firstperson_lefthand": {
-			"rotation": [-10, -180, 0],
+			"rotation": [0, -180, 0],
 			"translation": [3, 2, 0]
 		},
 		"ground": {

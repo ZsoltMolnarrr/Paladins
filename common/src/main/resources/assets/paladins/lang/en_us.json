@@ -60,6 +60,7 @@
   "spell.paladins.holy_beam.description": "Channels a beam of light, healing friends by {heal}, and dealing {damage} spell damage to enemies every second.",
   "spell.paladins.circle_of_healing.name": "Circle of Healing",
   "spell.paladins.circle_of_healing.description": "Heals you and friendly around you by {heal}",
+  "effect.paladins.priest_absorption": "Absorption",
 
 
   "advancements.paladins.root.title": "Paladins",

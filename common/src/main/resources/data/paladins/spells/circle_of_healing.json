@@ -92,6 +92,19 @@
       "sound": {
         "id": "paladins:flash_heal_impact"
       }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "paladins:priest_absorption",
+          "duration": 4,
+          "apply_mode": "SET",
+          "amplifier": 0,
+          "amplifier_power_multiplier": 0.5,
+          "show_particles": false
+        }
+      }
     }
   ],
   "cost": {

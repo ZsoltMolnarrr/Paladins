@@ -1,0 +1,6 @@
+{
+  "parent": "paladins:item/model_great_hammer",
+  "textures": {
+    "1": "paladins:item/stone_great_hammer"
+  }
+}

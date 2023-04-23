@@ -77,7 +77,7 @@ public class Weapons {
     }
 
     public static final Weapon.Entry wooden_great_hammer = hammer("wooden_great_hammer",
-            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.PLANKS)), 8F)
+            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.PLANKS)), 5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
     public static final Weapon.Entry stone_great_hammer = hammer("stone_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS)), 8F)
@@ -108,9 +108,9 @@ public class Weapons {
         return entry(requiredMod, name, material, item, new ItemConfig.Weapon(damage, -2.8F));
     }
 
-    public static final Weapon.Entry stone_mace = mace("stone_mace",
-            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 5F)
-            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+//    public static final Weapon.Entry stone_mace = mace("stone_mace",
+//            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.ofItems(Items.COBBLESTONE)), 5F)
+//            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
     public static final Weapon.Entry iron_mace = mace("iron_mace",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)), 6F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));

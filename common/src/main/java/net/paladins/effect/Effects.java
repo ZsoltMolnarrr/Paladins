@@ -15,9 +15,9 @@ public class Effects {
     public static StatusEffect ABSORPTION = new PriestAbsorptionStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc);
 
     public static void register() {
-        ((Synchronized) DIVINE_PROTECTION).setSynchronized(true);
-        ((Synchronized) JUDGEMENT).setSynchronized(true);
-        ((Synchronized) ABSORPTION).setSynchronized(true);
+        Synchronized.configure(DIVINE_PROTECTION, true);
+        Synchronized.configure(JUDGEMENT, true);
+        Synchronized.configure(ABSORPTION, true);
         ActionImpairing.configure(JUDGEMENT, EntityActionsAllowed.STUN);
 
         int rawId = 710;

@@ -4,6 +4,7 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.paladins.client.armor.PriestArmorRenderer;
+import net.paladins.client.effect.AbsorbParticleSpawner;
 import net.paladins.client.effect.DivineProtectionRenderer;
 import net.paladins.client.effect.StunParticleSpawner;
 import net.paladins.effect.Effects;
@@ -40,5 +41,6 @@ public class PaladinsClientMod {
         ));
         CustomModelStatusEffect.register(Effects.DIVINE_PROTECTION, new DivineProtectionRenderer());
         CustomParticleStatusEffect.register(Effects.JUDGEMENT, new StunParticleSpawner());
+        CustomParticleStatusEffect.register(Effects.ABSORPTION, new AbsorbParticleSpawner());
     }
 }

@@ -77,7 +77,7 @@ public class Weapons {
     }
 
     public static final Weapon.Entry wooden_great_hammer = hammer("wooden_great_hammer",
-            Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.PLANKS)), 5F)
+            Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.fromTag(ItemTags.PLANKS)), 5F)
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
     public static final Weapon.Entry stone_great_hammer = hammer("stone_great_hammer",
             Weapon.CustomMaterial.matching(ToolMaterials.STONE, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS)), 8F)

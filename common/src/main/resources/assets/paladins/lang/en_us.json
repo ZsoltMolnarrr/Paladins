@@ -55,11 +55,11 @@
   "effect.paladins.judgement": "Stunned",
 
   "spell.paladins.holy_shock.name": "Holy Shock",
-  "spell.paladins.holy_shock.description": "Heals you or friends by {heal}, smites enemies dealing {damage} spell damage.",
+  "spell.paladins.holy_shock.description": "Heals you or a friendly target by {heal}, smites an enemy dealing {damage} spell damage.",
   "spell.paladins.holy_beam.name": "Holy Light",
   "spell.paladins.holy_beam.description": "Channels a beam of light, healing friends by {heal}, and dealing {damage} spell damage to enemies every second.",
   "spell.paladins.circle_of_healing.name": "Circle of Healing",
-  "spell.paladins.circle_of_healing.description": "Heals you and friendly around you by {heal}",
+  "spell.paladins.circle_of_healing.description": "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.",
   "effect.paladins.priest_absorption": "Absorption",
 
 

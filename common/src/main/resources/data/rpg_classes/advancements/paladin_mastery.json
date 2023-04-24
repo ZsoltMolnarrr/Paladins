@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "paladins:golden_great_hammer"
+    },
+    "title": {
+      "translate": "advancements.rpg_classes.paladin_mastery.title"
+    },
+    "description": {
+      "translate": "advancements.rpg_classes.paladin_mastery.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "rpg_classes:obtain_healing_rune",
+  "criteria": {
+    "cast": {
+      "trigger": "spell_engine:spell_cast",
+      "conditions": {
+        "spell_pool": "paladins:paladin"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "cast"
+    ]
+  ]
+}

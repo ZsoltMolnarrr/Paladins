@@ -68,7 +68,7 @@
   "advancements.rpg_classes.obtain_healing_rune.title": "Path of Healing",
   "advancements.rpg_classes.obtain_healing_rune.description": "Obtain a Healing Rune",
   "advancements.rpg_classes.paladin_mastery.title": "Lightbringer",
-  "advancements.rpg_classes.paladin_mastery.description": "Cast all Paladin Spells",
-  "advancements.rpg_classes.priest_mastery.title": "Sacred Ground",
-  "advancements.rpg_classes.priest_mastery.description": "Cast all Priest Spells"
+  "advancements.rpg_classes.paladin_mastery.description": "Obtain all Paladin Spells",
+  "advancements.rpg_classes.priest_mastery.title": "Hallowed are the Ori",
+  "advancements.rpg_classes.priest_mastery.description": "Obtain all Priest Spells"
 }

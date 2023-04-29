@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "T": {
+      "item": "minecraft:ghast_tear"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "G G",
+    "WTW",
+    "WWW"
+  ],
+  "result": {
+    "item": "paladins:prior_robe_chest"
+  }
+}

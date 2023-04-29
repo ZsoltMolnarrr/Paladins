@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "L": {
+      "item": "minecraft:chain"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "L L",
+    "WCW",
+    "WWW"
+  ],
+  "result": {
+    "item": "paladins:priest_robe_chest"
+  }
+}

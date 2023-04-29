@@ -5,6 +5,7 @@ import net.paladins.effect.Effects;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.loot.LootConfig;
 import net.tinyconfig.ConfigManager;
 
 public class PaladinsMod {
@@ -16,13 +17,13 @@ public class PaladinsMod {
             .setDirectory(ID)
             .sanitize(true)
             .build();
-//    public static ConfigManager<LootConfig> lootConfig = new ConfigManager<LootConfig>
-//            ("loot", Default.lootConfig)
-//            .builder()
-//            .setDirectory(ID)
-//            .sanitize(true)
-//            .constrain(LootConfig::constrainValues)
-//            .build();
+    public static ConfigManager<LootConfig> lootConfig = new ConfigManager<LootConfig>
+            ("loot", Default.lootConfig)
+            .builder()
+            .setDirectory(ID)
+            .sanitize(true)
+            .constrain(LootConfig::constrainValues)
+            .build();
 //    public static ConfigManager<WorldGenConfig> worldGenConfig = new ConfigManager<WorldGenConfig>
 //            ("world_gen", Default.worldGenConfig)
 //            .builder()
@@ -31,7 +32,7 @@ public class PaladinsMod {
 //            .build();
 
     public static void init() {
-//        lootConfig.refresh();
+        lootConfig.refresh();
         itemConfig.refresh();
         Weapons.register(itemConfig.value.weapons);
         Armors.register(itemConfig.value.armor_sets);

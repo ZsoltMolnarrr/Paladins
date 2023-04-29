@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:gold_ingot"
+    },
+    "H": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " AA",
+    " HA",
+    "H  "
+  ],
+  "result": {
+    "item": "paladins:holy_staff"
+  }
+}

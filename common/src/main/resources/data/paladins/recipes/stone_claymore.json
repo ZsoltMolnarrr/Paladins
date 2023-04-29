@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "H": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "  A",
+    "AA ",
+    "HA "
+  ],
+  "result": {
+    "item": "paladins:stone_claymore"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "betternether:nether_ruby"
+    },
+    "T": {
+      "item": "minecraft:ghast_tear"
+    },
+    "H": {
+      "item": "betternether:cincinnasite_ingot"
+    }
+  },
+  "pattern": [
+    " AT",
+    " HA",
+    "H  "
+  ],
+  "result": {
+    "item": "paladins:ruby_holy_staff"
+  }
+}

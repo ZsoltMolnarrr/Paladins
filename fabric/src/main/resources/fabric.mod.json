@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "paladins",
   "version": "${version}",
-  "name": "Paladins",
-  "description": "Protect and heal your friends as a Paladin.",
+  "name": "Paladins & Priests",
+  "description": "Protect and heal your friends as a Paladin or a Priest.",
   "authors": [
     "Daedelus"
   ],

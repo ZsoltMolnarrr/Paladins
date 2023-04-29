@@ -1,0 +1,6 @@
+{
+  "parent": "paladins:item/model_claymore",
+  "textures": {
+    "layer0": "paladins:item/aeternium_claymore"
+  }
+}

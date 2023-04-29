@@ -1,0 +1,6 @@
+{
+  "parent": "paladins:item/medium_staff",
+  "textures": {
+    "layer0": "paladins:item/ruby_holy_staff"
+  }
+}

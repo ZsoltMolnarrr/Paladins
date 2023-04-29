@@ -14,6 +14,7 @@
   "item.paladins.golden_claymore": "Golden Claymore",
   "item.paladins.diamond_claymore": "Diamond Claymore",
   "item.paladins.netherite_claymore": "Netherite Claymore",
+  "item.paladins.aeterinum_claymore": "Aeterinum Claymore",
 
   "item.paladins.wooden_great_hammer": "Wooden Great Hammer",
   "item.paladins.stone_great_hammer": "Stone Great Hammer",
@@ -21,6 +22,7 @@
   "item.paladins.golden_great_hammer": "Golden Great Hammer",
   "item.paladins.diamond_great_hammer": "Diamond Great Hammer",
   "item.paladins.netherite_great_hammer": "Netherite Great Hammer",
+  "item.paladins.aeternium_great_hammer": "Aeternium Great Hammer",
 
   "item.paladins.stone_mace": "Stone Mace",
   "item.paladins.iron_mace": "Iron Mace",
@@ -43,7 +45,7 @@
 
   "item.paladins.holy_staff": "Holy Staff",
   "item.paladins.netherite_holy_staff": "Netherite Holy Staff",
-
+  "item.paladins.ruby_holy_staff": "Ruby Holy Staff",
 
   "spell.paladins.flash_heal.name": "Flash Heal",
   "spell.paladins.flash_heal.description": "Heals you or a friendly target by {heal} health points.",

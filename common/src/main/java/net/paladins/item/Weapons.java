@@ -36,6 +36,19 @@ public class Weapons {
         return entry;
     }
 
+    private static Supplier<Ingredient> ingredient(String idString) {
+        return ingredient(idString, Items.DIAMOND);
+    }
+
+    private static Supplier<Ingredient> ingredient(String idString, Item fallback) {
+        var id = new Identifier(idString);
+        return () -> {
+            var item = Registry.ITEM.get(id);
+            var ingredient = item != null ? item : fallback;
+            return Ingredient.ofItems(ingredient);
+        };
+    }
+
     // MARK: Claymores
 
     private static final float claymoreHealing = 0;
@@ -175,19 +188,19 @@ public class Weapons {
     // MARK: Register
 
     public static void register(Map<String, ItemConfig.Weapon> configs) {
-//        if (Platform.isModLoaded("betternether")) {
-//            staff("betternether", "staff_crystal_arcane",
-//                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:aeternium_ingot")))
-//                    .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.ARCANE), 6));
-//        }
-//        if (Platform.isModLoaded("betterend")) {
-//            staff("betterend", "staff_ruby_fire",
-//                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betternether:nether_ruby")))
-//                    .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FIRE), 6));
-//            staff("betterend", "staff_smaragdant_frost",
-//                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:aeternium_ingot")))
-//                    .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.FROST), 6));
-//        }
+        if (Platform.isModLoaded("betternether")) {
+            staff("betternether", "ruby_holy_staff",
+                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:nether_ruby")))
+                    .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 6));
+        }
+        if (Platform.isModLoaded("betterend")) {
+            claymore("betterend", "aeterinum_claymore",
+                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:aeternium_ingot")), 12)
+                    .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), claymoreHealing));
+            hammer("betterend", "aeternium_great_hammer",
+                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:aeternium_ingot")), 14)
+                    .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), hammerHealing));
+        }
 
         Weapon.register(configs, entries);
     }

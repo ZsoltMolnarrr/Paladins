@@ -28,11 +28,11 @@
   "item.paladins.diamond_mace": "Diamond Mace",
   "item.paladins.netherite_mace": "Netherite Mace",
 
-  "item.paladins.priest_robe_head": "Priest Hood",
+  "item.paladins.priest_robe_head": "Priest Collar",
   "item.paladins.priest_robe_chest": "Priest Robe",
   "item.paladins.priest_robe_legs": "Priest Trousers",
   "item.paladins.priest_robe_feet": "Priest Boots",
-  "item.paladins.prior_robe_head": "Prior Hood",
+  "item.paladins.prior_robe_head": "Prior Collar",
   "item.paladins.prior_robe_chest": "Prior Robe",
   "item.paladins.prior_robe_legs": "Prior Trousers",
   "item.paladins.prior_robe_feet": "Prior Boots",
@@ -69,6 +69,6 @@
   "advancements.rpg_classes.obtain_healing_rune.description": "Obtain a Healing Rune",
   "advancements.rpg_classes.paladin_mastery.title": "Lightbringer",
   "advancements.rpg_classes.paladin_mastery.description": "Obtain all Paladin Spells",
-  "advancements.rpg_classes.priest_mastery.title": "Hallowed are the Ori",
+  "advancements.rpg_classes.priest_mastery.title": "Servant of the Ori",
   "advancements.rpg_classes.priest_mastery.description": "Obtain all Priest Spells"
 }

@@ -194,7 +194,7 @@ public class Weapons {
                     .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 6));
         }
         if (Platform.isModLoaded("betterend")) {
-            claymore("betterend", "aeterinum_claymore",
+            claymore("betterend", "aeternium_claymore",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:aeternium_ingot")), 12)
                     .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), claymoreHealing));
             hammer("betterend", "aeternium_great_hammer",

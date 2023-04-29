@@ -39,7 +39,7 @@
       "action": {
         "type": "HEAL",
         "heal": {
-          "spell_power_coefficient": 0.5
+          "spell_power_coefficient": 0.75
         }
       },
       "particles": [
@@ -69,7 +69,7 @@
         "type": "DAMAGE",
         "damage": {
           "knockback": 0.5,
-          "spell_power_coefficient": 0.9
+          "spell_power_coefficient": 1
         }
       },
       "particles": [

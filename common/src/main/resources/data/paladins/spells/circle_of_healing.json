@@ -101,7 +101,7 @@
           "duration": 4,
           "apply_mode": "SET",
           "amplifier": 0,
-          "amplifier_power_multiplier": 0.5,
+          "amplifier_power_multiplier": 0.25,
           "show_particles": false
         }
       }
@@ -109,6 +109,7 @@
   ],
   "cost": {
     "exhaust": 0.3,
-    "item_id": "runes:healing_stone"
+    "item_id": "runes:healing_stone",
+    "cooldown_duration": 10
   }
 }

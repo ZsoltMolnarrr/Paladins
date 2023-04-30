@@ -93,7 +93,7 @@ public class Armors {
                             "priest_robe",
                             10,
                             9,
-                            PaladinArmor.equipSound,
+                            PriestArmor.equipSound,
                             () -> { return Ingredient.fromTag(ItemTags.WOOL); }
                     ),
                     ItemConfig.ArmorSet.with(
@@ -125,7 +125,7 @@ public class Armors {
                             "prior_robe",
                             20,
                             10,
-                            PaladinArmor.equipSound,
+                            PriestArmor.equipSound,
                             () -> { return Ingredient.ofItems(Items.GOLD_INGOT); }
                     ),
                     ItemConfig.ArmorSet.with(

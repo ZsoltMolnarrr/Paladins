@@ -16,7 +16,12 @@ public class SoundHelper {
     public static List<String> soundKeys = List.of(
             "flash_heal_impact",
             "divine_protection_release",
-            "judgement_impact"
+            "judgement_impact",
+            "holy_shock_damage",
+            "holy_shock_heal",
+            "holy_beam_damage",
+            "holy_beam_heal",
+            "circle_of_healing_impact"
             // "frost_shield_release"
     );
 

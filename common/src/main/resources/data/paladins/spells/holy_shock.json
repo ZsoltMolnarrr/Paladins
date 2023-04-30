@@ -61,7 +61,7 @@
         }
       ],
       "sound": {
-        "id": "paladins:flash_heal_impact"
+        "id": "paladins:holy_shock_heal"
       }
     },
     {
@@ -83,7 +83,7 @@
         }
       ],
       "sound": {
-        "id": "paladins:flash_heal_impact"
+        "id": "paladins:holy_shock_damage"
       }
     }
   ],

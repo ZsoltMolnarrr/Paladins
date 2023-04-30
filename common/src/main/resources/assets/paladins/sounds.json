@@ -21,5 +21,31 @@
     "sounds": [
       "paladins:judgement_impact"
     ]
+  },
+
+  "holy_shock_damage": {
+    "sounds": [
+      "paladins:holy_shock_damage"
+    ]
+  },
+  "holy_shock_heal": {
+    "sounds": [
+      "paladins:holy_shock_heal"
+    ]
+  },
+  "holy_beam_damage": {
+    "sounds": [
+      "paladins:holy_beam_damage"
+    ]
+  },
+  "holy_beam_heal": {
+    "sounds": [
+      "paladins:holy_beam_heal"
+    ]
+  },
+  "circle_of_healing_impact": {
+    "sounds": [
+      "paladins:circle_of_healing_impact"
+    ]
   }
 }

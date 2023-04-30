@@ -8,7 +8,7 @@ import net.spell_engine.api.item.armor.Armor;
 
 public class PriestArmor extends CustomArmor {
 
-    public static final Identifier equipSoundId = new Identifier(PaladinsMod.ID, "crusader_armor_equip");
+    public static final Identifier equipSoundId = new Identifier(PaladinsMod.ID, "cloth_equip");
     public static final SoundEvent equipSound = new SoundEvent(equipSoundId);
 
     public PriestArmor(Armor.CustomMaterial material, EquipmentSlot slot, Settings settings) {

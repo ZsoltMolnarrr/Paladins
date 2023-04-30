@@ -1,17 +1,19 @@
 {
-  "paladin_armor_equip": {
+  "plate_equip": {
     "sounds": [
-      "paladins:paladin_armor_equip_1",
-      "paladins:paladin_armor_equip_2",
-      "paladins:paladin_armor_equip_3"
+      "paladins:plate_equip_1",
+      "paladins:plate_equip_2",
+      "paladins:plate_equip_3"
+    ]
+  },
+  "cloth_equip": {
+    "sounds": [
+      "paladins:cloth_equip_1",
+      "paladins:cloth_equip_2",
+      "paladins:cloth_equip_3"
     ]
   },
 
-  "flash_heal_impact": {
-    "sounds": [
-      "paladins:flash_heal_impact"
-    ]
-  },
   "divine_protection_release": {
     "sounds": [
       "paladins:divine_protection_release"
@@ -33,6 +35,17 @@
       "paladins:holy_shock_heal"
     ]
   },
+
+  "holy_beam_start_casting": {
+    "sounds": [
+      "paladins:holy_beam_start_casting"
+    ]
+  },
+  "holy_beam_casting": {
+    "sounds": [
+      "paladins:holy_beam_casting"
+    ]
+  },
   "holy_beam_damage": {
     "sounds": [
       "paladins:holy_beam_damage"
@@ -43,9 +56,9 @@
       "paladins:holy_beam_heal"
     ]
   },
-  "circle_of_healing_impact": {
+  "holy_beam_release": {
     "sounds": [
-      "paladins:circle_of_healing_impact"
+      "paladins:holy_beam_release"
     ]
   }
 }

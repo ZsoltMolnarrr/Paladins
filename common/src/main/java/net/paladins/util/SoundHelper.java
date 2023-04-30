@@ -8,25 +8,28 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
+import net.paladins.item.armor.PaladinArmor;
+import net.paladins.item.armor.PriestArmor;
 
 import java.util.List;
 import java.util.Map;
 
 public class SoundHelper {
     public static List<String> soundKeys = List.of(
-            "flash_heal_impact",
             "divine_protection_release",
             "judgement_impact",
             "holy_shock_damage",
             "holy_shock_heal",
+
+            "holy_beam_start_casting",
+            "holy_beam_casting",
             "holy_beam_damage",
             "holy_beam_heal",
-            "circle_of_healing_impact"
-            // "frost_shield_release"
+            "holy_beam_release"
     );
 
     public static Map<String, Float> soundDistances = Map.of(
-//            "fire_meteor_impact", Float.valueOf(48F)
+        "judgement_impact", Float.valueOf(48F)
     );
 
     public static void registerSounds() {
@@ -39,8 +42,8 @@ public class SoundHelper {
             Registry.register(Registry.SOUND_EVENT, soundId, soundEvent);
         }
 
-//        Registry.register(Registry.SOUND_EVENT, PaladinArmor.equipSoundId, PaladinArmor.equipSound);
-//        Registry.register(Registry.SOUND_EVENT, PriestArmor.equipSoundId, PaladinArmor.equipSound);
+        Registry.register(Registry.SOUND_EVENT, PaladinArmor.equipSoundId, PaladinArmor.equipSound);
+        Registry.register(Registry.SOUND_EVENT, PriestArmor.equipSoundId, PriestArmor.equipSound);
     }
 
     public static void playSoundEvent(World world, Entity entity, SoundEvent soundEvent) {

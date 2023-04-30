@@ -53,7 +53,7 @@
         }
       ],
       "sound": {
-        "id": "paladins:flash_heal_impact"
+        "id": "spell_engine:generic_healing_impact_1"
       }
     }
   ],

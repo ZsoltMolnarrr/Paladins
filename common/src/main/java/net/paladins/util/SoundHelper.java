@@ -16,7 +16,6 @@ import java.util.Map;
 
 public class SoundHelper {
     public static List<String> soundKeys = List.of(
-            "flash_heal_impact",
             "divine_protection_release",
             "judgement_impact",
             "holy_shock_damage",
@@ -26,9 +25,7 @@ public class SoundHelper {
             "holy_beam_casting",
             "holy_beam_damage",
             "holy_beam_heal",
-            "holy_beam_release",
-
-            "circle_of_healing_impact"
+            "holy_beam_release"
     );
 
     public static Map<String, Float> soundDistances = Map.of(

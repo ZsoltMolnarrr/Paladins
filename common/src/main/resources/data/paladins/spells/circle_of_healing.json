@@ -90,7 +90,7 @@
         }
       ],
       "sound": {
-        "id": "paladins:circle_of_healing_impact"
+        "id": "spell_engine:generic_healing_impact_2"
       }
     },
     {

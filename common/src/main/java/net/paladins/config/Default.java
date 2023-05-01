@@ -87,21 +87,23 @@ public class Default {
                         "minecraft:chests/bastion_bridge",
                         "minecraft:chests/jungle_temple",
                         "minecraft:chests/pillager_outpost",
-                        "minecraft:chests/simple_dungeon",
-                        "minecraft:chests/stronghold_corridor")
+                        "minecraft:chests/underwater_ruin_small",
+                        "minecraft:chests/stronghold_crossing")
                 .forEach(id -> lootConfig.loot_tables.put(id, List.of(weapons_one_handed_tier_1)));
 
-        List.of("minecraft:chests/nether_bridge",
-                        "minecraft:chests/underwater_ruin_small")
-                .forEach(id -> lootConfig.loot_tables.put(id, List.of(weapons_two_handed_tier_1)));
+        List.of("minecraft:chests/nether_bridge")
+                .forEach(id -> lootConfig.loot_tables.put(id, List.of(weapons_two_handed_tier_2)));
 
-        List.of("minecraft:chests/shipwreck_supply")
+        List.of("minecraft:chests/shipwreck_supply",
+                        "minecraft:chests/stronghold_corridor")
                 .forEach(id -> lootConfig.loot_tables.put(id, List.of(armor_tier_1)));
 
         List.of("minecraft:chests/stronghold_library",
                         "minecraft:chests/underwater_ruin_big",
                         "minecraft:chests/bastion_other",
-                        "minecraft:chests/woodland_mansion")
+                        "minecraft:chests/woodland_mansion",
+                        "minecraft:chests/simple_dungeon",
+                        "minecraft:chests/underwater_ruin_big.json")
                 .forEach(id -> lootConfig.loot_tables.put(id, List.of(weapons_one_handed_tier_1, armor_tier_1)));
 
         List.of("minecraft:chests/end_city_treasure",

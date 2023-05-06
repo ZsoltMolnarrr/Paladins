@@ -1,5 +1,6 @@
 package net.paladins;
 
+import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.effect.Effects;
 import net.paladins.item.armor.Armors;
@@ -39,6 +40,7 @@ public class PaladinsMod {
         itemConfig.save();
 //        worldGenConfig.refresh();
         Effects.register();
+        PaladinBlocks.register();
         // PaladinVillagers.register();
     }
 }

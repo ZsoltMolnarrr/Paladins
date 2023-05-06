@@ -64,8 +64,9 @@
   "spell.paladins.circle_of_healing.description": "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.",
   "effect.paladins.priest_absorption": "Absorption",
 
-  "entity.minecraft.villager.paladin_merchant": "Paladin Merchant",
-  "entity.minecraft.villager.paladins:paladin_merchant": "Paladin Merchant",
+  "entity.minecraft.villager.monk": "Monk",
+  "entity.minecraft.villager.paladins:monk": "Monk",
+  "block.paladins.monk_workbench": "Monk Workbench",
 
   "advancements.rpg_classes.obtain_healing_rune.title": "Path of Healing",
   "advancements.rpg_classes.obtain_healing_rune.description": "Obtain a Healing Rune",

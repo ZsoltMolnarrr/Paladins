@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "paladins:block/monk_workbench"
+    },
+    "facing=south": {
+      "model": "paladins:block/monk_workbench",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "paladins:block/monk_workbench",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "paladins:block/monk_workbench",
+      "y": 270
+    }
+  }
+}

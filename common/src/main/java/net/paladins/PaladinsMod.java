@@ -5,6 +5,7 @@ import net.paladins.config.Default;
 import net.paladins.effect.Effects;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
+import net.paladins.villager.PaladinVillagers;
 import net.spell_engine.api.item.ItemConfig;
 import net.spell_engine.api.loot.LootConfig;
 import net.tinyconfig.ConfigManager;
@@ -41,6 +42,6 @@ public class PaladinsMod {
 //        worldGenConfig.refresh();
         Effects.register();
         PaladinBlocks.register();
-        // PaladinVillagers.register();
+        PaladinVillagers.register();
     }
 }

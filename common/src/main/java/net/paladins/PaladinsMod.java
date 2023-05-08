@@ -2,6 +2,7 @@ package net.paladins;
 
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
+import net.paladins.config.WorldGenConfig;
 import net.paladins.effect.Effects;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
@@ -26,12 +27,12 @@ public class PaladinsMod {
             .sanitize(true)
             .constrain(LootConfig::constrainValues)
             .build();
-//    public static ConfigManager<WorldGenConfig> worldGenConfig = new ConfigManager<WorldGenConfig>
-//            ("world_gen", Default.worldGenConfig)
-//            .builder()
-//            .setDirectory(ID)
-//            .sanitize(true)
-//            .build();
+    public static ConfigManager<WorldGenConfig> worldGenConfig = new ConfigManager<WorldGenConfig>
+            ("world_gen", Default.worldGenConfig)
+            .builder()
+            .setDirectory(ID)
+            .sanitize(true)
+            .build();
 
     public static void init() {
         lootConfig.refresh();
@@ -39,7 +40,7 @@ public class PaladinsMod {
         Weapons.register(itemConfig.value.weapons);
         Armors.register(itemConfig.value.armor_sets);
         itemConfig.save();
-//        worldGenConfig.refresh();
+        worldGenConfig.refresh();
         Effects.register();
         PaladinBlocks.register();
         PaladinVillagers.register();

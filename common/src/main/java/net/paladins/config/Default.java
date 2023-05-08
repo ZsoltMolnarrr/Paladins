@@ -114,15 +114,13 @@ public class Default {
 
 
         worldGenConfig = new WorldGenConfig();
-//        worldGenConfig.entries.addAll(List.of(
-//                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/paladin_tower", 1),
-//                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/paladin_tower_2", 4),
-//                new WorldGenConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/paladin_tower", 3),
-//                new WorldGenConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/paladin_tower", 4),
-//                new WorldGenConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/paladin_tower", 4),
-//                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/paladin_tower", 1),
-//                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/paladin_tower_2", 4)
-//        ));
+        worldGenConfig.entries.addAll(List.of(
+                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/sanctuary", 4),
+                new WorldGenConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/sanctuary", 3),
+                new WorldGenConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/sanctuary", 4),
+                new WorldGenConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/sanctuary", 4),
+                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/sanctuary", 4)
+        ));
     }
 
     @SafeVarargs

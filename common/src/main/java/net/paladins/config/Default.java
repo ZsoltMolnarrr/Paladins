@@ -115,11 +115,11 @@ public class Default {
 
         worldGenConfig = new WorldGenConfig();
         worldGenConfig.entries.addAll(List.of(
-                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/sanctuary", 5),
-                new WorldGenConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/sanctuary", 5),
-                new WorldGenConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/sanctuary", 5),
-                new WorldGenConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/sanctuary", 5),
-                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/sanctuary", 5)
+                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/sanctuary", 6),
+                new WorldGenConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/sanctuary", 6),
+                new WorldGenConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/sanctuary", 6),
+                new WorldGenConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/sanctuary", 6),
+                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/sanctuary", 6)
         ));
     }
 

@@ -1,3 +1,7 @@
+# 0.9.2
+
+- Add monk villager with village structures 
+
 # 0.9.1
 
 Initial Release!

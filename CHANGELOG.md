@@ -1,3 +1,7 @@
+# 0.9.3
+
+- Fix Ruby Holy Staff repair recipe
+
 # 0.9.2
 
 - Add monk villager with village structures 

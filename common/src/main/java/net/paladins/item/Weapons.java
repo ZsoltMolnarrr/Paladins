@@ -190,7 +190,7 @@ public class Weapons {
     public static void register(Map<String, ItemConfig.Weapon> configs) {
         if (Platform.isModLoaded("betternether")) {
             staff("betternether", "ruby_holy_staff",
-                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:nether_ruby")))
+                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betternether:nether_ruby")))
                     .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 6));
         }
         if (Platform.isModLoaded("betterend")) {

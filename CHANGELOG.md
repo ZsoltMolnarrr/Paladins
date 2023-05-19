@@ -1,3 +1,7 @@
+# 0.9.4
+
+- Add Paladin and Priest spell books
+
 # 0.9.3
 
 - Fix Ruby Holy Staff repair recipe

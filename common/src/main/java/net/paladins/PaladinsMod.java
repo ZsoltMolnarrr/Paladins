@@ -4,6 +4,7 @@ import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.config.WorldGenConfig;
 import net.paladins.effect.Effects;
+import net.paladins.item.PaladinBooks;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 import net.paladins.villager.PaladinVillagers;
@@ -37,6 +38,7 @@ public class PaladinsMod {
     public static void init() {
         lootConfig.refresh();
         itemConfig.refresh();
+        PaladinBooks.register();
         Weapons.register(itemConfig.value.weapons);
         Armors.register(itemConfig.value.armor_sets);
         itemConfig.save();

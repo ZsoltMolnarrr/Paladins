@@ -1,5 +1,3 @@
 {
-  "pool": "paladins:priest",
-  "max_spell_count": 3,
-  "spell_ids": []
+  "is_proxy": true
 }

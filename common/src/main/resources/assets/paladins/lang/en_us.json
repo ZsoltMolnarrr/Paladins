@@ -1,5 +1,9 @@
 {
   "itemGroup.paladins.general": "Paladins & Priests",
+
+  "item.paladins.paladin_spell_book": "Paladin Libram",
+  "item.paladins.priest_spell_book": "Holy Book",
+
   "item.paladins.paladin_armor_head": "Paladin Helmet",
   "item.paladins.paladin_armor_chest": "Paladin Chestplate",
   "item.paladins.paladin_armor_legs": "Paladin Leggings",

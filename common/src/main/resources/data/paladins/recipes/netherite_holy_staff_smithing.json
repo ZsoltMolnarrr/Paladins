@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "paladins:holy_staff"
+  },
+  "result": {
+    "item": "paladins:netherite_holy_staff"
+  }
+}

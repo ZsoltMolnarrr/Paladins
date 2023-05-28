@@ -1,6 +1,7 @@
 # 0.9.5
 
 - Add smithing table upgrade recipes to upgrade to netherite weapons
+- 
 
 # 0.9.4
 

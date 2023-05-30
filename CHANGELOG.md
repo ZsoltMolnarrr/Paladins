@@ -1,7 +1,10 @@
+# 0.9.6
+
+- Remove netherite weapon crafting recipes
+
 # 0.9.5
 
-- Add smithing table upgrade recipes to upgrade to netherite weapons
-- 
+- Add smithing table upgrade recipes to upgrade to netherite weapons 
 
 # 0.9.4
 

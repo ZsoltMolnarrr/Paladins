@@ -1,3 +1,7 @@
+# 0.9.7
+
+- Support Minecraft 1.20.1
+
 # 0.9.6
 
 - Remove netherite weapon crafting recipes

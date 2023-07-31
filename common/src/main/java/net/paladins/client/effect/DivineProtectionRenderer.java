@@ -7,7 +7,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.render.CustomLayers;
@@ -25,7 +25,7 @@ public class DivineProtectionRenderer implements CustomModelStatusEffect.Rendere
     @Override
     public void renderEffect(int amplifier, LivingEntity livingEntity, float delta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light) {
         matrixStack.push();
-        var time = livingEntity.world.getTime() + delta;
+        var time = livingEntity.getWorld().getTime() + delta;
 
         var angle = time * 2.25F - 45.0F;
         var horizontalOffset = 0.35F;
@@ -44,7 +44,7 @@ public class DivineProtectionRenderer implements CustomModelStatusEffect.Rendere
     private void renderShield(MatrixStack matrixStack, float verticalOffset, float horizontalOffset, float rotation,
                               ItemRenderer itemRenderer, VertexConsumerProvider vertexConsumers, int light, LivingEntity livingEntity) {
         matrixStack.push();
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(rotation));
+        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
         matrixStack.translate(0, verticalOffset, -horizontalOffset);
 
         matrixStack.push();

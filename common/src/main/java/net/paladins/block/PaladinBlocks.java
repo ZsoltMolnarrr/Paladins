@@ -1,19 +1,24 @@
 package net.paladins.block;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.paladins.PaladinsMod;
 
 public class PaladinBlocks {
-    public static final MonkWorkbenchBlock MONK_WORKBENCH = new MonkWorkbenchBlock(FabricBlockSettings.of(Material.STONE).hardness(2).nonOpaque());
+    public static final MonkWorkbenchBlock MONK_WORKBENCH = new MonkWorkbenchBlock(FabricBlockSettings.create().hardness(2).nonOpaque());
+    public static final BlockItem MONK_WORKBENCH_BLOCK = new BlockItem(MONK_WORKBENCH, new FabricItemSettings());
 
     public static void register() {
-        Registry.register(Registry.BLOCK, new Identifier(PaladinsMod.ID, MonkWorkbenchBlock.NAME), MONK_WORKBENCH);
-        Registry.register(Registry.ITEM, new Identifier(PaladinsMod.ID, MonkWorkbenchBlock.NAME), new BlockItem(MONK_WORKBENCH, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registries.BLOCK, new Identifier(PaladinsMod.ID, MonkWorkbenchBlock.NAME), MONK_WORKBENCH);
+        Registry.register(Registries.ITEM, new Identifier(PaladinsMod.ID, MonkWorkbenchBlock.NAME), MONK_WORKBENCH_BLOCK);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
+            content.add(MONK_WORKBENCH_BLOCK);
+        });
     }
 }

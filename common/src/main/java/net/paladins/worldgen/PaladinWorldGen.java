@@ -1,14 +1,14 @@
 package net.paladins.worldgen;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.paladins.PaladinsMod;
 import net.paladins.mixin.worldgen.StructurePoolAccessor;
 
@@ -24,20 +24,20 @@ public class PaladinWorldGen {
     }
 
     private static final RegistryKey<StructureProcessorList> EMPTY_PROCESSOR_LIST_KEY = RegistryKey.of(
-            Registry.STRUCTURE_PROCESSOR_LIST_KEY, new Identifier("minecraft", "empty"));
+            RegistryKeys.PROCESSOR_LIST, new Identifier("minecraft", "empty"));
 
 
     private static void addToStructurePool(MinecraftServer server, Identifier poolId, Identifier structureId, int weight) {
         RegistryEntry<StructureProcessorList> emptyProcessorList = server.getRegistryManager()
-                .get(Registry.STRUCTURE_PROCESSOR_LIST_KEY)
+                .get(RegistryKeys.PROCESSOR_LIST)
                 .entryOf(EMPTY_PROCESSOR_LIST_KEY);
 
         var poolGetter = server.getRegistryManager()
-                .get(Registry.STRUCTURE_POOL_KEY)
+                .get(RegistryKeys.TEMPLATE_POOL)
                 .getOrEmpty(poolId);
 
         if (poolGetter.isEmpty()) {
-            System.err.println("Paladins: cannot add to " + poolId + " as it cannot be found!");
+            System.err.println("Wizards: cannot add to " + poolId + " as it cannot be found!");
             return;
         }
 

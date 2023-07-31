@@ -1,15 +1,15 @@
 package net.paladins.fabric;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.text.Text;
 import net.paladins.PaladinsMod;
+import net.paladins.item.Group;
 import net.paladins.item.PaladinItems;
 import net.paladins.item.armor.Armors;
-import net.paladins.item.Group;
 import net.paladins.util.SoundHelper;
 import net.paladins.worldgen.PaladinWorldGen;
 import net.spell_engine.api.loot.LootHelper;
@@ -24,9 +24,10 @@ public class FabricMod implements ModInitializer {
     }
 
     private void preInit() {
-        Group.PALADINS = FabricItemGroupBuilder.build(
-                new Identifier(PaladinsMod.ID, "general"),
-                () -> new ItemStack(Armors.paladinArmorSet_t2.chest));
+        Group.PALADINS = FabricItemGroup.builder()
+                .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.chest))
+                .displayName(Text.translatable("itemGroup.paladins.general"))
+                .build();
     }
 
     private void subscribeEvents() {

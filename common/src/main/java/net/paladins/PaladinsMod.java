@@ -1,9 +1,12 @@
 package net.paladins;
 
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.config.WorldGenConfig;
 import net.paladins.effect.Effects;
+import net.paladins.item.Group;
 import net.paladins.item.PaladinBooks;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
@@ -39,6 +42,7 @@ public class PaladinsMod {
         lootConfig.refresh();
         itemConfig.refresh();
         PaladinBooks.register();
+        Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
         Weapons.register(itemConfig.value.weapons);
         Armors.register(itemConfig.value.armor_sets);
         itemConfig.save();

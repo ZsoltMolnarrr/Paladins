@@ -1,11 +1,10 @@
 package net.paladins.item.armor;
 
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.tag.ItemTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.paladins.PaladinsMod;
 import net.paladins.item.Group;
 import net.spell_engine.api.item.ItemConfig;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class Armors {
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
@@ -48,10 +46,10 @@ public class Armors {
                     )
             )
             .bundle(material -> new Armor.Set(PaladinsMod.ID,
-                    new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
-                    new PaladinArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
-                    new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
-                    new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
+                    new PaladinArmor(material, ArmorItem.Type.HELMET, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.CHESTPLATE, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.LEGGINGS, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.BOOTS, new Item.Settings())
             ))
             .put(entries)
             .put(paladinEntries)
@@ -78,10 +76,10 @@ public class Armors {
                     )
             )
             .bundle(material -> new Armor.Set(PaladinsMod.ID,
-                    new PaladinArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
-                    new PaladinArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
-                    new PaladinArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
-                    new PaladinArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
+                    new PaladinArmor(material, ArmorItem.Type.HELMET, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.CHESTPLATE, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.LEGGINGS, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.BOOTS, new Item.Settings())
             ))
             .put(entries)
             .put(paladinEntries)
@@ -108,10 +106,10 @@ public class Armors {
                     )
             )
             .bundle(material -> new Armor.Set(PaladinsMod.ID,
-                    new PriestArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
-                    new PriestArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
-                    new PriestArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
-                    new PriestArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
+                    new PriestArmor(material, ArmorItem.Type.HELMET, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.CHESTPLATE, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.LEGGINGS, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.BOOTS, new Item.Settings())
             ))
             .put(entries)
             .put(priestEntries)
@@ -152,17 +150,17 @@ public class Armors {
                     )
             )
             .bundle(material -> new Armor.Set(PaladinsMod.ID,
-                    new PriestArmor(material, EquipmentSlot.HEAD, new Item.Settings().group(Group.PALADINS)),
-                    new PriestArmor(material, EquipmentSlot.CHEST, new Item.Settings().group(Group.PALADINS)),
-                    new PriestArmor(material, EquipmentSlot.LEGS, new Item.Settings().group(Group.PALADINS)),
-                    new PriestArmor(material, EquipmentSlot.FEET, new Item.Settings().group(Group.PALADINS))
+                    new PriestArmor(material, ArmorItem.Type.HELMET, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.CHESTPLATE, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.LEGGINGS, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.BOOTS, new Item.Settings())
             ))
             .put(entries)
             .put(priestEntries)
             .armorSet();
 
     public static void register(Map<String, ItemConfig.ArmorSet> configs) {
-        Armor.register(configs, entries);
+        Armor.register(configs, entries, Group.KEY);
     }
 }
 

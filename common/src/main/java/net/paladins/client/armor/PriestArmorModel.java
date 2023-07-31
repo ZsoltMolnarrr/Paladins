@@ -3,9 +3,9 @@ package net.paladins.client.armor;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.item.armor.PriestArmor;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class PriestArmorModel extends AnimatedGeoModel<PriestArmor> {
+public class PriestArmorModel extends GeoModel<PriestArmor> {
     @Override
     public Identifier getModelResource(PriestArmor object) {
         return new Identifier(PaladinsMod.ID, "geo/priest_robes.geo.json");

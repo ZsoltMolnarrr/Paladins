@@ -6,21 +6,14 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
 import net.spell_engine.api.item.ConfigurableAttributes;
 import net.spell_engine.api.item.armor.Armor;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class CustomArmor extends ArmorItem implements IAnimatable, ConfigurableAttributes {
+public class CustomArmor extends ArmorItem implements ConfigurableAttributes {
     public final Armor.CustomMaterial customMaterial;
 
-    public CustomArmor(Armor.CustomMaterial material, EquipmentSlot slot, Item.Settings settings) {
-        super(material, slot, settings);
+    public CustomArmor(Armor.CustomMaterial material, Type type, Settings settings) {
+        super(material, type, settings);
         this.customMaterial = material;
     }
 
@@ -38,21 +31,6 @@ public class CustomArmor extends ArmorItem implements IAnimatable, ConfigurableA
         if (attributes == null) {
             return super.getAttributeModifiers(slot);
         }
-        return slot == this.slot ? this.attributes : super.getAttributeModifiers(slot);
+        return slot == this.type.getEquipmentSlot() ? this.attributes : super.getAttributeModifiers(slot);
     }
-
-    // MARK: IAnimatable
-    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        return PlayState.STOP;
-    }
-    @Override
-    public void registerControllers(AnimationData data) {
-        // paladins.addAnimationController(new AnimationController(this, "controller", 20, this::predicate));
-    }
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
 }

@@ -1,3 +1,7 @@
+# 0.9.8
+
+- Fix netherite weapon upgrade recipes
+
 # 0.9.7
 
 - Support Minecraft 1.20.1

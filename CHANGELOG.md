@@ -1,3 +1,7 @@
+# 0.9.9
+
+- Fix warnings recipes with absent materials
+
 # 0.9.8
 
 - Fix netherite weapon upgrade recipes

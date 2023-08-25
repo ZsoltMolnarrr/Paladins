@@ -16,12 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 public class SoundHelper {
+    public static final SoundEvent divineProtectionImpact = SoundEvent.of(new Identifier(PaladinsMod.ID, "divine_protection_impact"));
+
     public static List<String> soundKeys = List.of(
             "divine_protection_release",
             "judgement_impact",
+            "divine_protection_impact",
             "holy_shock_damage",
             "holy_shock_heal",
-
             "holy_beam_start_casting",
             "holy_beam_casting",
             "holy_beam_damage",

@@ -34,6 +34,7 @@
           "effect_id": "paladins:divine_protection",
           "duration": 8,
           "apply_mode": "SET",
+          "amplifier": 2,
           "show_particles": false
         }
       }

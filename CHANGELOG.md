@@ -1,6 +1,9 @@
 # 0.9.9
 
+- Add new spell for Holy Wands: Heal
+- Reduce range of Flash Heal 
 - Fix warnings recipes with absent materials
+- Update JSON API usage
 
 # 0.9.8
 

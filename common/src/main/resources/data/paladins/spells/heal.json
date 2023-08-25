@@ -5,7 +5,7 @@
     "tier": 1
   },
   "cast": {
-    "duration": 0.5,
+    "duration": 2,
     "animation": "spell_engine:one_handed_healing_charge",
     "sound": {
       "id": "spell_engine:generic_healing_casting",
@@ -39,7 +39,7 @@
       "action": {
         "type": "HEAL",
         "heal": {
-          "spell_power_coefficient": 1
+          "spell_power_coefficient": 0.8
         }
       },
       "particles": [
@@ -47,7 +47,7 @@
           "particle_id": "spell_engine:healing_ascend",
           "shape": "PILLAR",
           "origin": "FEET",
-          "count": 30,
+          "count": 20,
           "min_speed": 0.02,
           "max_speed": 0.15
         }
@@ -59,7 +59,6 @@
   ],
   "cost": {
     "item_id": "runes:healing_stone",
-    "exhaust" : 0.2,
-    "cooldown_duration": 8
+    "exhaust" : 0.2
   }
 }

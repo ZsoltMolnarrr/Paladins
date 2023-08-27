@@ -90,6 +90,7 @@
             }
           ],
           "model_id": "paladins:projectile/judgement",
+          "light_emission": "RADIATE",
           "render": "DEEP",
           "scale": 1.2
         }

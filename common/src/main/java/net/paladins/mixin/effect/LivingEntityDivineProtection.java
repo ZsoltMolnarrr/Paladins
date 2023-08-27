@@ -61,6 +61,7 @@ public class LivingEntityDivineProtection {
                     );
                 }
             }
+            DivineProtectionStatusEffect.pop(entity);
             SoundHelper.playSoundEvent(entity.getWorld(), entity, SoundHelper.divineProtectionImpact);
 
             // Copied from LivingEntity.java (`damage` method), where it is called `takeKnockback`

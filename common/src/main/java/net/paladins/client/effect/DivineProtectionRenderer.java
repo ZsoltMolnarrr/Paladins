@@ -5,6 +5,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.render.CustomLayers;
+import net.spell_engine.api.render.LightEmission;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class DivineProtectionRenderer extends OrbitingEffectRenderer {
     private static final RenderLayer BASE_RENDER_LAYER =
             RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
     private static final RenderLayer GLOWING_RENDER_LAYER =
-            CustomLayers.projectile(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false, true);
+            CustomLayers.spellEffect(LightEmission.RADIATE, false);
 
     public DivineProtectionRenderer() {
         super(List.of(

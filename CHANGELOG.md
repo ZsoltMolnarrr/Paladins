@@ -1,3 +1,8 @@
+# 0.9.10
+
+- Add particle effects on Divine Protection pop
+- Update render effect API usage
+
 # 0.9.9
 
 - Add new spell for Holy Wands: Heal

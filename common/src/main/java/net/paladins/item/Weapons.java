@@ -180,6 +180,9 @@ public class Weapons {
 
     public static final Weapon.Entry holy_staff = staff("holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
+            .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 3));
+    public static final Weapon.Entry diamond_holy_staff = staff("diamond_holy_staff",
+            Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)))
             .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 4));
     public static final Weapon.Entry netherite_holy_staff = staff("netherite_holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))

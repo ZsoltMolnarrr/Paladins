@@ -5,6 +5,7 @@ import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 import net.spell_engine.api.loot.LootConfig;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -63,16 +64,15 @@ public class Default {
         ).chance(0.3F));
         final var weapons_two_handed_tier_2 = "weapons_two_handed_tier_2";
         lootConfig.item_groups.put(weapons_two_handed_tier_2, new LootConfig.ItemGroup(List.of(
-                Weapons.holy_staff.id().toString(),
+                Weapons.diamond_holy_staff.id().toString(),
                 Weapons.diamond_claymore.id().toString(),
                 Weapons.diamond_great_hammer.id().toString()),
                 1
         ).chance(0.3F));
+
         final var weapons_two_handed_tier_2_enchanted = "weapons_two_handed_tier_2_enchanted";
-        lootConfig.item_groups.put(weapons_two_handed_tier_2_enchanted, new LootConfig.ItemGroup(List.of(
-                Weapons.holy_staff.id().toString(),
-                Weapons.diamond_claymore.id().toString(),
-                Weapons.diamond_great_hammer.id().toString()),
+        lootConfig.item_groups.put(weapons_two_handed_tier_2_enchanted, new LootConfig.ItemGroup(
+                new ArrayList(lootConfig.item_groups.get(weapons_two_handed_tier_2).ids),
                 1
         ).chance(0.3F).enchant());
 
@@ -83,9 +83,8 @@ public class Default {
                 1
         ).chance(0.25F));
         final var armor_tier_1_enchanted = "armor_tier_1_enchanted";
-        lootConfig.item_groups.put(armor_tier_1_enchanted, new LootConfig.ItemGroup(joinLists(
-                Armors.paladinArmorSet_t1.idStrings(),
-                Armors.priestArmorSet_t1.idStrings()),
+        lootConfig.item_groups.put(armor_tier_1_enchanted, new LootConfig.ItemGroup(
+                new ArrayList(lootConfig.item_groups.get(armor_tier_1).ids),
                 1
         ).chance(0.25F).enchant());
         final var armor_tier_2 = "armor_tier_2";
@@ -136,12 +135,13 @@ public class Default {
 
 
         worldGenConfig = new WorldGenConfig();
+        var weight = 5;
         worldGenConfig.entries.addAll(List.of(
-                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/sanctuary", 6),
-                new WorldGenConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/sanctuary", 6),
-                new WorldGenConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/sanctuary", 6),
-                new WorldGenConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/sanctuary", 6),
-                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/sanctuary", 6)
+                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/sanctuary", weight),
+                new WorldGenConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/sanctuary", weight),
+                new WorldGenConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/sanctuary", weight),
+                new WorldGenConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/sanctuary", weight),
+                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/sanctuary", weight)
         ));
     }
 

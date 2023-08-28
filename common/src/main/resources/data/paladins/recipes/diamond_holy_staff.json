@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "H": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " DD",
+    " HD",
+    "H  "
+  ],
+  "result": {
+    "item": "paladins:diamond_holy_staff"
+  }
+}

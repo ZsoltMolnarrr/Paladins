@@ -83,11 +83,11 @@ public class PaladinVillagers {
                 Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.HEALING), 8), 2, 128, 1, 0.01f),
                 Offer.sell(1, Weapons.acolyte_wand.item().getDefaultStack(), 4, 12, 5, 0.2f),
                 Offer.sell(1, Weapons.wooden_great_hammer.item().getDefaultStack(), 8, 12, 8, 0.2f),
-
                 Offer.buy(2, new ItemStack(Items.WHITE_WOOL, 5), 8, 12, 10, 0.05f),
                 Offer.buy(2, new ItemStack(Items.IRON_INGOT, 6), 12, 12, 10, 0.05f),
                 Offer.buy(2, new ItemStack(Items.CHAIN, 6), 6, 12, 10, 0.05f),
                 Offer.buy(2, new ItemStack(Items.GOLD_INGOT, 6), 14, 12, 10, 0.05f),
+                Offer.sell(2, Weapons.holy_staff.item().getDefaultStack(), 4, 12, 5, 0.2f),
                 Offer.sell(3, Armors.paladinArmorSet_t1.head.getDefaultStack(), 15, 12, 13, 0.1f),
                 Offer.sell(3, Armors.paladinArmorSet_t1.feet.getDefaultStack(), 15, 12, 13, 0.1f),
                 Offer.sell(3, Armors.priestArmorSet_t1.head.getDefaultStack(), 15, 12, 13, 0.1f),
@@ -109,7 +109,7 @@ public class PaladinVillagers {
         }
         TradeOfferHelper.registerVillagerOffers(paladinMerchantProfession, 5, factories -> {
             factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    Weapons.holy_staff.item(),
+                    Weapons.diamond_holy_staff.item(),
                     40,
                     3,
                     30,

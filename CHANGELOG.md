@@ -2,8 +2,9 @@
 
 - Add new staff: Diamond Holy Staff
 - Add particle effects on Divine Protection pop
+- Add Ruby Holy Staff emissive texture
 - Update render effect API usage
-- 
+
 # 0.9.9
 
 - Add new spell for Holy Wands: Heal

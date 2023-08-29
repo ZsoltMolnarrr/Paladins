@@ -1,3 +1,7 @@
+# 0.9.11
+
+- Add Ukrainian translation thanks to unroman #4
+
 # 0.9.10
 
 - Add new staff: Diamond Holy Staff

@@ -1,3 +1,7 @@
+# 1.0.0
+
+- asd
+
 # 0.9.11
 
 - Add Ukrainian translation thanks to unroman #4

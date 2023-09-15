@@ -1,5 +1,6 @@
 package net.paladins.item;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
@@ -15,7 +16,6 @@ import net.spell_engine.api.item.weapon.StaffItem;
 import net.spell_engine.api.item.weapon.Weapon;
 import net.spell_power.api.MagicSchool;
 import net.spell_power.api.attributes.SpellAttributes;
-import net.paladins.Platform;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -191,12 +191,12 @@ public class Weapons {
     // MARK: Register
 
     public static void register(Map<String, ItemConfig.Weapon> configs) {
-        if (Platform.isModLoaded("betternether")) {
+        if (FabricLoader.getInstance().isModLoaded("betternether")) {
             staff("betternether", "ruby_holy_staff",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betternether:nether_ruby")))
                     .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 6));
         }
-        if (Platform.isModLoaded("betterend")) {
+        if (FabricLoader.getInstance().isModLoaded("betterend")) {
             claymore("betterend", "aeternium_claymore",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, ingredient("betterend:aeternium_ingot")), 12)
                     .attribute(ItemConfig.SpellAttribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), claymoreHealing));

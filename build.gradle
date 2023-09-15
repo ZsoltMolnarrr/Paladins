@@ -11,7 +11,6 @@ group = project.maven_group
 repositories {
     maven { url 'https://jitpack.io' }
     maven { url 'https://libs.azuredoom.com:4443/mods' }
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven { url 'https://maven.terraformersmc.com/' }
     maven {
         name = 'Modrinth'
@@ -33,8 +32,7 @@ dependencies {
 
     // Dependencies
     implementation include("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
-    // modImplementation("mod.azure.azurelibarmor:azurelibarmor-fabric-${project.azure_mc_version}:${project.azure_lib_version}")
-    modImplementation("software.bernie.geckolib:geckolib-fabric-${project.gecko_mc_prefix}:${project.gecko_lib_version_fabric}")
+    modImplementation("mod.azure.azurelibarmor:azurelibarmor-fabric-${project.azure_mc_version}:${project.azure_lib_version}")
 
     modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-fabric")
     modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric")

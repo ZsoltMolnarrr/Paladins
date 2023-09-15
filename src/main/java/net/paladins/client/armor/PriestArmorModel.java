@@ -1,9 +1,9 @@
 package net.paladins.client.armor;
 
+import mod.azure.azurelibarmor.model.GeoModel;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.item.armor.PriestArmor;
-import software.bernie.geckolib.model.GeoModel;
 
 public class PriestArmorModel extends GeoModel<PriestArmor> {
     @Override

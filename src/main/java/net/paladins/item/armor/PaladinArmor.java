@@ -1,5 +1,11 @@
 package net.paladins.item.armor;
 
+import mod.azure.azurelibarmor.animatable.GeoItem;
+import mod.azure.azurelibarmor.animatable.client.RenderProvider;
+import mod.azure.azurelibarmor.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelibarmor.core.animation.AnimatableManager;
+import mod.azure.azurelibarmor.renderer.GeoArmorRenderer;
+import mod.azure.azurelibarmor.util.AzureLibUtil;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -9,12 +15,6 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.spell_engine.api.item.armor.Armor;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.animatable.client.RenderProvider;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.renderer.GeoArmorRenderer;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -29,7 +29,7 @@ public class PaladinArmor extends CustomArmor implements GeoItem {
 
     // MARK: GeoItem
 
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
     private final Supplier<Object> renderProvider = GeoItem.makeRenderer(this);
 
     @Override

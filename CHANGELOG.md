@@ -1,6 +1,8 @@
 # 1.0.0
 
-- asd
+Now works with Minecraft Forge, via Connector.
+
+- Migrate to Azure Armor Lib
 
 # 0.9.11
 

@@ -1,7 +1,7 @@
 package net.paladins.client.armor;
 
+import mod.azure.azurelibarmor.renderer.GeoArmorRenderer;
 import net.paladins.item.armor.PaladinArmor;
-import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class PaladinArmorRenderer extends GeoArmorRenderer<PaladinArmor> {
     public PaladinArmorRenderer() {

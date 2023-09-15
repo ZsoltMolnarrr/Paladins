@@ -3,9 +3,6 @@
 Now works with Minecraft Forge, via Connector.
 
 - Migrate to Azure Armor Lib
-
-# 0.9.11
-
 - Add Ukrainian translation thanks to unroman #4
 
 # 0.9.10

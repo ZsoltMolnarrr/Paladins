@@ -108,7 +108,7 @@ if(project.hasProperty('release_type')) {
 
             relations {
                 requiredDependency 'fabric-api'
-                requiredDependency 'geckolib'
+                requiredDependency 'azurelib-armor'
                 requiredDependency 'spell-engine'
                 requiredDependency 'spell-power'
                 requiredDependency 'rune-crafting'
@@ -139,7 +139,7 @@ if(project.hasProperty('release_type')) {
             // The scope can be `required`, `optional`, `incompatible`, or `embedded`
             // The type can either be `project` or `version`
             required.project 'fabric-api'
-            required.project 'geckolib'
+            required.project 'azurelib-armor'
             required.project 'spell-engine'
             required.project 'spell-power'
             required.project 'runes'

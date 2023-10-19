@@ -1,6 +1,8 @@
 # 1.0.2
 
-- Add italian translation, thanks to @Zano1999
+- Update to latest Spell Engine API
+- Add Simplified Chinese translation, thanks to @sillymoon/zh_cn
+- Add Italian translation, thanks to @Zano1999
 
 # 1.0.1
 

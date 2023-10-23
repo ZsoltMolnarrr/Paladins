@@ -9,6 +9,7 @@ import net.paladins.effect.Effects;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.api.render.CustomModels;
+import net.spell_engine.api.render.StunParticleSpawner;
 
 import java.util.List;
 

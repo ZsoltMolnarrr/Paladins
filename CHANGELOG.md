@@ -1,5 +1,7 @@
 # 1.0.2
 
+- Fix some default loot table configurations
+- Tweak villager trade offers
 - Update to latest Spell Engine API
 - Add Simplified Chinese translation, thanks to @sillymoon/zh_cn
 - Add Italian translation, thanks to @Zano1999

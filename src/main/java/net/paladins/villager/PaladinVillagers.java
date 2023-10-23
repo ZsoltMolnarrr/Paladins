@@ -81,21 +81,22 @@ public class PaladinVillagers {
 
         List<Offer> paladinMerchantOffers = List.of(
                 Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.HEALING), 8), 2, 128, 1, 0.01f),
-                Offer.sell(1, Weapons.acolyte_wand.item().getDefaultStack(), 4, 12, 5, 0.2f),
-                Offer.sell(1, Weapons.wooden_great_hammer.item().getDefaultStack(), 8, 12, 8, 0.2f),
-                Offer.buy(2, new ItemStack(Items.WHITE_WOOL, 5), 8, 12, 10, 0.05f),
-                Offer.buy(2, new ItemStack(Items.IRON_INGOT, 6), 12, 12, 10, 0.05f),
-                Offer.buy(2, new ItemStack(Items.CHAIN, 6), 6, 12, 10, 0.05f),
-                Offer.buy(2, new ItemStack(Items.GOLD_INGOT, 6), 14, 12, 10, 0.05f),
-                Offer.sell(2, Weapons.holy_staff.item().getDefaultStack(), 4, 12, 5, 0.2f),
-                Offer.sell(3, Armors.paladinArmorSet_t1.head.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(3, Armors.paladinArmorSet_t1.feet.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(3, Armors.priestArmorSet_t1.head.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(3, Armors.priestArmorSet_t1.feet.getDefaultStack(), 15, 12, 13, 0.1f),
-                Offer.sell(4, Armors.paladinArmorSet_t1.chest.getDefaultStack(), 20, 12, 15, 0.1f),
-                Offer.sell(4, Armors.paladinArmorSet_t1.legs.getDefaultStack(), 20, 12, 15, 0.1f),
-                Offer.sell(4, Armors.priestArmorSet_t1.chest.getDefaultStack(), 20, 12, 15, 0.1f),
-                Offer.sell(4, Armors.priestArmorSet_t1.legs.getDefaultStack(), 20, 12, 15, 0.1f)
+                Offer.sell(1, Weapons.acolyte_wand.item().getDefaultStack(), 4, 12, 5, 0.1f),
+                Offer.sell(1, Weapons.wooden_great_hammer.item().getDefaultStack(), 8, 12, 8, 0.1f),
+                Offer.buy(2, new ItemStack(Items.WHITE_WOOL, 5), 8, 12, 8, 0.0f),
+                Offer.buy(2, new ItemStack(Items.IRON_INGOT, 6), 9, 12, 8, 0.0f),
+                Offer.buy(2, new ItemStack(Items.CHAIN, 6), 3, 12, 8, 0.0f),
+                Offer.buy(2, new ItemStack(Items.GOLD_INGOT, 6), 9, 12, 8, 0.0f),
+                Offer.sell(2, Weapons.holy_staff.item().getDefaultStack(), 12, 12, 10, 0.05f),
+                Offer.sell(2, Weapons.iron_great_hammer.item().getDefaultStack(), 12, 12, 10, 0.05f),
+                Offer.sell(3, Armors.paladinArmorSet_t1.head.getDefaultStack(), 15, 12, 13, 0.05f),
+                Offer.sell(3, Armors.paladinArmorSet_t1.feet.getDefaultStack(), 15, 12, 13, 0.05f),
+                Offer.sell(3, Armors.priestArmorSet_t1.head.getDefaultStack(), 15, 12, 13, 0.05f),
+                Offer.sell(3, Armors.priestArmorSet_t1.feet.getDefaultStack(), 15, 12, 13, 0.05f),
+                Offer.sell(4, Armors.paladinArmorSet_t1.chest.getDefaultStack(), 20, 12, 15, 0.05f),
+                Offer.sell(4, Armors.paladinArmorSet_t1.legs.getDefaultStack(), 20, 12, 15, 0.05f),
+                Offer.sell(4, Armors.priestArmorSet_t1.chest.getDefaultStack(), 20, 12, 15, 0.05f),
+                Offer.sell(4, Armors.priestArmorSet_t1.legs.getDefaultStack(), 20, 12, 15, 0.05f)
             );
 
         for(var offer: paladinMerchantOffers) {
@@ -113,21 +114,21 @@ public class PaladinVillagers {
                     40,
                     3,
                     30,
-                    0.2F).create(entity, random)
+                    0F).create(entity, random)
             ));
             factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
                     Weapons.diamond_claymore.item(),
                     40,
                     3,
                     30,
-                    0.2F).create(entity, random)
+                    0F).create(entity, random)
             ));
             factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
                     Weapons.diamond_great_hammer.item(),
                     40,
                     3,
                     30,
-                    0.2F).create(entity, random)
+                    0F).create(entity, random)
             ));
         });
     }

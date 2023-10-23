@@ -31,8 +31,10 @@ public class Default {
                 Weapons.wooden_great_hammer.id().toString(),
                 Weapons.stone_great_hammer.id().toString(),
                 Weapons.stone_claymore.id().toString()),
+                0.5F,
+                0,
                 1
-        ).chance(0.5F));
+        ));
         final var weapons_golden = "weapons_golden";
         lootConfig.item_groups.put(weapons_golden, new LootConfig.ItemGroup(List.of(
                 Weapons.golden_mace.id().toString(),

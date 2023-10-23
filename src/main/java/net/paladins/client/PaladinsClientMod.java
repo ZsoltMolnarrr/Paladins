@@ -4,7 +4,6 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.client.effect.AbsorbParticleSpawner;
 import net.paladins.client.effect.DivineProtectionRenderer;
-import net.paladins.client.effect.StunParticleSpawner;
 import net.paladins.effect.Effects;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;

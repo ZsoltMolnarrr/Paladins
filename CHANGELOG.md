@@ -1,5 +1,6 @@
 # 1.0.2
 
+- Retexture great hammers and maces, thanks to Jaam!
 - Fix some default loot table configurations
 - Tweak villager trade offers
 - Update to latest Spell Engine API

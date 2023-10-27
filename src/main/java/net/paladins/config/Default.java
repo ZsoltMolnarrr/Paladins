@@ -1,5 +1,6 @@
 package net.paladins.config;
 
+import net.fabric_extras.structure_pool.api.StructurePoolConfig;
 import net.spell_engine.api.item.ItemConfig;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 public class Default {
     public final static ItemConfig itemConfig;
     public final static LootConfig lootConfig;
-    public final static WorldGenConfig worldGenConfig;
+    public final static StructurePoolConfig villageConfig;
     static {
         itemConfig = new ItemConfig();
         for (var weapon: Weapons.entries) {
@@ -136,14 +137,15 @@ public class Default {
                 .forEach(id -> lootConfig.loot_tables.put(id, List.of(weapons_two_handed_tier_2_enchanted, armor_tier_2)));
 
 
-        worldGenConfig = new WorldGenConfig();
-        var weight = 5;
-        worldGenConfig.entries.addAll(List.of(
-                new WorldGenConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/sanctuary", weight),
-                new WorldGenConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/sanctuary", weight),
-                new WorldGenConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/sanctuary", weight),
-                new WorldGenConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/sanctuary", weight),
-                new WorldGenConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/sanctuary", weight)
+        villageConfig = new StructurePoolConfig();
+        var weight = 3;
+        var limit = 1;
+        villageConfig.entries.addAll(List.of(
+                new StructurePoolConfig.Entry("minecraft:village/desert/houses", "paladins:village/desert/sanctuary", weight, limit),
+                new StructurePoolConfig.Entry("minecraft:village/savanna/houses", "paladins:village/savanna/sanctuary", weight, limit),
+                new StructurePoolConfig.Entry("minecraft:village/plains/houses", "paladins:village/plains/sanctuary", weight, limit),
+                new StructurePoolConfig.Entry("minecraft:village/taiga/houses", "paladins:village/taiga/sanctuary", weight, limit),
+                new StructurePoolConfig.Entry("minecraft:village/snowy/houses", "paladins:village/snowy/sanctuary", weight, limit)
         ));
     }
 

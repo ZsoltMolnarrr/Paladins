@@ -1,6 +1,7 @@
-package net.paladins.villager;
+package net.paladins.village;
 
 import com.google.common.collect.ImmutableSet;
+import net.fabric_extras.structure_pool.api.StructurePoolAPI;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.block.Block;
@@ -74,8 +75,9 @@ public class PaladinVillagers {
     }
 
     public static void register() {
-        var paladinPOI = registerPOI(PALADIN_MERCHANT, PaladinBlocks.MONK_WORKBENCH);
-        var paladinMerchantProfession = registerProfession(
+        StructurePoolAPI.injectAll(PaladinsMod.villageConfig.value);
+        var poi = registerPOI(PALADIN_MERCHANT, PaladinBlocks.MONK_WORKBENCH);
+        var profession = registerProfession(
                 PALADIN_MERCHANT,
                 RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), new Identifier(PaladinsMod.ID, PALADIN_MERCHANT)));
 
@@ -100,7 +102,7 @@ public class PaladinVillagers {
             );
 
         for(var offer: paladinMerchantOffers) {
-            TradeOfferHelper.registerVillagerOffers(paladinMerchantProfession, offer.level, factories -> {
+            TradeOfferHelper.registerVillagerOffers(profession, offer.level, factories -> {
                 factories.add(((entity, random) -> new TradeOffer(
                         offer.input,
                         offer.output,
@@ -108,7 +110,7 @@ public class PaladinVillagers {
                 ));
             });
         }
-        TradeOfferHelper.registerVillagerOffers(paladinMerchantProfession, 5, factories -> {
+        TradeOfferHelper.registerVillagerOffers(profession, 5, factories -> {
             factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
                     Weapons.diamond_holy_staff.item(),
                     40,

@@ -1,4 +1,4 @@
-package net.paladins.mixin.effect;
+package net.paladins.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

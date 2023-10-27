@@ -1,5 +1,6 @@
 # 1.0.2
 
+- Limit Sanctuary spawns to 1 per village (configurable), thanks to the Structure Pool API
 - Retexture great hammers and maces, thanks to Jaam!
 - Fix some default loot table configurations
 - Tweak villager trade offers

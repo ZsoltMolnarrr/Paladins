@@ -3,6 +3,7 @@
 - Limit Sanctuary spawns to 1 per village (configurable), thanks to the Structure Pool API
 - Retexture great hammers and maces, thanks to Jaam!
 - Fix some default loot table configurations
+- Fix some player skin cases clipping through armor #10
 - Tweak villager trade offers
 - Update to latest Spell Engine API
 - Add Simplified Chinese translation, thanks to @sillymoon/zh_cn

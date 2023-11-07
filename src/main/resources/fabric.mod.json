@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "paladins",
   "version": "${version}",
-  "name": "Paladins & Priests",
+  "name": "Paladins & Priests (RPG Series)",
   "description": "Protect and heal your friends as a Paladin or a Priest.",
   "authors": [
     "Daedelus"

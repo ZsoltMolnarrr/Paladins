@@ -1,6 +1,8 @@
 # 1.0.3
 
 - Update name for Mod Menu
+- Retexture Ruby Holy Staff
+- Add hint tooltip for Monk Workbench block
 
 # 1.0.2
 

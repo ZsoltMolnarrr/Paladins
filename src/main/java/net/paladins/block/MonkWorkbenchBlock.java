@@ -3,20 +3,33 @@ package net.paladins.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.paladins.PaladinsMod;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MonkWorkbenchBlock extends Block {
     public static final String NAME = "monk_workbench";
     public MonkWorkbenchBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        super.appendTooltip(stack, world, tooltip, options);
+        tooltip.add(Text.translatable("block." + PaladinsMod.ID + "." + NAME +".hint").formatted(Formatting.GRAY, Formatting.ITALIC));
     }
 
     // MARK: Shape

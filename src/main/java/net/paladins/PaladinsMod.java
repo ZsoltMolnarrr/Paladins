@@ -41,14 +41,14 @@ public class PaladinsMod {
     public static void init() {
         lootConfig.refresh();
         itemConfig.refresh();
-        PaladinBooks.register();
         Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
+        PaladinBlocks.register();
+        PaladinBooks.register();
         Weapons.register(itemConfig.value.weapons);
         Armors.register(itemConfig.value.armor_sets);
         itemConfig.save();
         villageConfig.refresh();
         Effects.register();
-        PaladinBlocks.register();
         PaladinVillagers.register();
     }
 }

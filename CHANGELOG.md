@@ -1,3 +1,7 @@
+# 1.0.4
+
+- Add Russian translation, thanks to skel39eek66 #12
+
 # 1.0.3
 
 - Update name for Mod Menu

@@ -23,7 +23,7 @@ public class FabricMod implements ModInitializer {
 
     private void preInit() {
         Group.PALADINS = FabricItemGroup.builder()
-                .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.chest))
+                .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
                 .displayName(Text.translatable("itemGroup.paladins.general"))
                 .build();
     }

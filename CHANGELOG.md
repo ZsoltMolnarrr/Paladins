@@ -1,5 +1,6 @@
 # 1.0.4
 
+- Update creative tab icon
 - Add Russian translation, thanks to skel39eek66 #12
 
 # 1.0.3

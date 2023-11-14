@@ -2,6 +2,12 @@
 
 - Update creative tab icon
 - Add Russian translation, thanks to skel39eek66 #12
+- Add basic item tags, to include all weapons
+  - `paladins:claymores`
+  - `paladins:great_hammers`
+  - `paladins:maces`
+  - `paladins:staves`
+  - `paladins:wands`
 
 # 1.0.3
 

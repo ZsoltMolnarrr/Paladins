@@ -1,6 +1,7 @@
 # 1.0.4
 
 - Update creative tab icon
+- Add effect descriptions
 - Add Russian translation, thanks to skel39eek66 #12
 - Add basic item tags, to include all weapons
   - `paladins:claymores`

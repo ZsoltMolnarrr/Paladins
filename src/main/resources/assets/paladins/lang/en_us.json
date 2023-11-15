@@ -57,9 +57,11 @@
   "spell.paladins.divine_protection.name": "Divine Protection",
   "spell.paladins.divine_protection.description": "Protects you from the next {effect_amplifier} incoming attacks for {effect_duration} seconds.",
   "effect.paladins.divine_protection": "Divine Protection",
+  "effect.paladins.divine_protection.description": "Protects you from the incoming attack",
   "spell.paladins.judgement.name": "Judgement",
   "spell.paladins.judgement.description": "Strikes your target and enemies around it, within {impact_range} blocks, causing up to {damage} damage and stunning them for {effect_duration} seconds.",
   "effect.paladins.judgement": "Stunned",
+  "effect.paladins.judgement.description": "Prevents movement and actions",
 
   "spell.paladins.heal.name": "Heal",
   "spell.paladins.heal.description": "Heals you or a friendly target by {heal} health points.",
@@ -70,6 +72,7 @@
   "spell.paladins.circle_of_healing.name": "Circle of Healing",
   "spell.paladins.circle_of_healing.description": "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.",
   "effect.paladins.priest_absorption": "Absorption",
+  "effect.paladins.priest_absorption.description": "Absorbs some damage you would take",
 
   "entity.minecraft.villager.monk": "Monk",
   "entity.minecraft.villager.paladins:monk": "Monk",

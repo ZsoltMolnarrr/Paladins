@@ -57,9 +57,11 @@
   "spell.paladins.divine_protection.name": "神圣保护",
   "spell.paladins.divine_protection.description": "减轻接下来{effect_amplifier}次受到的攻击伤害，持续{effect_duration}秒。",
   "effect.paladins.divine_protection": "神圣保护",
+  "effect.paladins.divine_protection.description": "减少即将受到的伤害",
   "spell.paladins.judgement.name": "审判",
   "spell.paladins.judgement.description": "攻击目标及其{impact_range}方块范围内的敌人, 造成{damage}点伤害并附加眩晕效果，持续{effect_duration}秒。",
   "effect.paladins.judgement": "眩晕",
+  "effect.paladins.judgement.description": "禁止移动及操作",
 
   "spell.paladins.heal.name": "治愈",
   "spell.paladins.heal.description": "治疗自身及己方目标{heal}点生命值。",
@@ -70,10 +72,12 @@
   "spell.paladins.circle_of_healing.name": "治疗之环",
   "spell.paladins.circle_of_healing.description": "治疗自身及己方目标{heal}点生命值，并附加一定的伤害吸收，持续{effect_duration}秒。",
   "effect.paladins.priest_absorption": "伤害吸收",
+  "effect.paladins.priest_absorption.description": "吸收受到的部分伤害",
 
   "entity.minecraft.villager.monk": "修士",
   "entity.minecraft.villager.paladins:monk": "修士",
   "block.paladins.monk_workbench": "修士工作台",
+  "block.paladins.monk_workbench.hint": "修士村民的工作台。",
 
   "advancements.rpg_classes.obtain_healing_rune.title": "治愈之道",
   "advancements.rpg_classes.obtain_healing_rune.description": "获得一个治疗符文",

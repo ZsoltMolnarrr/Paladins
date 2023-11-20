@@ -1,3 +1,7 @@
+# 1.0.5
+
+- Update Chinese translation, thanks to @sillymoon
+
 # 1.0.4
 
 - Update creative tab icon

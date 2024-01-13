@@ -1,0 +1,88 @@
+{
+  "itemGroup.paladins.general": "Paladins & Priests",
+
+  "item.paladins.paladin_spell_book": "Libro de Hechizos del Paladín",
+  "item.paladins.priest_spell_book": "Libro de Hechizos del Sacerdote",
+
+  "item.paladins.paladin_armor_head": "Casco de paladín",
+  "item.paladins.paladin_armor_chest": "Peto de paladín",
+  "item.paladins.paladin_armor_legs": "Grebas de paladín",
+  "item.paladins.paladin_armor_feet": "Botas de paladín",
+  "item.paladins.crusader_armor_head": "Casco del cruzador",
+  "item.paladins.crusader_armor_chest": "Peto del cruzador",
+  "item.paladins.crusader_armor_legs": "Grebas del cruzador",
+  "item.paladins.crusader_armor_feet": "Botas del cruzador",
+
+  "item.paladins.stone_claymore": "Claymore de piedra",
+  "item.paladins.iron_claymore": "Claymore de hierro",
+  "item.paladins.golden_claymore": "Claymore de oro",
+  "item.paladins.diamond_claymore": "Claymore de diamante",
+  "item.paladins.netherite_claymore": "Claymore de netherita",
+  "item.paladins.aeternium_claymore": "Claymore de aeterinum",
+
+  "item.paladins.wooden_great_hammer": "Martillo Grande de madera",
+  "item.paladins.stone_great_hammer": "Martillo Grande de piedra",
+  "item.paladins.iron_great_hammer": "Martillo Grande de hierro",
+  "item.paladins.golden_great_hammer": "Martillo Grande de oro",
+  "item.paladins.diamond_great_hammer": "Martillo Grande de diamante",
+  "item.paladins.netherite_great_hammer": "Martillo Grande de netherita",
+  "item.paladins.aeternium_great_hammer": "Martillo Grande de aeternium",
+
+  "item.paladins.stone_mace": "Maza de piedra",
+  "item.paladins.iron_mace": "Maza de hierro",
+  "item.paladins.golden_mace": "Maza de oro",
+  "item.paladins.diamond_mace": "Maza de diamante",
+  "item.paladins.netherite_mace": "Maza de netherita",
+
+  "item.paladins.priest_robe_head": "Collar del sacerdote",
+  "item.paladins.priest_robe_chest": "Vestimenta del sacerdote",
+  "item.paladins.priest_robe_legs": "Pantalones del sacerdote",
+  "item.paladins.priest_robe_feet": "Botas del sacerdote",
+  "item.paladins.prior_robe_head": "Collar del prior",
+  "item.paladins.prior_robe_chest": "Vestimenta del prior",
+  "item.paladins.prior_robe_legs": "Pantalones del prior",
+  "item.paladins.prior_robe_feet": "Botas del prior",
+
+  "item.paladins.acolyte_wand": "Varita de Acólito",
+  "item.paladins.holy_wand": "Varita Sagrada",
+  "item.paladins.netherite_holy_wand": "Varita Sagrada de netherita",
+
+  "item.paladins.holy_staff": "Báculo Sagrado",
+  "item.paladins.diamond_holy_staff": "Báculo Sagrado de diamante",
+  "item.paladins.netherite_holy_staff": "Báculo Sagrado de netherita",
+  "item.paladins.ruby_holy_staff": "Báculo Sagrado de rubí",
+
+  "spell.paladins.flash_heal.name": "Curación Rápida",
+  "spell.paladins.flash_heal.description": "Te cura a ti, o un objetivo amistoso por {heal} puntos de salud.",
+  "spell.paladins.divine_protection.name": "Protección Divina",
+  "spell.paladins.divine_protection.description": "Te protege de los siguientes {effect_amplifier} ataques entrantes por {effect_duration} segundos.",
+  "effect.paladins.divine_protection": "Protección Divina",
+  "effect.paladins.divine_protection.description": "Te protege de ataques entrantes",
+  "spell.paladins.judgement.name": "Juicio",
+  "spell.paladins.judgement.description": "Ataca al objetivo y a los enemigos a su alrededor, dentro de un radio de {impact_range} bloques, causando hasta {damage} de daño y aturdiéndolos durante {effect_duration} segundos.",
+  "effect.paladins.judgement": "Aturdido",
+  "effect.paladins.judgement.description": "Impide movimiento o acciones",
+
+  "spell.paladins.heal.name": "Curar",
+  "spell.paladins.heal.description": "Te cura a ti, o un objetivo amistoso por {heal} puntos de salud.",
+  "spell.paladins.holy_shock.name": "Choque Sagrado",
+  "spell.paladins.holy_shock.description": "Te cura a ti o a un objetivo amistoso por {heal} y golpea a un enemigo infligiendo un daño mágico de {damage}."
+  "spell.paladins.holy_beam.name": "Luz Sagrada",
+  "spell.paladins.holy_beam.description": "Canaliza un rayo de luz, curando a los aliados en {heal} y causando un daño mágico de {damage} a los enemigos cada segundo.",
+  "spell.paladins.circle_of_healing.name": "Círculo de Curación",
+  "spell.paladins.circle_of_healing.description": "Te cura a ti y a objetivos amistosos a tu alrededor en {heal}, y proporciona Absorción durante {effect_duration} segundos.",
+  "effect.paladins.priest_absorption": "Absorción",
+  "effect.paladins.priest_absorption.description": "Absorbe parte del daño que recibes",
+
+  "entity.minecraft.villager.monk": "Monje",
+  "entity.minecraft.villager.paladins:monk": "Monje",
+  "block.paladins.monk_workbench": "Banco de trabajo del Monje",
+  "block.paladins.monk_workbench.hint": "Banco de trabajo para aldeanos Monjes.",
+
+  "advancements.rpg_classes.obtain_healing_rune.title": "Camino de Sanación",
+  "advancements.rpg_classes.obtain_healing_rune.description": "Obtén una Runa de Sanación",
+  "advancements.rpg_classes.paladin_mastery.title": "Tiempo del Juicio",
+  "advancements.rpg_classes.paladin_mastery.description": "Obtén todos los hechizos de Paladín",
+  "advancements.rpg_classes.priest_mastery.title": "Sirviente del Ori",
+  "advancements.rpg_classes.priest_mastery.description": "Obtén todos los hechizos de Sacerdote"
+}

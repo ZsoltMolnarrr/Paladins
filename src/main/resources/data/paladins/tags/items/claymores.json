@@ -5,6 +5,9 @@
     "paladins:golden_claymore",
     "paladins:diamond_claymore",
     "paladins:netherite_claymore",
-    "paladins:aeternium_claymore"
+    {
+      "id": "paladins:aeternium_claymore",
+      "required": false
+    }
   ]
 }

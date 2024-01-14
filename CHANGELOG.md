@@ -3,6 +3,7 @@
 - Add compatibility for `c:wood_sticks` in recipes #16
 - Add Spanish translation, thanks to @SirColor
 - Update Chinese translation, thanks to @sillymoon
+- Fix weapon tags not loading, when BetterX mods are not present
 
 # 1.0.4
 

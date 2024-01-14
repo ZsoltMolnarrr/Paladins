@@ -6,6 +6,9 @@
     "paladins:golden_great_hammer",
     "paladins:diamond_great_hammer",
     "paladins:netherite_great_hammer",
-    "paladins:aeternium_great_hammer"
+    {
+      "id": "paladins:aeternium_great_hammer",
+      "required": false
+    }
   ]
 }

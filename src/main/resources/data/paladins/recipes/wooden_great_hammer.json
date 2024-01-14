@@ -4,9 +4,14 @@
     "B": {
       "tag": "minecraft:logs_that_burn"
     },
-    "H": {
-      "item": "minecraft:stick"
-    }
+    "H": [
+      {
+        "tag": "c:wood_sticks"
+      },
+      {
+        "item": "minecraft:stick"
+      }
+    ]
   },
   "pattern": [
     " BB",

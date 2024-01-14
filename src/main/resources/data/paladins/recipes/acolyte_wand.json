@@ -4,9 +4,14 @@
     "S": {
       "item": "minecraft:string"
     },
-    "H": {
-      "item": "minecraft:stick"
-    }
+    "H": [
+      {
+        "tag": "c:wood_sticks"
+      },
+      {
+        "item": "minecraft:stick"
+      }
+    ]
   },
   "pattern": [
     " HH",

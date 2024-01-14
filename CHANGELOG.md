@@ -1,3 +1,7 @@
+# 1.0.6
+
+- Fix spanish translation
+
 # 1.0.5
 
 - Add compatibility for `c:wood_sticks` in recipes #16

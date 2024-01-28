@@ -57,9 +57,11 @@
   "spell.paladins.divine_protection.name": "Protezione divina",
   "spell.paladins.divine_protection.description": "Riduce tutte le forme di danno subito del 50%% per {effect_duration} secondi.",
   "effect.paladins.divine_protection": "Protezione divina",
+  "effect.paladins.divine_protection.description": "Ti protegge dagli attacchi magici in arrivo",  
   "spell.paladins.judgement.name": "Giudizio",
   "spell.paladins.judgement.description": "Colpisce il tuo bersaglio e i nemici intorno ad esso, entro {impact_range} blocchi, causando fino a {damage} danni e stordendoli per {effect_duration} secondi.",
   "effect.paladins.judgement": "Stordimento",
+  "effect.paladins.judgement.description": "Previene il movimento e le azioni",  
 
   "spell.paladins.heal.name": "Cura",
   "spell.paladins.heal.description": "Cura te o un tuo alleato di {heal} HP.",
@@ -70,6 +72,7 @@
   "spell.paladins.circle_of_healing.name": "Circolo curativo",
   "spell.paladins.circle_of_healing.description": "Cura te e i bersagli alleati intorno a te di {heal} e applica un po' di assorbimento per {effect_duration} secondi.",
   "effect.paladins.priest_absorption": "Assorbimento",
+  "effect.paladins.priest_absorption.description": "Assorbe un pò dei danni in arrivo",  
 
   "entity.minecraft.villager.monk": "Monaco",
   "entity.minecraft.villager.paladins:monk": "Monaco",

@@ -85,7 +85,7 @@ public class PaladinsMod implements ModInitializer {
                 FabricEntityTypeBuilder.<BarrierEntity>create(SpawnGroup.MISC, BarrierEntity::new)
                         .dimensions(EntityDimensions.fixed(1F, 1F))
                         .fireImmune()
-                        .trackRangeBlocks(10)
+                        .trackRangeBlocks(128)
                         .trackedUpdateRate(20)
                         .build()
         );

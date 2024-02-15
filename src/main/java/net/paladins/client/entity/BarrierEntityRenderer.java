@@ -29,28 +29,29 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         return null;
     }
 
-    private static final RenderLayer BASE_RENDER_LAYER =
-            CustomLayers.spellEffect(LightEmission.GLOW, false);
-            //RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
-    private static final RenderLayer GLOWING_RENDER_LAYER =
+    private static final RenderLayer LAYER =
             CustomLayers.spellEffect(LightEmission.RADIATE, true);
+
+    private static final int segments = 6;
 
 
     @Override
     public void render(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        matrices.push();
+        var spell = ((BarrierEntity)entity).getSpell();
+        if (spell == null) {
+            return;
+        }
+        var range = spell.range;
 
+        matrices.push();
         float horizontalOffset = 1F;
         float verticalOffset = 0;
 
-        var scaleFactor = 2.5F;
+        var scaleFactor = range * 0.75F;
 
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         matrices.translate(0.0F, 1, 0);
 
-        var layer = GLOWING_RENDER_LAYER;
-
-        int segments = 6;
         float segmentWidthMultiplier = (360F / segments) * 0.025F; // Gives 1.5F for 6 segments
         for (int i = 0; i < segments; i++) {
             var rotation = 360F / segments * i;
@@ -60,7 +61,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
             matrices.scale(segmentWidthMultiplier, 1F, 1F);
             matrices.translate(0.0F, verticalOffset, -horizontalOffset);
-            CustomModels.render(layer, itemRenderer, modelId,
+            CustomModels.render(LAYER, itemRenderer, modelId,
                     matrices, vertexConsumers, light, entity.getId());
             matrices.pop();
 
@@ -70,7 +71,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
             matrices.scale(segmentWidthMultiplier, 1F, 1F);
             matrices.translate(0.0F, - verticalOffset + 1, -horizontalOffset);
-            CustomModels.render(layer, itemRenderer, modelId,
+            CustomModels.render(LAYER, itemRenderer, modelId,
                     matrices, vertexConsumers, light, entity.getId());
             matrices.pop();
         }

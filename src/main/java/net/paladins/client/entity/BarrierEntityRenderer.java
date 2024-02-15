@@ -44,17 +44,21 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         float verticalOffset = 0;
 
         var scaleFactor = 2.5F;
+
         matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         matrices.translate(0.0F, 1, 0);
 
         var layer = GLOWING_RENDER_LAYER;
 
         int segments = 6;
+        float segmentWidthMultiplier = (360F / segments) * 0.025F; // Gives 1.5F for 6 segments
         for (int i = 0; i < segments; i++) {
             var rotation = 360F / segments * i;
             matrices.push();
             // Render top part
+
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
+            matrices.scale(segmentWidthMultiplier, 1F, 1F);
             matrices.translate(0.0F, verticalOffset, -horizontalOffset);
             CustomModels.render(layer, itemRenderer, modelId,
                     matrices, vertexConsumers, light, entity.getId());
@@ -64,6 +68,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
             // Render bottom part
             matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180));
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
+            matrices.scale(segmentWidthMultiplier, 1F, 1F);
             matrices.translate(0.0F, - verticalOffset + 1, -horizontalOffset);
             CustomModels.render(layer, itemRenderer, modelId,
                     matrices, vertexConsumers, light, entity.getId());

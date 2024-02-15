@@ -18,18 +18,18 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     private Identifier spellId;
     private int ownerId;
 
-    public int maxLifeTime = 200; // TODO: From spell json TTL
+    public int timeToLive = 20;
 
     public BarrierEntity(EntityType<? extends BarrierEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public void onCreatedFromSpell(LivingEntity owner, Identifier spellId) {
+    @Override
+    public void onCreatedFromSpell(LivingEntity owner, Identifier spellId, Spell.Impact.Action.Spawn spawn) {
         this.spellId = spellId;
         this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
         this.ownerId = owner.getId();
-
-
+        this.timeToLive = spawn.time_to_live_seconds * 20;
     }
 
     @Override
@@ -47,22 +47,16 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         return this.isAlive();
     }
 
-
     public boolean collidesWith(Entity other) {
         var owner = this.getOwner();
         if (owner == null) {
             return super.collidesWith(other);
         }
         if (other instanceof LivingEntity otherLiving) {
-            var relation = TargetHelper.getRelation(otherLiving, this.getOwner());
-            System.out.println("Relation to " + otherLiving.getEntityName() + " is " + relation);
-            if (relation == TargetHelper.Relation.FRIENDLY) {
-                System.out.println("Collides with " + other.getEntityName() + ": false");
+            if (TargetHelper.getRelation(otherLiving, this.getOwner()) == TargetHelper.Relation.FRIENDLY) {
                 return false;
             }
         }
-        var collides = super.collidesWith(other);
-        System.out.println("Collides with " + other.getEntityName() + ": " + collides);
         return super.collidesWith(other);
     }
 
@@ -94,22 +88,40 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         this.calculateDimensions();
     }
 
-        @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
+    private enum NBTKey {
+        OWNER_ID("OwnerId"),
+        SPELL_ID("SpellId"),
+        TIME_TO_LIVE("TTL"),
+        ;
 
+        public final String key;
+        NBTKey(String key) {
+            this.key = key;
+        }
+    }
+
+
+    @Override
+    protected void readCustomDataFromNbt(NbtCompound nbt) {
+        this.spellId = new Identifier(nbt.getString(NBTKey.SPELL_ID.key));
+        this.ownerId = nbt.getInt(NBTKey.OWNER_ID.key);
+        this.timeToLive = nbt.getInt(NBTKey.TIME_TO_LIVE.key);
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
-
+        nbt.putString(NBTKey.SPELL_ID.key, this.spellId.toString());
+        nbt.putInt(NBTKey.OWNER_ID.key, this.ownerId);
+        nbt.putInt(NBTKey.TIME_TO_LIVE.key, this.timeToLive);
     }
 
     @Override
     public void tick() {
-        System.out.println("BarrierEntity.tick");
         super.tick();
-        if (this.age > this.maxLifeTime) {
-            this.kill();
+        if (!getWorld().isClient()) {
+            if (this.age > this.timeToLive) {
+                this.kill();
+            }
         }
     }
 

@@ -47,7 +47,8 @@
       "action": {
         "type": "SPAWN",
         "spawn": {
-          "entity_type_id": "paladins:barrier"
+          "entity_type_id": "paladins:barrier",
+          "time_to_live_seconds": 5
         }
       },
       "sound": {

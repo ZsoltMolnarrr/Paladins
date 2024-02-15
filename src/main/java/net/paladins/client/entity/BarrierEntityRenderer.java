@@ -30,19 +30,24 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
     }
 
     private static final RenderLayer BASE_RENDER_LAYER =
-            RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+            CustomLayers.spellEffect(LightEmission.GLOW, false);
+            //RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
     private static final RenderLayer GLOWING_RENDER_LAYER =
-            CustomLayers.spellEffect(LightEmission.RADIATE, false);
+            CustomLayers.spellEffect(LightEmission.RADIATE, true);
 
 
     @Override
     public void render(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
-        var scaleFactor = 1F;
-        float horizontalOffset = 1.5F;
+
+        float horizontalOffset = 1F;
         float verticalOffset = 0;
 
+        var scaleFactor = 2.5F;
+        matrices.scale(scaleFactor, scaleFactor, scaleFactor);
         matrices.translate(0.0F, 1, 0);
+
+        var layer = GLOWING_RENDER_LAYER;
 
         int segments = 6;
         for (int i = 0; i < segments; i++) {
@@ -51,7 +56,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
             // Render top part
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
             matrices.translate(0.0F, verticalOffset, -horizontalOffset);
-            CustomModels.render(GLOWING_RENDER_LAYER, itemRenderer, modelId,
+            CustomModels.render(layer, itemRenderer, modelId,
                     matrices, vertexConsumers, light, entity.getId());
             matrices.pop();
 
@@ -60,7 +65,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
             matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180));
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
             matrices.translate(0.0F, - verticalOffset + 1, -horizontalOffset);
-            CustomModels.render(GLOWING_RENDER_LAYER, itemRenderer, modelId,
+            CustomModels.render(layer, itemRenderer, modelId,
                     matrices, vertexConsumers, light, entity.getId());
             matrices.pop();
         }

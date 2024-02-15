@@ -19,10 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.paladins.fabric.client.FabricClientMod"
+      "net.paladins.client.PaladinsClientMod"
     ],
     "main": [
-      "net.paladins.fabric.FabricMod"
+      "net.paladins.PaladinsMod"
     ],
     "modmenu": [
       "net.spell_engine.client.compatibility.ModMenuCompatibility"

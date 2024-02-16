@@ -12,6 +12,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
+import net.paladins.util.TwoWayCollisionChecker;
 import net.spell_engine.api.entity.SpellSpawnedEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.internals.SpellRegistry;
@@ -28,6 +29,11 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     private int timeToLive = 20;
     public BarrierEntity(EntityType<? extends BarrierEntity> entityType, World world) {
         super(entityType, world);
+        ((TwoWayCollisionChecker)this).setReverseCollisionChecker(entity -> {
+            return this.collidesWith(entity)
+                    ? TwoWayCollisionChecker.CollisionResult.COLLIDE
+                    : TwoWayCollisionChecker.CollisionResult.PASS;
+        });
     }
     @Override
     public void onCreatedFromSpell(LivingEntity owner, Identifier spellId, Spell.Impact.Action.Spawn spawn) {
@@ -59,8 +65,14 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
             return super.collidesWith(other);
         }
         if (other instanceof LivingEntity otherLiving) {
-            if (TargetHelper.getRelation(otherLiving, this.getOwner()) == TargetHelper.Relation.FRIENDLY) {
-                return false;
+            var relation = TargetHelper.getRelation(this.getOwner(), otherLiving);
+            switch (relation) {
+                case FRIENDLY, SEMI_FRIENDLY -> {
+                    return false;
+                }
+                case NEUTRAL, MIXED, HOSTILE -> {
+                    return true;
+                }
             }
         }
         return super.collidesWith(other);

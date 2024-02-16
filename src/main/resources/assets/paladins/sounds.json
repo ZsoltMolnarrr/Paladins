@@ -65,5 +65,10 @@
     "sounds": [
       "paladins:holy_beam_release"
     ]
+  },
+  "holy_barrier_idle": {
+    "sounds": [
+      "paladins:holy_barrier_idle"
+    ]
   }
 }

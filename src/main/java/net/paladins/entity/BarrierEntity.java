@@ -1,12 +1,17 @@
 package net.paladins.entity;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.paladins.PaladinsMod;
 import net.spell_engine.api.entity.SpellSpawnedEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.internals.SpellRegistry;
@@ -15,15 +20,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     public static EntityType<BarrierEntity> TYPE;
+    public static final Identifier idleSoundId = new Identifier(PaladinsMod.ID, "holy_barrier_idle");
+    public static final SoundEvent idleSound = SoundEvent.of(idleSoundId);
+
     private Identifier spellId;
     private int ownerId;
-
-    public int timeToLive = 20;
-
+    private int timeToLive = 20;
     public BarrierEntity(EntityType<? extends BarrierEntity> entityType, World world) {
         super(entityType, world);
     }
-
     @Override
     public void onCreatedFromSpell(LivingEntity owner, Identifier spellId, Spell.Impact.Action.Spawn spawn) {
         this.spellId = spellId;
@@ -47,6 +52,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         return this.isAlive();
     }
 
+    @Override
     public boolean collidesWith(Entity other) {
         var owner = this.getOwner();
         if (owner == null) {
@@ -60,6 +66,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         return super.collidesWith(other);
     }
 
+    @Override
     public EntityDimensions getDimensions(EntityPose pose) {
         var spell = getSpell();
         if (spell != null) {
@@ -79,6 +86,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         this.getDataTracker().startTracking(OWNER_ID_TRACKER, 0);
     }
 
+    @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         super.onTrackedDataSet(data);
         var rawSpellId = this.getDataTracker().get(SPELL_ID_TRACKER);
@@ -116,9 +124,25 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     }
 
     @Override
+    public boolean isSilent() {
+        return false;
+    }
+
+    private boolean soundAssigned = false;
+
+    @Override
     public void tick() {
         super.tick();
-        if (!getWorld().isClient()) {
+        if (this.getWorld().isClient()) {
+            // Client
+            if (!soundAssigned) {
+                var clientWorld = (ClientWorld) this.getWorld();
+                var player = MinecraftClient.getInstance().player;
+                clientWorld.playSoundFromEntity(player, this, idleSound, SoundCategory.PLAYERS, 1F, 1F);
+                soundAssigned = true;
+            }
+        } else {
+            // Server
             if (this.age > this.timeToLive) {
                 this.kill();
             }

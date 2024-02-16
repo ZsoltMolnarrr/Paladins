@@ -9,6 +9,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
+import net.paladins.entity.BarrierEntity;
 import net.paladins.item.armor.PaladinArmor;
 import net.paladins.item.armor.PriestArmor;
 
@@ -47,6 +48,7 @@ public class SoundHelper {
 
         Registry.register(Registries.SOUND_EVENT, PaladinArmor.equipSoundId, PaladinArmor.equipSound);
         Registry.register(Registries.SOUND_EVENT, PriestArmor.equipSoundId, PriestArmor.equipSound);
+        Registry.register(Registries.SOUND_EVENT, BarrierEntity.idleSoundId, BarrierEntity.idleSound);
     }
 
     public static void playSoundEvent(World world, Entity entity, SoundEvent soundEvent) {

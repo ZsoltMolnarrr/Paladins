@@ -40,6 +40,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         this.spellId = spellId;
         this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
         this.ownerId = owner.getId();
+        this.getDataTracker().set(OWNER_ID_TRACKER, this.ownerId);
         this.timeToLive = spawn.time_to_live_seconds * 20;
     }
 
@@ -167,6 +168,10 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
 
     @Nullable
     public LivingEntity getOwner() {
-        return (LivingEntity) this.getWorld().getEntityById(this.ownerId);
+        var owner = this.getWorld().getEntityById(this.ownerId);
+        if (owner instanceof LivingEntity livingOwner) {
+            return livingOwner;
+        }
+        return null;
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
 import net.paladins.util.TwoWayCollisionChecker;
+import net.spell_engine.api.effect.EntityImmunity;
 import net.spell_engine.api.entity.SpellSpawnedEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.internals.SpellRegistry;
@@ -66,15 +67,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
             return super.collidesWith(other);
         }
         if (other instanceof LivingEntity otherLiving) {
-            var relation = TargetHelper.getRelation(this.getOwner(), otherLiving);
-            switch (relation) {
-                case FRIENDLY, SEMI_FRIENDLY -> {
-                    return false;
-                }
-                case NEUTRAL, MIXED, HOSTILE -> {
-                    return true;
-                }
-            }
+            return !isProtected(otherLiving);
         }
         return super.collidesWith(other);
     }
@@ -107,6 +100,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
             this.spellId = new Identifier(rawSpellId);
         }
         this.calculateDimensions();
+
     }
 
     private enum NBTKey {
@@ -127,6 +121,9 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         this.spellId = new Identifier(nbt.getString(NBTKey.SPELL_ID.key));
         this.ownerId = nbt.getInt(NBTKey.OWNER_ID.key);
         this.timeToLive = nbt.getInt(NBTKey.TIME_TO_LIVE.key);
+
+        this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
+        this.getDataTracker().set(OWNER_ID_TRACKER, this.ownerId);
     }
 
     @Override
@@ -143,10 +140,13 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
 
     private boolean soundAssigned = false;
 
+    private static final int checkInterval = 4;
+
     @Override
     public void tick() {
         super.tick();
         if (this.getWorld().isClient()) {
+            var spell = getSpell();
             // Client
             if (!soundAssigned) {
                 var clientWorld = (ClientWorld) this.getWorld();
@@ -159,17 +159,50 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
             if (this.age > this.timeToLive) {
                 this.kill();
             }
+            if (this.age % checkInterval == 0) {
+                var entities = getWorld().getOtherEntities(this, this.getBoundingBox());
+                for (var entity : entities) {
+                    if (entity instanceof LivingEntity livingEntity) {
+                        if (isProtected(livingEntity)) {
+                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.AREA_EFFECT, checkInterval);
+                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.EXPLOSION, checkInterval);
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    public boolean isProtected(Entity other) {
+        var owner = this.getOwner();
+        if (owner == null) {
+            return false;
+        }
+        var relation = TargetHelper.getRelation(owner, other);
+        switch (relation) {
+            case FRIENDLY, SEMI_FRIENDLY -> {
+                return true;
+            }
+            case NEUTRAL, MIXED, HOSTILE -> {
+                return false;
+            }
+        }
+        return false;
     }
 
     public Spell getSpell() {
         return SpellRegistry.getSpell(spellId);
     }
 
+    private LivingEntity cachedOwner = null;
     @Nullable
     public LivingEntity getOwner() {
+        if (cachedOwner != null) {
+            return cachedOwner;
+        }
         var owner = this.getWorld().getEntityById(this.ownerId);
         if (owner instanceof LivingEntity livingOwner) {
+            cachedOwner = livingOwner;
             return livingOwner;
         }
         return null;

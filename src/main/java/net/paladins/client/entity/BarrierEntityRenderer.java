@@ -16,8 +16,8 @@ import net.minecraft.util.math.Vec3d;
 import net.paladins.PaladinsMod;
 import net.paladins.entity.BarrierEntity;
 import net.spell_engine.api.render.CustomLayers;
-import net.spell_engine.api.render.CustomModels;
-import net.spell_engine.api.render.LightEmission;
+import net.spell_engine.client.compatibility.ShaderCompatibility;
+import net.spell_engine.client.util.Color;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
@@ -64,7 +64,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         matrices.push();
         Vec3d camPos = camera.getPos();
         matrices.translate(-camPos.x, -camPos.y, -camPos.z);
-        var config = Config.IRIS;
+        var config = ShaderCompatibility.isShaderPackInUse() ? Config.IRIS : Config.VANILLA;
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(config.layer());
         for (BarrierEntity entity : activeBarriers) {
             matrices.push();
@@ -86,7 +86,9 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
             float panelFlashAlpha,
             float expirationPulseAlpha) {
 
-        public static final Config DEFAULT = new Config(
+        private static final Color shield = Color.from(0xffcc66);
+
+        public static final Config VANILLA = new Config(
                 CustomLayers.create(
                         SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
                         BEACON_BEAM_PROGRAM,
@@ -96,7 +98,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                         ENABLE_OVERLAY_COLOR,
                         MAIN_TARGET,
                         true),
-                1f, 0.8f, 0.4f, 0.2f, 0.2f, 1f);
+                shield.red(), shield.green(), shield.blue(), 0.8f, 0.9f, 1f);
 
         public static final Config IRIS = new Config(
                 CustomLayers.create(
@@ -108,7 +110,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                         ENABLE_OVERLAY_COLOR,
                         MAIN_TARGET,
                         false),
-                1f, 0.8f, 0.4f, 0.2f, 0.5f, 0.8f);
+                shield.red(), shield.green(), shield.blue(), 0.2f, 0.6f, 0.8f);
     }
 
     public static void renderShield(BarrierEntity entity, MatrixStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {

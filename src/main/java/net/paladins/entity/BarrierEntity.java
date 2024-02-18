@@ -167,7 +167,6 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     public void tick() {
         super.tick();
         if (this.getWorld().isClient()) {
-            var spell = getSpell();
             // Client
             if (!idleSoundFired) {
                 var clientWorld = (ClientWorld) this.getWorld();

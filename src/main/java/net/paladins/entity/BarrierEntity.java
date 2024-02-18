@@ -36,6 +36,11 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
                     : TwoWayCollisionChecker.CollisionResult.PASS;
         });
     }
+
+    public int getTimeToLive() {
+        return timeToLive;
+    }
+
     @Override
     public void onCreatedFromSpell(LivingEntity owner, Identifier spellId, Spell.Impact.Action.Spawn spawn) {
         this.spellId = spellId;
@@ -43,6 +48,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         this.ownerId = owner.getId();
         this.getDataTracker().set(OWNER_ID_TRACKER, this.ownerId);
         this.timeToLive = spawn.time_to_live_seconds * 20;
+        this.getDataTracker().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
     }
 
     @Override
@@ -86,10 +92,12 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
 
     private static final TrackedData<String> SPELL_ID_TRACKER  = DataTracker.registerData(BarrierEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> OWNER_ID_TRACKER  = DataTracker.registerData(BarrierEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER  = DataTracker.registerData(BarrierEntity.class, TrackedDataHandlerRegistry.INTEGER);
     @Override
     protected void initDataTracker() {
         this.getDataTracker().startTracking(SPELL_ID_TRACKER, "");
         this.getDataTracker().startTracking(OWNER_ID_TRACKER, 0);
+        this.getDataTracker().startTracking(TIME_TO_LIVE_TRACKER, 0);
     }
 
     @Override
@@ -99,6 +107,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         if (rawSpellId != null && !rawSpellId.isEmpty()) {
             this.spellId = new Identifier(rawSpellId);
         }
+        this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
         this.calculateDimensions();
 
     }

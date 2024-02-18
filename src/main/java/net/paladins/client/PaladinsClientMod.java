@@ -26,8 +26,7 @@ public class PaladinsClientMod implements ClientModInitializer {
         CustomModels.registerModelIds(List.of(
                 new Identifier(PaladinsMod.ID, "projectile/judgement"),
                 DivineProtectionRenderer.modelId_base,
-                DivineProtectionRenderer.modelId_overlay,
-                BarrierEntityRenderer.modelId
+                DivineProtectionRenderer.modelId_overlay
         ));
         CustomModelStatusEffect.register(Effects.DIVINE_PROTECTION, new DivineProtectionRenderer());
         CustomParticleStatusEffect.register(Effects.JUDGEMENT, new StunParticleSpawner());
@@ -35,5 +34,6 @@ public class PaladinsClientMod implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(PaladinBlocks.MONK_WORKBENCH, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);
+        BarrierEntityRenderer.setup();
     }
 }

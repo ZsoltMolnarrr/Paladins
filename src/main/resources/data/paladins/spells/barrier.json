@@ -50,9 +50,6 @@
           "entity_type_id": "paladins:barrier",
           "time_to_live_seconds": 10
         }
-      },
-      "sound": {
-        "id": "spell_engine:generic_healing_impact_2"
       }
     }
   ],

@@ -76,6 +76,11 @@
       "paladins:holy_barrier_idle"
     ]
   },
+  "holy_barrier_impact": {
+    "sounds": [
+      "paladins:holy_barrier_impact"
+    ]
+  },
   "holy_barrier_deactivate": {
     "sounds": [
       "paladins:holy_barrier_deactivate"

@@ -3,6 +3,7 @@ package net.paladins.entity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -26,6 +27,8 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     public static final SoundEvent activateSound = SoundEvent.of(activateSoundId);
     public static final Identifier idleSoundId = new Identifier(PaladinsMod.ID, "holy_barrier_idle");
     public static final SoundEvent idleSound = SoundEvent.of(idleSoundId);
+    public static final Identifier impactSoundId = new Identifier(PaladinsMod.ID, "holy_barrier_impact");
+    public static final SoundEvent impactSound = SoundEvent.of(impactSoundId);
     public static final Identifier deactivateSoundId = new Identifier(PaladinsMod.ID, "holy_barrier_deactivate");
     public static final SoundEvent deactivateSound = SoundEvent.of(deactivateSoundId);
 
@@ -84,6 +87,12 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     }
 
     @Override
+    public boolean damage(DamageSource source, float amount) {
+        this.getWorld().playSoundFromEntity(null, this, impactSound, SoundCategory.PLAYERS, 1F, 1F);
+        return super.damage(source, amount);
+    }
+
+        @Override
     public EntityDimensions getDimensions(EntityPose pose) {
         var spell = getSpell();
         if (spell != null) {
@@ -114,7 +123,6 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
         this.calculateDimensions();
-
     }
 
     private enum NBTKey {

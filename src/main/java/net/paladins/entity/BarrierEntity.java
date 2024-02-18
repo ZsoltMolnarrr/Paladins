@@ -12,9 +12,9 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
-import net.paladins.util.TwoWayCollisionChecker;
 import net.spell_engine.api.effect.EntityImmunity;
 import net.spell_engine.api.entity.SpellSpawnedEntity;
+import net.spell_engine.api.entity.TwoWayCollisionChecker;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.utils.TargetHelper;
@@ -169,12 +169,12 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
                 this.kill();
             }
             if (this.age % checkInterval == 0) {
-                var entities = getWorld().getOtherEntities(this, this.getBoundingBox());
+                var entities = getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.1F));
                 for (var entity : entities) {
                     if (entity instanceof LivingEntity livingEntity) {
                         if (isProtected(livingEntity)) {
-                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.AREA_EFFECT, checkInterval);
-                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.EXPLOSION, checkInterval);
+                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.AREA_EFFECT, checkInterval + 1);
+                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.EXPLOSION, checkInterval + 1);
                         }
                     }
                 }

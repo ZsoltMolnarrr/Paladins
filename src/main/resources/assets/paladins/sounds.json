@@ -66,9 +66,19 @@
       "paladins:holy_beam_release"
     ]
   },
+  "holy_barrier_activate": {
+    "sounds": [
+      "paladins:holy_barrier_activate"
+    ]
+  },
   "holy_barrier_idle": {
     "sounds": [
       "paladins:holy_barrier_idle"
+    ]
+  },
+  "holy_barrier_deactivate": {
+    "sounds": [
+      "paladins:holy_barrier_deactivate"
     ]
   }
 }

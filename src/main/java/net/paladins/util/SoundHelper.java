@@ -48,7 +48,9 @@ public class SoundHelper {
 
         Registry.register(Registries.SOUND_EVENT, PaladinArmor.equipSoundId, PaladinArmor.equipSound);
         Registry.register(Registries.SOUND_EVENT, PriestArmor.equipSoundId, PriestArmor.equipSound);
+        Registry.register(Registries.SOUND_EVENT, BarrierEntity.activateSoundId, BarrierEntity.activateSound);
         Registry.register(Registries.SOUND_EVENT, BarrierEntity.idleSoundId, BarrierEntity.idleSound);
+        Registry.register(Registries.SOUND_EVENT, BarrierEntity.deactivateSoundId, BarrierEntity.deactivateSound);
     }
 
     public static void playSoundEvent(World world, Entity entity, SoundEvent soundEvent) {

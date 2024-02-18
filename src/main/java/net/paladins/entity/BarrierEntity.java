@@ -22,8 +22,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     public static EntityType<BarrierEntity> TYPE;
+    public static final Identifier activateSoundId = new Identifier(PaladinsMod.ID, "holy_barrier_activate");
+    public static final SoundEvent activateSound = SoundEvent.of(activateSoundId);
     public static final Identifier idleSoundId = new Identifier(PaladinsMod.ID, "holy_barrier_idle");
     public static final SoundEvent idleSound = SoundEvent.of(idleSoundId);
+    public static final Identifier deactivateSoundId = new Identifier(PaladinsMod.ID, "holy_barrier_deactivate");
+    public static final SoundEvent deactivateSound = SoundEvent.of(deactivateSoundId);
+
 
     private Identifier spellId;
     private int ownerId;
@@ -147,8 +152,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         return false;
     }
 
-    private boolean soundAssigned = false;
-
+    private boolean idleSoundFired = false;
     private static final int checkInterval = 4;
 
     @Override
@@ -157,11 +161,11 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         if (this.getWorld().isClient()) {
             var spell = getSpell();
             // Client
-            if (!soundAssigned) {
+            if (!idleSoundFired) {
                 var clientWorld = (ClientWorld) this.getWorld();
                 var player = MinecraftClient.getInstance().player;
                 clientWorld.playSoundFromEntity(player, this, idleSound, SoundCategory.PLAYERS, 1F, 1F);
-                soundAssigned = true;
+                idleSoundFired = true;
             }
         } else {
             // Server
@@ -179,7 +183,18 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
                     }
                 }
             }
+            if (this.age == (this.timeToLive - expirationDuration())) {
+                this.getWorld().playSoundFromEntity(null, this, deactivateSound, SoundCategory.PLAYERS, 1F, 1F);
+            }
         }
+    }
+
+    public int expirationDuration() {
+        return 20;
+    }
+
+    public boolean isExpiring() {
+        return this.age >= (this.timeToLive - expirationDuration());
     }
 
     public boolean isProtected(Entity other) {

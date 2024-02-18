@@ -28,7 +28,7 @@
     },
     "animation": "spell_engine:one_handed_area_release",
     "sound": {
-      "id": "spell_engine:generic_healing_release"
+      "id": "paladins:holy_barrier_activate"
     },
     "particles": [
       {

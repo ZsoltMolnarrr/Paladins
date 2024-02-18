@@ -31,7 +31,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
     public static final Identifier blankTextureId = new Identifier(PaladinsMod.ID, "item/barrier");
     public static final List<BarrierEntity> activeBarriers = new ArrayList<>();
-    private static final RenderLayer LAYER = CustomLayers.create(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, BEACON_BEAM_PROGRAM, TRANSLUCENT_TRANSPARENCY, DISABLE_CULLING, COLOR_MASK, ENABLE_OVERLAY_COLOR, MAIN_TARGET, true);
+
     private static final int[] LIGHT_UP_ORDER = {0, 2, 8, 6, 4, 3, 9, 1, 5, 10, 7, 11};
 
     public static void setup() {
@@ -64,11 +64,12 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         matrices.push();
         Vec3d camPos = camera.getPos();
         matrices.translate(-camPos.x, -camPos.y, -camPos.z);
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(LAYER);
+        var config = Config.IRIS;
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(config.layer());
         for (BarrierEntity entity : activeBarriers) {
             matrices.push();
-            matrices.translate(entity.getX(), entity.getY()+1.5, entity.getZ());
-            renderShield(entity, matrices, vertexConsumer, light, tickDelta);
+            matrices.translate(entity.getX(), entity.getY()+1, entity.getZ());
+            renderShield(entity, matrices, vertexConsumer, light, tickDelta, config);
             matrices.pop();
         }
         vertexConsumers.draw();
@@ -76,13 +77,47 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         activeBarriers.clear();
     }
 
-    public static void renderShield(BarrierEntity entity, MatrixStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta) {
+    private record Config(
+            RenderLayer layer,
+            float red,
+            float green,
+            float blue,
+            float alpha,
+            float panelFlashAlpha,
+            float expirationPulseAlpha) {
+
+        public static final Config DEFAULT = new Config(
+                CustomLayers.create(
+                        SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
+                        BEACON_BEAM_PROGRAM,
+                        TRANSLUCENT_TRANSPARENCY,
+                        DISABLE_CULLING,
+                        COLOR_MASK,
+                        ENABLE_OVERLAY_COLOR,
+                        MAIN_TARGET,
+                        true),
+                1f, 0.8f, 0.4f, 0.2f, 0.2f, 1f);
+
+        public static final Config IRIS = new Config(
+                CustomLayers.create(
+                        SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
+                        ENTITY_TRANSLUCENT_EMISSIVE_PROGRAM,
+                        TRANSLUCENT_TRANSPARENCY,
+                        DISABLE_CULLING,
+                        COLOR_MASK,
+                        ENABLE_OVERLAY_COLOR,
+                        MAIN_TARGET,
+                        false),
+                1f, 0.8f, 0.4f, 0.2f, 0.5f, 0.8f);
+    }
+
+    public static void renderShield(BarrierEntity entity, MatrixStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {
         var spell = entity.getSpell();
         if (spell == null) {
             return;
         }
 
-        float radius = spell.range*0.75f;
+        float radius = spell.range*0.8f;
         float zSlant = (float) (Math.PI/8f); // the amount of slant along the z axis that the segments have
         float size = (radius*MathHelper.sqrt(3f))/3f; // half of the side length of each segment - calculated using the formula for triangle side length from height
         float offset = radius*(MathHelper.sin(zSlant)+1); // offset from the center for each segment - the top of each segment should be exactly `radius` blocks away from the middle
@@ -95,6 +130,12 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         float v1 = sprite.getMinV();
         float v2 = sprite.getMaxV();
 
+        double fullTime = entity.getWorld().getTime()/20d;
+        long time = entity.getWorld().getTime()/20;
+        double delta = (fullTime-time)*2; // delta is how far along the animation is
+        if (delta > 1) delta = 2-delta; // send in opposite direction if halfway
+        delta = 1 - Math.pow(1 - delta, 4); // ease out interpolation
+
         for (int m = 0; m < 2; m++) { // 2 outer loops, 1 for the top half and 1 for the bottom half
             for (int i = 0; i < 6; i++) { // 6 inner loops, 1 for each segment(since it's a hexagon)
                 matrices.push();
@@ -103,24 +144,21 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                 matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (i/3f*Math.PI)), -offset, 0, 0); // rotate around middle to position segment
                 matrices.multiply(RotationAxis.POSITIVE_Z.rotation(zSlant)); // applying z slant
 
-                float r = 1f;
-                float g = 0.5f;
-                float b = 0;
+                float r = config.red();
+                float g = config.green();
+                float b = config.blue();
+                float alpha = config.alpha();
 
-                double fullTime = entity.getWorld().getTime()/20d;
-                long time = entity.getWorld().getTime()/20;
-                double delta = (fullTime-time)*2; // delta is how far along the animation is
-                if (delta > 1) delta = 2-delta; // send in opposite direction if halfway
-                delta = 1 - Math.pow(1 - delta, 4); // ease out interpolation
-                if (time % 12 == LIGHT_UP_ORDER[i+(m*6)]) {
+                if (entity.age >= entity.getTimeToLive() - entity.expirationDuration()) {
+                    int relAge = entity.getTimeToLive() - entity.expirationDuration() - entity.age;
+                    alpha = config.expirationPulseAlpha * Math.abs(MathHelper.cos((float) ((relAge*1.25f)/10f * Math.PI))); // simple calculation to flash in and out - the PI and 1.25 multiplications are to make it start at full alpha and end at none
+                } else  if (time % 12 == LIGHT_UP_ORDER[i+(m*6)]) {
                     //g+=(float) (0.1f*delta);
-                    b+=(float) (0.5f*delta);
-                }
-
-                float alpha = 1f;
-                if (entity.age >= entity.getTimeToLive()-20) {
-                    int relAge = entity.getTimeToLive() - 20 - entity.age;
-                    alpha = Math.abs(MathHelper.cos((float) ((relAge*1.25f)/10f * Math.PI))); // simple calculation to flash in and out - the PI and 1.25 multiplications are to make it start at full alpha and end at none
+                    var glow = (float) (0.5f*delta);
+                    r = blend(r, 1f, glow);
+                    g = blend(g, 1f, glow);
+                    b = blend(b, 1f, glow);
+                    alpha = blend(alpha, config.panelFlashAlpha(), glow);
                 }
 
                 Matrix4f matrix = new Matrix4f(matrices.peek().getPositionMatrix()); // copying matrix to avoid issue with sodium's matrix optimizations
@@ -155,5 +193,9 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                 matrices.pop();
             }
         }
+    }
+
+    public static float blend(float min, float max, float delta) {
+        return min + (max - min) * delta;
     }
 }

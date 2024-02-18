@@ -73,6 +73,8 @@
   "spell.paladins.circle_of_healing.description": "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.",
   "effect.paladins.priest_absorption": "Absorption",
   "effect.paladins.priest_absorption.description": "Absorbs some damage you would take",
+  "spell.paladins.barrier.name": "Barrier",
+  "spell.paladins.barrier.description": "Summons a circular barrier, protecting you and allies from projectiles, magic or enemies intruding the area.",
 
   "entity.minecraft.villager.monk": "Monk",
   "entity.minecraft.villager.paladins:monk": "Monk",

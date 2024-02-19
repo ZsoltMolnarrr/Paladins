@@ -1,5 +1,15 @@
 # 1.0.6
 
+Paladin changes:
+- Add new spell: Battle Banner
+- Reduce cooldown of Flash Heal spell from 8 to 6 seconds
+- Update all spell icons
+
+Priest changes:
+- Add new spell: Barrier
+- Update visual effects for Circle of Healing spell 
+
+Other changes:
 - Fix spanish translation
 
 # 1.0.5

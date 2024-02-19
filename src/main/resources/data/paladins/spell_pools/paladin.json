@@ -2,6 +2,7 @@
   "spell_ids": [
     "paladins:flash_heal",
     "paladins:judgement",
-    "paladins:divine_protection"
+    "paladins:divine_protection",
+    "paladins:battle_banner"
   ]
 }

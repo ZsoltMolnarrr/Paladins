@@ -62,6 +62,8 @@
   "spell.paladins.judgement.description": "Strikes your target and enemies around it, within {impact_range} blocks, causing up to {damage} damage and stunning them for {effect_duration} seconds.",
   "effect.paladins.judgement": "Stunned",
   "effect.paladins.judgement.description": "Prevents movement and actions",
+  "spell.paladins.battle_banner.name": "Battle Banner",
+  "spell.paladins.battle_banner.description": "TODO",
 
   "spell.paladins.heal.name": "Heal",
   "spell.paladins.heal.description": "Heals you or a friendly target by {heal} health points.",

@@ -1,4 +1,4 @@
-# 1.0.6
+# 1.1.0
 
 Paladin changes:
 - Add new spell: Battle Banner

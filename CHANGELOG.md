@@ -10,6 +10,7 @@ Priest changes:
 - Update visual effects for Circle of Healing spell 
 
 Other changes:
+- Add equipment tier item tags in `rpg_series` scope
 - Fix spanish translation
 
 # 1.0.5

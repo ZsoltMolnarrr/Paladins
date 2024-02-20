@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "paladins:wooden_great_hammer",
+    "paladins:stone_great_hammer",
+    "paladins:stone_claymore",
+    "paladins:acolyte_wand"
+  ]
+}

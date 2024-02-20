@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "paladins:diamond_mace",
+    "paladins:diamond_great_hammer",
+    "paladins:diamond_claymore",
+    "paladins:diamond_holy_staff"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "paladins:netherite_mace",
+    "paladins:netherite_great_hammer",
+    "paladins:netherite_claymore",
+    "paladins:netherite_holy_staff"
+  ]
+}

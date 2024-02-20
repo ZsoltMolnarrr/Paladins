@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "paladins:crusader_armor_chest",
+    "paladins:crusader_armor_feet",
+    "paladins:crusader_armor_head",
+    "paladins:crusader_armor_legs",
+    "paladins:prior_robe_chest",
+    "paladins:prior_robe_feet",
+    "paladins:prior_robe_head",
+    "paladins:prior_robe_legs"
+  ]
+}

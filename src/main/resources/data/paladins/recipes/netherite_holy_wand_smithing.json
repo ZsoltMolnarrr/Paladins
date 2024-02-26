@@ -4,7 +4,7 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "paladins:holy_wand"
+    "item": "paladins:diamond_holy_wand"
   },
   "result": {
     "item": "paladins:netherite_holy_wand"

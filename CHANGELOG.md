@@ -11,6 +11,7 @@ Priest changes:
 
 Other changes:
 - Add equipment tier item tags in `rpg_series` scope
+- Add Diamond Holy Wand
 - Fix spanish translation
 
 # 1.0.5

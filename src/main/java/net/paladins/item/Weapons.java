@@ -159,6 +159,9 @@ public class Weapons {
     public static final Weapon.Entry holy_wand = wand("holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
             .attribute(ItemConfig.Attribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2));
+    public static final Weapon.Entry diamond_holy_wand = wand("diamond_holy_wand",
+            Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)))
+            .attribute(ItemConfig.Attribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 2.5F));
     public static final Weapon.Entry netherite_holy_wand = wand("netherite_holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
             .attribute(ItemConfig.Attribute.bonus(SpellAttributes.POWER.get(MagicSchool.HEALING), 3));

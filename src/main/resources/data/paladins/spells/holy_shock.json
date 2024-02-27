@@ -1,5 +1,6 @@
 {
   "school": "HEALING",
+  "group": "primary",
   "range": 16,
   "learn": {
     "tier": 1

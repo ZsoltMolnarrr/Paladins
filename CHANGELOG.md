@@ -12,6 +12,8 @@ Priest changes:
 Other changes:
 - Add equipment tier item tags in `rpg_series` scope
 - Add Diamond Holy Wand
+- Retexture Aeternium Claymore
+- Staves and Wands now all come with tier 0 spell, all of them are now able to cast from spell books
 - Fix spanish translation
 
 # 1.0.5

@@ -53,7 +53,8 @@
             "model": {
               "model_id": "paladins:projectile/judgement",
               "light_emission": "RADIATE",
-              "scale": 1.2
+              "scale": 1.2,
+              "light_level": 10
             }
           }
         }

@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.effect.Effects;
+import net.paladins.entity.BannerEntity;
 import net.paladins.entity.BarrierEntity;
 import net.paladins.item.Group;
 import net.paladins.item.PaladinBooks;
@@ -23,9 +24,11 @@ import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 import net.paladins.util.SoundHelper;
 import net.paladins.village.PaladinVillagers;
+import net.spell_engine.SpellEngineMod;
 import net.spell_engine.api.item.ItemConfig;
 import net.spell_engine.api.loot.LootConfig;
 import net.spell_engine.api.loot.LootHelper;
+import net.spell_engine.entity.SpellCloud;
 import net.tinyconfig.ConfigManager;
 
 public class PaladinsMod implements ModInitializer {
@@ -84,6 +87,16 @@ public class PaladinsMod implements ModInitializer {
                 new Identifier(ID, "barrier"),
                 FabricEntityTypeBuilder.<BarrierEntity>create(SpawnGroup.MISC, BarrierEntity::new)
                         .dimensions(EntityDimensions.fixed(1F, 1F))
+                        .fireImmune()
+                        .trackRangeBlocks(128)
+                        .trackedUpdateRate(20)
+                        .build()
+        );
+        BannerEntity.ENTITY_TYPE = Registry.register(
+                Registries.ENTITY_TYPE,
+                new Identifier(ID, "battle_banner"),
+                FabricEntityTypeBuilder.<BannerEntity>create(SpawnGroup.MISC, BannerEntity::new)
+                        .dimensions(EntityDimensions.changing(6F, 0.5F)) // dimensions in Minecraft units of the render
                         .fireImmune()
                         .trackRangeBlocks(128)
                         .trackedUpdateRate(20)

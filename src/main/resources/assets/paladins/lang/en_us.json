@@ -64,7 +64,9 @@
   "effect.paladins.judgement": "Stunned",
   "effect.paladins.judgement.description": "Prevents movement and actions",
   "spell.paladins.battle_banner.name": "Battle Banner",
-  "spell.paladins.battle_banner.description": "TODO",
+  "spell.paladins.battle_banner.description": "Places a banner on the ground, increasing attack speed and knockback resistance for you and allies nearby.",
+  "effect.paladins.battle_banner": "Battle Banner",
+  "effect.paladins.battle_banner.description": "Increases attack speed and knockback resistance",
 
   "spell.paladins.heal.name": "Heal",
   "spell.paladins.heal.description": "Heals you or a friendly target by {heal} health points.",

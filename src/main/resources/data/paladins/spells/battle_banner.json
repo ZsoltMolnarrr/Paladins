@@ -35,8 +35,8 @@
             "vertical_range_multiplier": 0.3
           }
         },
-        "impact_tick_interval": 15,
-        "time_to_live_seconds": 8,
+        "impact_tick_interval": 5,
+        "time_to_live_seconds": 10,
         "client_data": {
           "particles": [
             {
@@ -71,7 +71,7 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "paladins:battle_banner",
-          "duration": 5,
+          "duration": 3,
           "apply_mode": "SET",
           "amplifier": 0,
           "show_particles": false

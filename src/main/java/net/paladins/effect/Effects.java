@@ -18,11 +18,11 @@ public class Effects {
     public static StatusEffect BATTLE_BANNER = new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff)
             .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED,
                     "052f3166-8a43-11ed-a1eb-0242ac120002",
-                    0.2,
+                    0.3,
                     EntityAttributeModifier.Operation.MULTIPLY_BASE)
             .addAttributeModifier(EntityAttributes_SpellPower.HASTE,
                     "052f3166-8a43-11ed-a1eb-0242ac120002",
-                    0.2,
+                    0.3,
                     EntityAttributeModifier.Operation.MULTIPLY_BASE)
             .addAttributeModifier(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,
                     "052f3166-8a43-11ed-a1eb-0242ac120002",

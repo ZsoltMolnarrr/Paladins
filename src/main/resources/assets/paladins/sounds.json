@@ -29,6 +29,16 @@
       "paladins:judgement_impact"
     ]
   },
+  "battle_banner_release": {
+    "sounds": [
+      "paladins:battle_banner_release"
+    ]
+  },
+  "battle_banner_presence": {
+    "sounds": [
+      "paladins:battle_banner_presence"
+    ]
+  },
 
   "holy_shock_damage": {
     "sounds": [
@@ -86,4 +96,4 @@
       "paladins:holy_barrier_deactivate"
     ]
   }
-}
+},

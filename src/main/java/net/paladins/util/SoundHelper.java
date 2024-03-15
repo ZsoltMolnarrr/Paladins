@@ -23,6 +23,8 @@ public class SoundHelper {
             "divine_protection_release",
             "judgement_impact",
             "divine_protection_impact",
+            "battle_banner_release",
+            "battle_banner_presence",
             "holy_shock_damage",
             "holy_shock_heal",
             "holy_beam_start_casting",

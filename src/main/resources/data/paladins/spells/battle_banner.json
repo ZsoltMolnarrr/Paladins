@@ -6,25 +6,13 @@
   },
 
   "cast": {
-    "duration": 0.5,
-    "animation": "spell_engine:one_handed_projectile_charge",
-    "sound": {
-      "id": "spell_engine:generic_healing_casting",
-      "randomness": 0
-    },
-    "particles": [
-      {
-        "particle_id": "spell_engine:holy_spark_mini",
-        "shape": "PIPE",
-        "origin": "FEET",
-        "count": 1.0,
-        "min_speed": 0.05,
-        "max_speed": 0.1
-      }
-    ]
+    "duration": 0
   },
   "release": {
-    "animation": "spell_engine:one_handed_area_release",
+    "sound": {
+      "id": "paladins:battle_banner_release"
+    },
+    "animation": "spell_engine:one_handed_healing_release",
     "target": {
       "type": "CLOUD",
       "cloud": {
@@ -34,6 +22,10 @@
           "area": {
             "vertical_range_multiplier": 0.3
           }
+        },
+        "presence_sound": {
+          "id": "paladins:battle_banner_presence",
+          "randomness": 0
         },
         "impact_tick_interval": 5,
         "time_to_live_seconds": 10,

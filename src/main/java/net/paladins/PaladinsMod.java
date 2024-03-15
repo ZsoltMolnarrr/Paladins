@@ -14,21 +14,20 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
+import net.paladins.config.EffectsConfig;
 import net.paladins.effect.Effects;
 import net.paladins.entity.BannerEntity;
 import net.paladins.entity.BarrierEntity;
 import net.paladins.item.Group;
 import net.paladins.item.PaladinBooks;
 import net.paladins.item.PaladinItems;
-import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
+import net.paladins.item.armor.Armors;
 import net.paladins.util.SoundHelper;
 import net.paladins.village.PaladinVillagers;
-import net.spell_engine.SpellEngineMod;
 import net.spell_engine.api.item.ItemConfig;
 import net.spell_engine.api.loot.LootConfig;
 import net.spell_engine.api.loot.LootHelper;
-import net.spell_engine.entity.SpellCloud;
 import net.tinyconfig.ConfigManager;
 
 public class PaladinsMod implements ModInitializer {
@@ -54,9 +53,17 @@ public class PaladinsMod implements ModInitializer {
             .sanitize(true)
             .build();
 
+    public static ConfigManager<EffectsConfig> effectsConfig = new ConfigManager<EffectsConfig>
+            ("effects", new EffectsConfig())
+            .builder()
+            .setDirectory(ID)
+            .sanitize(true)
+            .build();
+
     public void onInitialize() {
         lootConfig.refresh();
         itemConfig.refresh();
+        effectsConfig.refresh();
         Group.PALADINS = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
                 .displayName(Text.translatable("itemGroup.paladins.general"))

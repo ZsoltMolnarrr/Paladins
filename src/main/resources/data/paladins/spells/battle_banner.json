@@ -74,6 +74,6 @@
 
   "cost": {
     "item_id": "runes:healing_stone",
-    "cooldown_duration": 1
+    "cooldown_duration": 45
   }
 }

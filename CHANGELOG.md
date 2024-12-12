@@ -1,3 +1,9 @@
+# 2.1.2
+
+- Fix enchantability of shields
+- Udpdate Russian translation, thanks to @Heimdallr
+- Add Brazilian translation, thanks to @demorogabrtz
+
 # 2.1.1
 
 - Fix Netherite Claymore recipe

@@ -11,6 +11,10 @@
     {
       "id": "paladins:ruby_kite_shield",
       "required": false
+    },
+    {
+      "id": "paladins:aether_kite_shield",
+      "required": false
     }
   ]
 }

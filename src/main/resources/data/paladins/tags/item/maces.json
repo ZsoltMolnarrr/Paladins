@@ -11,6 +11,10 @@
     {
       "id": "paladins:ruby_mace",
       "required": false
+    },
+    {
+      "id": "paladins:aether_mace",
+      "required": false
     }
   ]
 }

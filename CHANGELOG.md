@@ -1,8 +1,12 @@
-# 2.1.2
+# 2.2.0
 
 - Fix enchantability of shields
 - Udpdate Russian translation, thanks to @Heimdallr
 - Add Brazilian translation, thanks to @demorogabrtz
+- Add new weapons, obtainable only as loot from Aether dungeons
+  - Holy Claymore
+  - Silver Staff of the Valkyrie
+  - Valkyrie Bulwark
 
 # 2.1.1
 

@@ -6,6 +6,10 @@
     {
       "id": "paladins:ruby_holy_staff",
       "required": false
+    },
+    {
+      "id": "paladins:aether_holy_staff",
+      "required": false
     }
   ]
 }

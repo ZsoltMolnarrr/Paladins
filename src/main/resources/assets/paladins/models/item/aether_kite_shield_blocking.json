@@ -1,0 +1,7 @@
+{
+	"parent": "paladins:item/base/metal_kite_shield_d_blocking",
+	"textures": {
+		"0": "paladins:item/aether_kite_shield",
+		"particle": "paladins:item/aether_kite_shield"
+	}
+}

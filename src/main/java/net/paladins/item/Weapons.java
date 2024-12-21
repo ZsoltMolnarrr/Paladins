@@ -44,6 +44,7 @@ public class Weapons {
         }
     }
 
+    private static final String AETHER = "aether";
     private static final String BETTER_END = "betterend";
     private static final String BETTER_NETHER = "betternether";
 
@@ -163,6 +164,15 @@ public class Weapons {
             claymore("aeternium_claymore", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 13F);
             hammer("aeternium_great_hammer", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 16F);
             mace("aeternium_mace", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 11F);
+        }
+        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(AETHER)) {
+            var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
+            staff("aether_holy_staff",
+                    Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
+                    .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 7));
+            claymore("aether_claymore", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 13F);
+//            hammer("ruby_great_hammer", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 16F);
+//            mace("ruby_mace", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 11F);
         }
 
         Weapon.register(configs, entries, Group.KEY);

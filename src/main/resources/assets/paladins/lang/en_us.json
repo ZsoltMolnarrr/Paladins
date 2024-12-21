@@ -24,6 +24,7 @@
   "item.paladins.netherite_claymore": "Netherite Claymore",
   "item.paladins.aeternium_claymore": "Aeternium Claymore",
   "item.paladins.ruby_claymore": "Ruby Claymore",
+  "item.paladins.aether_claymore": "Holy Claymore",
 
   "item.paladins.wooden_great_hammer": "Wooden Great Hammer",
   "item.paladins.stone_great_hammer": "Stone Great Hammer",
@@ -33,6 +34,7 @@
   "item.paladins.netherite_great_hammer": "Netherite Great Hammer",
   "item.paladins.aeternium_great_hammer": "Aeternium Great Hammer",
   "item.paladins.ruby_great_hammer": "Ruby Great Hammer",
+  "item.paladins.aether_great_hammer": "Aether Great Hammer",
 
   "item.paladins.stone_mace": "Stone Mace",
   "item.paladins.iron_mace": "Iron Mace",
@@ -41,6 +43,7 @@
   "item.paladins.netherite_mace": "Netherite Mace",
   "item.paladins.aeternium_mace": "Aeternium Mace",
   "item.paladins.ruby_mace": "Ruby Mace",
+  "item.paladins.aether_mace": "Aether Mace",
 
   "item.paladins.priest_robe_head": "Priest Collar",
   "item.paladins.priest_robe_chest": "Priest Vestment",
@@ -64,6 +67,7 @@
   "item.paladins.diamond_holy_staff": "Diamond Holy Staff",
   "item.paladins.netherite_holy_staff": "Netherite Holy Staff",
   "item.paladins.ruby_holy_staff": "Ruby Holy Staff",
+  "item.paladins.aether_holy_staff": "Silver Staff of the Valkyrie",
 
   "item.paladins.iron_kite_shield": "Iron Kite Shield",
   "item.paladins.golden_kite_shield": "Golden Kite Shield",
@@ -71,6 +75,7 @@
   "item.paladins.netherite_kite_shield": "Netherite Kite Shield",
   "item.paladins.aeternium_kite_shield": "Aeternium Kite Shield",
   "item.paladins.ruby_kite_shield": "Ruby Kite Shield",
+  "item.paladins.aether_kite_shield": "Valkyrie Bulwark",
 
   "spell.paladins.flash_heal.name": "Flash Heal",
   "spell.paladins.flash_heal.description": "Heals you or a friendly target by {heal} health points.",

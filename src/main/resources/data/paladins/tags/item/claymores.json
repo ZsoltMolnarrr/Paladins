@@ -12,6 +12,10 @@
     {
       "id": "paladins:ruby_claymore",
       "required": false
+    },
+    {
+      "id": "paladins:aether_claymore",
+      "required": false
     }
   ]
 }

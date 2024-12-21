@@ -13,6 +13,10 @@
     {
       "id": "paladins:ruby_great_hammer",
       "required": false
+    },
+    {
+      "id": "paladins:aether_great_hammer",
+      "required": false
     }
   ]
 }

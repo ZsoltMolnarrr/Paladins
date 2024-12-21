@@ -1,0 +1,10 @@
+{
+	"parent": "paladins:item/base/metal_kite_shield_d_template",
+	"textures": {
+		"0": "paladins:item/aether_kite_shield",
+		"particle": "paladins:item/aether_kite_shield"
+	},
+	"overrides": [
+		{"predicate": { "blocking": 1 }, "model": "paladins:item/aether_kite_shield_blocking" }
+	]
+}

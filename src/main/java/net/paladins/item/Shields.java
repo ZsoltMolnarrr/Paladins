@@ -83,6 +83,7 @@ public class Shields {
             ),
             durability_t3);
 
+    private static final String AETHER = "aether";
     private static final String BETTER_END = "betterend";
     private static final String BETTER_NETHER = "betternether";
 
@@ -98,6 +99,14 @@ public class Shields {
         if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(BETTER_END)) {
             var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
             shield("aeternium_kite_shield", repair, List.of(
+                    new ItemConfig.Attribute(GENERIC_ARMOR_TOUGHNESS,  1,  EntityAttributeModifier.Operation.ADD_VALUE),
+                    new ItemConfig.Attribute(GENERIC_MAX_HEALTH,  6.0f,  EntityAttributeModifier.Operation.ADD_VALUE)
+            ), durability_t4);
+        }
+
+        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(BETTER_NETHER)) {
+            var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
+            shield("aether_kite_shield", repair, List.of(
                     new ItemConfig.Attribute(GENERIC_ARMOR_TOUGHNESS,  1,  EntityAttributeModifier.Operation.ADD_VALUE),
                     new ItemConfig.Attribute(GENERIC_MAX_HEALTH,  6.0f,  EntityAttributeModifier.Operation.ADD_VALUE)
             ), durability_t4);

@@ -5,6 +5,7 @@
 - Add Brazilian translation, thanks to @demorogabrtz
 - Add new weapons, obtainable only as loot from Aether dungeons
   - Holy Claymore
+  - Valkyrie Great Hammer
   - Silver Staff of the Valkyrie
   - Valkyrie Bulwark
 

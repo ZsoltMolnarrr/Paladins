@@ -33,7 +33,7 @@
         "impact_tick_interval": 10,
         "time_to_live_seconds": 10,
         "client_data": {
-          "light_level": 14,
+          "light_level": 15,
           "model": {
             "model_id": "paladins:effect/battle_banner",
             "rotate_degrees_per_tick": 0,

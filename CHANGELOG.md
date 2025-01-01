@@ -1,3 +1,8 @@
+# 2.2.1
+
+- Add Aether specific mace: Sun's Mace
+- Fix some texture issues
+
 # 2.2.0
 
 - Fix enchantability of shields

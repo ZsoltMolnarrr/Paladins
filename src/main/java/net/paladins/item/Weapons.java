@@ -172,7 +172,7 @@ public class Weapons {
                     .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 7));
             claymore("aether_claymore", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 13F);
             hammer("aether_great_hammer", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 16F);
-//            mace("aether_mace", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 11F);
+            mace("aether_mace", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 11F);
         }
 
         Weapon.register(configs, entries, Group.KEY);

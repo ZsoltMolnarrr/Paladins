@@ -1,6 +1,7 @@
 # 2.2.3
 
 - Increase light output of Judgement spell
+- Add spell scroll names
 
 # 2.2.2
 

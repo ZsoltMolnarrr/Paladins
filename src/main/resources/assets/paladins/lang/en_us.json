@@ -3,6 +3,8 @@
 
   "item.paladins.paladin_spell_book": "Paladin Libram",
   "item.paladins.priest_spell_book": "Holy Book",
+  "item.paladins.paladin.spell_scroll": "Paladin Spell Scroll",
+  "item.paladins.priest.spell_scroll": "Holy Spell Scroll",
 
   "item.paladins.paladin_armor_head": "Paladin Helmet",
   "item.paladins.paladin_armor_chest": "Paladin Chestplate",

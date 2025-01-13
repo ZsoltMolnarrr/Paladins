@@ -1,3 +1,7 @@
+# 2.2.4
+
+- Support Lithostitched v1.4
+
 # 2.2.3
 
 - Increase light output of Judgement spell

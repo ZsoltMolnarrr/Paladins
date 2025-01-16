@@ -144,16 +144,16 @@ public class Weapons {
 
     public static final Weapon.Entry acolyte_wand = wand("acolyte_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 1));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 3));
     public static final Weapon.Entry holy_wand = wand("holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 2));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 3.5));
     public static final Weapon.Entry diamond_holy_wand = wand("diamond_holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 2.5F));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 4.0F));
     public static final Weapon.Entry netherite_holy_wand = wand("netherite_holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 3));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 4.5F));
 
     // MARK: Staves
 
@@ -172,13 +172,13 @@ public class Weapons {
 
     public static final Weapon.Entry holy_staff = staff("holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 3));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 4));
     public static final Weapon.Entry diamond_holy_staff = staff("diamond_holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 4));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 5));
     public static final Weapon.Entry netherite_holy_staff = staff("netherite_holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 5));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 6));
 
     // MARK: Register
 
@@ -187,7 +187,7 @@ public class Weapons {
             var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
             staff("betternether", "ruby_holy_staff",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
-                    .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 6));
+                    .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 7));
 
             claymore("ruby_claymore", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 13F);
             hammer("ruby_great_hammer", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 16F);

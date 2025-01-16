@@ -1,10 +1,15 @@
 package net.paladins.item.armor;
 
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.item.Group;
 import net.spell_engine.api.item.ItemConfig;
@@ -116,6 +121,7 @@ public class Armors {
 
     public static float priestRobeHaste = 0.05F;
     private static final float specializedRobeSpellPower = 0.25F;
+
     public static final Armor.Set priestArmorSet_t2 =
             create(
                     new Armor.CustomMaterial(
@@ -144,6 +150,81 @@ public class Armors {
                             new ItemConfig.ArmorSet.Piece(1)
                                     .addAll(List.of(
                                             ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, specializedRobeSpellPower),
+                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priestRobeHaste)
+                                    ))
+                    )
+            )
+            .bundle(material -> new Armor.Set(PaladinsMod.ID,
+                    new PriestArmor(material, ArmorItem.Type.HELMET, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.CHESTPLATE, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.LEGGINGS, new Item.Settings()),
+                    new PriestArmor(material, ArmorItem.Type.BOOTS, new Item.Settings())
+            ))
+            .put(entries)
+            .put(priestEntries)
+            .armorSet();
+
+	private static Identifier toughness = new Identifier("minecraft:generic.armor_toughness");
+	private static final float t3_specializedRobeSpellPower = 0.30F;
+
+	public static final Armor.Set paladinArmorSet_t3 =
+            create(
+                    new Armor.CustomMaterial(
+                            "netherite_crusader_armor",
+                            30,
+                            15,
+                            PaladinArmor.equipSound,
+                            () -> { return Ingredient.ofItems(Items.GOLD_INGOT); }
+                    ),
+                    ItemConfig.ArmorSet.with(
+                            new ItemConfig.ArmorSet.Piece(3)
+                                    .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id, toughness), 1)),
+                            new ItemConfig.ArmorSet.Piece(8)
+                                    .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id, toughness), 1)),
+                            new ItemConfig.ArmorSet.Piece(6)
+                                    .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id, toughness), 1)),
+                            new ItemConfig.ArmorSet.Piece(3)
+                                    .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id, toughness), 1))
+                    )
+            )
+            .bundle(material -> new Armor.Set(PaladinsMod.ID,
+                    new PaladinArmor(material, ArmorItem.Type.HELMET, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.CHESTPLATE, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.LEGGINGS, new Item.Settings()),
+                    new PaladinArmor(material, ArmorItem.Type.BOOTS, new Item.Settings())
+            ))
+            .put(entries)
+            .put(paladinEntries)
+            .armorSet();
+
+	public static final Armor.Set priestArmorSet_t3 =
+            create(
+                    new Armor.CustomMaterial(
+                            "netherite_prior_robe",
+                            25,
+                            15,
+                            PriestArmor.equipSound,
+                            () -> { return Ingredient.ofItems(Items.GOLD_INGOT); }
+                    ),
+                    ItemConfig.ArmorSet.with(
+                            new ItemConfig.ArmorSet.Piece(1)
+                                    .addAll(List.of(
+                                            ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, t3_specializedRobeSpellPower),
+                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priestRobeHaste)
+                                    )),
+                            new ItemConfig.ArmorSet.Piece(3)
+                                    .addAll(List.of(
+                                            ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, t3_specializedRobeSpellPower),
+                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priestRobeHaste)
+                                    )),
+                            new ItemConfig.ArmorSet.Piece(2)
+                                    .addAll(List.of(
+                                            ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, t3_specializedRobeSpellPower),
+                                            ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priestRobeHaste)
+                                    )),
+                            new ItemConfig.ArmorSet.Piece(1)
+                                    .addAll(List.of(
+                                            ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, t3_specializedRobeSpellPower),
                                             ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priestRobeHaste)
                                     ))
                     )

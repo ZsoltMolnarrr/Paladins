@@ -147,7 +147,7 @@ public class Weapons {
             .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 3));
     public static final Weapon.Entry holy_wand = wand("holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 3.5));
+            .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 3.5F));
     public static final Weapon.Entry diamond_holy_wand = wand("diamond_holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)))
             .attribute(ItemConfig.Attribute.bonus(SpellSchools.HEALING.id, 4.0F));

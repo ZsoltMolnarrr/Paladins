@@ -1,3 +1,8 @@
+# 1.4.0
+
+- Added Netherite Prior Robes, by ElocinDev (@nvb-uy)
+- Added Netherite Crusader Armor, by ElocinDev (@nvb-uy)
+
 # 1.3.1
 
 Update priest Barrier spell:

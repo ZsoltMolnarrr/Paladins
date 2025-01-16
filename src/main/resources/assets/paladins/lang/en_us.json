@@ -12,6 +12,10 @@
   "item.paladins.crusader_armor_chest": "Crusader Chestplate",
   "item.paladins.crusader_armor_legs": "Crusader Leggings",
   "item.paladins.crusader_armor_feet": "Crusader Boots",
+  "item.paladins.netherite_crusader_armor_head": "Netherite Crusader Helmet",
+  "item.paladins.netherite_crusader_armor_chest": "Netherite Crusader Chestplate",
+  "item.paladins.netherite_crusader_armor_legs": "Netherite Crusader Leggings",
+  "item.paladins.netherite_crusader_armor_feet": "Netherite Crusader Boots",
 
   "item.paladins.stone_claymore": "Stone Claymore",
   "item.paladins.iron_claymore": "Iron Claymore",
@@ -46,6 +50,10 @@
   "item.paladins.prior_robe_chest": "Prior Vestment",
   "item.paladins.prior_robe_legs": "Prior Trousers",
   "item.paladins.prior_robe_feet": "Prior Boots",
+  "item.paladins.netherite_prior_robe_head": "Netherite Prior Collar",
+  "item.paladins.netherite_prior_robe_chest": "Netherite Prior Vestment",
+  "item.paladins.netherite_prior_robe_legs": "Netherite Prior Trousers",
+  "item.paladins.netherite_prior_robe_feet": "Netherite Prior Boots",
 
   "item.paladins.acolyte_wand": "Acolyte Wand",
   "item.paladins.holy_wand": "Holy Wand",

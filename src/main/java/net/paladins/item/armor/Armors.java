@@ -174,7 +174,7 @@ public class Armors {
                             30,
                             15,
                             PaladinArmor.equipSound,
-                            () -> { return Ingredient.ofItems(Items.GOLD_INGOT); }
+                            () -> { return Ingredient.ofItems(Items.NETHERITE_INGOT); }
                     ),
                     ItemConfig.ArmorSet.with(
                             new ItemConfig.ArmorSet.Piece(3)
@@ -204,7 +204,7 @@ public class Armors {
                             25,
                             15,
                             PriestArmor.equipSound,
-                            () -> { return Ingredient.ofItems(Items.GOLD_INGOT); }
+                            () -> { return Ingredient.ofItems(Items.NETHERITE_INGOT); }
                     ),
                     ItemConfig.ArmorSet.with(
                             new ItemConfig.ArmorSet.Piece(1)

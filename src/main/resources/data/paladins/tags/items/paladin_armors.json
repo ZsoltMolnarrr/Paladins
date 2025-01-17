@@ -8,6 +8,11 @@
     "paladins:crusader_armor_head",
     "paladins:crusader_armor_chest",
     "paladins:crusader_armor_legs",
-    "paladins:crusader_armor_feet"
+    "paladins:crusader_armor_feet",
+
+    "paladins:netherite_crusader_armor_head",
+    "paladins:netherite_crusader_armor_chest",
+    "paladins:netherite_crusader_armor_legs",
+    "paladins:netherite_crusader_armor_feet"
   ]
 }

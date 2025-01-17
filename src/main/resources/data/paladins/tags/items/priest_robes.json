@@ -8,6 +8,11 @@
     "paladins:prior_robe_head",
     "paladins:prior_robe_chest",
     "paladins:prior_robe_legs",
-    "paladins:prior_robe_feet"
+    "paladins:prior_robe_feet",
+
+    "paladins:netherite_prior_robe_head",
+    "paladins:netherite_prior_robe_chest",
+    "paladins:netherite_prior_robe_legs",
+    "paladins:netherite_prior_robe_feet"
   ]
 }

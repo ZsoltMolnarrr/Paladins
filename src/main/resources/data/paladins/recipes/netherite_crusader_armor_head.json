@@ -7,7 +7,7 @@
     "item": "paladins:crusader_armor_head"
   },
   "result": {
-    "id": "paladins:netherite_crusader_armor_head"
+    "item": "paladins:netherite_crusader_armor_head"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

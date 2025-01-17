@@ -5,7 +5,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,7 +17,6 @@ import net.paladins.entity.BarrierEntity;
 import net.spell_engine.api.render.CustomLayers;
 import net.spell_engine.client.compatibility.ShaderCompatibility;
 import net.spell_engine.client.util.Color;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -27,8 +25,6 @@ import java.util.List;
 import static net.minecraft.client.render.RenderPhase.*;
 
 public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRenderer<T> {
-    private final ItemRenderer itemRenderer;
-
     public static final Identifier blankTextureId = Identifier.of(PaladinsMod.ID, "item/barrier");
     public static final List<BarrierEntity> activeBarriers = new ArrayList<>();
 
@@ -43,7 +39,6 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
     public BarrierEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.itemRenderer = context.getItemRenderer();
     }
 
     @Override
@@ -114,10 +109,11 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
     }
 
     public static void renderShield(BarrierEntity entity, MatrixStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {
-        var spell = entity.getSpell();
-        if (spell == null) {
+        var entry = entity.getSpellEntry();
+        if (entity == null) {
             return;
         }
+        var spell = entry.value();
 
         float radius = spell.range*0.8f;
         float zSlant = (float) (Math.PI/8f); // the amount of slant along the z axis that the segments have

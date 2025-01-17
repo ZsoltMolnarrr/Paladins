@@ -5,11 +5,10 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -19,7 +18,7 @@ import net.spell_engine.api.effect.EntityImmunity;
 import net.spell_engine.api.entity.SpellSpawnedEntity;
 import net.spell_engine.api.entity.TwoWayCollisionChecker;
 import net.spell_engine.api.spell.Spell;
-import net.spell_engine.internals.SpellRegistry;
+import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.utils.SoundPlayerWorld;
 import net.spell_engine.utils.TargetHelper;
 import org.jetbrains.annotations.Nullable;
@@ -88,8 +87,9 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
 
         @Override
     public EntityDimensions getDimensions(EntityPose pose) {
-        var spell = getSpell();
-        if (spell != null) {
+        var spellEntry = getSpellEntry();
+        if (spellEntry != null) {
+            var spell = spellEntry.value();
             var width = spell.range * 2;
             var height = spell.range;
             return EntityDimensions.changing(width, height);
@@ -160,10 +160,11 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     @Override
     public void tick() {
         super.tick();
-        var spell = getSpell();
-        if (spell == null) {
+        var spellEntry = getSpellEntry();
+        if (spellEntry == null) {
             return;
         }
+        var spell = spellEntry.value();
         var world = this.getWorld();
         if (world.isClient()) {
             // Client
@@ -227,8 +228,8 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         return false;
     }
 
-    public Spell getSpell() {
-        return SpellRegistry.getSpell(spellId);
+    @Nullable public RegistryEntry<Spell> getSpellEntry() {
+        return SpellRegistry.from(this.getWorld()).getEntry(this.spellId).orElse(null);
     }
 
     private LivingEntity cachedOwner = null;

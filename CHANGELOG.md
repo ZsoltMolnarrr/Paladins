@@ -1,3 +1,7 @@
+# 2.3.0
+
+- Support Spell Engine 1.4
+
 # 2.2.4
 
 - Support Lithostitched v1.4

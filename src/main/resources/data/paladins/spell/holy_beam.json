@@ -71,6 +71,12 @@
   },
   "impact": [
     {
+      "target_conditions": [
+        {
+          "entity_type": "#spell_engine:mechanical",
+          "allow_action": false
+        }
+      ],
       "action": {
         "type": "HEAL",
         "heal": {
@@ -100,6 +106,14 @@
       }
     },
     {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:undead",
+          "modifier": {
+            "critical_chance_bonus": 1
+          }
+        }
+      ],
       "action": {
         "type": "DAMAGE",
         "damage": {

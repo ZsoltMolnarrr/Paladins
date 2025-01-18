@@ -1,6 +1,10 @@
 # 2.3.0
 
 - Support Spell Engine 1.4
+- Healing spells no longer work on mechanical creatures (Iron Golem)
+- Holy spells now always deal critical strikes against undead creatures #1
+- Judgement spell now deals +50% damage against undead creatures
+- Judgement stun no longer works any boss mobs
 
 # 2.2.4
 

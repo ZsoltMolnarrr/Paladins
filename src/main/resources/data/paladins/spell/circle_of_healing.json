@@ -66,6 +66,12 @@
   },
   "impact": [
     {
+      "target_conditions": [
+        {
+          "entity_type": "#spell_engine:mechanical",
+          "allow_action": false
+        }
+      ],
       "action": {
         "type": "HEAL",
         "heal": {

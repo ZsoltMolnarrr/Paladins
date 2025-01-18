@@ -1,6 +1,7 @@
 # 2.3.0
 
 - Support Spell Engine 1.4
+- Support AzureLib Armor 3.X
 - Healing spells no longer work on mechanical creatures (Iron Golem)
 - Holy spells now always deal critical strikes against undead creatures #1
 - Judgement spell now deals +50% damage against undead creatures

@@ -20,7 +20,7 @@
         "shape": "PIPE",
         "rotation": "LOOK",
         "origin": "LAUNCH_POINT",
-        "count": 0.5,
+        "count": 3,
         "min_speed": 0.1,
         "max_speed": 0.2
       },
@@ -41,6 +41,7 @@
       "type": "BEAM",
       "beam": {
         "color_rgba": 4291585791,
+        "width": 0.1,
         "flow": 1.5,
         "block_hit_particles": [
           {
@@ -48,7 +49,7 @@
             "shape": "CIRCLE",
             "rotation": "LOOK",
             "origin": "CENTER",
-            "count": 0.5,
+            "count": 1,
             "min_speed": 0.1,
             "max_speed": 0.2
           },
@@ -57,7 +58,15 @@
             "shape": "CIRCLE",
             "rotation": "LOOK",
             "origin": "CENTER",
-            "count": 0.5,
+            "count": 1,
+            "min_speed": 0.1,
+            "max_speed": 0.2
+          },
+          {
+            "particle_id": "spell_engine:holy_spark_mini",
+            "shape": "SPHERE",
+            "origin": "CENTER",
+            "count": 5,
             "min_speed": 0.1,
             "max_speed": 0.2
           }
@@ -125,9 +134,17 @@
           "particle_id": "spell_engine:holy_hit",
           "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 2,
+          "count": 3,
           "min_speed": 0.2,
           "max_speed": 0.7
+        },
+        {
+          "particle_id": "spell_engine:holy_spark_mini",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 6,
+          "min_speed": 0.2,
+          "max_speed": 0.4
         }
       ],
       "sound": {

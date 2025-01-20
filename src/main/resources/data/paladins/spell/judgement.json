@@ -27,11 +27,14 @@
       "type": "METEOR",
       "meteor": {
         "requires_entity": true,
-        "launch_height": 10,
+        "launch_height": 12,
+        "launch_properties": {
+          "velocity": 1.2
+        },
         "projectile": {
           "homing_angle": 1.0,
           "client_data": {
-            "light_level": 13,
+            "light_level": 15,
             "travel_particles": [
               {
                 "particle_id": "spell_engine:holy_spark",

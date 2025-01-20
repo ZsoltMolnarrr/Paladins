@@ -1,3 +1,8 @@
+# 2.3.1
+
+- Fix crash due to Battle Banner spell
+- Improve visuals of Holy Light spell
+
 # 2.3.0
 
 - Support Spell Engine 1.4

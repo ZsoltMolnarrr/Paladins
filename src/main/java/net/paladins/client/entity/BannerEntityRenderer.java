@@ -46,9 +46,6 @@ public class BannerEntityRenderer<T extends BannerEntity> extends EntityRenderer
         CustomModels.render(layer, itemRenderer, modelId, matrixStack, vertexConsumers, light, entity.getId());
 
         matrixStack.translate(0.5, 0, 0.5);
-//        BeamRenderer.renderBeam(matrixStack, vertexConsumers, beamTexture, entity.age, tickDelta, 1.0F,
-//                false, innerColor, outerColor, BeamRenderer.layerSetFor(beamTexture, Spell.Release.Target.Beam.Luminance.HIGH),
-//                0.0F, 128F, 0.3F);
 
         matrixStack.pop();
     }

@@ -12,7 +12,9 @@ import net.minecraft.util.math.RotationAxis;
 import net.paladins.PaladinsMod;
 import net.paladins.entity.BannerEntity;
 import net.spell_engine.api.render.CustomModels;
+import net.spell_engine.api.spell.Spell;
 import net.spell_engine.client.render.BeamRenderer;
+import net.spell_engine.client.util.Color;
 
 public class BannerEntityRenderer<T extends BannerEntity> extends EntityRenderer<T> {
     // Item renderer
@@ -32,6 +34,8 @@ public class BannerEntityRenderer<T extends BannerEntity> extends EntityRenderer
     private static final RenderLayer layer =
             RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 
+    private static Color.IntFormat innerColor = Color.IntFormat.fromLongRGBA(0xFF0000FFL);
+    private static Color.IntFormat outerColor = Color.IntFormat.fromLongRGBA(0xFFCC66FFL);
 
     public void render(T entity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light) {
         super.render(entity, yaw, tickDelta, matrixStack, vertexConsumers, light);
@@ -42,9 +46,9 @@ public class BannerEntityRenderer<T extends BannerEntity> extends EntityRenderer
         CustomModels.render(layer, itemRenderer, modelId, matrixStack, vertexConsumers, light, entity.getId());
 
         matrixStack.translate(0.5, 0, 0.5);
-        BeamRenderer.renderBeam(matrixStack, vertexConsumers, beamTexture, entity.age, tickDelta, 1.0F,
-                false, 255, 255, 255, 128,
-                0.0F, 128F, 0.3F);
+//        BeamRenderer.renderBeam(matrixStack, vertexConsumers, beamTexture, entity.age, tickDelta, 1.0F,
+//                false, innerColor, outerColor, BeamRenderer.layerSetFor(beamTexture, Spell.Release.Target.Beam.Luminance.HIGH),
+//                0.0F, 128F, 0.3F);
 
         matrixStack.pop();
     }

@@ -1,3 +1,7 @@
+# 2.3.2
+
+- Add category field for all crafting recipes
+
 # 2.3.1
 
 - Fix crash due to Battle Banner spell

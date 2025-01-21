@@ -8,6 +8,7 @@
     }
   ],
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "A": {
       "item": "betternether:nether_ruby"

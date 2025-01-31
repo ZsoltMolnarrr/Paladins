@@ -6,7 +6,7 @@
     "tier": 0
   },
   "cast": {
-    "duration": 2,
+    "duration": 1,
     "animation": "spell_engine:one_handed_healing_charge",
     "sound": {
       "id": "spell_engine:generic_healing_casting",
@@ -66,6 +66,7 @@
   ],
   "cost": {
     "item_id": "runes:healing_stone",
-    "exhaust" : 0.2
+    "exhaust" : 0.1,
+    "cooldown_duration": 4
   }
 }

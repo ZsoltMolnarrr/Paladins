@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.registry.RegistryWrapper;
+import net.paladins.content.PaladinSpells;
 import net.spell_engine.api.datagen.SpellGenerator;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,9 +26,9 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
 
         @Override
         public void generateSpells(Builder builder) {
-//            for (var entry: RogueSpells.entries) {
-//                builder.add(entry.id(), entry.spell());
-//            }
+            for (var entry: PaladinSpells.entries) {
+                builder.add(entry.id(), entry.spell());
+            }
         }
     }
 

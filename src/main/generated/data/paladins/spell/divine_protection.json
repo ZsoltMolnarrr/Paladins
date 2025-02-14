@@ -1,0 +1,45 @@
+{
+  "school": "spell_power:healing",
+  "range": 0.0,
+  "tier": 2,
+  "learn": {},
+  "active": {
+    "scroll": {}
+  },
+  "release": {
+    "animation": "spell_engine:one_handed_area_release"
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "paladins:divine_protection",
+          "duration": 8.0,
+          "amplifier": 2
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_impact_decelerate",
+          "shape": "SPHERE",
+          "count": 40.0,
+          "min_speed": 0.2,
+          "max_speed": 0.2
+        }
+      ],
+      "sound": {
+        "id": "paladins:divine_protection_release"
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.3,
+    "cooldown": {
+      "duration": 30.0
+    },
+    "item": {
+      "id": "runes:healing_stone"
+    }
+  }
+}

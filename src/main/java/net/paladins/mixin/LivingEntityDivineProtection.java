@@ -6,12 +6,11 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.paladins.effect.DivineProtectionStatusEffect;
-import net.paladins.effect.Effects;
+import net.paladins.effect.PaladinEffects;
 import net.paladins.util.SoundHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -43,16 +42,16 @@ public class LivingEntityDivineProtection {
                 || entity.getWorld().isClient()) {
             return;
         }
-        if (entity.hasStatusEffect(Effects.DIVINE_PROTECTION.registryEntry)) {
+        if (entity.hasStatusEffect(PaladinEffects.DIVINE_PROTECTION.entry)) {
             cir.cancel();
-            var instance = entity.getStatusEffect(Effects.DIVINE_PROTECTION.registryEntry);
+            var instance = entity.getStatusEffect(PaladinEffects.DIVINE_PROTECTION.entry);
             if (instance != null) {
                 // Remove current instance
-                entity.removeStatusEffect(Effects.DIVINE_PROTECTION.registryEntry);
+                entity.removeStatusEffect(PaladinEffects.DIVINE_PROTECTION.entry);
                 if (instance.getAmplifier() > 0) {
                     // Add a new instance with a lower amplifier
                     entity.addStatusEffect(
-                            new StatusEffectInstance(Effects.DIVINE_PROTECTION.registryEntry,
+                            new StatusEffectInstance(PaladinEffects.DIVINE_PROTECTION.entry,
                                     instance.getDuration(),
                                     instance.getAmplifier() - 1,
                                     instance.isAmbient(),

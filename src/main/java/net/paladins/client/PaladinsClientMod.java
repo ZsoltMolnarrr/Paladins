@@ -15,7 +15,7 @@ import net.paladins.client.effect.AbsorbParticleSpawner;
 import net.paladins.client.effect.DivineProtectionRenderer;
 import net.paladins.client.entity.BannerEntityRenderer;
 import net.paladins.client.entity.BarrierEntityRenderer;
-import net.paladins.effect.Effects;
+import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.BannerEntity;
 import net.paladins.entity.BarrierEntity;
 import net.paladins.item.armor.Armors;
@@ -37,9 +37,9 @@ public class PaladinsClientMod implements ClientModInitializer {
                 DivineProtectionRenderer.modelId_overlay,
                 BannerEntityRenderer.modelId
         ));
-        CustomModelStatusEffect.register(Effects.DIVINE_PROTECTION.effect, new DivineProtectionRenderer());
-        CustomParticleStatusEffect.register(Effects.JUDGEMENT.effect, new StunParticleSpawner());
-        CustomParticleStatusEffect.register(Effects.ABSORPTION.effect, new AbsorbParticleSpawner());
+        CustomModelStatusEffect.register(PaladinEffects.DIVINE_PROTECTION.effect, new DivineProtectionRenderer());
+        CustomParticleStatusEffect.register(PaladinEffects.JUDGEMENT.effect, new StunParticleSpawner());
+        CustomParticleStatusEffect.register(PaladinEffects.ABSORPTION.effect, new AbsorbParticleSpawner());
         BlockRenderLayerMap.INSTANCE.putBlock(PaladinBlocks.MONK_WORKBENCH, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);

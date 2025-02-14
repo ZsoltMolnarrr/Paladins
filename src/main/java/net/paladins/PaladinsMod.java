@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.config.TweaksConfig;
-import net.paladins.effect.Effects;
+import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.BannerEntity;
 import net.paladins.entity.BarrierEntity;
 import net.paladins.item.Group;
@@ -43,6 +43,12 @@ public class PaladinsMod implements ModInitializer {
             .setDirectory(ID)
             .sanitize(true)
             .build();
+    public static ConfigManager<ConfigFile.Effects> effectsConfig = new ConfigManager<>
+            ("effects", new ConfigFile.Effects())
+            .builder()
+            .setDirectory(ID)
+            .sanitize(true)
+            .build();
 
     public static ConfigManager<StructurePoolConfig> villageConfig = new ConfigManager<>
             ("villages", Default.villageConfig)
@@ -61,9 +67,11 @@ public class PaladinsMod implements ModInitializer {
     public void onInitialize() {
         itemConfig.refresh();
         shieldConfig.refresh();
+        effectsConfig.refresh();
         tweaksConfig.refresh();
         villageConfig.refresh();
         SoundHelper.registerSounds();
+
         Group.PALADINS = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
                 .displayName(Text.translatable("itemGroup.paladins.general"))
@@ -71,12 +79,16 @@ public class PaladinsMod implements ModInitializer {
         Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
         PaladinBlocks.register();
         PaladinBooks.register();
+
         Weapons.register(itemConfig.value.weapons);
         Shields.register(shieldConfig.value.shields);
         Armors.register(itemConfig.value.armor_sets);
         shieldConfig.save();
         itemConfig.save();
-        Effects.register();
+
+        PaladinEffects.register(effectsConfig.value);
+        effectsConfig.save();
+
         PaladinVillagers.register();
         subscribeEvents();
     }

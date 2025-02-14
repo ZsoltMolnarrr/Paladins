@@ -3,6 +3,7 @@ package net.paladins.content;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.effect.PaladinEffects;
+import net.paladins.entity.BarrierEntity;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
 import net.spell_engine.api.spell.Spell;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaladinSpells {
+
     public record Entry(Identifier id, Spell spell, String title, String description,
                         @Nullable SpellTooltip.DescriptionMutator mutator) { }
     public static final List<Entry> entries = new ArrayList<>();
@@ -26,6 +28,8 @@ public class PaladinSpells {
         entries.add(entry);
         return entry;
     }
+
+    private static final String GROUP_PRIMARY = "primary";
 
     private static Spell activeSpellBase() {
         var spell = new Spell();
@@ -142,12 +146,32 @@ public class PaladinSpells {
             SpellEngineParticles.MagicParticleFamily.Motion.FLOAT
     ).id();
 
+    private static final Identifier HOLY_SPELL_DECELERATE = SpellEngineParticles.getMagicParticleVariant(
+            SpellEngineParticles.HOLY,
+            SpellEngineParticles.MagicParticleFamily.Shape.SPELL,
+            SpellEngineParticles.MagicParticleFamily.Motion.DECELERATE
+    ).id();
+
     private static Spell.Impact.TargetModifier extraDamageAgainstUndead() {
         var modifier = createImpactModifier("#minecraft:undead");
         var powerModifier = new Spell.Impact.Modifier();
         powerModifier.power_multiplier = 0.5F;
         modifier.modifier = powerModifier;
         return modifier;
+    }
+
+    private static Spell.Impact.TargetModifier extraCritAgainstUndead() {
+        var modifier = createImpactModifier("#minecraft:undead");
+        var powerModifier = new Spell.Impact.Modifier();
+        powerModifier.critical_chance_bonus = 1F;
+        modifier.modifier = powerModifier;
+        return modifier;
+    }
+
+    private static void impactDeniedForMechanical(Spell.Impact impact) {
+        var modifier = createImpactModifier("#spell_engine:mechanical");
+        modifier.execute = TriState.DENY;
+        impact.target_modifiers = List.of(modifier);
     }
 
     public static final Entry FLASH_HEAL = add(flash_heal());
@@ -176,11 +200,7 @@ public class PaladinSpells {
         spell.target.aim.use_caster_as_fallback = true;
 
         var heal = createHeal(1F);
-
-        var modifier = createImpactModifier("#spell_engine:mechanical");
-        modifier.execute = TriState.DENY;
-
-        heal.target_modifiers = List.of(modifier);
+        impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -379,6 +399,313 @@ public class PaladinSpells {
         configureCooldown(spell, 45);
         configureItemCost(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
+
+        return new Entry(id, spell, title, description, null);
+    }
+
+    public static final Entry HEAL = add(heal());
+    private static Entry heal() {
+        var id = Identifier.of(PaladinsMod.ID, "heal");
+        var title = "Heal";
+        var description = "";
+
+        var spell = activeSpellBase();
+        spell.school = SpellSchools.HEALING;
+        spell.group = GROUP_PRIMARY;
+        spell.range = 16;
+        spell.tier = 0;
+
+        spell.learn = null;
+        spell.active.scroll = null;
+
+        spell.active.cast.duration = 1F;
+        spell.active.cast.animation = "spell_engine:one_handed_healing_charge";
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.particles = new ParticleBatch[] {
+                castingParticles(HOLY_SPARKS.toString())
+        };
+
+        spell.release.animation = "spell_engine:one_handed_healing_release";
+        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+
+        spell.target.type = Spell.Target.Type.AIM;
+        spell.target.aim = new Spell.Target.Aim();
+        spell.target.aim.use_caster_as_fallback = true;
+
+        var heal = createHeal(0.8F);
+        impactDeniedForMechanical(heal);
+        heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
+        heal.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HEALING_PARTICLES.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        20, 0.02F, 0.15F)
+        };
+        spell.impacts = List.of(heal);
+
+        configureCooldown(spell, 4);
+        configureItemCost(spell, "runes:healing_stone");
+
+        return new Entry(id, spell, title, description, null);
+    }
+
+    public static final Entry HOLY_SHOCK = add(holy_shock());
+    private static Entry holy_shock() {
+        var id = Identifier.of(PaladinsMod.ID, "holy_shock");
+        var title = "Holy Shock";
+        var description = "";
+
+        var spell = activeSpellBase();
+        spell.school = SpellSchools.HEALING;
+        spell.group = GROUP_PRIMARY;
+        spell.tier = 1;
+        spell.range = 16;
+
+        spell.active.cast.duration = 1.5F;
+        spell.active.cast.animation = "spell_engine:one_handed_projectile_charge";
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.particles = new ParticleBatch[] {
+                castingParticles(HOLY_SPARKS.toString())
+        };
+
+        spell.release.animation = "spell_engine:one_handed_healing_release";
+        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+
+        spell.target.type = Spell.Target.Type.AIM;
+        spell.target.aim = new Spell.Target.Aim();
+        spell.target.aim.sticky = true;
+        spell.target.aim.use_caster_as_fallback = true;
+
+        var heal = createHeal(0.75F);
+        impactDeniedForMechanical(heal);
+        heal.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HEALING_PARTICLES.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        15, 0.02F, 0.15F),
+                new ParticleBatch(
+                        HOLY_IMPACT_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        15, 0.2F, 0.25F)
+        };
+        heal.sound = new Sound(PaladinSounds.holy_shock_heal.id());
+
+        var damage = createDamage(1F, 0.5F);
+        damage.target_modifiers = List.of(extraCritAgainstUndead());
+        damage.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_IMPACT_BURST.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        30, 0.2F, 0.7F)
+        };
+        damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
+
+        spell.impacts = List.of(heal, damage);
+
+        configureItemCost(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.2F;
+
+        return new Entry(id, spell, title, description, null);
+    }
+
+    public static final Entry HOLY_BEAM = add(holy_beam());
+    private static Entry holy_beam() {
+        var id = Identifier.of(PaladinsMod.ID, "holy_beam");
+        var title = "Holy Light";
+        var description = "";
+
+        var spell = activeSpellBase();
+        spell.school = SpellSchools.HEALING;
+        spell.range = 32;
+        spell.tier = 2;
+
+        spell.active.cast.duration = 5F;
+        spell.active.cast.channel_ticks = 4;
+        spell.active.cast.animation = "spell_engine:two_handed_channeling";
+        spell.active.cast.start_sound = new Sound(PaladinSounds.holy_beam_start_casting.id());
+        spell.active.cast.sound = Sound.withRandomness(PaladinSounds.holy_beam_casting.id(), 0);
+        spell.active.cast.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_SPARKS.toString(),
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,
+                        3, 0.1F, 0.2F, 0),
+                new ParticleBatch(
+                        "firework",
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,
+                        0.5F, 0.1F, 0.2F, 0)
+        };
+
+        spell.release.sound = new Sound(PaladinSounds.holy_beam_release.id());
+
+        spell.target.type = Spell.Target.Type.BEAM;
+        var beam = new Spell.Target.Beam();
+        beam.color_rgba = 0xFFCC66FFL;
+        beam.flow = 1.5F;
+        beam.block_hit_particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_SPELL_FLOAT.toString(),
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
+                        1F, 0.1F, 0.2F, 0),
+                new ParticleBatch(
+                        "firework",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
+                        1F, 0.1F, 0.2F, 0),
+                new ParticleBatch(
+                        HOLY_SPARKS.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        5, 0.1F, 0.2F)
+        };
+        spell.target.beam = beam;
+
+        var heal = createHeal(0.5F);
+        impactDeniedForMechanical(heal);
+        heal.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HEALING_PARTICLES.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        1, 0.02F, 0.15F),
+                new ParticleBatch(
+                        HOLY_IMPACT_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        1, 0.2F, 0.25F)
+        };
+        heal.sound = new Sound(PaladinSounds.holy_beam_heal.id());
+
+        var damage = createDamage(0.8F, 0.5F);
+        damage.target_modifiers = List.of(extraCritAgainstUndead());
+        damage.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_IMPACT_BURST.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        3, 0.2F, 0.7F),
+                new ParticleBatch(
+                        HOLY_SPARKS.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        6, 0.2F, 0.4F)
+        };
+        damage.sound = new Sound(PaladinSounds.holy_beam_damage.id());
+
+        spell.impacts = List.of(heal, damage);
+
+        configureCooldown(spell, 10);
+        spell.cost.cooldown.proportional = true;
+        spell.cost.exhaust = 0.2F;
+        configureItemCost(spell, "runes:healing_stone");
+
+        return new Entry(id, spell, title, description, null);
+    }
+
+    public static final Entry CIRCLE_OF_HEALING = add(circle_of_healing());
+    private static Entry circle_of_healing() {
+        var id = Identifier.of(PaladinsMod.ID, "circle_of_healing");
+        var title = "Circle of Healing";
+        var description = "";
+
+        float range = 8;
+
+        var spell = activeSpellBase();
+        spell.school = SpellSchools.HEALING;
+        spell.range = range;
+        spell.tier = 3;
+
+        spell.active.cast.duration = 0.5F;
+        spell.active.cast.animation = "spell_engine:one_handed_area_charge";
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.particles = new ParticleBatch[] {
+                castingParticles(HOLY_SPARKS.toString())
+        };
+
+        spell.release.animation = "spell_engine:one_handed_area_release";
+        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+        spell.release.particles = new ParticleBatch[]{
+                new ParticleBatch(
+                        HOLY_SPARK_DECELERATE.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        100, 0.3F, 0.5F
+                ).extent(range - 0.5F),
+                new ParticleBatch(
+                        HOLY_SPELL_DECELERATE.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        50, 0.1F, 0.5F
+                ).extent(range - 0.5F),
+                new ParticleBatch(
+                        HOLY_IMPACT_FLOAT.toString(),
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
+                        50, 0.1F, 0.2F
+                ).extent(range)
+        };
+
+        spell.target.type = Spell.Target.Type.AREA;
+        spell.target.area = new Spell.Target.Area();
+        spell.target.area.vertical_range_multiplier = 0.6F;
+        spell.target.area.include_caster = true;
+
+        var heal = createHeal(0.5F);
+        impactDeniedForMechanical(heal);
+        heal.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HEALING_PARTICLES.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        15, 0.02F, 0.15F),
+                new ParticleBatch(
+                        HOLY_IMPACT_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        15, 0.2F, 0.25F)
+        };
+        heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
+
+        var buff = createEffectImpact(PaladinEffects.ABSORPTION.id, 4);
+        buff.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
+        buff.action.status_effect.amplifier_power_multiplier = 0.25F;
+
+        spell.impacts = List.of(heal, buff);
+
+        configureCooldown(spell, 10);
+        configureItemCost(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.3F;
+
+        return new Entry(id, spell, title, description, null);
+    }
+
+    public static final Entry BARRIER = add(barrier());
+    private static Entry barrier() {
+        var id = Identifier.of(PaladinsMod.ID, "barrier");
+        var title = "Barrier";
+        var description = "";
+
+        var spell = activeSpellBase();
+        spell.school = SpellSchools.HEALING;
+        spell.range = 4;
+        spell.tier = 4;
+
+        spell.active.cast.duration = 0.5F;
+        spell.active.cast.animation = "spell_engine:one_handed_area_charge";
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.particles = new ParticleBatch[] {
+                castingParticles(HOLY_SPARKS.toString())
+        };
+
+        spell.release.animation = "spell_engine:one_handed_area_release";
+        spell.release.sound = new Sound(PaladinSounds.holy_barrier_activate.id());
+        spell.release.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_SPELL_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        50, 1F, 1F)
+        };
+
+        var spawn = new Spell.Impact();
+        spawn.action = new Spell.Impact.Action();
+        spawn.action.type = Spell.Impact.Action.Type.SPAWN;
+        var barrier = new Spell.Impact.Action.Spawn();
+        barrier.entity_type_id = BarrierEntity.TYPE.getRegistryEntry().getKey().get().getValue().toString();
+        barrier.time_to_live_seconds = 10;
+        spawn.action.spawns = List.of(barrier);
+        spell.impacts = List.of(spawn);
+
+        configureCooldown(spell, 40);
+        configureItemCost(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.4F;
 
         return new Entry(id, spell, title, description, null);
     }

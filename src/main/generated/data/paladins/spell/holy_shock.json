@@ -1,0 +1,118 @@
+{
+  "school": "spell_power:healing",
+  "range": 16.0,
+  "group": "primary",
+  "tier": 1,
+  "learn": {},
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.5,
+      "animation": "spell_engine:one_handed_projectile_charge",
+      "sound": {
+        "id": "spell_engine:generic_healing_casting",
+        "randomness": 0.0
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_spark_float",
+          "origin": "FEET",
+          "shape": "WIDE_PIPE",
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": "spell_engine:one_handed_healing_release",
+    "sound": {
+      "id": "spell_engine:generic_healing_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "sticky": true,
+      "use_caster_as_fallback": true
+    }
+  },
+  "impacts": [
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#spell_engine:mechanical"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.75
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_nature_impact_ascend",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 15.0,
+          "min_speed": 0.02,
+          "max_speed": 0.15
+        },
+        {
+          "particle_id": "spell_engine:magic_holy_impact_decelerate",
+          "shape": "SPHERE",
+          "count": 15.0,
+          "min_speed": 0.2,
+          "max_speed": 0.25
+        }
+      ],
+      "sound": {
+        "id": "paladins:holy_shock_heal"
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:undead"
+            }
+          ],
+          "modifier": {
+            "critical_chance_bonus": 1.0
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_impact_burst",
+          "shape": "SPHERE",
+          "count": 30.0,
+          "min_speed": 0.2,
+          "max_speed": 0.7
+        }
+      ],
+      "sound": {
+        "id": "paladins:holy_shock_damage"
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.2,
+    "item": {
+      "id": "runes:healing_stone"
+    }
+  }
+}

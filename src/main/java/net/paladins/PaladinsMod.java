@@ -3,20 +3,15 @@ package net.paladins;
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.config.TweaksConfig;
 import net.paladins.effect.PaladinEffects;
-import net.paladins.entity.BannerEntity;
-import net.paladins.entity.BarrierEntity;
+import net.paladins.entity.PaladinEntities;
 import net.paladins.item.Group;
 import net.paladins.item.PaladinBooks;
 import net.paladins.item.Shields;
@@ -91,32 +86,9 @@ public class PaladinsMod implements ModInitializer {
         effectsConfig.save();
 
         PaladinVillagers.register();
-        subscribeEvents();
-    }
-
-    private void subscribeEvents() {
     }
 
     static {
-        BarrierEntity.TYPE = Registry.register(
-                Registries.ENTITY_TYPE,
-                Identifier.of(ID, "barrier"),
-                FabricEntityTypeBuilder.<BarrierEntity>create(SpawnGroup.MISC, BarrierEntity::new)
-                        .dimensions(EntityDimensions.fixed(1F, 1F))
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(20)
-                        .build()
-        );
-        BannerEntity.ENTITY_TYPE = Registry.register(
-                Registries.ENTITY_TYPE,
-                Identifier.of(ID, "battle_banner"),
-                FabricEntityTypeBuilder.<BannerEntity>create(SpawnGroup.MISC, BannerEntity::new)
-                        .dimensions(EntityDimensions.changing(6F, 0.5F)) // dimensions in Minecraft units of the render
-                        .fireImmune()
-                        .trackRangeBlocks(128)
-                        .trackedUpdateRate(20)
-                        .build()
-        );
+        PaladinEntities.register();
     }
 }

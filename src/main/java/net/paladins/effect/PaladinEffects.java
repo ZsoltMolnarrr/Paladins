@@ -76,7 +76,7 @@ public class PaladinEffects {
     ));
 
     public static final Effects.Entry ABSORPTION = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "absorption"),
+            Identifier.of(PaladinsMod.ID, "priest_absorption"),
             "Absorption",
             "Increases maximum absorption",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),

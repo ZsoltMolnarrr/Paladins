@@ -1,0 +1,78 @@
+{
+  "school": "spell_power:healing",
+  "range": 16.0,
+  "group": "primary",
+  "tier": 0,
+  "active": {
+    "cast": {
+      "duration": 1.0,
+      "animation": "spell_engine:one_handed_healing_charge",
+      "sound": {
+        "id": "spell_engine:generic_healing_casting",
+        "randomness": 0.0
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_spark_float",
+          "origin": "FEET",
+          "shape": "WIDE_PIPE",
+          "min_speed": 0.05,
+          "max_speed": 0.1
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": "spell_engine:one_handed_healing_release",
+    "sound": {
+      "id": "spell_engine:generic_healing_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "use_caster_as_fallback": true
+    }
+  },
+  "impacts": [
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#spell_engine:mechanical"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.8
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_nature_impact_ascend",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 20.0,
+          "min_speed": 0.02,
+          "max_speed": 0.15
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_1"
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 4.0
+    },
+    "item": {
+      "id": "runes:healing_stone"
+    }
+  }
+}

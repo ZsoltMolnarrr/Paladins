@@ -1,0 +1,164 @@
+{
+  "school": "spell_power:healing",
+  "range": 32.0,
+  "tier": 2,
+  "learn": {},
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 5.0,
+      "channel_ticks": 4,
+      "animation": "spell_engine:two_handed_channeling",
+      "start_sound": {
+        "id": "paladins:holy_beam_start_casting"
+      },
+      "sound": {
+        "id": "paladins:holy_beam_casting",
+        "randomness": 0.0
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_spark_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "PIPE",
+          "rotation": "LOOK",
+          "count": 3.0,
+          "min_speed": 0.1,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "firework",
+          "origin": "LAUNCH_POINT",
+          "shape": "PIPE",
+          "rotation": "LOOK",
+          "count": 0.5,
+          "min_speed": 0.1,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+  "release": {
+    "sound": {
+      "id": "paladins:holy_beam_release"
+    }
+  },
+  "target": {
+    "type": "BEAM",
+    "beam": {
+      "color_rgba": 4291585791,
+      "flow": 1.5,
+      "block_hit_particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_spell_float",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "min_speed": 0.1,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "firework",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "min_speed": 0.1,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "spell_engine:magic_holy_spark_float",
+          "shape": "SPHERE",
+          "count": 5.0,
+          "min_speed": 0.1,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+  "impacts": [
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#spell_engine:mechanical"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_nature_impact_ascend",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "min_speed": 0.02,
+          "max_speed": 0.15
+        },
+        {
+          "particle_id": "spell_engine:magic_holy_impact_decelerate",
+          "shape": "SPHERE",
+          "min_speed": 0.2,
+          "max_speed": 0.25
+        }
+      ],
+      "sound": {
+        "id": "paladins:holy_beam_heal"
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:undead"
+            }
+          ],
+          "modifier": {
+            "critical_chance_bonus": 1.0
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.8,
+          "knockback": 0.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_impact_burst",
+          "shape": "SPHERE",
+          "count": 3.0,
+          "min_speed": 0.2,
+          "max_speed": 0.7
+        },
+        {
+          "particle_id": "spell_engine:magic_holy_spark_float",
+          "shape": "SPHERE",
+          "count": 6.0,
+          "min_speed": 0.2,
+          "max_speed": 0.4
+        }
+      ],
+      "sound": {
+        "id": "paladins:holy_beam_damage"
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 0.2,
+    "cooldown": {
+      "duration": 10.0,
+      "proportional": true
+    },
+    "item": {
+      "id": "runes:healing_stone"
+    }
+  }
+}

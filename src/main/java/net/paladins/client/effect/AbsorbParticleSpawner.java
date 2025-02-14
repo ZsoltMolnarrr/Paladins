@@ -4,11 +4,16 @@ import net.minecraft.entity.LivingEntity;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.fx.ParticleHelper;
+import net.spell_engine.fx.SpellEngineParticles;
 
 public class AbsorbParticleSpawner implements CustomParticleStatusEffect.Spawner {
     public static final ParticleBatch particles = new ParticleBatch(
-            "spell_engine:holy_spark_mini",
-            ParticleBatch.Shape.PIPE,
+            SpellEngineParticles.getMagicParticleVariant(
+                    SpellEngineParticles.HOLY,
+                    SpellEngineParticles.MagicParticleFamily.Shape.SPARK,
+                    SpellEngineParticles.MagicParticleFamily.Motion.FLOAT
+            ).id().toString(),
+            ParticleBatch.Shape.WIDE_PIPE,
             ParticleBatch.Origin.FEET,
             null,
             5,

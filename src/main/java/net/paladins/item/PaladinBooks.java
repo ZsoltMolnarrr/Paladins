@@ -2,7 +2,7 @@ package net.paladins.item;
 
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
-import net.spell_engine.api.item.trinket.SpellBooks;
+import net.spell_engine.api.item.SpellBooks;
 
 import java.util.List;
 

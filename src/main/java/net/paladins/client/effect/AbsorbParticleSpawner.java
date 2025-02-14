@@ -3,7 +3,7 @@ package net.paladins.client.effect;
 import net.minecraft.entity.LivingEntity;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.api.spell.fx.ParticleBatch;
-import net.spell_engine.particle.ParticleHelper;
+import net.spell_engine.fx.ParticleHelper;
 
 public class AbsorbParticleSpawner implements CustomParticleStatusEffect.Spawner {
     public static final ParticleBatch particles = new ParticleBatch(

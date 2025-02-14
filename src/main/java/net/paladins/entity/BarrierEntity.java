@@ -15,15 +15,15 @@ import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
 import net.paladins.util.SoundHelper;
 import net.spell_engine.api.effect.EntityImmunity;
-import net.spell_engine.api.entity.SpellSpawnedEntity;
+import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.entity.TwoWayCollisionChecker;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
+import net.spell_engine.internals.target.EntityRelations;
 import net.spell_engine.utils.SoundPlayerWorld;
-import net.spell_engine.utils.TargetHelper;
 import org.jetbrains.annotations.Nullable;
 
-public class BarrierEntity extends Entity implements SpellSpawnedEntity {
+public class BarrierEntity extends Entity implements SpellEntity.Spawned {
     public static EntityType<BarrierEntity> TYPE;
 
     private Identifier spellId;
@@ -43,7 +43,10 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
     }
 
     @Override
-    public void onCreatedFromSpell(LivingEntity owner, Identifier spellId, Spell.Impact.Action.Spawn spawn) {
+    public void onSpawnedBySpell(Args args) {
+        var owner = args.owner();
+        var spellId = args.spell().getKey().get().getValue();
+        var spawn = args.spawnData();
         this.spellId = spellId;
         this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
         this.ownerId = owner.getId();
@@ -216,7 +219,7 @@ public class BarrierEntity extends Entity implements SpellSpawnedEntity {
         if (owner == null) {
             return false;
         }
-        var relation = TargetHelper.getRelation(owner, other);
+        var relation = EntityRelations.getRelation(owner, other);
         switch (relation) {
             case ALLY, FRIENDLY -> {
                 return true;

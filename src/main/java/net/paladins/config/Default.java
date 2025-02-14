@@ -1,7 +1,7 @@
 package net.paladins.config;
 
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
-import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.config.ConfigFile;
 import net.paladins.item.armor.Armors;
 import net.paladins.item.Weapons;
 
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Default {
-    public final static ItemConfig itemConfig;
+    public final static ConfigFile.Equipment itemConfig;
     public final static StructurePoolConfig villageConfig;
     static {
-        itemConfig = new ItemConfig();
+        itemConfig = new ConfigFile.Equipment();
         for (var weapon: Weapons.entries) {
             itemConfig.weapons.put(weapon.name(), weapon.defaults());
         }

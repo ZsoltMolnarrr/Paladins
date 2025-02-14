@@ -14,7 +14,8 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.item.Group;
 import net.paladins.util.SoundHelper;
-import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.config.ArmorSetConfig;
+import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.item.armor.Armor;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
@@ -27,7 +28,7 @@ import java.util.function.Supplier;
 public class Armors {
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
     private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability,
-                                      Armor.Set.ItemFactory factory, ItemConfig.ArmorSet defaults) {
+                                      Armor.Set.ItemFactory factory, ArmorSetConfig defaults) {
         var entry = Armor.Entry.create(
                 material,
                 id,
@@ -58,15 +59,15 @@ public class Armors {
     
     private static final Identifier ATTACK_DAMAGE_ID = Identifier.ofVanilla("generic.attack_damage");
     private static final Identifier ARMOR_TOUGHNESS_ID = Identifier.ofVanilla("generic.armor_toughness");
-    private static ItemConfig.Attribute damageMultiplier(float value) {
-        return new ItemConfig.Attribute(
+    private static AttributeModifier damageMultiplier(float value) {
+        return new AttributeModifier(
                 ATTACK_DAMAGE_ID.toString(),
                 value,
                 EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 
-    private static ItemConfig.Attribute toughnessBonus(float value) {
-        return new ItemConfig.Attribute(
+    private static AttributeModifier toughnessBonus(float value) {
+        return new AttributeModifier(
                 ARMOR_TOUGHNESS_ID.toString(),
                 value,
                 EntityAttributeModifier.Operation.ADD_VALUE);
@@ -118,15 +119,15 @@ public class Armors {
             Identifier.of(PaladinsMod.ID, "paladin_armor"),
             15,
             PaladinArmor::new,
-            ItemConfig.ArmorSet.with(
-                    new ItemConfig.ArmorSet.Piece(2)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(6)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(5)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(2)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power))
+            ArmorSetConfig.with(
+                    new ArmorSetConfig.Piece(2)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power)),
+                    new ArmorSetConfig.Piece(6)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power)),
+                    new ArmorSetConfig.Piece(5)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power)),
+                    new ArmorSetConfig.Piece(2)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power))
             ))
             .armorSet();
 
@@ -135,15 +136,15 @@ public class Armors {
             Identifier.of(PaladinsMod.ID, "crusader_armor"),
             25,
             PaladinArmor::new,
-            ItemConfig.ArmorSet.with(
-                    new ItemConfig.ArmorSet.Piece(3)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(8)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(6)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(3)
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power))
+            ArmorSetConfig.with(
+                    new ArmorSetConfig.Piece(3)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power)),
+                    new ArmorSetConfig.Piece(8)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power)),
+                    new ArmorSetConfig.Piece(6)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power)),
+                    new ArmorSetConfig.Piece(3)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power))
             ))
             .armorSet();
 
@@ -152,19 +153,19 @@ public class Armors {
             Identifier.of(PaladinsMod.ID, "netherite_crusader_armor"),
             37,
             PaladinArmor::new,
-            ItemConfig.ArmorSet.with(
-                    new ItemConfig.ArmorSet.Piece(3)
+            ArmorSetConfig.with(
+                    new ArmorSetConfig.Piece(3)
                             .add(toughnessBonus(paladin_t3_toughness))
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(8)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power)),
+                    new ArmorSetConfig.Piece(8)
                             .add(toughnessBonus(paladin_t3_toughness))
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(6)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power)),
+                    new ArmorSetConfig.Piece(6)
                             .add(toughnessBonus(paladin_t3_toughness))
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(3)
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power)),
+                    new ArmorSetConfig.Piece(3)
                             .add(toughnessBonus(paladin_t3_toughness))
-                            .addAll(ItemConfig.Attribute.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power))
+                            .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power))
 
             ))
             .armorSet();
@@ -180,15 +181,15 @@ public class Armors {
             Identifier.of(PaladinsMod.ID, "priest_robe"),
             10,
             PriestArmor::new,
-            ItemConfig.ArmorSet.with(
-                    new ItemConfig.ArmorSet.Piece(1)
-                            .add(ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t1_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(3)
-                            .add(ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t1_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(2)
-                            .add(ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t1_spell_power)),
-                    new ItemConfig.ArmorSet.Piece(1)
-                            .add(ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t1_spell_power))
+            ArmorSetConfig.with(
+                    new ArmorSetConfig.Piece(1)
+                            .add(AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t1_spell_power)),
+                    new ArmorSetConfig.Piece(3)
+                            .add(AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t1_spell_power)),
+                    new ArmorSetConfig.Piece(2)
+                            .add(AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t1_spell_power)),
+                    new ArmorSetConfig.Piece(1)
+                            .add(AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t1_spell_power))
             ))
             .armorSet();
 
@@ -197,26 +198,26 @@ public class Armors {
             Identifier.of(PaladinsMod.ID, "prior_robe"),
             20,
             PriestArmor::new,
-            ItemConfig.ArmorSet.with(
-                    new ItemConfig.ArmorSet.Piece(1)
+            ArmorSetConfig.with(
+                    new ArmorSetConfig.Piece(1)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
                             )),
-                    new ItemConfig.ArmorSet.Piece(3)
+                    new ArmorSetConfig.Piece(3)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
                             )),
-                    new ItemConfig.ArmorSet.Piece(2)
+                    new ArmorSetConfig.Piece(2)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
                             )),
-                    new ItemConfig.ArmorSet.Piece(1)
+                    new ArmorSetConfig.Piece(1)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
                             ))
             ))
             .armorSet();
@@ -226,31 +227,31 @@ public class Armors {
             Identifier.of(PaladinsMod.ID, "netherite_prior_robe"),
             30,
             PriestArmor::new,
-            ItemConfig.ArmorSet.with(
-                    new ItemConfig.ArmorSet.Piece(1)
+            ArmorSetConfig.with(
+                    new ArmorSetConfig.Piece(1)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
                             )),
-                    new ItemConfig.ArmorSet.Piece(3)
+                    new ArmorSetConfig.Piece(3)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
                             )),
-                    new ItemConfig.ArmorSet.Piece(2)
+                    new ArmorSetConfig.Piece(2)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
                             )),
-                    new ItemConfig.ArmorSet.Piece(1)
+                    new ArmorSetConfig.Piece(1)
                             .addAll(List.of(
-                                    ItemConfig.Attribute.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
-                                    ItemConfig.Attribute.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
+                                    AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
+                                    AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
                             ))
             ))
             .armorSet();
 
-    public static void register(Map<String, ItemConfig.ArmorSet> configs) {
+    public static void register(Map<String, ArmorSetConfig> configs) {
         Armor.register(configs, entries, Group.KEY);
     }
 }

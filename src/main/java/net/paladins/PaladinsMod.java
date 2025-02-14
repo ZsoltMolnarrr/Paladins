@@ -13,7 +13,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
-import net.paladins.config.ShieldsConfig;
 import net.paladins.config.TweaksConfig;
 import net.paladins.effect.Effects;
 import net.paladins.entity.BannerEntity;
@@ -25,21 +24,21 @@ import net.paladins.item.Weapons;
 import net.paladins.item.armor.Armors;
 import net.paladins.util.SoundHelper;
 import net.paladins.village.PaladinVillagers;
-import net.spell_engine.api.item.ItemConfig;
+import net.spell_engine.api.config.ConfigFile;
 import net.tinyconfig.ConfigManager;
 
 public class PaladinsMod implements ModInitializer {
     public static final String ID = "paladins";
 
-    public static ConfigManager<ItemConfig> itemConfig = new ConfigManager<>
-            ("items_v7", Default.itemConfig)
+    public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
+            ("equipment", Default.itemConfig)
             .builder()
             .setDirectory(ID)
             .sanitize(true)
             .build();
 
-    public static ConfigManager<ShieldsConfig> shieldConfig = new ConfigManager<>
-            ("shields_v2", new ShieldsConfig())
+    public static ConfigManager<ConfigFile.Shields> shieldConfig = new ConfigManager<>
+            ("shields", new ConfigFile.Shields())
             .builder()
             .setDirectory(ID)
             .sanitize(true)

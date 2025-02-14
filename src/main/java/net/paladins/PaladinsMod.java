@@ -22,7 +22,7 @@ import net.paladins.item.PaladinBooks;
 import net.paladins.item.Shields;
 import net.paladins.item.Weapons;
 import net.paladins.item.armor.Armors;
-import net.paladins.util.SoundHelper;
+import net.paladins.content.PaladinSounds;
 import net.paladins.village.PaladinVillagers;
 import net.spell_engine.api.config.ConfigFile;
 import net.tinyconfig.ConfigManager;
@@ -70,7 +70,8 @@ public class PaladinsMod implements ModInitializer {
         effectsConfig.refresh();
         tweaksConfig.refresh();
         villageConfig.refresh();
-        SoundHelper.registerSounds();
+
+        PaladinSounds.register();
 
         Group.PALADINS = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))

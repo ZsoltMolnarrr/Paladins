@@ -14,7 +14,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.paladins.PaladinsMod;
-import net.paladins.util.SoundHelper;
+import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.ShieldConfig;
 import net.spell_engine.api.item.Tiers;
@@ -131,7 +131,7 @@ public class Shields {
             if (tier >= netheriteTier) {
                 settings.fireproof();
             }
-            var shield = new CustomShieldItem(SoundHelper.shield_equip.entry(), entry.repair, shieldAttributes, settings);
+            var shield = new CustomShieldItem(PaladinSounds.shield_equip.entry(), entry.repair, shieldAttributes, settings);
             Registry.register(Registries.ITEM, entry.id, shield);
             shields.add(shield);
         }

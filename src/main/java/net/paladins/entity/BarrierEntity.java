@@ -13,7 +13,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
-import net.paladins.util.SoundHelper;
+import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.effect.EntityImmunity;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.entity.TwoWayCollisionChecker;
@@ -84,7 +84,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        this.getWorld().playSoundFromEntity(null, this, SoundHelper.holy_barrier_impact.sound(), SoundCategory.PLAYERS, 1F, 1F);
+        this.getWorld().playSoundFromEntity(null, this, PaladinSounds.holy_barrier_impact.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
         return super.damage(source, amount);
     }
 
@@ -172,7 +172,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         if (world.isClient()) {
             // Client
             if (!idleSoundFired) {
-                ((SoundPlayerWorld)world).playSoundFromEntity(this, SoundHelper.holy_barrier_idle.sound(), SoundCategory.PLAYERS, 1F, 1F);
+                ((SoundPlayerWorld)world).playSoundFromEntity(this, PaladinSounds.holy_barrier_idle.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
                 idleSoundFired = true;
             }
         } else {
@@ -201,7 +201,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
                 }
             }
             if (this.age == (this.timeToLive - expirationDuration())) {
-                this.getWorld().playSoundFromEntity(null, this, SoundHelper.holy_barrier_deactivate.sound(), SoundCategory.PLAYERS, 1F, 1F);
+                this.getWorld().playSoundFromEntity(null, this, PaladinSounds.holy_barrier_deactivate.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
             }
         }
     }

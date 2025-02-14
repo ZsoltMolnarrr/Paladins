@@ -6,13 +6,11 @@ import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
@@ -20,8 +18,7 @@ import net.paladins.PaladinsMod;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.item.Weapons;
 import net.paladins.item.armor.Armors;
-import net.paladins.item.armor.PaladinArmor;
-import net.paladins.util.SoundHelper;
+import net.paladins.content.PaladinSounds;
 import net.runes.api.RuneItems;
 
 import java.util.LinkedHashMap;
@@ -47,7 +44,7 @@ public class PaladinVillagers {
                 },
                 ImmutableSet.of(),
                 ImmutableSet.of(),
-                SoundHelper.paladin_armor_equip.sound())
+                PaladinSounds.paladin_armor_equip.soundEvent())
         );
     }
 

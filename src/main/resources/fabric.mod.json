@@ -26,7 +26,11 @@
     ],
     "modmenu": [
       "net.spell_engine.client.compatibility.ModMenuCompatibility"
+    ],
+    "fabric-datagen": [
+      "net.paladins.datagen.PaladinsDataGenerator"
     ]
+
   },
   "mixins": [
     "paladins.mixins.json"

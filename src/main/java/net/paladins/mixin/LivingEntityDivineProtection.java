@@ -7,7 +7,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.paladins.effect.DivineProtectionStatusEffect;
 import net.paladins.effect.PaladinEffects;
-import net.paladins.util.SoundHelper;
+import net.paladins.content.PaladinSounds;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -61,7 +61,7 @@ public class LivingEntityDivineProtection {
                 }
             }
             DivineProtectionStatusEffect.pop(entity);
-            SoundHelper.playSoundEvent(entity.getWorld(), entity, SoundHelper.divineProtectionImpact);
+            PaladinSounds.playSoundEvent(entity.getWorld(), entity, PaladinSounds.divine_protection_impact.soundEvent());
 
             // Copied from LivingEntity.java (`damage` method), where it is called `takeKnockback`
 //            double d = attacker.getX() - entity.getX();

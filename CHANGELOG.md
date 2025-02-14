@@ -1,5 +1,7 @@
-# 2.3.2
+# 2.4.0
 
+- Support Spell Engine 1.5
+- Rebalance basic Holy Wand healing spell
 - Add category field for all crafting recipes
 
 # 2.3.1

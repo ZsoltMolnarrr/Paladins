@@ -22,6 +22,7 @@
       "particles": [
         {
           "particle_id": "spell_engine:magic_holy_impact_decelerate",
+          "origin": "CENTER",
           "shape": "SPHERE",
           "count": 40.0,
           "min_speed": 0.2,

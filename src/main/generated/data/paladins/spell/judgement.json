@@ -17,6 +17,7 @@
           "particle_id": "spell_engine:magic_holy_spark_float",
           "origin": "FEET",
           "shape": "WIDE_PIPE",
+          "count": 1.0,
           "min_speed": 0.05,
           "max_speed": 0.1
         }
@@ -49,6 +50,7 @@
           "travel_particles": [
             {
               "particle_id": "spell_engine:magic_holy_impact_float",
+              "origin": "CENTER",
               "shape": "CIRCLE",
               "rotation": "LOOK",
               "count": 5.0,
@@ -56,6 +58,7 @@
             },
             {
               "particle_id": "spell_engine:magic_holy_spark_float",
+              "origin": "CENTER",
               "shape": "CIRCLE",
               "rotation": "LOOK",
               "count": 4.0,
@@ -94,6 +97,7 @@
       "particles": [
         {
           "particle_id": "spell_engine:magic_holy_impact_burst",
+          "origin": "CENTER",
           "shape": "SPHERE",
           "count": 25.0,
           "min_speed": 0.2
@@ -122,6 +126,7 @@
     "particles": [
       {
         "particle_id": "spell_engine:magic_holy_impact_decelerate",
+        "origin": "CENTER",
         "shape": "SPHERE",
         "count": 100.0,
         "min_speed": 0.8,
@@ -129,6 +134,7 @@
       },
       {
         "particle_id": "spell_engine:magic_holy_spark_float",
+        "origin": "CENTER",
         "shape": "SPHERE",
         "count": 100.0,
         "min_speed": 0.2,
@@ -136,6 +142,7 @@
       },
       {
         "particle_id": "smoke",
+        "origin": "CENTER",
         "shape": "SPHERE",
         "count": 50.0,
         "min_speed": 0.1,

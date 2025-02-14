@@ -18,6 +18,7 @@
           "particle_id": "spell_engine:magic_holy_spark_float",
           "origin": "FEET",
           "shape": "WIDE_PIPE",
+          "count": 1.0,
           "min_speed": 0.05,
           "max_speed": 0.1
         }
@@ -66,6 +67,7 @@
         },
         {
           "particle_id": "spell_engine:magic_holy_impact_decelerate",
+          "origin": "CENTER",
           "shape": "SPHERE",
           "count": 15.0,
           "min_speed": 0.2,
@@ -98,6 +100,7 @@
       "particles": [
         {
           "particle_id": "spell_engine:magic_holy_impact_burst",
+          "origin": "CENTER",
           "shape": "SPHERE",
           "count": 30.0,
           "min_speed": 0.2,

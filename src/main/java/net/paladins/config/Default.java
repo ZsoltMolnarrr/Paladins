@@ -2,8 +2,6 @@ package net.paladins.config;
 
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
 import net.spell_engine.api.config.ConfigFile;
-import net.paladins.item.armor.Armors;
-import net.paladins.item.Weapons;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,13 +13,6 @@ public class Default {
     public final static StructurePoolConfig villageConfig;
     static {
         itemConfig = new ConfigFile.Equipment();
-        for (var weapon: Weapons.entries) {
-            itemConfig.weapons.put(weapon.name(), weapon.defaults());
-        }
-        for (var armorSet: Armors.entries) {
-            itemConfig.armor_sets.put(armorSet.name(), armorSet.defaults());
-        }
-
         villageConfig = new StructurePoolConfig();
         var weight = 3;
         var limit = 1;

@@ -15,18 +15,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaladinSounds {
-    public record Entry(Identifier id, SoundEvent soundEvent, RegistryEntry<SoundEvent> entry) {
+    public static final class Entry {
+        private final Identifier id;
+        private final SoundEvent soundEvent;
+        private RegistryEntry<SoundEvent> entry;
+        private int variants = 1;
+
+        public Entry(Identifier id, SoundEvent soundEvent) {
+            this.id = id;
+            this.soundEvent = soundEvent;
+        }
+
         public Entry(String name) {
             this(Identifier.of(PaladinsMod.ID, name));
         }
+
         public Entry(Identifier id) {
             this(id, SoundEvent.of(id));
         }
+
         public Entry travelDistance(float distance) {
             return new Entry(id, SoundEvent.of(id, distance));
         }
-        public Entry(Identifier id, SoundEvent soundEvent) {
-            this(id, soundEvent, Registry.registerReference(Registries.SOUND_EVENT, id, soundEvent));
+
+        public Entry variants(int variants) {
+            this.variants = variants;
+            return this;
+        }
+
+        public Identifier id() {
+            return id;
+        }
+
+        public SoundEvent soundEvent() {
+            return soundEvent;
+        }
+
+        public RegistryEntry<SoundEvent> entry() {
+            return entry;
+        }
+
+        public int variants() {
+            return variants;
         }
     }
     public static final List<Entry> entries = new ArrayList<>();
@@ -35,8 +65,8 @@ public class PaladinSounds {
         return entry;
     }
 
-    public static final Entry paladin_armor_equip = add(new Entry("plate_equip"));
-    public static final Entry priest_robe_equip = add(new Entry("cloth_equip"));
+    public static final Entry paladin_armor_equip = add(new Entry("plate_equip").variants(3));
+    public static final Entry priest_robe_equip = add(new Entry("cloth_equip").variants(3));
     public static final Entry shield_equip = add(new Entry("shield_equip"));
     public static final Entry holy_barrier_activate = add(new Entry("holy_barrier_activate"));
     public static final Entry holy_barrier_idle = add(new Entry("holy_barrier_idle"));
@@ -57,7 +87,7 @@ public class PaladinSounds {
 
     public static void register() {
         for (var entry: entries) {
-            Registry.register(Registries.SOUND_EVENT, entry.id(), entry.soundEvent());
+            entry.entry = Registry.registerReference(Registries.SOUND_EVENT, entry.id(), entry.soundEvent());
         }
     }
 

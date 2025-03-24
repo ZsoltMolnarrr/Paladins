@@ -79,7 +79,7 @@ public class PaladinEffects {
             Identifier.of(PaladinsMod.ID, "priest_absorption"),
             "Absorption",
             "Increases maximum absorption",
-            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
+            new PriestAbsorptionStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
                             EntityAttributes.GENERIC_MAX_ABSORPTION.getIdAsString(),

@@ -1,3 +1,7 @@
+# 2.4.4
+
+- Update to Spell Engine 1.6
+
 # 2.4.3
 
 - Fix sound related issues, and crashes upon disconnects

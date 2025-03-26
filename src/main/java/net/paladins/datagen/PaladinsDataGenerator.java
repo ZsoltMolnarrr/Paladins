@@ -7,8 +7,11 @@ import net.minecraft.registry.RegistryWrapper;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.paladins.content.PaladinSpells;
+import net.paladins.item.Weapons;
+import net.paladins.item.armor.Armors;
 import net.spell_engine.api.datagen.SimpleSoundGeneratorV2;
 import net.spell_engine.api.datagen.SpellGenerator;
+import net.spell_engine.rpg_series.datagen.RPGSeriesDataGen;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,6 +23,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         // SoundGen needs support for sounds with multiple file entries "paladins:plate_equip_1","paladins:plate_equip_2","paladins:plate_equip_3"
         // pack.addProvider(SoundGen::new);
         pack.addProvider(SpellGen::new);
+        pack.addProvider(ItemTagGenerator::new);
     }
 
     public static class SpellGen extends SpellGenerator {
@@ -32,6 +36,18 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             for (var entry: PaladinSpells.entries) {
                 builder.add(entry.id(), entry.spell());
             }
+        }
+    }
+
+    public static class ItemTagGenerator extends RPGSeriesDataGen.ItemTagGenerator {
+        public ItemTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+            super(output, registriesFuture);
+        }
+
+        @Override
+        protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+            generateWeaponTags(Weapons.entries);
+            generateArmorTags(Armors.entries);
         }
     }
 

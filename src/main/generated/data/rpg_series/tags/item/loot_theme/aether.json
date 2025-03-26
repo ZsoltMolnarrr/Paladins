@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "paladins:aether_holy_staff",
+      "required": false
+    },
+    {
+      "id": "paladins:aether_claymore",
+      "required": false
+    },
+    {
+      "id": "paladins:aether_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:aether_mace",
+      "required": false
+    }
+  ]
+}

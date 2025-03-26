@@ -16,6 +16,7 @@ import net.paladins.item.Group;
 import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.config.ArmorSetConfig;
 import net.spell_engine.api.config.AttributeModifier;
+import net.spell_engine.api.item.Equipment;
 import net.spell_engine.api.item.armor.Armor;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
@@ -28,13 +29,15 @@ import java.util.function.Supplier;
 public class Armors {
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
     private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability,
-                                      Armor.Set.ItemFactory factory, ArmorSetConfig defaults) {
+                                      Armor.Set.ItemFactory factory, ArmorSetConfig defaults, int tier) {
         var entry = Armor.Entry.create(
                 material,
                 id,
                 durability,
                 factory,
-                defaults);
+                defaults,
+                Equipment.LootProperties.of(tier)
+        );
         entries.add(entry);
         return entry;
     }
@@ -128,7 +131,7 @@ public class Armors {
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power)),
                     new ArmorSetConfig.Piece(2)
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power))
-            ))
+            ), 1)
             .armorSet();
 
     public static final Armor.Set paladinArmorSet_t2 = create(
@@ -145,7 +148,7 @@ public class Armors {
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power)),
                     new ArmorSetConfig.Piece(3)
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power))
-            ))
+            ), 2)
             .armorSet();
 
     public static final Armor.Set paladinArmorSet_t3 = create(
@@ -167,7 +170,7 @@ public class Armors {
                             .add(toughnessBonus(paladin_t3_toughness))
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power))
 
-            ))
+            ), 3)
             .armorSet();
 
     private static final float priest_t1_spell_power = 0.2F;
@@ -190,7 +193,7 @@ public class Armors {
                             .add(AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t1_spell_power)),
                     new ArmorSetConfig.Piece(1)
                             .add(AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t1_spell_power))
-            ))
+            ), 1)
             .armorSet();
 
     public static final Armor.Set priestArmorSet_t2 = create(
@@ -219,7 +222,7 @@ public class Armors {
                                     AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t2_spell_power),
                                     AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
                             ))
-            ))
+            ), 2)
             .armorSet();
 
     public static final Armor.Set priestArmorSet_t3 = create(
@@ -248,7 +251,7 @@ public class Armors {
                                     AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t3_spell_power),
                                     AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
                             ))
-            ))
+            ), 3)
             .armorSet();
 
     public static void register(Map<String, ArmorSetConfig> configs) {

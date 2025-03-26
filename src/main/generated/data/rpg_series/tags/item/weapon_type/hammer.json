@@ -1,0 +1,40 @@
+{
+  "values": [
+    {
+      "id": "paladins:wooden_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:stone_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:iron_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:golden_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:diamond_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:aeternium_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:aether_great_hammer",
+      "required": false
+    }
+  ]
+}

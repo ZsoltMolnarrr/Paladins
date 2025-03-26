@@ -1,0 +1,32 @@
+{
+  "values": [
+    {
+      "id": "paladins:iron_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:golden_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:diamond_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:aeternium_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:aether_mace",
+      "required": false
+    }
+  ]
+}

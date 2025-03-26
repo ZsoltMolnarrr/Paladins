@@ -25,5 +25,3 @@ public class PriestAbsorptionStatusEffect extends StatusEffect {
         entity.setAbsorptionAmount(Math.max(entity.getAbsorptionAmount(), (float)(healthPerStack * (1 + amplifier))));
     }
 }
-
-

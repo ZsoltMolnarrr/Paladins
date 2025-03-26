@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "paladins:netherite_claymore",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_holy_wand",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_holy_staff",
+      "required": false
+    }
+  ]
+}

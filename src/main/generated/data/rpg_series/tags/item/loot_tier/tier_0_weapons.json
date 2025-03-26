@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "paladins:stone_claymore",
+      "required": false
+    },
+    {
+      "id": "paladins:wooden_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:stone_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:acolyte_wand",
+      "required": false
+    }
+  ]
+}

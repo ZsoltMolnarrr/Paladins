@@ -8,10 +8,7 @@ import net.paladins.PaladinsMod;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.ConfigFile;
 import net.spell_engine.api.config.EffectConfig;
-import net.spell_engine.api.effect.ActionImpairing;
-import net.spell_engine.api.effect.Effects;
-import net.spell_engine.api.effect.EntityActionsAllowed;
-import net.spell_engine.api.effect.Synchronized;
+import net.spell_engine.api.effect.*;
 import net.spell_power.api.SpellPowerMechanics;
 
 import java.util.ArrayList;

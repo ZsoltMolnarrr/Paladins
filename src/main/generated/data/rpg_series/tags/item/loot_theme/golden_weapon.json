@@ -11,6 +11,10 @@
     {
       "id": "paladins:golden_mace",
       "required": false
+    },
+    {
+      "id": "paladins:golden_kite_shield",
+      "required": false
     }
   ]
 }

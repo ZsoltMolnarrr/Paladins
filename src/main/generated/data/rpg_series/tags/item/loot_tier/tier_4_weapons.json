@@ -27,6 +27,14 @@
     {
       "id": "paladins:aeternium_mace",
       "required": false
+    },
+    {
+      "id": "paladins:aeternium_kite_shield",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_kite_shield",
+      "required": false
     }
   ]
 }

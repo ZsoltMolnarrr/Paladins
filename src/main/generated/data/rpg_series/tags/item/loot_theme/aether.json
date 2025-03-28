@@ -15,6 +15,10 @@
     {
       "id": "paladins:aether_mace",
       "required": false
+    },
+    {
+      "id": "paladins:aether_kite_shield",
+      "required": false
     }
   ]
 }

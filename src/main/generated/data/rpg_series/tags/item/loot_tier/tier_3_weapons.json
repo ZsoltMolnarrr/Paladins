@@ -19,6 +19,10 @@
     {
       "id": "paladins:netherite_holy_staff",
       "required": false
+    },
+    {
+      "id": "paladins:netherite_kite_shield",
+      "required": false
     }
   ]
 }

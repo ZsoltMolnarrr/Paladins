@@ -7,6 +7,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.paladins.content.PaladinSpells;
+import net.paladins.item.Shields;
 import net.paladins.item.Weapons;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.datagen.SimpleSoundGeneratorV2;
@@ -48,6 +49,10 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
             generateWeaponTags(Weapons.entries);
             generateArmorTags(Armors.entries);
+            var shieldEntries = Shields.ENTRIES.stream().map(entry ->
+                    new RPGSeriesDataGen.ShieldEntry(entry.id(), entry.lootProperties())
+            ).toList();
+            generateShieldTags(shieldEntries);
         }
     }
 

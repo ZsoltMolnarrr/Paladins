@@ -1,3 +1,7 @@
+# 2.4.5
+
+- Fix shields tags
+
 # 2.4.4
 
 - Update to Spell Engine 1.6

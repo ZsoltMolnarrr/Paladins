@@ -19,6 +19,10 @@
     {
       "id": "paladins:diamond_holy_staff",
       "required": false
+    },
+    {
+      "id": "paladins:diamond_kite_shield",
+      "required": false
     }
   ]
 }

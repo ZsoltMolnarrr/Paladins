@@ -1,3 +1,10 @@
+# 2.4.6
+
+- Add Sanctuary trade advancement
+- Sanctuary chests now may contain Lapis Lazuli
+- Change repair material for armor pieces
+- Add smelting recipes for disassembling archer weapons and armor pieces
+
 # 2.4.5
 
 - Fix shields tags

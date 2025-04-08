@@ -130,5 +130,8 @@
   "advancements.rpg_series.spell_master_priest.description": "Obtain all Priest Spells",
 
   "advancements.rpg_series.obtain_healing_rune.title": "Path of Healing",
-  "advancements.rpg_series.obtain_healing_rune.description": "Obtain a Healing Rune"
+  "advancements.rpg_series.obtain_healing_rune.description": "Obtain a Healing Rune",
+
+  "advancements.rpg_series.trade_with_monk.title": "Healers Exchange",
+  "advancements.rpg_series.trade_with_monk.description": "Purchase an item from a Monk Villager"
 }

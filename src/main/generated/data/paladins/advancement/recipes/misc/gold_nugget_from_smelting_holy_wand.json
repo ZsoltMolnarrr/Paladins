@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_holy_wand": {
+      "conditions": {
+        "items": [
+          {
+            "items": "paladins:holy_wand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:gold_nugget_from_smelting_holy_wand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_holy_wand"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:gold_nugget_from_smelting_holy_wand"
+    ]
+  }
+}

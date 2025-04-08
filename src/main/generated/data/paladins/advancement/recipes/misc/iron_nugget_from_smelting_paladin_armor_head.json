@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_paladin_armor_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": "paladins:paladin_armor_head"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:iron_nugget_from_smelting_paladin_armor_head"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_paladin_armor_head"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:iron_nugget_from_smelting_paladin_armor_head"
+    ]
+  }
+}

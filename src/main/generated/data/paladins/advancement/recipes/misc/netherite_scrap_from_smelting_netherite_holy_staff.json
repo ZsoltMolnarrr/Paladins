@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite_holy_staff": {
+      "conditions": {
+        "items": [
+          {
+            "items": "paladins:netherite_holy_staff"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:netherite_scrap_from_smelting_netherite_holy_staff"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherite_holy_staff"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:netherite_scrap_from_smelting_netherite_holy_staff"
+    ]
+  }
+}

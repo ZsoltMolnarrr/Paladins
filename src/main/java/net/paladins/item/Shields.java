@@ -27,7 +27,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class Shields {
-    public record Entry(Identifier id, Supplier<Ingredient> repair, List<AttributeModifier> attributes, int durability, Equipment.LootProperties lootProperties) {  }
+    public static class Holder { public Holder() {}; public Holder(Item item) { this.item = item; }; public Item item; }
+    public record Entry(Identifier id, Supplier<Ingredient> repair, List<AttributeModifier> attributes, int durability, Equipment.LootProperties lootProperties, Holder holder) {  }
     public static final ArrayList<Entry> ENTRIES = new ArrayList<>();
 
     private static Supplier<Ingredient> ingredient(String idString, boolean requirement, Item fallback) {
@@ -46,7 +47,7 @@ public class Shields {
     }
 
     public static Entry shield(String name, Supplier<Ingredient> repair, List<AttributeModifier> attributes, int durability, Equipment.LootProperties lootProperties) {
-        var entry = new Entry(Identifier.of(PaladinsMod.ID, name), repair, attributes, durability, lootProperties);
+        var entry = new Entry(Identifier.of(PaladinsMod.ID, name), repair, attributes, durability, lootProperties, new Holder());
         ENTRIES.add(entry);
         return entry;
     }
@@ -133,6 +134,7 @@ public class Shields {
                 settings.fireproof();
             }
             var shield = new CustomShieldItem(PaladinSounds.shield_equip.entry(), entry.repair, shieldAttributes, settings);
+            entry.holder.item = shield;
             Registry.register(Registries.ITEM, entry.id, shield);
             shields.add(shield);
         }

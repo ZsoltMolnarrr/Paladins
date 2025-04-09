@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_great_hammer": {
+    "has_golden_great_hammer": {
       "conditions": {
         "items": [
           {
-            "items": "paladins:iron_great_hammer"
+            "items": "paladins:golden_great_hammer"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:gold_nugget_from_smelting_iron_great_hammer"
+        "recipe": "minecraft:gold_nugget_from_smelting_golden_great_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_great_hammer"
+      "has_golden_great_hammer"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:gold_nugget_from_smelting_iron_great_hammer"
+      "minecraft:gold_nugget_from_smelting_golden_great_hammer"
     ]
   }
 }

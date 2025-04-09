@@ -5,9 +5,9 @@
   "experience": 0.1,
   "group": "disassemble",
   "ingredient": {
-    "item": "paladins:golden_great_hammer"
+    "item": "paladins:golden_mace"
   },
   "result": {
-    "id": "minecraft:iron_nugget"
+    "id": "minecraft:gold_nugget"
   }
 }

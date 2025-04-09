@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_mace": {
+    "has_golden_claymore": {
       "conditions": {
         "items": [
           {
-            "items": "paladins:iron_mace"
+            "items": "paladins:golden_claymore"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:gold_nugget_from_blasting_iron_mace"
+        "recipe": "minecraft:gold_nugget_from_blasting_golden_claymore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_mace"
+      "has_golden_claymore"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:gold_nugget_from_blasting_iron_mace"
+      "minecraft:gold_nugget_from_blasting_golden_claymore"
     ]
   }
 }

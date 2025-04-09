@@ -1,3 +1,7 @@
+# 2.4.7
+
+- Fix some disassembly smelting recipes
+
 # 2.4.6
 
 - Add Sanctuary trade advancement

@@ -184,6 +184,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 16;
         spell.tier = 1;
+        spell.group = GROUP_PRIMARY;
 
         spell.active.cast.duration = 0.5F;
         spell.active.cast.animation = "spell_engine:one_handed_healing_charge";
@@ -199,7 +200,7 @@ public class PaladinSpells {
         spell.target.aim = new Spell.Target.Aim();
         spell.target.aim.use_caster_as_fallback = true;
 
-        var heal = createHeal(1F);
+        var heal = createHeal(1.2F);
         impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(

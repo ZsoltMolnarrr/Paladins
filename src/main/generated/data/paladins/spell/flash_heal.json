@@ -1,6 +1,7 @@
 {
   "school": "spell_power:healing",
   "range": 16.0,
+  "group": "primary",
   "tier": 1,
   "learn": {},
   "active": {
@@ -51,7 +52,9 @@
       ],
       "action": {
         "type": "HEAL",
-        "heal": {}
+        "heal": {
+          "spell_power_coefficient": 1.2
+        }
       },
       "particles": [
         {

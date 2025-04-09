@@ -1,3 +1,9 @@
+# 2.4.8
+
+- Fix trade advancements
+- Wands now use different classification tag
+- Change Flash Heal to `Primary` spell, increase its power coefficient by 20%
+
 # 2.4.7
 
 - Fix some disassembly smelting recipes

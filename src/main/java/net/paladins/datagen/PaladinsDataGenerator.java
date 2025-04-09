@@ -127,7 +127,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     Items.IRON_NUGGET);
             disassemble(exporter,
                     List.of(Shields.golden_kite_shield.holder().item),
-                    Items.IRON_NUGGET);
+                    Items.GOLD_NUGGET);
             disassemble(exporter,
                     List.of(Shields.netherite_kite_shield.holder().item),
                     Items.NETHERITE_SCRAP);

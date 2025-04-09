@@ -3,6 +3,7 @@
 - Fix trade advancements
 - Wands now use different classification tag
 - Change Flash Heal to `Primary` spell, increase its power coefficient by 20%
+- Add spell casting advancements
 
 # 2.4.7
 

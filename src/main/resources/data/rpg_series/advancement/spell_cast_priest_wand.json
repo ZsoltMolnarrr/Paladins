@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "id": "paladins:holy_wand"
+      "id": "paladins:acolyte_wand"
     },
     "title": {
-      "translate": "advancements.rpg_series.spell_novice_priest.title"
+      "translate": "advancements.rpg_series.spell_cast_priest_wand.title"
     },
     "description": {
-      "translate": "advancements.rpg_series.spell_novice_priest.description"
+      "translate": "advancements.rpg_series.spell_cast_priest_wand.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,17 +16,16 @@
   },
   "parent": "rpg_series:path_choose_priest",
   "criteria": {
-    "bind": {
-      "trigger": "spell_engine:spell_binding",
+    "cast": {
+      "trigger": "spell_engine:spell_cast",
       "conditions": {
-        "complete": false,
-        "spell_pool": "paladins:priest"
+        "spell": "paladins:heal"
       }
     }
   },
   "requirements": [
     [
-      "bind"
+      "cast"
     ]
   ]
 }

@@ -128,7 +128,7 @@ public class Weapons {
     private static final float wandAttackDamage = 2;
     private static final float wandAttackSpeed = -2.4F;
     private static Weapon.Entry wand(String name, Weapon.CustomMaterial material) {
-        return entry(name, material, StaffItem::new, new WeaponConfig(wandAttackDamage, wandAttackSpeed), Equipment.WeaponType.HEALING_STAFF);
+        return entry(name, material, StaffItem::new, new WeaponConfig(wandAttackDamage, wandAttackSpeed), Equipment.WeaponType.HEALING_WAND);
     }
 
     public static final Weapon.Entry acolyte_wand = wand("acolyte_wand",

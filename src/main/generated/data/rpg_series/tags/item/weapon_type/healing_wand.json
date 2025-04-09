@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "paladins:acolyte_wand",
+      "required": false
+    },
+    {
+      "id": "paladins:holy_wand",
+      "required": false
+    },
+    {
+      "id": "paladins:diamond_holy_wand",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_holy_wand",
+      "required": false
+    }
+  ]
+}

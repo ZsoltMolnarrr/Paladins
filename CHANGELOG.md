@@ -1,3 +1,7 @@
+# 2.4.9
+
+- Add spell scroll textures
+
 # 2.4.8
 
 - Fix trade advancements

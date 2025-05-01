@@ -20,6 +20,7 @@ import net.spell_engine.api.datagen.SimpleSoundGeneratorV2;
 import net.spell_engine.api.datagen.SpellGenerator;
 import net.spell_engine.api.item.armor.Armor;
 import net.spell_engine.rpg_series.datagen.RPGSeriesDataGen;
+import net.spell_engine.rpg_series.tags.RPGSeriesItemTags;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -57,7 +58,15 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         @Override
         protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
             generateWeaponTags(Weapons.entries);
-            generateArmorTags(Armors.entries);
+            generateArmorTags(
+                    Armors.entries.stream().filter(entry -> entry.name().contains("armor")).toList(),
+                    RPGSeriesItemTags.ArmorMetaType.MELEE
+            );
+            generateArmorTags(
+                    Armors.entries.stream().filter(entry -> entry.name().contains("robe")).toList(),
+                    RPGSeriesItemTags.ArmorMetaType.MAGIC
+            );
+
             var shieldEntries = Shields.ENTRIES.stream().map(entry ->
                     new RPGSeriesDataGen.ShieldEntry(entry.id(), entry.lootProperties())
             ).toList();

@@ -1,3 +1,8 @@
+# 2.4.11
+
+- Add armor type tags
+- Update translations
+
 # 2.4.10
 
 - AzureLib armor version requirement (in fabric.mod.json)

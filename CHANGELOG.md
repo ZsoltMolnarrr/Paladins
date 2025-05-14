@@ -1,3 +1,8 @@
+# 2.4.12
+
+- Rebalance: slightly reduce healing done by priest spells
+- Update translations
+
 # 2.4.11
 
 - Add armor type tags

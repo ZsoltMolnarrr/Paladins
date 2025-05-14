@@ -433,7 +433,7 @@ public class PaladinSpells {
         spell.target.aim = new Spell.Target.Aim();
         spell.target.aim.use_caster_as_fallback = true;
 
-        var heal = createHeal(0.8F);
+        var heal = createHeal(0.75F);
         impactDeniedForMechanical(heal);
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
         heal.particles = new ParticleBatch[] {
@@ -477,7 +477,7 @@ public class PaladinSpells {
         spell.target.aim.sticky = true;
         spell.target.aim.use_caster_as_fallback = true;
 
-        var heal = createHeal(0.75F);
+        var heal = createHeal(0.5F);
         impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
@@ -641,7 +641,7 @@ public class PaladinSpells {
         spell.target.area.vertical_range_multiplier = 0.6F;
         spell.target.area.include_caster = true;
 
-        var heal = createHeal(0.5F);
+        var heal = createHeal(0.4F);
         impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
@@ -655,7 +655,7 @@ public class PaladinSpells {
         };
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
 
-        var buff = createEffectImpact(PaladinEffects.ABSORPTION.id, 4);
+        var buff = createEffectImpact(PaladinEffects.ABSORPTION.id, 6);
         buff.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
         buff.action.status_effect.amplifier_power_multiplier = 0.25F;
 

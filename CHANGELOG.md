@@ -1,3 +1,7 @@
+# 2.4.13
+
+- Fix Divine Protection scaling
+
 # 2.4.12
 
 - Rebalance: slightly reduce healing done by priest spells

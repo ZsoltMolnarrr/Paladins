@@ -235,7 +235,7 @@ public class PaladinSpells {
         var buff = createEffectImpact(PaladinEffects.DIVINE_PROTECTION.id, 8);
         buff.action.status_effect.amplifier = 0;
         buff.action.status_effect.amplifier_cap = 2;
-        buff.action.status_effect.amplifier_power_multiplier = 1F;
+        buff.action.status_effect.amplifier_power_multiplier = 0.5F;
 
         buff.sound = new Sound(PaladinSounds.divine_protection_release.id());
         buff.particles = new ParticleBatch[] {

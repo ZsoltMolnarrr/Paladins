@@ -111,7 +111,7 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "paladins:priest_absorption",
-          "duration": 4.0,
+          "duration": 6.0,
           "amplifier_power_multiplier": 0.25
         }
       }

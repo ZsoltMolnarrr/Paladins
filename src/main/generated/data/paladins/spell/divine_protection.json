@@ -16,7 +16,8 @@
         "status_effect": {
           "effect_id": "paladins:divine_protection",
           "duration": 8.0,
-          "amplifier": 2
+          "amplifier_cap": 2,
+          "amplifier_power_multiplier": 1.0
         }
       },
       "particles": [

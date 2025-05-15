@@ -82,7 +82,7 @@
   "spell.paladins.flash_heal.name": "Flash Heal",
   "spell.paladins.flash_heal.description": "Heals you or a friendly target by {heal} health points.",
   "spell.paladins.divine_protection.name": "Divine Protection",
-  "spell.paladins.divine_protection.description": "Protects you from the next {effect_amplifier} incoming attacks for {effect_duration} seconds.",
+  "spell.paladins.divine_protection.description": "Protects you from the next incoming attacks (up to {effect_amplifier_cap}), for {effect_duration} seconds.",
   "effect.paladins.divine_protection": "Divine Protection",
   "effect.paladins.divine_protection.description": "Protects you from the incoming attack",
   "spell.paladins.judgement.name": "Judgement",

@@ -233,7 +233,11 @@ public class PaladinSpells {
         spell.release.animation = "spell_engine:one_handed_area_release";
 
         var buff = createEffectImpact(PaladinEffects.DIVINE_PROTECTION.id, 8);
-        buff.action.status_effect.amplifier = 2;
+        // buff.action.min_power = 1;
+        buff.action.status_effect.amplifier = 0;
+        buff.action.status_effect.amplifier_cap = 2;
+        buff.action.status_effect.amplifier_power_multiplier = 1F;
+
         buff.sound = new Sound(PaladinSounds.divine_protection_release.id());
         buff.particles = new ParticleBatch[] {
                 new ParticleBatch(

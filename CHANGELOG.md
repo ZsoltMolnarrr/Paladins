@@ -1,6 +1,8 @@
 # 2.4.12
 
 - Rebalance: slightly reduce healing done by priest spells
+- Rebalance: Divine Protection is now powered by Healing Power attribute (more power = more stacks)
+- Rebalance: Circle of Healing has now longer absorption duration
 - Update translations
 
 # 2.4.11

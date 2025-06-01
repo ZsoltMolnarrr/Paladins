@@ -1,6 +1,7 @@
 {
   "parent": "paladins:item/base/great_hammer",
   "textures": {
-    "1": "paladins:item/aether_great_hammer"
+    "1": "paladins:item/aether_great_hammer",
+    "particle": "paladins:item/aether_great_hammer"
   }
 }

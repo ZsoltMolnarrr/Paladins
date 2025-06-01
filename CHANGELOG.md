@@ -1,3 +1,7 @@
+# 2.4.14
+
+- Fix great hammer break particle texturing
+
 # 2.4.13
 
 - Fix Divine Protection scaling

@@ -12,7 +12,7 @@ public class DivineProtectionStatusEffect extends StatusEffect {
         super(statusEffectCategory, color);
     }
 
-    private static final ParticleBatch particles = new ParticleBatch(
+    public static final ParticleBatch particles = new ParticleBatch(
             "spell_engine:holy_spark",
             ParticleBatch.Shape.PILLAR,
             ParticleBatch.Origin.CENTER,

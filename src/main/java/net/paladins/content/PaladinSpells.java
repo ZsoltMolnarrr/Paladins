@@ -199,6 +199,7 @@ public class PaladinSpells {
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
         spell.target.aim.use_caster_as_fallback = true;
+        spell.target.aim.sticky = true;
 
         var heal = createHeal(1.2F);
         impactDeniedForMechanical(heal);
@@ -480,7 +481,7 @@ public class PaladinSpells {
         spell.target.aim.sticky = true;
         spell.target.aim.use_caster_as_fallback = true;
 
-        var heal = createHeal(0.5F);
+        var heal = createHeal(0.4F);
         impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(

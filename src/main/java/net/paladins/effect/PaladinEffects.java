@@ -97,9 +97,7 @@ public class PaladinEffects {
         Effects.register(entries, config.effects);
 
         Protection.register(DIVINE_PROTECTION.entry, new Protection.Pop(
-                new ParticleBatch[]{
-                        DivineProtectionStatusEffect.particles,
-                },
+                new ParticleBatch[]{ DivineProtectionStatusEffect.particles },
                 PaladinSounds.divine_protection_impact.soundEvent()
         ));
     }

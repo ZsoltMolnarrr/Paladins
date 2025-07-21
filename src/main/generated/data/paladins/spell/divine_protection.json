@@ -3,9 +3,7 @@
   "range": 0.0,
   "tier": 2,
   "learn": {},
-  "active": {
-    "scroll": {}
-  },
+  "active": {},
   "release": {
     "animation": "spell_engine:one_handed_area_release"
   },
@@ -16,18 +14,19 @@
         "status_effect": {
           "effect_id": "paladins:divine_protection",
           "duration": 8.0,
-          "amplifier_cap": 2,
-          "amplifier_power_multiplier": 0.5
+          "amplifier_power_multiplier": 0.5,
+          "amplifier_cap": 2
         }
       },
       "particles": [
         {
-          "particle_id": "spell_engine:magic_holy_impact_decelerate",
+          "particle_id": "spell_engine:magic_holy_decelerate",
           "origin": "CENTER",
           "shape": "SPHERE",
           "count": 40.0,
           "min_speed": 0.2,
-          "max_speed": 0.2
+          "max_speed": 0.2,
+          "color_rgba": 4294954239
         }
       ],
       "sound": {

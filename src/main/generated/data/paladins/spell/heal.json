@@ -33,6 +33,7 @@
   "target": {
     "type": "AIM",
     "aim": {
+      "sticky": true,
       "use_caster_as_fallback": true
     }
   },

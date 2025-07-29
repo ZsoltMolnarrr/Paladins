@@ -424,6 +424,7 @@ public class PaladinSpells {
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
         spell.target.aim.use_caster_as_fallback = true;
+        spell.target.aim.sticky = true;
 
         var heal = createHeal(0.75F);
         impactDeniedForMechanical(heal);

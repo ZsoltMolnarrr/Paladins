@@ -1,3 +1,7 @@
+# 2.5.1
+
+- Basic Heal spell targeting is now sticky
+
 # 2.5.0
 
 - Flash Heal targeting is now sticky

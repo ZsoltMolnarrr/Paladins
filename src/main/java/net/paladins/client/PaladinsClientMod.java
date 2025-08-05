@@ -22,8 +22,12 @@ import net.paladins.item.armor.Armors;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.api.item.armor.Armor;
+import net.spell_engine.api.render.BuffParticleSpawner;
 import net.spell_engine.api.render.CustomModels;
 import net.spell_engine.api.render.StunParticleSpawner;
+import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.client.util.Color;
+import net.spell_engine.fx.SpellEngineParticles;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -39,7 +43,21 @@ public class PaladinsClientMod implements ClientModInitializer {
         ));
         CustomModelStatusEffect.register(PaladinEffects.DIVINE_PROTECTION.effect, new DivineProtectionRenderer());
         CustomParticleStatusEffect.register(PaladinEffects.JUDGEMENT.effect, new StunParticleSpawner());
-        CustomParticleStatusEffect.register(PaladinEffects.ABSORPTION.effect, new AbsorbParticleSpawner());
+        // CustomParticleStatusEffect.register(PaladinEffects.ABSORPTION.effect, new AbsorbParticleSpawner());
+        CustomParticleStatusEffect.register(
+                PaladinEffects.ABSORPTION.effect,
+                new BuffParticleSpawner(
+                        new ParticleBatch(
+                                SpellEngineParticles.aura_effect_553.id().toString(),
+                                ParticleBatch.Shape.LINE, ParticleBatch.Origin.CENTER,
+                                1, 0, 0)
+                                .scale(1.4F)
+                                .followEntity(true)
+                                .color(Color.HOLY.alpha(0.75F).toRGBA())
+                ).withFrequency(30).scaleWithAmplifier(false)
+        );
+
+
         BlockRenderLayerMap.INSTANCE.putBlock(PaladinBlocks.MONK_WORKBENCH, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);

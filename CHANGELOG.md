@@ -1,3 +1,7 @@
+# 2.5.2
+
+- Update visuals of Priest Absorption effect
+
 # 2.5.1
 
 - Basic Heal spell targeting is now sticky

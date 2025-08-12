@@ -1,0 +1,15 @@
+{
+  "target_pool": "repurposed_structures:villages/ocean/houses",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 18,
+      "element": {
+        "location": "paladins:villages/ocean/sanctuary",
+        "processors": "repurposed_structures:villages/ocean/randomize",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "target_pool": "repurposed_structures:villages/dark_forest/houses",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 18,
+      "element": {
+        "location": "paladins:villages/dark_forest/sanctuary",
+        "processors": "repurposed_structures:villages/dark_forest/mossify",
+        "projection": "rigid",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    }
+  ]
+}

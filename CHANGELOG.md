@@ -1,6 +1,7 @@
 # 2.5.2
 
 - Update visuals of Priest Absorption effect
+- Built in compatibility with Repurposed Structures #61, thanks TelepathicGrunt
 
 # 2.5.1
 

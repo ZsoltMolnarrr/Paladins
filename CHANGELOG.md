@@ -1,3 +1,7 @@
+# 2.5.3
+
+- Improve snowy village structure
+
 # 2.5.2
 
 - Update visuals of Priest Absorption effect

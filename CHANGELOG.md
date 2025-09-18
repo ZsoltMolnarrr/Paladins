@@ -1,3 +1,7 @@
+# 2.6.0
+
+- Migrate to Architectury
+
 # 2.5.3
 
 - Improve snowy village structure

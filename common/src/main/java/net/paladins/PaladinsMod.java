@@ -68,15 +68,22 @@ public class PaladinsMod {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             tweaksConfig.value.ignore_items_required_mods = true;
         }
+    }
 
+    public static void registerSounds() {
         PaladinSounds.register();
+    }
 
+    public static void registerBlocks() {
+        PaladinBlocks.register();
+    }
+
+    public static void registerItems() {
         Group.PALADINS = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
                 .displayName(Text.translatable("itemGroup.paladins.general"))
                 .build();
         Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
-        PaladinBlocks.register();
         PaladinBooks.register();
 
         Weapons.register(itemConfig.value.weapons);
@@ -85,13 +92,19 @@ public class PaladinsMod {
         shieldConfig.save();
         itemConfig.save();
 
-        PaladinEffects.register(effectsConfig.value);
-        effectsConfig.save();
-
-        PaladinVillagers.register();
+        PaladinEntities.register();
     }
 
-    static {
-        PaladinEntities.register();
+    public static void registerEffects() {
+        PaladinEffects.register(effectsConfig.value);
+        effectsConfig.save();
+    }
+
+    public static void registerPOI() {
+        PaladinVillagers.registerPOI();
+    }
+
+    public static void registerVillagers() {
+        PaladinVillagers.registerVillagers();
     }
 }

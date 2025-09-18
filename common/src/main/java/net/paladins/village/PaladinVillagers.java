@@ -74,12 +74,15 @@ public class PaladinVillagers {
 //        }
 //    }
 
-    public static void register() {
+    public static void registerPOI() {
         if (!FabricLoader.getInstance().isModLoaded("lithostitched")) {
             // Only inject the village if the Lithostitched is not present
             StructurePoolAPI.injectAll(PaladinsMod.villageConfig.value);
         }
-        var poi = registerPOI(PALADIN_MERCHANT, PaladinBlocks.MONK_WORKBENCH);
+        registerPOI(PALADIN_MERCHANT, PaladinBlocks.MONK_WORKBENCH);
+    }
+
+    public static void registerVillagers() {
         var profession = registerProfession(
                 PALADIN_MERCHANT,
                 RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), Identifier.of(PaladinsMod.ID, PALADIN_MERCHANT)));
@@ -158,5 +161,10 @@ public class PaladinVillagers {
                     0F).create(entity, random)
             ));
         });
+    }
+
+    public static void register() {
+        registerPOI();
+        registerVillagers();
     }
 }

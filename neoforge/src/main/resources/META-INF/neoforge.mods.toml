@@ -1,17 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/ZsoltMolnarrr/Paladins/issues"
+license = "All Rights Reserved"
 
 [[mods]]
 modId = "paladins"
 version = "${version}"
-displayName = "Paladins"
-authors = "Me!"
+displayName = "Paladins & Priests (RPG Series)"
+authors = "Daedelus"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Protect and heal your friends as a Paladin or a Priest.
 '''
-#logoFile = ""
+logoFile = "icon.png"
 
 [[dependencies.paladins]]
 modId = "neoforge"
@@ -23,7 +23,28 @@ side = "BOTH"
 [[dependencies.paladins]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "[${minecraft_compat_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.paladins]]
+modId = "azurelibarmor"
+type = "required"
+versionRange = "[${azure_lib_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.paladins]]
+modId = "spell_engine"
+type = "required"
+versionRange = "[${spell_engine_version},)"
+ordering = "BEFORE"
+side = "BOTH"
+
+[[dependencies.paladins]]
+modId = "runes"
+type = "required"
+versionRange = "[${runes_version},)"
 ordering = "NONE"
 side = "BOTH"
 

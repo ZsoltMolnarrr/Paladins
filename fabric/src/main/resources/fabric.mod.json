@@ -19,18 +19,17 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.paladins.client.PaladinsClientMod"
+      "net.paladins.fabric.client.FabricModClient"
     ],
     "main": [
-      "net.paladins.PaladinsMod"
+      "net.paladins.fabric.FabricMod"
     ],
     "modmenu": [
-      "net.spell_engine.client.compatibility.ModMenuCompatibility"
+      "net.spell_engine.fabric.client.compat.ModMenuCompatibility"
     ],
     "fabric-datagen": [
       "net.paladins.datagen.PaladinsDataGenerator"
     ]
-
   },
   "mixins": [
     "paladins.mixins.json"

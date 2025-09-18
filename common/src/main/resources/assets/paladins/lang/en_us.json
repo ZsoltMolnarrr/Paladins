@@ -110,6 +110,7 @@
   "entity.paladins.barrier": "Barrier",
   "entity.paladins.battle_banner": "Battle Banner",
   "entity.minecraft.villager.monk": "Monk",
+  "entity.minecraft.villager.paladins.monk": "Monk",
   "entity.minecraft.villager.paladins:monk": "Monk",
   "block.paladins.monk_workbench": "Monk Workbench",
   "block.paladins.monk_workbench.hint": "Workbench for Monk Villagers.",

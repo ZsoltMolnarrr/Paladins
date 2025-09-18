@@ -1,7 +1,6 @@
 package net.paladins;
 
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemStack;
@@ -21,9 +20,9 @@ import net.paladins.item.armor.Armors;
 import net.paladins.content.PaladinSounds;
 import net.paladins.village.PaladinVillagers;
 import net.spell_engine.api.config.ConfigFile;
-import net.tinyconfig.ConfigManager;
+import net.tiny_config.ConfigManager;
 
-public class PaladinsMod implements ModInitializer {
+public class PaladinsMod {
     public static final String ID = "paladins";
 
     public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
@@ -60,7 +59,7 @@ public class PaladinsMod implements ModInitializer {
             .sanitize(true)
             .build();
 
-    public void onInitialize() {
+    public static void init() {
         itemConfig.refresh();
         shieldConfig.refresh();
         effectsConfig.refresh();

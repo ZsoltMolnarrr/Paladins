@@ -2,7 +2,6 @@ package net.paladins.client;
 
 import mod.azure.azurelibarmor.rewrite.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.rewrite.render.armor.AzArmorRendererRegistry;
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
@@ -11,7 +10,6 @@ import net.paladins.PaladinsMod;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.paladins.client.armor.PriestArmorRenderer;
-import net.paladins.client.effect.AbsorbParticleSpawner;
 import net.paladins.client.effect.DivineProtectionRenderer;
 import net.paladins.client.entity.BannerEntityRenderer;
 import net.paladins.client.entity.BarrierEntityRenderer;
@@ -32,9 +30,8 @@ import net.spell_engine.fx.SpellEngineParticles;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class PaladinsClientMod implements ClientModInitializer {
-    @Override
-    public void onInitializeClient() {
+public class PaladinsClientMod {
+    public static void init() {
         CustomModels.registerModelIds(List.of(
                 Identifier.of(PaladinsMod.ID, "projectile/judgement"),
                 DivineProtectionRenderer.modelId_base,

@@ -2,12 +2,9 @@ package net.paladins.client;
 
 import mod.azure.azurelibarmor.rewrite.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.rewrite.render.armor.AzArmorRendererRegistry;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
-import net.paladins.block.PaladinBlocks;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.paladins.client.armor.PriestArmorRenderer;
 import net.paladins.client.effect.DivineProtectionRenderer;
@@ -53,9 +50,6 @@ public class PaladinsClientMod {
                                 .color(Color.HOLY.alpha(0.75F).toRGBA())
                 ).withFrequency(30).scaleWithAmplifier(false)
         );
-
-
-        BlockRenderLayerMap.INSTANCE.putBlock(PaladinBlocks.MONK_WORKBENCH, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);
         EntityRendererRegistry.register(BannerEntity.ENTITY_TYPE, BannerEntityRenderer::new);

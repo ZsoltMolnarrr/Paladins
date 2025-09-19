@@ -66,7 +66,7 @@
   "spell.paladins.heal.name": "Curar",
   "spell.paladins.heal.description": "Te cura a ti, o un objetivo amistoso por {heal} puntos de salud.",
   "spell.paladins.holy_shock.name": "Choque Sagrado",
-  "spell.paladins.holy_shock.description": "Te cura a ti o a un objetivo amistoso por {heal} y golpea a un enemigo infligiendo un daño mágico de {damage}."
+  "spell.paladins.holy_shock.description": "Te cura a ti o a un objetivo amistoso por {heal} y golpea a un enemigo infligiendo un daño mágico de {damage}.",
   "spell.paladins.holy_beam.name": "Luz Sagrada",
   "spell.paladins.holy_beam.description": "Canaliza un rayo de luz, curando a los aliados en {heal} y causando un daño mágico de {damage} a los enemigos cada segundo.",
   "spell.paladins.circle_of_healing.name": "Círculo de Curación",

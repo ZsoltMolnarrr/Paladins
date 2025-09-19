@@ -84,6 +84,7 @@
   "entity.paladins.barrier": "Barrière",
   "entity.paladins.battle_banner": "Bannière de Combat",
   "entity.minecraft.villager.monk": "Moine",
+  "entity.minecraft.villager.paladins.monk": "Moine",
   "entity.minecraft.villager.paladins:monk": "Moine",
   "block.paladins.monk_workbench": "Établi du Moine",
   "block.paladins.monk_workbench.hint": "Établi pour les Moines Villageois.",

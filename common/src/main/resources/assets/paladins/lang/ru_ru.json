@@ -103,6 +103,7 @@
 "entity.paladins.barrier": "Барьер",
 "entity.paladins.battle_banner": "Боевое знамя",
 "entity.minecraft.villager.monk": "Монах",
+"entity.minecraft.villager.paladins.monk": "Монах",
 "entity.minecraft.villager.paladins:monk": "Монах",
 "block.paladins.monk_workbench": "Верстак монаха",
 "block.paladins.monk_workbench.hint": "Верстак для Крестьян-Монахов.",

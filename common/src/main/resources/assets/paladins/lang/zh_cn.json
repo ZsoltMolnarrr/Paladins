@@ -110,6 +110,7 @@
   "entity.paladins.barrier": "神圣屏障",
   "entity.paladins.battle_banner": "战旗",
   "entity.minecraft.villager.monk": "修士",
+  "entity.minecraft.villager.paladins.monk": "修士",
   "entity.minecraft.villager.paladins:monk": "修士",
   "block.paladins.monk_workbench": "修士工作台",
   "block.paladins.monk_workbench.hint": "修士村民的工作台。",

@@ -75,6 +75,7 @@
   "effect.paladins.priest_absorption.description": "Absorbe parte del daño que recibes",
 
   "entity.minecraft.villager.monk": "Monje",
+  "entity.minecraft.villager.paladins.monk": "Monje",
   "entity.minecraft.villager.paladins:monk": "Monje",
   "block.paladins.monk_workbench": "Banco de trabajo del Monje",
   "block.paladins.monk_workbench.hint": "Banco de trabajo para aldeanos Monjes.",

@@ -88,6 +88,7 @@
   "entity.paladins.barrier": "Barriera",
   "entity.paladins.battle_banner": "Stendardo della battaglia",
   "entity.minecraft.villager.monk": "Monaco",
+  "entity.minecraft.villager.paladins.monk": "Monaco",
   "entity.minecraft.villager.paladins:monk": "Monaco",
   "block.paladins.monk_workbench": "Banco del monaco",
   "block.paladins.monk_workbench.hint": "Banco da lavoro per villici monaci.",  

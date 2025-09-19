@@ -88,6 +88,7 @@
   "entity.paladins.barrier": "보호막",
   "entity.paladins.battle_banner": "전투 깃발",
   "entity.minecraft.villager.monk": "수도사",
+  "entity.minecraft.villager.paladins.monk": "수도사",
   "entity.minecraft.villager.paladins:monk": "수도사",
   "block.paladins.monk_workbench": "수도사 작업대",
   "block.paladins.monk_workbench.hint": "수도사 마을 주민을 위한 작업대입니다.",

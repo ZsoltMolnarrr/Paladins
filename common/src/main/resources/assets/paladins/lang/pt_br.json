@@ -103,6 +103,7 @@
   "entity.paladins.barrier": "Barreira",
   "entity.paladins.battle_banner": "Bandeira de batalha",
   "entity.minecraft.villager.monk": "Monge",
+  "entity.minecraft.villager.paladins.monk": "Monge",
   "entity.minecraft.villager.paladins:monk": "Monge",
   "block.paladins.monk_workbench": "Bancada do monge",
   "block.paladins.monk_workbench.hint": "Bancada para aldeões monges.",

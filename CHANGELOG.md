@@ -1,3 +1,7 @@
+# 2.6.1
+
+- Fix to have swamp village sanctuary spawn a villager #63
+
 # 2.6.0
 
 - Migrate to Architectury

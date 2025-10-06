@@ -19,14 +19,14 @@
   "item.paladins.netherite_crusader_armor_legs": "下界合金十字军护腿",
   "item.paladins.netherite_crusader_armor_feet": "下界合金十字军靴子",
 
-  "item.paladins.stone_claymore": "石阔刃大剑",
-  "item.paladins.iron_claymore": "铁阔刃大剑",
-  "item.paladins.golden_claymore": "金阔刃大剑",
-  "item.paladins.diamond_claymore": "钻石阔刃大剑",
-  "item.paladins.netherite_claymore": "下界合金阔刃大剑",
-  "item.paladins.aeternium_claymore": "太古合金阔刃大剑",
-  "item.paladins.ruby_claymore": "红宝石阔刃大剑",
-  "item.paladins.aether_claymore": "神圣阔刃大剑",
+  "item.paladins.stone_claymore": "石阔剑",
+  "item.paladins.iron_claymore": "铁阔剑",
+  "item.paladins.golden_claymore": "金阔剑",
+  "item.paladins.diamond_claymore": "钻石阔剑",
+  "item.paladins.netherite_claymore": "下界合金阔剑",
+  "item.paladins.aeternium_claymore": "太古合金阔剑",
+  "item.paladins.ruby_claymore": "红宝石阔剑",
+  "item.paladins.aether_claymore": "神圣阔剑",
 
   "item.paladins.wooden_great_hammer": "木巨锤",
   "item.paladins.stone_great_hammer": "石巨锤",
@@ -82,7 +82,7 @@
   "spell.paladins.flash_heal.name": "快速治疗",
   "spell.paladins.flash_heal.description": "治疗自身或友方目标{heal}点生命值。",
   "spell.paladins.divine_protection.name": "神圣庇护",
-  "spell.paladins.divine_protection.description": "减轻接下来{effect_amplifier}次受到的攻击伤害，持续{effect_duration}秒。",
+  "spell.paladins.divine_protection.description": "减轻接下来最多{effect_amplifier_cap}次受到的攻击伤害，持续{effect_duration}秒。",
   "effect.paladins.divine_protection": "神圣庇护",
   "effect.paladins.divine_protection.description": "减少受到的伤害",
   "spell.paladins.judgement.name": "审判",
@@ -120,6 +120,13 @@
   "advancements.rpg_series.path_choose_priest.title": "光明之道",
   "advancements.rpg_series.path_choose_priest.description": "制作神圣书卷",
 
+  "advancements.rpg_series.spell_cast_paladin_book.title": "训练圣骑士",
+  "advancements.rpg_series.spell_cast_paladin_book.description": "从骑士圣契施放一个法术",
+  "advancements.rpg_series.spell_cast_priest_book.title": "神圣赋权",
+  "advancements.rpg_series.spell_cast_priest_book.description": "从神圣书卷施放一个法术",
+  "advancements.rpg_series.spell_cast_priest_wand.title": "治愈疼痛",
+  "advancements.rpg_series.spell_cast_priest_wand.description": "使用任意治疗法杖施放法术",
+
   "advancements.rpg_series.spell_novice_paladin.title": "炽热防御者",
   "advancements.rpg_series.spell_novice_paladin.description": "习得第一个圣骑士法术",
   "advancements.rpg_series.spell_novice_priest.title": "晋升之誓",
@@ -131,5 +138,8 @@
   "advancements.rpg_series.spell_master_priest.description": "习得所有牧师法术",
 
   "advancements.rpg_series.obtain_healing_rune.title": "治愈之道",
-  "advancements.rpg_series.obtain_healing_rune.description": "获得一个治疗符文"
+  "advancements.rpg_series.obtain_healing_rune.description": "获得一个治疗符文",
+
+  "advancements.rpg_series.trade_with_monk.title": "医者交流",
+  "advancements.rpg_series.trade_with_monk.description": "与修士村民完成一次交易"
 }

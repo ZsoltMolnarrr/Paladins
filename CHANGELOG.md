@@ -1,3 +1,7 @@
+# 2.6.2
+
+- Update paladin armor models
+
 # 2.6.1
 
 - Fix to have swamp village sanctuary spawn a villager #63

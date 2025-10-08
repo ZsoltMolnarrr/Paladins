@@ -15,15 +15,15 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
-public class AzTrimLayer<T> implements AzRenderLayer<T> {
+public class AzArmorTrimLayer<T> implements AzRenderLayer<T> {
     public final Identifier textureBaseLocation;
     public final Function<ArmorTrim, Identifier> texturePermutations;
 
-    public AzTrimLayer(Identifier baseTexture) {
+    public AzArmorTrimLayer(Identifier baseTexture) {
         this(baseTexture, true);
     }
 
-    public AzTrimLayer(Identifier baseTexture, boolean supportPatterns) {
+    public AzArmorTrimLayer(Identifier baseTexture, boolean supportPatterns) {
         this(baseTexture, supportPatterns
                 ? (trim) -> {
                     var pattern = trim.getPattern().value();
@@ -38,7 +38,7 @@ public class AzTrimLayer<T> implements AzRenderLayer<T> {
         );
     }
 
-    public AzTrimLayer(Identifier baseTexture, Function<ArmorTrim, Identifier> textureLocationPermutations) {
+    public AzArmorTrimLayer(Identifier baseTexture, Function<ArmorTrim, Identifier> textureLocationPermutations) {
         this.textureBaseLocation = baseTexture;
         this.texturePermutations = textureLocationPermutations;
     }

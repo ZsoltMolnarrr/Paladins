@@ -7,19 +7,20 @@ import net.paladins.PaladinsMod;
 
 public class PaladinArmorRenderer extends AzArmorRenderer {
     public static PaladinArmorRenderer paladin() {
-        return new PaladinArmorRenderer("paladin_armor", "paladin_armor");
+        return new PaladinArmorRenderer("paladin_armor", "paladin_armor", "paladin_armor_trim");
     }
     public static PaladinArmorRenderer crusader() {
-        return new PaladinArmorRenderer("paladin_armor", "crusader_armor");
+        return new PaladinArmorRenderer("paladin_armor", "crusader_armor", "crusader_armor_trim");
     }
     public static PaladinArmorRenderer netheriteCrusader() {
-        return new PaladinArmorRenderer("paladin_armor", "netherite_crusader_armor");
+        return new PaladinArmorRenderer("paladin_armor", "netherite_crusader_armor", "crusader_armor_trim");
     }
 
-    public PaladinArmorRenderer(String modelName, String textureName) {
+    public PaladinArmorRenderer(String modelName, String textureName, String trimTexture) {
         super(AzArmorRendererConfig.builder(
                 Identifier.of(PaladinsMod.ID, "geo/" + modelName + ".geo.json"),
                 Identifier.of(PaladinsMod.ID, "textures/armor/" + textureName + ".png"))
+                .addRenderLayer(new AzArmorTrimLayer<>(Identifier.of(PaladinsMod.ID, "armor/trim/" + trimTexture), false))
                 .build());
     }
 }

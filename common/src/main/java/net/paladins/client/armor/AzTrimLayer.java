@@ -33,7 +33,7 @@ public class AzTrimLayer<T> implements AzRenderLayer<T> {
                 }
                 : (trim) -> {
                     var material = trim.getMaterial().value();
-                    return Identifier.of(baseTexture.getNamespace(), baseTexture.getPath() + "_trim_" + material.assetName());
+                    return Identifier.of(baseTexture.getNamespace(), baseTexture.getPath() + "_" + material.assetName());
                 }
         );
     }

@@ -143,20 +143,6 @@ public class PaladinSpells {
         return modifier;
     }
 
-    private static Spell.Impact.TargetModifier extraCritAgainstUndead() {
-        var modifier = createImpactModifier("#minecraft:undead");
-        var powerModifier = new Spell.Impact.Modifier();
-        powerModifier.critical_chance_bonus = 1F;
-        modifier.modifier = powerModifier;
-        return modifier;
-    }
-
-    private static void impactDeniedForMechanical(Spell.Impact impact) {
-        var modifier = createImpactModifier("#spell_engine:mechanical");
-        modifier.execute = TriState.DENY;
-        impact.target_modifiers = List.of(modifier);
-    }
-
     public static final Entry FLASH_HEAL = add(flash_heal());
     private static Entry flash_heal() {
         var id = Identifier.of(PaladinsMod.ID, "flash_heal");
@@ -185,7 +171,6 @@ public class PaladinSpells {
         spell.target.aim.sticky = true;
 
         var heal = createHeal(1.2F);
-        impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -427,7 +412,6 @@ public class PaladinSpells {
         spell.target.aim.sticky = true;
 
         var heal = createHeal(0.75F);
-        impactDeniedForMechanical(heal);
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
@@ -472,7 +456,6 @@ public class PaladinSpells {
         spell.target.aim.use_caster_as_fallback = true;
 
         var heal = createHeal(0.4F);
-        impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -487,7 +470,6 @@ public class PaladinSpells {
         heal.sound = new Sound(PaladinSounds.holy_shock_heal.id());
 
         var damage = createDamage(1F, 0.5F);
-        damage.target_modifiers = List.of(extraCritAgainstUndead());
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
@@ -557,7 +539,6 @@ public class PaladinSpells {
         spell.target.beam = beam;
 
         var heal = createHeal(0.5F);
-        impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -573,7 +554,6 @@ public class PaladinSpells {
         heal.sound = new Sound(PaladinSounds.holy_beam_heal.id());
 
         var damage = createDamage(0.8F, 0.5F);
-        damage.target_modifiers = List.of(extraCritAgainstUndead());
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
@@ -644,7 +624,6 @@ public class PaladinSpells {
         spell.target.area.include_caster = true;
 
         var heal = createHeal(0.4F);
-        impactDeniedForMechanical(heal);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),

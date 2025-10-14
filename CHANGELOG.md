@@ -1,6 +1,8 @@
 # 2.6.2
 
+- Add spell book descriptions
 - Update paladin armor models
+- Remove spell specific weaknesses
 
 # 2.6.1
 

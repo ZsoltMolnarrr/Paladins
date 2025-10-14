@@ -5,6 +5,8 @@
   "item.paladins.priest_spell_book": "Holy Book",
   "item.paladins.paladin.spell_scroll": "Paladin Spell Scroll",
   "item.paladins.priest.spell_scroll": "Holy Spell Scroll",
+  "item.paladins.paladin_spell_book.spell_binding.description": "Spell Book of Paladins, using weapons and spells to attack enemies and support allies\n- Strengths: Versatile in battle, able to heal, strike, and defend\n- Weaknesses: Limited ranged attacks and mobility\n- Equipment: Heavily armored",
+  "item.paladins.priest_spell_book.spell_binding.description": "Spell Book of Priests, using holy magic to heal allies and damage enemies\n- Strengths: Supporting and healing allies, destroying undead\n- Weaknesses: Low damage and poor physical defense\n- Equipment: Lightly armored",
 
   "item.paladins.paladin_armor_head": "Paladin Helmet",
   "item.paladins.paladin_armor_chest": "Paladin Chestplate",

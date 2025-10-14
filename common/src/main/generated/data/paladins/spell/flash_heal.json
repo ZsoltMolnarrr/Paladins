@@ -41,16 +41,6 @@
   },
   "impacts": [
     {
-      "target_modifiers": [
-        {
-          "conditions": [
-            {
-              "entity_type": "#spell_engine:mechanical"
-            }
-          ],
-          "execute": "DENY"
-        }
-      ],
       "action": {
         "type": "HEAL",
         "heal": {

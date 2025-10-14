@@ -15,6 +15,7 @@ architectury {
 fabricApi {
     configureDataGeneration() {
         client = true
+        modId = "paladins"
         outputDirectory = project(':common').file('src/main/generated')
     }
 }

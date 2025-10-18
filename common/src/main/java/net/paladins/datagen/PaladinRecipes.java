@@ -7,11 +7,8 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.item.armor.Armor;
 
@@ -26,8 +23,6 @@ import java.util.concurrent.CompletableFuture;
  * Conditional recipes (BetterNether/BetterEnd) are kept as hand-written JSONs.
  */
 public class PaladinRecipes extends FabricRecipeProvider {
-
-    private static final TagKey<Item> WOOD_STICKS = TagKey.of(Registries.ITEM.getKey(), Identifier.of("c", "wood_sticks"));
 
     public PaladinRecipes(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
@@ -57,7 +52,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" SH")
                 .pattern("H  ")
                 .input('S', Items.STRING)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
                 .offerTo(exporter);
 
@@ -117,7 +112,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern("AA ")
                 .pattern("HA ")
                 .input('A', ItemTags.STONE_TOOL_MATERIALS)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.COBBLESTONE), conditionsFromItem(Items.COBBLESTONE))
                 .offerTo(exporter);
 
@@ -127,7 +122,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern("BB ")
                 .pattern("HB ")
                 .input('B', Items.IRON_INGOT)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                 .offerTo(exporter);
 
@@ -137,7 +132,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern("BB ")
                 .pattern("HB ")
                 .input('B', Items.GOLD_INGOT)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
                 .offerTo(exporter);
 
@@ -147,7 +142,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern("BB ")
                 .pattern("HB ")
                 .input('B', Items.DIAMOND)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter);
     }
@@ -163,7 +158,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" BB")
                 .pattern("H  ")
                 .input('B', ItemTags.LOGS_THAT_BURN)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.OAK_LOG), conditionsFromItem(Items.OAK_LOG))
                 .offerTo(exporter);
 
@@ -173,7 +168,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" BB")
                 .pattern("H  ")
                 .input('B', ItemTags.STONE_TOOL_MATERIALS)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.COBBLESTONE), conditionsFromItem(Items.COBBLESTONE))
                 .offerTo(exporter);
 
@@ -183,7 +178,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" BB")
                 .pattern("H  ")
                 .input('B', Items.IRON_INGOT)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                 .offerTo(exporter);
 
@@ -193,7 +188,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" BB")
                 .pattern("H  ")
                 .input('B', Items.GOLD_INGOT)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
                 .offerTo(exporter);
 
@@ -203,7 +198,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" BB")
                 .pattern("H  ")
                 .input('B', Items.DIAMOND)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter);
     }
@@ -218,7 +213,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" B")
                 .pattern("HB")
                 .input('B', Items.IRON_INGOT)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                 .offerTo(exporter);
 
@@ -227,7 +222,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" B")
                 .pattern("HB")
                 .input('B', Items.GOLD_INGOT)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
                 .offerTo(exporter);
 
@@ -236,7 +231,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .pattern(" B")
                 .pattern("HB")
                 .input('B', Items.DIAMOND)
-                .input('H', WOOD_STICKS)
+                .input('H', Items.STICK)
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter);
     }

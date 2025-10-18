@@ -14,14 +14,6 @@
     "C C"
   ],
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        732629533,
-        -1254996803,
-        -1579320461,
-        -302729191
-      ]
-    },
     "count": 1,
     "id": "paladins:paladin_armor_feet"
   }

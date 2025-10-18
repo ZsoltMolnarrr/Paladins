@@ -1,6 +1,8 @@
 # 2.6.2
 
+- Add vanilla recipe book support (fully datagen recipes)
 - Add spell book descriptions
+- Add basic armor trim support
 - Update paladin armor models
 - Remove spell specific weaknesses
 

@@ -12,9 +12,12 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.paladins.PaladinsMod;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.item.armor.Armor;
+
+import net.paladins.item.PaladinWeapons;
+import net.paladins.item.Shields;
+import net.paladins.block.PaladinBlocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -49,7 +52,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateWandRecipes(RecipeExporter exporter) {
         // Acolyte Wand - string + sticks
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("acolyte_wand"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.acolyte_wand.item())
                 .pattern(" HH")
                 .pattern(" SH")
                 .pattern("H  ")
@@ -59,7 +62,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Holy Wand - gold + iron
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("holy_wand"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.holy_wand.item())
                 .pattern(" A")
                 .pattern("H ")
                 .input('A', Items.GOLD_INGOT)
@@ -68,7 +71,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Diamond Holy Wand - diamond + gold
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("diamond_holy_wand"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.diamond_holy_wand.item())
                 .pattern(" A")
                 .pattern("H ")
                 .input('A', Items.DIAMOND)
@@ -83,7 +86,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateStaffRecipes(RecipeExporter exporter) {
         // Holy Staff - gold + iron
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("holy_staff"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.holy_staff.item())
                 .pattern(" AA")
                 .pattern(" HA")
                 .pattern("H  ")
@@ -93,7 +96,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Diamond Holy Staff - diamond + gold
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("diamond_holy_staff"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.diamond_holy_staff.item())
                 .pattern(" AA")
                 .pattern(" HA")
                 .pattern("H  ")
@@ -109,7 +112,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateClaymoreRecipes(RecipeExporter exporter) {
         // Stone Claymore
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("stone_claymore"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.stone_claymore.item())
                 .pattern("  A")
                 .pattern("AA ")
                 .pattern("HA ")
@@ -119,7 +122,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Iron Claymore
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("iron_claymore"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.iron_claymore.item())
                 .pattern("  B")
                 .pattern("BB ")
                 .pattern("HB ")
@@ -129,7 +132,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Golden Claymore
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("golden_claymore"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.golden_claymore.item())
                 .pattern("  B")
                 .pattern("BB ")
                 .pattern("HB ")
@@ -139,7 +142,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Diamond Claymore
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("diamond_claymore"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.diamond_claymore.item())
                 .pattern("  B")
                 .pattern("BB ")
                 .pattern("HB ")
@@ -155,7 +158,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateGreatHammerRecipes(RecipeExporter exporter) {
         // Wooden Great Hammer
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("wooden_great_hammer"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.wooden_great_hammer.item())
                 .pattern(" BB")
                 .pattern(" BB")
                 .pattern("H  ")
@@ -165,7 +168,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Stone Great Hammer
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("stone_great_hammer"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.stone_great_hammer.item())
                 .pattern(" BB")
                 .pattern(" BB")
                 .pattern("H  ")
@@ -175,7 +178,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Iron Great Hammer
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("iron_great_hammer"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.iron_great_hammer.item())
                 .pattern(" BB")
                 .pattern(" BB")
                 .pattern("H  ")
@@ -185,7 +188,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Golden Great Hammer
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("golden_great_hammer"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.golden_great_hammer.item())
                 .pattern(" BB")
                 .pattern(" BB")
                 .pattern("H  ")
@@ -195,7 +198,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Diamond Great Hammer
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("diamond_great_hammer"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.diamond_great_hammer.item())
                 .pattern(" BB")
                 .pattern(" BB")
                 .pattern("H  ")
@@ -211,7 +214,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateMaceRecipes(RecipeExporter exporter) {
         // Iron Mace
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("iron_mace"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.iron_mace.item())
                 .pattern(" B")
                 .pattern("HB")
                 .input('B', Items.IRON_INGOT)
@@ -220,7 +223,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Golden Mace
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("golden_mace"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.golden_mace.item())
                 .pattern(" B")
                 .pattern("HB")
                 .input('B', Items.GOLD_INGOT)
@@ -229,7 +232,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Diamond Mace
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("diamond_mace"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.diamond_mace.item())
                 .pattern(" B")
                 .pattern("HB")
                 .input('B', Items.DIAMOND)
@@ -244,7 +247,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateShieldRecipes(RecipeExporter exporter) {
         // Iron Kite Shield
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("iron_kite_shield"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Shields.iron_kite_shield.holder().item)
                 .pattern("MLM")
                 .pattern("MMM")
                 .pattern(" M ")
@@ -254,7 +257,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Golden Kite Shield
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("golden_kite_shield"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Shields.golden_kite_shield.holder().item)
                 .pattern("MLM")
                 .pattern("MMM")
                 .pattern(" M ")
@@ -264,7 +267,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Diamond Kite Shield
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, item("diamond_kite_shield"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Shields.diamond_kite_shield.holder().item)
                 .pattern("MLM")
                 .pattern("MMM")
                 .pattern(" M ")
@@ -477,7 +480,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateOtherRecipes(RecipeExporter exporter) {
         // Monk Workbench
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, item("monk_workbench"))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, PaladinBlocks.MONK_WORKBENCH_BLOCK)
                 .pattern("GTG")
                 .pattern(" # ")
                 .pattern("###")
@@ -494,36 +497,29 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateNetheriteUpgrades(RecipeExporter exporter) {
         // Weapon upgrades
-        offerNetheriteUpgradeRecipe(exporter, item("diamond_holy_wand"), RecipeCategory.COMBAT, item("netherite_holy_wand"));
-        offerNetheriteUpgradeRecipe(exporter, item("diamond_holy_staff"), RecipeCategory.COMBAT, item("netherite_holy_staff"));
-        offerNetheriteUpgradeRecipe(exporter, item("diamond_claymore"), RecipeCategory.COMBAT, item("netherite_claymore"));
-        offerNetheriteUpgradeRecipe(exporter, item("diamond_great_hammer"), RecipeCategory.COMBAT, item("netherite_great_hammer"));
-        offerNetheriteUpgradeRecipe(exporter, item("diamond_mace"), RecipeCategory.COMBAT, item("netherite_mace"));
-        offerNetheriteUpgradeRecipe(exporter, item("diamond_kite_shield"), RecipeCategory.COMBAT, item("netherite_kite_shield"));
+        offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_holy_wand.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_holy_wand.item());
+        offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_holy_staff.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_holy_staff.item());
+        offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_claymore.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_claymore.item());
+        offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_great_hammer.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_great_hammer.item());
+        offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_mace.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_mace.item());
+        offerNetheriteUpgradeRecipe(exporter, Shields.diamond_kite_shield.holder().item, RecipeCategory.COMBAT, Shields.netherite_kite_shield.holder().item);
 
         // Crusader armor upgrades
-        offerNetheriteUpgradeRecipe(exporter, item("crusader_armor_head"), RecipeCategory.COMBAT, item("netherite_crusader_armor_head"));
-        offerNetheriteUpgradeRecipe(exporter, item("crusader_armor_chest"), RecipeCategory.COMBAT, item("netherite_crusader_armor_chest"));
-        offerNetheriteUpgradeRecipe(exporter, item("crusader_armor_legs"), RecipeCategory.COMBAT, item("netherite_crusader_armor_legs"));
-        offerNetheriteUpgradeRecipe(exporter, item("crusader_armor_feet"), RecipeCategory.COMBAT, item("netherite_crusader_armor_feet"));
+        offerNetheriteUpgradeRecipe(exporter, Armors.paladinArmorSet_t2.head, RecipeCategory.COMBAT, Armors.paladinArmorSet_t3.head);
+        offerNetheriteUpgradeRecipe(exporter, Armors.paladinArmorSet_t2.chest, RecipeCategory.COMBAT, Armors.paladinArmorSet_t3.chest);
+        offerNetheriteUpgradeRecipe(exporter, Armors.paladinArmorSet_t2.legs, RecipeCategory.COMBAT, Armors.paladinArmorSet_t3.legs);
+        offerNetheriteUpgradeRecipe(exporter, Armors.paladinArmorSet_t2.feet, RecipeCategory.COMBAT, Armors.paladinArmorSet_t3.feet);
 
         // Prior robe upgrades
-        offerNetheriteUpgradeRecipe(exporter, item("prior_robe_head"), RecipeCategory.COMBAT, item("netherite_prior_robe_head"));
-        offerNetheriteUpgradeRecipe(exporter, item("prior_robe_chest"), RecipeCategory.COMBAT, item("netherite_prior_robe_chest"));
-        offerNetheriteUpgradeRecipe(exporter, item("prior_robe_legs"), RecipeCategory.COMBAT, item("netherite_prior_robe_legs"));
-        offerNetheriteUpgradeRecipe(exporter, item("prior_robe_feet"), RecipeCategory.COMBAT, item("netherite_prior_robe_feet"));
+        offerNetheriteUpgradeRecipe(exporter, Armors.priestArmorSet_t2.head, RecipeCategory.COMBAT, Armors.priestArmorSet_t3.head);
+        offerNetheriteUpgradeRecipe(exporter, Armors.priestArmorSet_t2.chest, RecipeCategory.COMBAT, Armors.priestArmorSet_t3.chest);
+        offerNetheriteUpgradeRecipe(exporter, Armors.priestArmorSet_t2.legs, RecipeCategory.COMBAT, Armors.priestArmorSet_t3.legs);
+        offerNetheriteUpgradeRecipe(exporter, Armors.priestArmorSet_t2.feet, RecipeCategory.COMBAT, Armors.priestArmorSet_t3.feet);
     }
 
     // ========================================
     // HELPER METHODS
     // ========================================
-
-    /**
-     * Get a paladin mod item by name
-     */
-    private Item item(String name) {
-        return Registries.ITEM.get(Identifier.of(PaladinsMod.ID, name));
-    }
 
     @Override
     public String getName() {

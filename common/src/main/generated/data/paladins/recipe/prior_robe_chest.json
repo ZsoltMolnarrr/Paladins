@@ -18,14 +18,6 @@
     "WWW"
   ],
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        -906851358,
-        -722450954,
-        -1770234965,
-        -898144461
-      ]
-    },
     "count": 1,
     "id": "paladins:prior_robe_chest"
   }

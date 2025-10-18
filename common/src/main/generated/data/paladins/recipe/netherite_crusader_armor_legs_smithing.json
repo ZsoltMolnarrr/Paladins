@@ -7,14 +7,6 @@
     "item": "paladins:crusader_armor_legs"
   },
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        253616122,
-        -602190276,
-        -1997155921,
-        -1654848008
-      ]
-    },
     "count": 1,
     "id": "paladins:netherite_crusader_armor_legs"
   },

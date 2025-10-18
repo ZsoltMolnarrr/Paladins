@@ -14,14 +14,6 @@
     "G G"
   ],
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        -270542689,
-        1743865015,
-        -2130518031,
-        -1437925801
-      ]
-    },
     "count": 1,
     "id": "paladins:crusader_armor_feet"
   }

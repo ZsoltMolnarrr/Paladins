@@ -15,14 +15,6 @@
     "WWW"
   ],
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        -1606031869,
-        1090472893,
-        -2018353913,
-        411157432
-      ]
-    },
     "count": 1,
     "id": "paladins:priest_robe_chest"
   }

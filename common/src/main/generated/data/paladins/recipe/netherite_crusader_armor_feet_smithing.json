@@ -7,14 +7,6 @@
     "item": "paladins:crusader_armor_feet"
   },
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        -2092336218,
-        -1057470476,
-        -1841083033,
-        -508010999
-      ]
-    },
     "count": 1,
     "id": "paladins:netherite_crusader_armor_feet"
   },

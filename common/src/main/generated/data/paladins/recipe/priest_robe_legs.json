@@ -15,14 +15,6 @@
     "W W"
   ],
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        -424533353,
-        -1679079349,
-        -1290913675,
-        -1107127529
-      ]
-    },
     "count": 1,
     "id": "paladins:priest_robe_legs"
   }

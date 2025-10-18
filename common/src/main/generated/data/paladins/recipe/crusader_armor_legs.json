@@ -18,14 +18,6 @@
     "G G"
   ],
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        -291920242,
-        -479047708,
-        -1163741682,
-        -311363119
-      ]
-    },
     "count": 1,
     "id": "paladins:crusader_armor_legs"
   }

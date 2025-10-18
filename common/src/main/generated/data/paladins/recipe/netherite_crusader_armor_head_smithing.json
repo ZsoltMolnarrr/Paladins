@@ -7,14 +7,6 @@
     "item": "paladins:crusader_armor_head"
   },
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        -1072866517,
-        237454068,
-        -1386680571,
-        157469624
-      ]
-    },
     "count": 1,
     "id": "paladins:netherite_crusader_armor_head"
   },

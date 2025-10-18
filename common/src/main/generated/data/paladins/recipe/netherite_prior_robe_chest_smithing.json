@@ -7,14 +7,6 @@
     "item": "paladins:prior_robe_chest"
   },
   "result": {
-    "components": {
-      "azurelibarmor:az_id": [
-        1448201804,
-        729631604,
-        -1814638021,
-        388023903
-      ]
-    },
     "count": 1,
     "id": "paladins:netherite_prior_robe_chest"
   },

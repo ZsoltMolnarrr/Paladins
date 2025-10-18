@@ -4,6 +4,7 @@
 - Add spell book descriptions
 - Add basic armor trim support
 - Update paladin armor models
+- Update translations
 - Remove spell specific weaknesses
 
 # 2.6.1

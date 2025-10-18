@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "tag": "c:wood_sticks"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    " HH",
+    " SH",
+    "H  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paladins:acolyte_wand"
+  }
+}

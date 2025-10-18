@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "T": {
+      "item": "minecraft:ghast_tear"
+    }
+  },
+  "pattern": [
+    "I I",
+    "GTG",
+    "IGI"
+  ],
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        491483735,
+        683032719,
+        -1872373374,
+        -1585010409
+      ]
+    },
+    "count": 1,
+    "id": "paladins:crusader_armor_chest"
+  }
+}

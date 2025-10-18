@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "M": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "MLM",
+    "MMM",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paladins:golden_kite_shield"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "T": {
+      "item": "minecraft:ghast_tear"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "G G",
+    "WTW",
+    "WWW"
+  ],
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        -906851358,
+        -722450954,
+        -1770234965,
+        -898144461
+      ]
+    },
+    "count": 1,
+    "id": "paladins:prior_robe_chest"
+  }
+}

@@ -16,7 +16,7 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.paladins.PaladinsMod;
 import net.paladins.block.PaladinBlocks;
-import net.paladins.item.Weapons;
+import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.paladins.content.PaladinSounds;
 import net.runes.api.RuneItems;
@@ -110,8 +110,8 @@ public class PaladinVillagers {
         LinkedHashMap<Integer, List<TradeOffers.Factory>> trades = new LinkedHashMap<>();
         trades.put(1, List.of(
                 new TradeOffers.SellItemFactory(RuneItems.get(RuneItems.RuneType.HEALING), 2, 8, 128, 1, 0.01f),
-                new TradeOffers.SellItemFactory(Weapons.acolyte_wand.item(), 4, 1, 12, 5),
-                new TradeOffers.SellItemFactory(Weapons.wooden_great_hammer.item(), 8, 1, 12, 8)
+                new TradeOffers.SellItemFactory(PaladinWeapons.acolyte_wand.item(), 4, 1, 12, 5),
+                new TradeOffers.SellItemFactory(PaladinWeapons.wooden_great_hammer.item(), 8, 1, 12, 8)
         ));
         trades.put(2, List.of(
                 new TradeOffers.BuyItemFactory(Items.WHITE_WOOL, 5, 12, 5, 8),
@@ -140,21 +140,21 @@ public class PaladinVillagers {
 
         TradeOfferHelper.registerVillagerOffers(profession, 5, factories -> {
             factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    Weapons.diamond_holy_staff.item(),
+                    PaladinWeapons.diamond_holy_staff.item(),
                     40,
                     3,
                     30,
                     0F).create(entity, random)
             ));
             factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    Weapons.diamond_claymore.item(),
+                    PaladinWeapons.diamond_claymore.item(),
                     40,
                     3,
                     30,
                     0F).create(entity, random)
             ));
             factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    Weapons.diamond_great_hammer.item(),
+                    PaladinWeapons.diamond_great_hammer.item(),
                     40,
                     3,
                     30,

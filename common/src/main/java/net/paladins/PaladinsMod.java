@@ -15,7 +15,7 @@ import net.paladins.entity.PaladinEntities;
 import net.paladins.item.Group;
 import net.paladins.item.PaladinBooks;
 import net.paladins.item.Shields;
-import net.paladins.item.Weapons;
+import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.paladins.content.PaladinSounds;
 import net.paladins.village.PaladinVillagers;
@@ -86,7 +86,7 @@ public class PaladinsMod {
         Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
         PaladinBooks.register();
 
-        Weapons.register(itemConfig.value.weapons);
+        PaladinWeapons.register(itemConfig.value.weapons);
         Shields.register(shieldConfig.value.shields);
         Armors.register(itemConfig.value.armor_sets);
         shieldConfig.save();

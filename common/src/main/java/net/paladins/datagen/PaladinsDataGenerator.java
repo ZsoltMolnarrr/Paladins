@@ -12,7 +12,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.paladins.content.PaladinSpells;
 import net.paladins.item.Shields;
-import net.paladins.item.Weapons;
+import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.datagen.SpellGenerator;
 import net.spell_engine.api.item.armor.Armor;
@@ -32,6 +32,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(SpellGen::new);
         pack.addProvider(ItemTagGenerator::new);
         pack.addProvider(UnsmeltGenerator::new);
+        pack.addProvider(PaladinRecipes::new);
     }
 
     public static class SpellGen extends SpellGenerator {
@@ -54,7 +55,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-            generateWeaponTags(Weapons.entries);
+            generateWeaponTags(PaladinWeapons.entries);
             generateArmorTags(
                     Armors.entries.stream().filter(entry -> entry.name().contains("armor")).toList(),
                     RPGSeriesItemTags.ArmorMetaType.MELEE
@@ -104,12 +105,12 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             disassembleArmor(exporter, Armors.priestArmorSet_t3, Items.NETHERITE_SCRAP);
 
             disassemble(exporter,
-                    Weapons.entries.stream()
+                    PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("gold"))
                             .map(entry -> (ItemConvertible) entry.item()).toList(),
                     Items.GOLD_NUGGET);
             disassemble(exporter,
-                    Weapons.entries.stream()
+                    PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("iron"))
                             .map(entry -> (ItemConvertible) entry.item()).toList(),
                     Items.IRON_NUGGET);
@@ -119,13 +120,13 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
 //                            .map(entry -> (ItemConvertible) entry.item()).toList(),
 //                    Items.DIAM);
             disassemble(exporter,
-                    Weapons.entries.stream()
+                    PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("netherite"))
                             .map(entry -> (ItemConvertible) entry.item()).toList(),
                     Items.NETHERITE_SCRAP);
 
             disassemble(exporter,
-                    List.of(Weapons.holy_staff.item(), Weapons.holy_wand.item()),
+                    List.of(PaladinWeapons.holy_staff.item(), PaladinWeapons.holy_wand.item()),
                     Items.GOLD_NUGGET);
 
             disassemble(exporter,

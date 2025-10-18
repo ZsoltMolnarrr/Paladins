@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "paladins:prior_robe_legs"
+  },
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        1752987669,
+        -208974071,
+        -1210174256,
+        -84853373
+      ]
+    },
+    "count": 1,
+    "id": "paladins:netherite_prior_robe_legs"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

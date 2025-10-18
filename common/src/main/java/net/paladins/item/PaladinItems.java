@@ -10,7 +10,7 @@ public class PaladinItems {
     public static final HashMap<String, Item> entries;
     static {
         entries = new HashMap<>();
-        for(var weaponEntry: Weapons.entries) {
+        for(var weaponEntry: PaladinWeapons.entries) {
             entries.put(weaponEntry.id().toString(), weaponEntry.item());
         }
         for(var entry: Armors.entries) {

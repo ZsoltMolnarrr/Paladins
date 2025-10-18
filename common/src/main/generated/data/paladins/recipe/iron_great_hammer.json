@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "H": {
+      "tag": "c:wood_sticks"
+    }
+  },
+  "pattern": [
+    " BB",
+    " BB",
+    "H  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paladins:iron_great_hammer"
+  }
+}

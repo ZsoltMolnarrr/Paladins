@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "paladins:crusader_armor_head"
+  },
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        -1072866517,
+        237454068,
+        -1386680571,
+        157469624
+      ]
+    },
+    "count": 1,
+    "id": "paladins:netherite_crusader_armor_head"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "I I",
+    "I I"
+  ],
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        -706813808,
+        2013413840,
+        -1948570427,
+        -531627283
+      ]
+    },
+    "count": 1,
+    "id": "paladins:paladin_armor_legs"
+  }
+}

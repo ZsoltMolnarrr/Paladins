@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "I I",
+    "ICI",
+    "III"
+  ],
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        -1554241989,
+        -1899281621,
+        -1362521191,
+        1617982335
+      ]
+    },
+    "count": 1,
+    "id": "paladins:paladin_armor_chest"
+  }
+}

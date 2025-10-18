@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "item": "minecraft:chain"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "W W",
+    "WLW"
+  ],
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        118313222,
+        1051543109,
+        -1210351099,
+        767482158
+      ]
+    },
+    "count": 1,
+    "id": "paladins:priest_robe_head"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "paladins:crusader_armor_chest"
+  },
+  "result": {
+    "components": {
+      "azurelibarmor:az_id": [
+        1924656518,
+        2041398746,
+        -1735625461,
+        1113587791
+      ]
+    },
+    "count": 1,
+    "id": "paladins:netherite_crusader_armor_chest"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

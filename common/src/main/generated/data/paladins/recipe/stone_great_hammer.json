@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "H": {
+      "tag": "c:wood_sticks"
+    }
+  },
+  "pattern": [
+    " BB",
+    " BB",
+    "H  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paladins:stone_great_hammer"
+  }
+}

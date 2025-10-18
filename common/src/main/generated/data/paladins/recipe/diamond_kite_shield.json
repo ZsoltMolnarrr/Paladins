@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "M": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "MLM",
+    "MMM",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paladins:diamond_kite_shield"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:gold_ingot"
+    },
+    "H": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " AA",
+    " HA",
+    "H  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paladins:holy_staff"
+  }
+}

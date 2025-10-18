@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "H": {
+      "tag": "c:wood_sticks"
+    }
+  },
+  "pattern": [
+    "  A",
+    "AA ",
+    "HA "
+  ],
+  "result": {
+    "count": 1,
+    "id": "paladins:stone_claymore"
+  }
+}

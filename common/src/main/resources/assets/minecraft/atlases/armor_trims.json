@@ -4,8 +4,12 @@
     {
       "type": "paletted_permutations",
       "textures": [
-        "paladins:armor/trim/paladin_armor_trim",
-        "paladins:armor/trim/crusader_armor_trim"
+        "paladins:armor/trim/paladin_armor_generic",
+        "paladins:armor/trim/crusader_armor_generic",
+        "paladins:armor/trim/netherite_crusader_armor_generic",
+        "paladins:armor/trim/priest_robe_generic",
+        "paladins:armor/trim/prior_robe_generic",
+        "paladins:armor/trim/netherite_prior_robe_generic"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {

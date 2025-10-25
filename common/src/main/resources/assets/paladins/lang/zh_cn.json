@@ -5,6 +5,8 @@
   "item.paladins.priest_spell_book": "神圣书卷",
   "item.paladins.paladin.spell_scroll": "圣骑士法术卷轴",
   "item.paladins.priest.spell_scroll": "神圣法术卷轴",
+  "item.paladins.paladin_spell_book.spell_binding.description": "圣骑士的法术书，使用武器和法术攻击敌人并支援盟友\n- 优势：战斗的多面手，既能治疗，又能攻击和防御\n- 劣势：有限的远程攻击和机动性\n- 职业套装：高盔甲值",
+  "item.paladins.priest_spell_book.spell_binding.description": "牧师的法术书，使用神圣法术治疗盟友并伤害敌人\n- 优势：支援并治疗盟友，摧毁亡灵生物\n- 劣势：伤害低，物理防御差\n- 职业套装：低盔甲值",
 
   "item.paladins.paladin_armor_head": "圣骑士头盔",
   "item.paladins.paladin_armor_chest": "圣骑士胸甲",

@@ -1,3 +1,7 @@
+# 2.6.3
+
+- Update AzureLib Armor
+
 # 2.6.2
 
 - Add vanilla recipe book support (fully datagen recipes)

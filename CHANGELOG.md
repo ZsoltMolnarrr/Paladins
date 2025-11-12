@@ -1,3 +1,7 @@
+# 2.6.4
+
+- Rebalance priest equipment attributes
+
 # 2.6.3
 
 - Update AzureLib Armor

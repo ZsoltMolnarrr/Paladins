@@ -394,7 +394,6 @@ public class PaladinSpells {
         spell.tier = 0;
 
         spell.learn = null;
-        spell.active.scroll = null;
 
         spell.active.cast.duration = 1F;
         spell.active.cast.animation = "spell_engine:one_handed_healing_charge";
@@ -411,7 +410,7 @@ public class PaladinSpells {
         spell.target.aim.use_caster_as_fallback = true;
         spell.target.aim.sticky = true;
 
-        var heal = createHeal(0.75F);
+        var heal = createHeal(0.5F);
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
@@ -469,7 +468,7 @@ public class PaladinSpells {
         };
         heal.sound = new Sound(PaladinSounds.holy_shock_heal.id());
 
-        var damage = createDamage(1F, 0.5F);
+        var damage = createDamage(0.8F, 0.5F);
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
@@ -538,7 +537,7 @@ public class PaladinSpells {
         };
         spell.target.beam = beam;
 
-        var heal = createHeal(0.5F);
+        var heal = createHeal(0.4F);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),

@@ -52,8 +52,6 @@ public class PaladinWeapons {
 
     // MARK: Claymores
 
-    private static final float claymoreHealing = 0;
-
     private static Weapon.Entry claymore(String name, Weapon.CustomMaterial material, float damage) {
         return entry(name, material, SpellSwordItem::new, new WeaponConfig(damage, -3F), Equipment.WeaponType.CLAYMORE);
     }
@@ -75,8 +73,6 @@ public class PaladinWeapons {
             .loot(Equipment.LootProperties.of(3));
 
     // MARK: Hammers
-
-    private static final float hammerHealing = 0;
 
     private static Weapon.Entry hammer(String name, Weapon.CustomMaterial material, float damage) {
         return entry(name, material, SpellWeaponItem::new, new WeaponConfig(damage, -3.2F), Equipment.WeaponType.HAMMER);
@@ -104,8 +100,6 @@ public class PaladinWeapons {
 
     // MARK: Maces
 
-    private static final float maceHealing = 0;
-
     private static Weapon.Entry mace(String name, Weapon.CustomMaterial material, float damage) {
         return entry(name, material, SpellWeaponItem::new, new WeaponConfig(damage, -2.8F), Equipment.WeaponType.MACE);
     }
@@ -127,25 +121,32 @@ public class PaladinWeapons {
 
     private static final float wandAttackDamage = 2;
     private static final float wandAttackSpeed = -2.4F;
+
+    // Wand spell power bonuses
+    private static final float T0_WAND_POWER = 3F;
+    private static final float T1_WAND_POWER = 4F;
+    private static final float T2_WAND_POWER = 5F;
+    private static final float T3_WAND_POWER = 5.5F;
+
     private static Weapon.Entry wand(String name, Weapon.CustomMaterial material) {
         return entry(name, material, StaffItem::new, new WeaponConfig(wandAttackDamage, wandAttackSpeed), Equipment.WeaponType.HEALING_WAND);
     }
 
     public static final Weapon.Entry acolyte_wand = wand("acolyte_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.WOOD, () -> Ingredient.ofItems(Items.STICK)))
-            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 3))
+            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T0_WAND_POWER))
             .loot(Equipment.LootProperties.of(0));
     public static final Weapon.Entry holy_wand = wand("holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 3.5F))
+            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T1_WAND_POWER))
             .loot(Equipment.LootProperties.of(1));
     public static final Weapon.Entry diamond_holy_wand = wand("diamond_holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)))
-            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 4F))
+            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T2_WAND_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netherite_holy_wand = wand("netherite_holy_wand",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 4.5F))
+            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T3_WAND_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     // MARK: Staves
@@ -153,21 +154,27 @@ public class PaladinWeapons {
     private static final float staffAttackDamage = 4;
     private static final float staffAttackSpeed = -3F;
 
+    // Staff spell power bonuses
+    private static final float T1_STAFF_POWER = 5F;
+    private static final float T2_STAFF_POWER = 6F;
+    private static final float T3_STAFF_POWER = 7F;
+    private static final float T4_STAFF_POWER = 8F;
+
     private static Weapon.Entry staff(String name, Weapon.CustomMaterial material) {
         return entry(name, material, StaffItem::new, new WeaponConfig(staffAttackDamage, staffAttackSpeed), Equipment.WeaponType.HEALING_STAFF);
     }
 
     public static final Weapon.Entry holy_staff = staff("holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.IRON, () -> Ingredient.ofItems(Items.GOLD_INGOT)))
-            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 4))
+            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T1_STAFF_POWER))
             .loot(Equipment.LootProperties.of(1));
     public static final Weapon.Entry diamond_holy_staff = staff("diamond_holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.DIAMOND, () -> Ingredient.ofItems(Items.DIAMOND)))
-            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 5))
+            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T2_STAFF_POWER))
             .loot(Equipment.LootProperties.of(2));
     public static final Weapon.Entry netherite_holy_staff = staff("netherite_holy_staff",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)))
-            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 6))
+            .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T3_STAFF_POWER))
             .loot(Equipment.LootProperties.of(3));
 
     // MARK: Register
@@ -177,7 +184,7 @@ public class PaladinWeapons {
             var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
             staff("ruby_holy_staff",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
-                    .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 7))
+                    .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T4_STAFF_POWER))
                     .loot(Equipment.LootProperties.of(4));
             claymore("ruby_claymore", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 13F)
                     .loot(Equipment.LootProperties.of(4));
@@ -199,7 +206,7 @@ public class PaladinWeapons {
             var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
             staff("aether_holy_staff",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair))
-                    .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, 7))
+                    .attribute(AttributeModifier.bonus(SpellSchools.HEALING.id, T4_STAFF_POWER))
                     .loot(Equipment.LootProperties.of("aether"));
             claymore("aether_claymore", Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair), 13F)
                     .loot(Equipment.LootProperties.of("aether"));

@@ -85,7 +85,7 @@
       "action": {
         "type": "HEAL",
         "heal": {
-          "spell_power_coefficient": 0.5
+          "spell_power_coefficient": 0.4
         }
       },
       "particles": [

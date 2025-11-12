@@ -26,7 +26,7 @@ public class PaladinsMod {
     public static final String ID = "paladins";
 
     public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
-            ("equipment", Default.itemConfig)
+            ("equipment_v2", Default.itemConfig)
             .builder()
             .setDirectory(ID)
             .sanitize(true)

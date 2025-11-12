@@ -175,9 +175,9 @@ public class Armors {
 
     private static final float priest_t1_spell_power = 0.2F;
     private static final float priest_t2_spell_power = 0.25F;
-    private static final float priest_t2_haste = 0.05F;
+    private static final float priest_t2_haste = 0.03F;
     private static final float priest_t3_spell_power = 0.3F;
-    private static final float priest_t3_haste = 0.05F;
+    private static final float priest_t3_haste = 0.04F;
 
     public static final Armor.Set priestArmorSet_t1 = create(
             priest_robe,

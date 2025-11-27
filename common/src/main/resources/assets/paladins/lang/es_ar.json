@@ -5,7 +5,9 @@
   "item.paladins.priest_spell_book": "Libro Sagrado",
   "item.paladins.paladin.spell_scroll": "Pergamino de Hechizo de Paladín",
   "item.paladins.priest.spell_scroll": "Pergamino de Hechizo Sagrado",
-
+  "item.paladins.paladin_spell_book.spell_binding.description": "Libro de Hechizos de Paladines, usando armas y conjuros para atacar enemigos y apoyar aliados\n- Fortalezas: Versátil en combate, capaz de curar, golpear y defender\n- Debilidades: Ataques a distancia y movilidad limitados\n- Equipo: Fuertemente acorazado",
+  "item.paladins.priest_spell_book.spell_binding.description": "Libro de Hechizos de Sacerdotes, usando magia sagrada para curar aliados y dañar enemigos\n- Fortalezas: Apoyo y sanación de aliados, destrucción de no-muertos\n- Debilidades: Bajo daño y pobre defensa física\n- Equipo: Ligeramente acorazado",
+  
   "item.paladins.paladin_armor_head": "Casco de Paladín",
   "item.paladins.paladin_armor_chest": "Peto de Paladín",
   "item.paladins.paladin_armor_legs": "Pantalones de Paladín",

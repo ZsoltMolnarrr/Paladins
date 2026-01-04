@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class Shields {
+public class PaladinShields {
     public static class Holder { public Holder() {}; public Holder(Item item) { this.item = item; }; public Item item; }
     public record Entry(Identifier id, Supplier<Ingredient> repair, List<AttributeModifier> attributes, int durability, Equipment.LootProperties lootProperties, Holder holder) {  }
     public static final ArrayList<Entry> ENTRIES = new ArrayList<>();

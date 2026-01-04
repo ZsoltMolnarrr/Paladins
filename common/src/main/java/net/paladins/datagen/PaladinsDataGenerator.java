@@ -11,7 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.paladins.content.PaladinSpells;
-import net.paladins.item.Shields;
+import net.paladins.item.PaladinShields;
 import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.datagen.SpellGenerator;
@@ -65,7 +65,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     RPGSeriesItemTags.ArmorMetaType.MAGIC
             );
 
-            var shieldEntries = Shields.ENTRIES.stream().map(entry ->
+            var shieldEntries = PaladinShields.ENTRIES.stream().map(entry ->
                     new RPGSeriesDataGen.ShieldEntry(entry.id(), entry.lootProperties())
             ).toList();
             generateShieldTags(shieldEntries);
@@ -130,13 +130,13 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     Items.GOLD_NUGGET);
 
             disassemble(exporter,
-                    List.of(Shields.iron_kite_shield.holder().item),
+                    List.of(PaladinShields.iron_kite_shield.holder().item),
                     Items.IRON_NUGGET);
             disassemble(exporter,
-                    List.of(Shields.golden_kite_shield.holder().item),
+                    List.of(PaladinShields.golden_kite_shield.holder().item),
                     Items.GOLD_NUGGET);
             disassemble(exporter,
-                    List.of(Shields.netherite_kite_shield.holder().item),
+                    List.of(PaladinShields.netherite_kite_shield.holder().item),
                     Items.NETHERITE_SCRAP);
         }
 

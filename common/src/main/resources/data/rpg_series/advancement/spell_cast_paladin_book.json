@@ -1,7 +1,8 @@
 {
   "display": {
     "icon": {
-      "id": "paladins:spell_book/paladin"
+      "id": "spell_engine:spell_book",
+      "components": { "spell_engine:item_model": "paladins:item/spell_book/paladin" }
     },
     "title": {
       "translate": "advancements.rpg_series.spell_cast_paladin_book.title"
@@ -19,7 +20,7 @@
     "cast": {
       "trigger": "spell_engine:spell_cast",
       "conditions": {
-        "spell": "#paladins:paladin"
+        "spell": "#paladins:spell_book/paladin"
       }
     }
   },

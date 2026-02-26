@@ -20,7 +20,7 @@
       "trigger": "spell_engine:spell_binding",
       "conditions": {
         "complete": true,
-        "spell_pool": "paladins:priest"
+        "spell_pool": "paladins:spell_book/priest"
       }
     }
   },

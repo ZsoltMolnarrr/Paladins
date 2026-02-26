@@ -174,7 +174,7 @@ public class PaladinSpells {
         var spell = activeSpellBase();
         spell.school = SpellSchools.HEALING;
         spell.range = 16;
-        spell.tier = 1;
+        spell.tier = 2;
         spell.group = GROUP_PRIMARY;
 
         spell.active.cast.duration = 0.5F;
@@ -449,7 +449,7 @@ public class PaladinSpells {
         return new Entry(id, spell, title, description);
     }
 
-    public static final Entry HOLY_SHOCK = add(holy_shock().book(Book.PRIEST).weaponGroup(WeaponGroup.HOLY_STAFF));
+    public static final Entry HOLY_SHOCK = add(holy_shock().weaponGroup(WeaponGroup.HOLY_STAFF));
     private static Entry holy_shock() {
         var id = Identifier.of(PaladinsMod.ID, "holy_shock");
         var title = "Holy Shock";

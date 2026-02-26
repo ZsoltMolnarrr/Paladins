@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "paladins:holy_shock",
-      "required": false
-    },
-    {
       "id": "paladins:holy_beam",
       "required": false
     },

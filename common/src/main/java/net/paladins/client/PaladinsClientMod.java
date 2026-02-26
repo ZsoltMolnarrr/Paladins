@@ -3,8 +3,6 @@ package net.paladins.client;
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.util.Identifier;
-import net.paladins.PaladinsMod;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.paladins.client.armor.PriestArmorRenderer;
 import net.paladins.client.effect.DivineProtectionRenderer;
@@ -18,23 +16,15 @@ import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.rpg_series.item.Armor;
 import net.spell_engine.api.render.BuffParticleSpawner;
-import net.spell_engine.api.render.CustomModels;
 import net.spell_engine.api.render.StunParticleSpawner;
 import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public class PaladinsClientMod {
     public static void init() {
-        CustomModels.registerModelIds(List.of(
-                Identifier.of(PaladinsMod.ID, "projectile/judgement"),
-                DivineProtectionRenderer.modelId_base,
-                DivineProtectionRenderer.modelId_overlay,
-                BannerEntityRenderer.modelId
-        ));
         CustomModelStatusEffect.register(PaladinEffects.DIVINE_PROTECTION.effect, new DivineProtectionRenderer());
         CustomParticleStatusEffect.register(PaladinEffects.JUDGEMENT.effect, new StunParticleSpawner());
         // CustomParticleStatusEffect.register(PaladinEffects.ABSORPTION.effect, new AbsorbParticleSpawner());

@@ -11,8 +11,8 @@ import net.spell_engine.api.render.OrbitingEffectRenderer;
 import java.util.List;
 
 public class DivineProtectionRenderer extends OrbitingEffectRenderer {
-    public static final Identifier modelId_base = Identifier.of(PaladinsMod.ID, "effect/divine_protection");
-    public static final Identifier modelId_overlay = Identifier.of(PaladinsMod.ID, "effect/divine_protection_glow");
+    public static final Identifier modelId_base = Identifier.of(PaladinsMod.ID, "spell_effect/divine_protection");
+    public static final Identifier modelId_overlay = Identifier.of(PaladinsMod.ID, "spell_effect/divine_protection_glow");
 
     private static final RenderLayer BASE_RENDER_LAYER =
             RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);

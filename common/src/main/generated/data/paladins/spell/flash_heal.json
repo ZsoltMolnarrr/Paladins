@@ -2,7 +2,7 @@
   "school": "spell_power:healing",
   "range": 16.0,
   "group": "primary",
-  "tier": 1,
+  "tier": 2,
   "learn": {},
   "active": {
     "cast": {

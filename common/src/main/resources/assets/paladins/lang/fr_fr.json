@@ -1,8 +1,8 @@
 {
   "itemGroup.paladins.general": "Paladins & Priests",
 
-  "item.paladins.paladin_spell_book": "Libram du Paladin",
-  "item.paladins.priest_spell_book": "Livre Saint",
+  "item.paladins.spell_book/paladin": "Libram du Paladin",
+  "item.paladins.spell_book/priest": "Livre Saint",
 
   "item.paladins.paladin_armor_head": "Casque de Paladin",
   "item.paladins.paladin_armor_chest": "Plastron de Paladin",

@@ -1,8 +1,8 @@
 {
   "itemGroup.paladins.general": "Paladinos & Sacerdotes",
 
-  "item.paladins.paladin_spell_book": "Tomo de paladino",
-  "item.paladins.priest_spell_book": "Livro sagrado",
+  "item.paladins.spell_book/paladin": "Tomo de paladino",
+  "item.paladins.spell_book/priest": "Livro sagrado",
 
   "item.paladins.paladin_armor_head": "Capacete de paladino",
   "item.paladins.paladin_armor_chest": "Peitoral de paladino",

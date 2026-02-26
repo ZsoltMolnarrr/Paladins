@@ -1,8 +1,8 @@
 {
   "itemGroup.paladins.general": "Paladins & Priests",
 
-  "item.paladins.paladin_spell_book": "Libro de Hechizos del Paladín",
-  "item.paladins.priest_spell_book": "Libro de Hechizos del Sacerdote",
+  "item.paladins.spell_book/paladin": "Libro de Hechizos del Paladín",
+  "item.paladins.spell_book/priest": "Libro de Hechizos del Sacerdote",
 
   "item.paladins.paladin_armor_head": "Casco de paladín",
   "item.paladins.paladin_armor_chest": "Peto de paladín",

@@ -1,8 +1,8 @@
 {
   "itemGroup.paladins.general": "Paladins & Priests",
 
-  "item.paladins.paladin_spell_book": "Tomo della protezione",
-  "item.paladins.priest_spell_book": "Tomo della vitalità",
+  "item.paladins.spell_book/paladin": "Tomo della protezione",
+  "item.paladins.spell_book/priest": "Tomo della vitalità",
 
   "item.paladins.paladin_armor_head": "Elmo da paladino",
   "item.paladins.paladin_armor_chest": "Corazza da paladino",

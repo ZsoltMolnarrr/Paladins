@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "paladins:heal",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "paladins:flash_heal",
+      "required": false
+    },
+    {
+      "id": "paladins:divine_protection",
+      "required": false
+    },
+    {
+      "id": "paladins:judgement",
+      "required": false
+    },
+    {
+      "id": "paladins:battle_banner",
+      "required": false
+    }
+  ]
+}

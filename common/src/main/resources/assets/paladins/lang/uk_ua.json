@@ -1,8 +1,8 @@
 {
   "itemGroup.paladins.general": "Paladins & Priests",
 
-  "item.paladins.paladin_spell_book": "Лібрам паладина",
-  "item.paladins.priest_spell_book": "Священна книга",
+  "item.paladins.spell_book/paladin": "Лібрам паладина",
+  "item.paladins.spell_book/priest": "Священна книга",
 
   "item.paladins.paladin_armor_head": "Шолом паладина",
   "item.paladins.paladin_armor_chest": "Нагрудник паладина",

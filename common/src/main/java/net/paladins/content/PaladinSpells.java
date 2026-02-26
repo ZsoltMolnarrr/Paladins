@@ -4,6 +4,7 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.BarrierEntity;
+import net.paladins.entity.PaladinEntities;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.fx.PlayerAnimation;
@@ -24,8 +25,27 @@ import java.util.List;
 
 public class PaladinSpells {
 
+    public enum WeaponGroup { HOLY_WAND, HOLY_STAFF }
+    public enum Book { PALADIN, PRIEST }
     public record Entry(Identifier id, Spell spell, String title, String description,
-                        @Nullable SpellTooltip.DescriptionMutator mutator) { }
+                        @Nullable SpellTooltip.DescriptionMutator mutator,
+                        @Nullable List<WeaponGroup> weaponGroups,
+                        @Nullable Book book) {
+        public Entry(Identifier id, Spell spell, String title, String description) {
+            this(id, spell, title, description, null, List.of(), null);
+        }
+        public Entry mutator(SpellTooltip.DescriptionMutator mutator) {
+            return new Entry(id, spell, title, description, mutator, weaponGroups, book);
+        }
+        public Entry weaponGroup(WeaponGroup weaponGroup) {
+            var newGroups = new ArrayList<>(weaponGroups != null ? weaponGroups : List.of());
+            newGroups.add(weaponGroup);
+            return new Entry(id, spell, title, description, mutator, newGroups, book);
+        }
+        public Entry book(Book book) {
+            return new Entry(id, spell, title, description, mutator, weaponGroups, book);
+        }
+    }
     public static final List<Entry> entries = new ArrayList<>();
     private static Entry add(Entry entry) {
         entries.add(entry);
@@ -145,7 +165,7 @@ public class PaladinSpells {
         return modifier;
     }
 
-    public static final Entry FLASH_HEAL = add(flash_heal());
+    public static final Entry FLASH_HEAL = add(flash_heal().book(Book.PALADIN));
     private static Entry flash_heal() {
         var id = Identifier.of(PaladinsMod.ID, "flash_heal");
         var title = "Flash Heal";
@@ -188,10 +208,10 @@ public class PaladinSpells {
         configureItemCost(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.2F;
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry DIVINE_PROTECTION = add(divine_protection());
+    public static final Entry DIVINE_PROTECTION = add(divine_protection().book(Book.PALADIN));
     private static Entry divine_protection() {
         var id = Identifier.of(PaladinsMod.ID, "divine_protection");
         var title = "Divine Protection";
@@ -223,10 +243,10 @@ public class PaladinSpells {
         configureItemCost(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry JUDGEMENT = add(judgement());
+    public static final Entry JUDGEMENT = add(judgement().book(Book.PALADIN));
     private static Entry judgement() {
         var id = Identifier.of(PaladinsMod.ID, "judgement");
         var title = "Judgement";
@@ -321,10 +341,10 @@ public class PaladinSpells {
         configureCooldown(spell, 15);
         configureItemCost(spell, "runes:healing_stone");
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry BATTLE_BANNER = add(battle_banner());
+    public static final Entry BATTLE_BANNER = add(battle_banner().book(Book.PALADIN));
     private static Entry battle_banner() {
         var id = Identifier.of(PaladinsMod.ID, "battle_banner");
         var title = "Battle Banner";
@@ -380,10 +400,10 @@ public class PaladinSpells {
         configureItemCost(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry HEAL = add(heal());
+    public static final Entry HEAL = add(heal().weaponGroup(WeaponGroup.HOLY_WAND));
     private static Entry heal() {
         var id = Identifier.of(PaladinsMod.ID, "heal");
         var title = "Heal";
@@ -426,10 +446,10 @@ public class PaladinSpells {
         configureCooldown(spell, 4);
         configureItemCost(spell, "runes:healing_stone");
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry HOLY_SHOCK = add(holy_shock());
+    public static final Entry HOLY_SHOCK = add(holy_shock().book(Book.PRIEST).weaponGroup(WeaponGroup.HOLY_STAFF));
     private static Entry holy_shock() {
         var id = Identifier.of(PaladinsMod.ID, "holy_shock");
         var title = "Holy Shock";
@@ -484,10 +504,10 @@ public class PaladinSpells {
         configureItemCost(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.2F;
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry HOLY_BEAM = add(holy_beam());
+    public static final Entry HOLY_BEAM = add(holy_beam().book(Book.PRIEST));
     private static Entry holy_beam() {
         var id = Identifier.of(PaladinsMod.ID, "holy_beam");
         var title = "Holy Light";
@@ -575,10 +595,10 @@ public class PaladinSpells {
         spell.cost.exhaust = 0.2F;
         configureItemCost(spell, "runes:healing_stone");
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry CIRCLE_OF_HEALING = add(circle_of_healing());
+    public static final Entry CIRCLE_OF_HEALING = add(circle_of_healing().book(Book.PRIEST));
     private static Entry circle_of_healing() {
         var id = Identifier.of(PaladinsMod.ID, "circle_of_healing");
         var title = "Circle of Healing";
@@ -647,10 +667,10 @@ public class PaladinSpells {
         configureItemCost(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 
-    public static final Entry BARRIER = add(barrier());
+    public static final Entry BARRIER = add(barrier().book(Book.PRIEST));
     private static Entry barrier() {
         var id = Identifier.of(PaladinsMod.ID, "barrier");
         var title = "Barrier";
@@ -685,7 +705,7 @@ public class PaladinSpells {
         spawn.action = new Spell.Impact.Action();
         spawn.action.type = Spell.Impact.Action.Type.SPAWN;
         var barrier = new Spell.Impact.Action.Spawn();
-        barrier.entity_type_id = BarrierEntity.TYPE.getRegistryEntry().getKey().get().getValue().toString();
+        barrier.entity_type_id = PaladinEntities.BARRIER_ID.toString();
         barrier.time_to_live_seconds = 10;
         spawn.action.spawns = List.of(barrier);
         spell.impacts = List.of(spawn);
@@ -694,6 +714,6 @@ public class PaladinSpells {
         configureItemCost(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.4F;
 
-        return new Entry(id, spell, title, description, null);
+        return new Entry(id, spell, title, description);
     }
 }

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "paladins:paladin_spell_book",
-    "paladins:priest_spell_book"
+    "paladins:spell_book/paladin",
+    "paladins:spell_book/priest"
   ]
 }

@@ -5,7 +5,9 @@
   "learn": {},
   "active": {},
   "release": {
-    "animation": "spell_engine:one_handed_healing_release",
+    "animation": {
+      "id": "spell_engine:one_handed_healing_release"
+    },
     "sound": {
       "id": "paladins:battle_banner_release"
     }
@@ -58,7 +60,7 @@
             }
           ],
           "model": {
-            "model_id": "paladins:effect/battle_banner",
+            "model_id": "paladins:spell_effect/battle_banner",
             "light_emission": "NONE",
             "rotate_degrees_per_tick": 0.0
           }

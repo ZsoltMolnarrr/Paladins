@@ -1,8 +1,8 @@
 {
   "itemGroup.paladins.general": "팔라딘 & 사제 (RPG 시리즈)",
 
-  "item.paladins.paladin_spell_book": "팔라딘 성서",
-  "item.paladins.priest_spell_book": "성경",
+  "item.paladins.spell_book/paladin": "팔라딘 성서",
+  "item.paladins.spell_book/priest": "성경",
 
   "item.paladins.paladin_armor_head": "팔라딘 투구",
   "item.paladins.paladin_armor_chest": "팔라딘 흉갑",
@@ -111,10 +111,10 @@
   "advancements.rpg_series.obtain_healing_rune.title": "치유의 길",
   "advancements.rpg_series.obtain_healing_rune.description": "치유의 룬을 얻으세요",
 
-  "item.paladins.paladin.spell_scroll": "팔라딘 주문서",
-  "item.paladins.priest.spell_scroll": "성스러운 주문서",
-  "item.paladins.paladin_spell_book.spell_binding.description": "팔라딘의 성서. 무기와 주문을 사용하여 적을 공격하고 아군을 지원합니다.\n- 강점: 회복, 공격, 방어에 능숙한 다재다능함\n- 약점: 제한적인 원거리 공격과 기동성\n- 장비: 중갑",
-  "item.paladins.priest_spell_book.spell_binding.description": "사제의 성경. 성스러운 마법을 사용하여 아군을 치유하고 적에게 피해를 입힙니다.\n- 강점: 아군 지원 및 회복, 언데드 섬멸\n- 약점: 낮은 피해량과 허약한 물리 방어력\n- 장비: 가벼운 갑옷",
+  "item.paladins.spell_scroll/paladin": "팔라딘 주문서",
+  "item.paladins.spell_scroll/priest": "성스러운 주문서",
+  "item.paladins.spell_book/paladin.spell_binding.description": "팔라딘의 성서. 무기와 주문을 사용하여 적을 공격하고 아군을 지원합니다.\n- 강점: 회복, 공격, 방어에 능숙한 다재다능함\n- 약점: 제한적인 원거리 공격과 기동성\n- 장비: 중갑",
+  "item.paladins.spell_book/priest.spell_binding.description": "사제의 성경. 성스러운 마법을 사용하여 아군을 치유하고 적에게 피해를 입힙니다.\n- 강점: 아군 지원 및 회복, 언데드 섬멸\n- 약점: 낮은 피해량과 허약한 물리 방어력\n- 장비: 가벼운 갑옷",
   "item.paladins.netherite_crusader_armor_head": "네더라이트 성전사 투구",
   "item.paladins.netherite_crusader_armor_chest": "네더라이트 성전사 흉갑",
   "item.paladins.netherite_crusader_armor_legs": "네더라이트 성전사 레깅스",

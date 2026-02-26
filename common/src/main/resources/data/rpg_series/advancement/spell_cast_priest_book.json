@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "paladins:priest_spell_book"
+      "id": "paladins:spell_book/priest"
     },
     "title": {
       "translate": "advancements.rpg_series.spell_cast_priest_book.title"

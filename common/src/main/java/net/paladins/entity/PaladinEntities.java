@@ -9,10 +9,12 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 
 public class PaladinEntities {
+    public static final Identifier BARRIER_ID = Identifier.of(PaladinsMod.ID, "barrier");
+    public static final Identifier BANNER_ID = Identifier.of(PaladinsMod.ID, "battle_banner");
     public static void register() {
         BarrierEntity.TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(PaladinsMod.ID, "barrier"),
+                BARRIER_ID,
                 FabricEntityTypeBuilder.<BarrierEntity>create(SpawnGroup.MISC, BarrierEntity::new)
                         .dimensions(EntityDimensions.fixed(1F, 1F))
                         .fireImmune()
@@ -22,7 +24,7 @@ public class PaladinEntities {
         );
         BannerEntity.ENTITY_TYPE = Registry.register(
                 Registries.ENTITY_TYPE,
-                Identifier.of(PaladinsMod.ID, "battle_banner"),
+                BANNER_ID,
                 FabricEntityTypeBuilder.<BannerEntity>create(SpawnGroup.MISC, BannerEntity::new)
                         .dimensions(EntityDimensions.changing(6F, 0.5F)) // dimensions in Minecraft units of the render
                         .fireImmune()

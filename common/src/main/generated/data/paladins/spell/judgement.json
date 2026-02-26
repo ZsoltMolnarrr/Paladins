@@ -6,7 +6,9 @@
   "active": {
     "cast": {
       "duration": 0.5,
-      "animation": "spell_engine:one_handed_projectile_charge",
+      "animation": {
+        "id": "spell_engine:one_handed_projectile_charge"
+      },
       "sound": {
         "id": "spell_engine:generic_healing_casting",
         "randomness": 0.0
@@ -25,7 +27,9 @@
     }
   },
   "release": {
-    "animation": "spell_engine:one_handed_area_release",
+    "animation": {
+      "id": "spell_engine:one_handed_area_release"
+    },
     "sound": {
       "id": "spell_engine:generic_healing_release"
     }
@@ -67,7 +71,7 @@
             }
           ],
           "model": {
-            "model_id": "paladins:projectile/judgement",
+            "model_id": "paladins:spell_projectile/judgement",
             "light_emission": "RADIATE",
             "scale": 1.2
           }

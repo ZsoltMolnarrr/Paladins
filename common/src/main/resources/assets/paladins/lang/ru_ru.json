@@ -1,8 +1,8 @@
 {
 "itemGroup.paladins.general": "Paladins & Priests",
 
-"item.paladins.paladin_spell_book": "Гримуар рыцаря-монаха",
-"item.paladins.priest_spell_book": "Священная книга",
+"item.paladins.spell_book/paladin": "Гримуар рыцаря-монаха",
+"item.paladins.spell_book/priest": "Священная книга",
 
 "item.paladins.paladin_armor_head": "Шлем рыцаря-монаха",
 "item.paladins.paladin_armor_chest": "Нагрудник рыцаря-монаха",

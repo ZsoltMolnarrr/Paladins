@@ -17,9 +17,8 @@ import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.ShieldConfig;
-import net.spell_engine.api.item.Equipment;
-import net.spell_engine.api.item.Tiers;
-import net.spell_engine.api.item.weapon.Weapon;
+import net.spell_engine.rpg_series.item.Equipment;
+import net.spell_engine.rpg_series.item.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +113,7 @@ public class PaladinShields {
             ), durability_t4, Equipment.LootProperties.of("aether"));
         }
 
-        var netheriteTier = Tiers.unsafe("netherite");
+        var netheriteTier = Equipment.Tier.TIER_3.getNumber();
         ArrayList<Item> shields = new ArrayList<>();
         for (var entry: ENTRIES) {
             var config = configs.get(entry.id.toString());

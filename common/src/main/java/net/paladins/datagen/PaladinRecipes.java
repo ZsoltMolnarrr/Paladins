@@ -10,7 +10,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.paladins.item.armor.Armors;
-import net.spell_engine.api.item.armor.Armor;
+import net.spell_engine.rpg_series.item.Armor;
 
 import net.paladins.item.PaladinWeapons;
 import net.paladins.item.PaladinShields;

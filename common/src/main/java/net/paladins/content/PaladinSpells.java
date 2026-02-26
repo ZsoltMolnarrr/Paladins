@@ -4,7 +4,9 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.BarrierEntity;
+import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
+import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.ExternalSpellSchools;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.fx.ParticleBatch;
@@ -156,13 +158,13 @@ public class PaladinSpells {
         spell.group = GROUP_PRIMARY;
 
         spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = "spell_engine:one_handed_healing_charge";
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.animation = "spell_engine:one_handed_healing_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_RELEASE.id(), 0);
 
         spell.target.type = Spell.Target.Type.AIM;
@@ -200,7 +202,7 @@ public class PaladinSpells {
         spell.range = 0;
         spell.tier = 2;
 
-        spell.release.animation = "spell_engine:one_handed_area_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
 
         var buff = createEffectImpact(PaladinEffects.DIVINE_PROTECTION.id, 8);
         buff.action.status_effect.amplifier = 0;
@@ -236,13 +238,13 @@ public class PaladinSpells {
         spell.tier = 3;
 
         spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = "spell_engine:one_handed_projectile_charge";
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.animation = "spell_engine:one_handed_area_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
         spell.target.type = Spell.Target.Type.AIM;
@@ -274,7 +276,7 @@ public class PaladinSpells {
         };
         var model = new Spell.ProjectileModel();
         model.light_emission = LightEmission.RADIATE;
-        model.model_id = "paladins:projectile/judgement";
+        model.model_id = "paladins:spell_projectile/judgement";
         model.scale = 1.2F;
         projectile.client_data.model = model;
 
@@ -333,7 +335,7 @@ public class PaladinSpells {
         spell.range = 0;
         spell.tier = 4;
 
-        spell.release.animation = "spell_engine:one_handed_healing_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(PaladinSounds.battle_banner_release.id());
 
         spell.deliver.type = Spell.Delivery.Type.CLOUD;
@@ -349,7 +351,7 @@ public class PaladinSpells {
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.light_level = 15;
         cloud.client_data.model = new Spell.ProjectileModel();
-        cloud.client_data.model.model_id = "paladins:effect/battle_banner";
+        cloud.client_data.model.model_id = "paladins:spell_effect/battle_banner";
         cloud.client_data.model.rotate_degrees_per_tick = 0;
         cloud.client_data.model.light_emission = LightEmission.NONE;
 
@@ -387,7 +389,7 @@ public class PaladinSpells {
         var title = "Heal";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
         spell.group = GROUP_PRIMARY;
         spell.range = 16;
@@ -396,13 +398,13 @@ public class PaladinSpells {
         spell.learn = null;
 
         spell.active.cast.duration = 1F;
-        spell.active.cast.animation = "spell_engine:one_handed_healing_charge";
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.animation = "spell_engine:one_handed_healing_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
         spell.target.type = Spell.Target.Type.AIM;
@@ -433,20 +435,20 @@ public class PaladinSpells {
         var title = "Holy Shock";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
         spell.group = GROUP_PRIMARY;
         spell.tier = 1;
         spell.range = 16;
 
         spell.active.cast.duration = 1.5F;
-        spell.active.cast.animation = "spell_engine:one_handed_projectile_charge";
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.animation = "spell_engine:one_handed_healing_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
         spell.target.type = Spell.Target.Type.AIM;
@@ -496,9 +498,8 @@ public class PaladinSpells {
         spell.range = 32;
         spell.tier = 2;
 
-        spell.active.cast.duration = 5F;
-        spell.active.cast.channel_ticks = 4;
-        spell.active.cast.animation = "spell_engine:two_handed_channeling";
+        SpellBuilder.Casting.channel(spell, 5, 25);
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
         spell.active.cast.start_sound = new Sound(PaladinSounds.holy_beam_start_casting.id());
         spell.active.cast.sound = Sound.withRandomness(PaladinSounds.holy_beam_casting.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
@@ -591,13 +592,13 @@ public class PaladinSpells {
         spell.tier = 3;
 
         spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = "spell_engine:one_handed_area_charge";
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.animation = "spell_engine:one_handed_area_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
         spell.release.particles = new ParticleBatch[]{
                 new ParticleBatch(
@@ -661,13 +662,13 @@ public class PaladinSpells {
         spell.tier = 4;
 
         spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = "spell_engine:one_handed_area_charge";
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.animation = "spell_engine:one_handed_area_release";
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(PaladinSounds.holy_barrier_activate.id());
         spell.release.particles = new ParticleBatch[] {
                 new ParticleBatch(

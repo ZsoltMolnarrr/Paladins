@@ -17,6 +17,7 @@ import net.paladins.item.PaladinShields;
 import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.datagen.SpellGenerator;
+import net.spell_engine.api.datagen.WeaponAttributeGenerator;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.api.tags.SpellTags;
@@ -40,6 +41,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ItemTagGenerator::new);
         pack.addProvider(UnsmeltGenerator::new);
         pack.addProvider(PaladinRecipes::new);
+        pack.addProvider(WeaponGen::new);
     }
 
     public static class SpellGen extends SpellGenerator {
@@ -211,6 +213,21 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     UNSMELT_TIME / 2,
                     "disassemble"
             );
+        }
+    }
+
+    public static class WeaponGen extends WeaponAttributeGenerator {
+        public WeaponGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+            super(dataOutput, registryLookup);
+        }
+
+        @Override
+        public void generateWeaponAttributes(Builder builder) {
+            PaladinWeapons.entries.forEach(entry -> {
+                if (entry.weaponAttributesPreset != null && !entry.weaponAttributesPreset.isEmpty()) {
+                    builder.entries.add(new Entry(entry.id(), entry.weaponAttributesPreset));
+                }
+            });
         }
     }
 }

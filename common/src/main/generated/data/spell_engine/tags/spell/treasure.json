@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#paladins:spell_scroll/paladin",
+      "required": false
+    },
+    {
+      "id": "#paladins:spell_scroll/priest",
+      "required": false
+    }
+  ]
+}

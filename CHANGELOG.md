@@ -3,6 +3,10 @@
 DISCLAIMER: All spell books and spell scrolls will be reset, due to major API changes. Some (looted) weapons with custom spell containers become non-functional, and need to be re-obtained. Apologies for the inconvenience.
 
 - Update to use Spell Engine 1.9.0
+- Spell books now offer 3 spells only, to match other classes
+- Holy Shock spell is now attached to Holy Staff variants
+- Flash Heal spell is now a spell book choice
+- Paladin melee weapons come with new skills
 
 # 2.6.4
 

@@ -102,8 +102,8 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     RPGSeriesItemTags.ArmorMetaType.MAGIC
             );
 
-            var shieldEntries = PaladinShields.ENTRIES.stream().map(entry ->
-                    new RPGSeriesDataGen.ShieldEntry(entry.id(), entry.lootProperties())
+            var shieldEntries = PaladinShields.entries.stream().map(entry ->
+                    new RPGSeriesDataGen.ShieldEntry(entry.id(), entry.lootProperties)
             ).toList();
             generateShieldTags(shieldEntries);
         }
@@ -167,13 +167,13 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     Items.GOLD_NUGGET);
 
             disassemble(exporter,
-                    List.of(PaladinShields.iron_kite_shield.holder().item),
+                    List.of(PaladinShields.iron_kite_shield.item()),
                     Items.IRON_NUGGET);
             disassemble(exporter,
-                    List.of(PaladinShields.golden_kite_shield.holder().item),
+                    List.of(PaladinShields.golden_kite_shield.item()),
                     Items.GOLD_NUGGET);
             disassemble(exporter,
-                    List.of(PaladinShields.netherite_kite_shield.holder().item),
+                    List.of(PaladinShields.netherite_kite_shield.item()),
                     Items.NETHERITE_SCRAP);
         }
 

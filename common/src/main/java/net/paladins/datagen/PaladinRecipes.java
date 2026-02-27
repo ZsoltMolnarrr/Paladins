@@ -242,7 +242,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
 
     private void generateShieldRecipes(RecipeExporter exporter) {
         // Iron Kite Shield
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinShields.iron_kite_shield.holder().item)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinShields.iron_kite_shield.item())
                 .pattern("MLM")
                 .pattern("MMM")
                 .pattern(" M ")
@@ -252,7 +252,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Golden Kite Shield
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinShields.golden_kite_shield.holder().item)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinShields.golden_kite_shield.item())
                 .pattern("MLM")
                 .pattern("MMM")
                 .pattern(" M ")
@@ -262,7 +262,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         // Diamond Kite Shield
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinShields.diamond_kite_shield.holder().item)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinShields.diamond_kite_shield.item())
                 .pattern("MLM")
                 .pattern("MMM")
                 .pattern(" M ")
@@ -497,7 +497,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
         offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_claymore.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_claymore.item());
         offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_great_hammer.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_great_hammer.item());
         offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_mace.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_mace.item());
-        offerNetheriteUpgradeRecipe(exporter, PaladinShields.diamond_kite_shield.holder().item, RecipeCategory.COMBAT, PaladinShields.netherite_kite_shield.holder().item);
+        offerNetheriteUpgradeRecipe(exporter, PaladinShields.diamond_kite_shield.item(), RecipeCategory.COMBAT, PaladinShields.netherite_kite_shield.item());
 
         // Crusader armor upgrades
         offerNetheriteUpgradeRecipe(exporter, Armors.paladinArmorSet_t2.head, RecipeCategory.COMBAT, Armors.paladinArmorSet_t3.head);

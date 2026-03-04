@@ -62,7 +62,7 @@ public class PaladinShields {
         if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(AETHER)) {
             var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
             add(Shields.createStandard(PaladinsMod.ID, "aether_kite_shield", Equipment.Tier.TIER_4, repair, PaladinSounds.shield_equip.entry())
-                    .lootTheme("aether"));
+                    .loot(-1, "aether"));
         }
         Shield.register(configs, entries, Group.KEY, CustomShieldItem::new);
     }

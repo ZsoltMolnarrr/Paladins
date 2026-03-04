@@ -3,16 +3,14 @@ package net.paladins.content;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.effect.PaladinEffects;
-import net.paladins.entity.BarrierEntity;
 import net.paladins.entity.PaladinEntities;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
-import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.ExternalSpellSchools;
+import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.api.spell.fx.Sound;
-import net.spell_engine.api.util.TriState;
 import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
@@ -52,77 +50,11 @@ public class PaladinSpells {
         return entry;
     }
 
-    private static final String GROUP_PRIMARY = "primary";
-
-    private static Spell activeSpellBase() {
-        var spell = new Spell();
-        spell.type = Spell.Type.ACTIVE;
-        spell.active = new Spell.Active();
-        spell.active.cast = new Spell.Active.Cast();
-
-        spell.learn = new Spell.Learn();
-
-        return spell;
-    }
-
-    private static Spell.Impact createEffectImpact(Identifier effectId, float duration) {
-        var buff = new Spell.Impact();
-        buff.action = new Spell.Impact.Action();
-        buff.action.type = Spell.Impact.Action.Type.STATUS_EFFECT;
-        buff.action.status_effect = new Spell.Impact.Action.StatusEffect();
-        buff.action.status_effect.effect_id = effectId.toString();
-        buff.action.status_effect.duration = duration;
-        return buff;
-    }
-
-    private static Spell.Impact createHeal(float coefficient) {
-        var buff = new Spell.Impact();
-        buff.action = new Spell.Impact.Action();
-        buff.action.type = Spell.Impact.Action.Type.HEAL;
-        buff.action.heal = new Spell.Impact.Action.Heal();
-        buff.action.heal.spell_power_coefficient = coefficient;
-        return buff;
-    }
-
-    private static Spell.Impact createDamage(float coefficient, float knockback) {
-        var buff = new Spell.Impact();
-        buff.action = new Spell.Impact.Action();
-        buff.action.type = Spell.Impact.Action.Type.DAMAGE;
-        buff.action.damage = new Spell.Impact.Action.Damage();
-        buff.action.damage.spell_power_coefficient = coefficient;
-        buff.action.damage.knockback = knockback;
-        return buff;
-    }
-
-    private static Spell.Impact.TargetModifier createImpactModifier(String entityType) {
-        var condition = new Spell.TargetCondition();
-        condition.entity_type = entityType;
-        var modifier = new Spell.Impact.TargetModifier();
-        modifier.conditions = List.of(condition);
-        return modifier;
-    }
-
     private static ParticleBatch castingParticles(String particleId) {
         return new ParticleBatch(
                 particleId,
                 ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
                 1, 0.05F, 0.1F);
-    }
-
-    private static void configureCooldown(Spell spell, float duration) {
-        if (spell.cost == null) {
-            spell.cost = new Spell.Cost();
-        }
-        spell.cost.cooldown = new Spell.Cost.Cooldown();
-        spell.cost.cooldown.duration = duration;
-    }
-
-    private static void configureItemCost(Spell spell, String itemId) {
-        if (spell.cost == null) {
-            spell.cost = new Spell.Cost();
-        }
-        spell.cost.item = new Spell.Cost.Item();
-        spell.cost.item.id = itemId;
     }
 
     private static final Identifier SPARKS_FLOAT = SpellEngineParticles.MagicParticles.get(
@@ -157,28 +89,19 @@ public class PaladinSpells {
             SpellEngineParticles.MagicParticles.Shape.SPELL,
             SpellEngineParticles.MagicParticles.Motion.DECELERATE).id();
 
-    private static Spell.Impact.TargetModifier extraDamageAgainstUndead() {
-        var modifier = createImpactModifier("#minecraft:undead");
-        var powerModifier = new Spell.Impact.Modifier();
-        powerModifier.power_multiplier = 0.5F;
-        modifier.modifier = powerModifier;
-        return modifier;
-    }
-
     public static final Entry FLASH_HEAL = add(flash_heal().book(Book.PALADIN));
     private static Entry flash_heal() {
         var id = Identifier.of(PaladinsMod.ID, "flash_heal");
         var title = "Flash Heal";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = 16;
         spell.tier = 2;
-        spell.group = GROUP_PRIMARY;
+        spell.group = SpellBuilder.GROUP_PRIMARY;
 
-        spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_healing_charge");
+        SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
@@ -187,12 +110,11 @@ public class PaladinSpells {
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_RELEASE.id(), 0);
 
-        spell.target.type = Spell.Target.Type.AIM;
-        spell.target.aim = new Spell.Target.Aim();
+        SpellBuilder.Target.aim(spell);
         spell.target.aim.use_caster_as_fallback = true;
         spell.target.aim.sticky = true;
 
-        var heal = createHeal(1.2F);
+        var heal = SpellBuilder.Impacts.heal(1.2F);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -204,8 +126,8 @@ public class PaladinSpells {
 
         spell.impacts = List.of(heal);
 
-        configureCooldown(spell, 6);
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.cooldown(spell, 6);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.2F;
 
         return new Entry(id, spell, title, description);
@@ -217,18 +139,17 @@ public class PaladinSpells {
         var title = "Divine Protection";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = 0;
         spell.tier = 2;
 
+        SpellBuilder.Casting.instant(spell);
+
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
 
-        var buff = createEffectImpact(PaladinEffects.DIVINE_PROTECTION.id, 8);
-        buff.action.status_effect.amplifier = 0;
-        buff.action.status_effect.amplifier_cap = 2;
-        buff.action.status_effect.amplifier_power_multiplier = 0.5F;
-
+        var buff = SpellBuilder.Impacts.effectSet_ScaledAmplifier_Cap(
+                PaladinEffects.DIVINE_PROTECTION.id.toString(), 8, 0, 0.5F, 2);
         buff.sound = new Sound(PaladinSounds.divine_protection_release.id());
         buff.particles = new ParticleBatch[] {
                 new ParticleBatch(
@@ -239,8 +160,8 @@ public class PaladinSpells {
 
         spell.impacts = List.of(buff);
 
-        configureCooldown(spell, 30);
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.cooldown(spell, 30);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
 
         return new Entry(id, spell, title, description);
@@ -252,13 +173,12 @@ public class PaladinSpells {
         var title = "Judgement";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createSpellActive();
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
         spell.range = 16;
         spell.tier = 3;
 
-        spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
+        SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
@@ -267,8 +187,7 @@ public class PaladinSpells {
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
-        spell.target.type = Spell.Target.Type.AIM;
-        spell.target.aim = new Spell.Target.Aim();
+        SpellBuilder.Target.aim(spell);
         spell.target.aim.required = true;
         spell.target.aim.sticky = true;
 
@@ -285,14 +204,13 @@ public class PaladinSpells {
                         HOLY_IMPACT_FLOAT.toString(),
                         ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
                         ParticleBatch.Rotation.LOOK,
-                        5, 0, 0.1F,0),
+                        5, 0, 0.1F, 0),
                 new ParticleBatch(
                         SPARKS_FLOAT.toString(),
                         ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
                         ParticleBatch.Rotation.LOOK,
-                        4, 0, 0.1F,0)
+                        4, 0, 0.1F, 0)
                         .color(Color.HOLY.toRGBA())
-
         };
         var model = new Spell.ProjectileModel();
         model.light_emission = LightEmission.RADIATE;
@@ -303,15 +221,16 @@ public class PaladinSpells {
         meteor.projectile = projectile;
         spell.deliver.meteor = meteor;
 
-        var damage = createDamage(0.9F, 1F);
-        damage.target_modifiers = List.of(extraDamageAgainstUndead());
+        var damage = SpellBuilder.Impacts.damage(0.9F, 1F);
+        damage.target_modifiers = List.of(SpellBuilder.ImpactModifiers.extraDamageAgainstUndead());
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
                         25, 0.2F, 1F).color(Color.HOLY.toRGBA())
         };
-        var stun = createEffectImpact(PaladinEffects.JUDGEMENT.id, 3);
+
+        var stun = SpellBuilder.Impacts.effectSet(PaladinEffects.JUDGEMENT.id.toString(), 3, 0);
         stun.action.status_effect.apply_limit = new Spell.Impact.Action.StatusEffect.ApplyLimit();
         stun.action.status_effect.apply_limit.health_base = 50F;
         stun.action.status_effect.apply_limit.spell_power_multiplier = 2F;
@@ -329,8 +248,7 @@ public class PaladinSpells {
                 new ParticleBatch(
                         SPARKS_FLOAT.toString(),
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        100, 0.2F, 0.4F).color(Color.HOLY.toRGBA())
-                        .color(Color.HOLY.toRGBA()),
+                        100, 0.2F, 0.4F).color(Color.HOLY.toRGBA()),
                 new ParticleBatch(
                         "smoke",
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
@@ -338,8 +256,8 @@ public class PaladinSpells {
         };
         spell.area_impact.sound = Sound.withVolume(PaladinSounds.judgement_impact.id(), 1.5F);
 
-        configureCooldown(spell, 15);
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.cooldown(spell, 15);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
 
         return new Entry(id, spell, title, description);
     }
@@ -350,10 +268,12 @@ public class PaladinSpells {
         var title = "Battle Banner";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = 0;
         spell.tier = 4;
+
+        SpellBuilder.Casting.instant(spell);
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(PaladinSounds.battle_banner_release.id());
@@ -374,7 +294,6 @@ public class PaladinSpells {
         cloud.client_data.model.model_id = "paladins:spell_effect/battle_banner";
         cloud.client_data.model.rotate_degrees_per_tick = 0;
         cloud.client_data.model.light_emission = LightEmission.NONE;
-
         cloud.client_data.particles = new ParticleBatch[] {
                 new ParticleBatch(SPARK_DECELERATE.toString(),
                         ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
@@ -385,7 +304,6 @@ public class PaladinSpells {
                         null, 3, 0.05F, 0.1F, 0.0F, 0F)
                         .color(Color.HOLY.toRGBA())
         };
-
         cloud.placement = new Spell.EntityPlacement();
         cloud.placement.location_offset_by_look = 2;
         cloud.placement.location_yaw_offset = 20;
@@ -393,11 +311,11 @@ public class PaladinSpells {
 
         spell.deliver.clouds = List.of(cloud);
 
-        var buff = createEffectImpact(PaladinEffects.BATTLE_BANNER.id, 2);
+        var buff = SpellBuilder.Impacts.effectSet(PaladinEffects.BATTLE_BANNER.id.toString(), 2, 0);
         spell.impacts = List.of(buff);
 
-        configureCooldown(spell, 45);
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.cooldown(spell, 45);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
 
         return new Entry(id, spell, title, description);
@@ -411,14 +329,13 @@ public class PaladinSpells {
 
         var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
-        spell.group = GROUP_PRIMARY;
+        spell.group = SpellBuilder.GROUP_PRIMARY;
         spell.range = 16;
         spell.tier = 0;
 
         spell.learn = null;
 
-        spell.active.cast.duration = 1F;
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_healing_charge");
+        SpellBuilder.Casting.cast(spell, 1F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
@@ -427,12 +344,11 @@ public class PaladinSpells {
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
-        spell.target.type = Spell.Target.Type.AIM;
-        spell.target.aim = new Spell.Target.Aim();
+        SpellBuilder.Target.aim(spell);
         spell.target.aim.use_caster_as_fallback = true;
         spell.target.aim.sticky = true;
 
-        var heal = createHeal(0.5F);
+        var heal = SpellBuilder.Impacts.heal(0.5F);
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
@@ -443,8 +359,10 @@ public class PaladinSpells {
         };
         spell.impacts = List.of(heal);
 
-        configureCooldown(spell, 4);
-        configureItemCost(spell, "runes:healing_stone");
+        // createWeaponSpell sets cooldown group "weapon"; override with a plain 4s cooldown
+        spell.cost.cooldown.group = null;
+        SpellBuilder.Cost.cooldown(spell, 4);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
 
         return new Entry(id, spell, title, description);
     }
@@ -457,12 +375,11 @@ public class PaladinSpells {
 
         var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
-        spell.group = GROUP_PRIMARY;
+        spell.group = SpellBuilder.GROUP_PRIMARY;
         spell.tier = 1;
         spell.range = 16;
 
-        spell.active.cast.duration = 1.5F;
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
+        SpellBuilder.Casting.cast(spell, 1.5F, "spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
@@ -471,12 +388,11 @@ public class PaladinSpells {
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
-        spell.target.type = Spell.Target.Type.AIM;
-        spell.target.aim = new Spell.Target.Aim();
+        SpellBuilder.Target.aim(spell);
         spell.target.aim.sticky = true;
         spell.target.aim.use_caster_as_fallback = true;
 
-        var heal = createHeal(0.4F);
+        var heal = SpellBuilder.Impacts.heal(0.4F);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -490,7 +406,7 @@ public class PaladinSpells {
         };
         heal.sound = new Sound(PaladinSounds.holy_shock_heal.id());
 
-        var damage = createDamage(0.8F, 0.5F);
+        var damage = SpellBuilder.Impacts.damage(0.8F, 0.5F);
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
@@ -501,7 +417,7 @@ public class PaladinSpells {
 
         spell.impacts = List.of(heal, damage);
 
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.2F;
 
         return new Entry(id, spell, title, description);
@@ -513,7 +429,7 @@ public class PaladinSpells {
         var title = "Holy Light";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = 32;
         spell.tier = 2;
@@ -558,7 +474,7 @@ public class PaladinSpells {
         };
         spell.target.beam = beam;
 
-        var heal = createHeal(0.4F);
+        var heal = SpellBuilder.Impacts.heal(0.4F);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -573,7 +489,7 @@ public class PaladinSpells {
         };
         heal.sound = new Sound(PaladinSounds.holy_beam_heal.id());
 
-        var damage = createDamage(0.8F, 0.5F);
+        var damage = SpellBuilder.Impacts.damage(0.8F, 0.5F);
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
@@ -590,10 +506,10 @@ public class PaladinSpells {
 
         spell.impacts = List.of(heal, damage);
 
-        configureCooldown(spell, 10);
+        SpellBuilder.Cost.cooldown(spell, 10);
         spell.cost.cooldown.proportional = true;
         spell.cost.exhaust = 0.2F;
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
 
         return new Entry(id, spell, title, description);
     }
@@ -606,13 +522,12 @@ public class PaladinSpells {
 
         float range = 8;
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = range;
         spell.tier = 3;
 
-        spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_area_charge");
+        SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
@@ -620,7 +535,7 @@ public class PaladinSpells {
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
-        spell.release.particles = new ParticleBatch[]{
+        spell.release.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         SPARK_DECELERATE.toString(),
                         ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
@@ -643,7 +558,7 @@ public class PaladinSpells {
         spell.target.area.vertical_range_multiplier = 0.6F;
         spell.target.area.include_caster = true;
 
-        var heal = createHeal(0.4F);
+        var heal = SpellBuilder.Impacts.heal(0.4F);
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),
@@ -657,14 +572,13 @@ public class PaladinSpells {
         };
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
 
-        var buff = createEffectImpact(PaladinEffects.ABSORPTION.id, 6);
-        buff.action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.SET;
-        buff.action.status_effect.amplifier_power_multiplier = 0.25F;
+        var buff = SpellBuilder.Impacts.effectSet_ScaledAmplifier(
+                PaladinEffects.ABSORPTION.id.toString(), 6, 0, 0.25F);
 
         spell.impacts = List.of(heal, buff);
 
-        configureCooldown(spell, 10);
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.cooldown(spell, 10);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
 
         return new Entry(id, spell, title, description);
@@ -676,13 +590,12 @@ public class PaladinSpells {
         var title = "Barrier";
         var description = "";
 
-        var spell = activeSpellBase();
+        var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = 4;
         spell.tier = 4;
 
-        spell.active.cast.duration = 0.5F;
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_area_charge");
+        SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
@@ -710,8 +623,8 @@ public class PaladinSpells {
         spawn.action.spawns = List.of(barrier);
         spell.impacts = List.of(spawn);
 
-        configureCooldown(spell, 40);
-        configureItemCost(spell, "runes:healing_stone");
+        SpellBuilder.Cost.cooldown(spell, 40);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.4F;
 
         return new Entry(id, spell, title, description);

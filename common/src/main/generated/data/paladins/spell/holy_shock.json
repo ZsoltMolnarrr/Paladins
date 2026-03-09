@@ -101,7 +101,8 @@
   "cost": {
     "exhaust": 0.2,
     "cooldown": {
-      "group": "weapon"
+      "group": "weapon",
+      "duration": 3.0
     },
     "item": {
       "id": "runes:healing_stone"

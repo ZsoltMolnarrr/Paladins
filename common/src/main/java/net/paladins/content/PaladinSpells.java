@@ -419,6 +419,7 @@ public class PaladinSpells {
 
         SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.2F;
+        SpellBuilder.Cost.cooldown(spell, 3F);
 
         return new Entry(id, spell, title, description);
     }

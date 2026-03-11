@@ -1,6 +1,7 @@
 # 2.7.1
 
 - Added cooldown for Holy Shock spell (to be counteracted by Skill Tree)
+- Update Barrier skill to use new underlying API to provide immunity
 
 # 2.7.0
 

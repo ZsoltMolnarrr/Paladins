@@ -2,19 +2,22 @@ package net.paladins.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
-import net.spell_engine.api.effect.EntityImmunity;
+import net.spell_engine.api.entity.LivingEntityImmunity;
 import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.entity.TwoWayCollisionChecker;
 import net.spell_engine.api.spell.Spell;
@@ -157,6 +160,8 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         return false;
     }
 
+    private static final TagKey<DamageType> BARRIER_PROTECTS = TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of("paladins", "barrier_protects"));
+
     private boolean idleSoundFired = false;
     private static final int checkInterval = 4;
     
@@ -185,8 +190,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
                 for (var entity : entities) {
                     if (entity instanceof LivingEntity livingEntity) {
                         if (isProtected(livingEntity)) {
-                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.AREA_EFFECT, checkInterval + 1);
-                            EntityImmunity.setImmune(livingEntity, EntityImmunity.Type.EXPLOSION, checkInterval + 1);
+                            LivingEntityImmunity.apply(livingEntity, null, BARRIER_PROTECTS, null, true, checkInterval + 1);
                         } else {
                             livingEntity.takeKnockback(PaladinsMod.tweaksConfig.value.barrier_knockback_strength,
                                     this.getX() - livingEntity.getX(), this.getZ() - livingEntity.getZ());

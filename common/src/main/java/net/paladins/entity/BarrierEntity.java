@@ -91,7 +91,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         return super.damage(source, amount);
     }
 
-        @Override
+    @Override
     public EntityDimensions getDimensions(EntityPose pose) {
         var spellEntry = getSpellEntry();
         if (spellEntry != null) {

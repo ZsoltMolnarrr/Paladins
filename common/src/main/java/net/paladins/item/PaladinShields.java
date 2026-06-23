@@ -45,10 +45,10 @@ public class PaladinShields {
 
     // MARK: Shields
 
-    public static Shield.Entry iron_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "iron_kite_shield", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT), PaladinSounds.shield_equip.entry()));
-    public static Shield.Entry golden_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "golden_kite_shield", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT), PaladinSounds.shield_equip.entry()));
-    public static Shield.Entry diamond_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "diamond_kite_shield", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND), PaladinSounds.shield_equip.entry()));
-    public static Shield.Entry netherite_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "netherite_kite_shield", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT), PaladinSounds.shield_equip.entry()));
+    public static Shield.Entry iron_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "iron_kite_shield", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT), PaladinSounds.shield_equip.entry()).translatedName("Iron Kite Shield"));
+    public static Shield.Entry golden_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "golden_kite_shield", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT), PaladinSounds.shield_equip.entry()).translatedName("Golden Kite Shield"));
+    public static Shield.Entry diamond_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "diamond_kite_shield", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND), PaladinSounds.shield_equip.entry()).translatedName("Diamond Kite Shield"));
+    public static Shield.Entry netherite_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "netherite_kite_shield", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT), PaladinSounds.shield_equip.entry()).translatedName("Netherite Kite Shield"));
 
     public static void register(Map<String, ShieldConfig> configs) {
         if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(BETTER_NETHER)) {

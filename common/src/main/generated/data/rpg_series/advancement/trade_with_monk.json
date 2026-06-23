@@ -20,19 +20,18 @@
     "description": {
       "translate": "advancements.rpg_series.trade_with_monk.description"
     },
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "runes:healing_stone"
     },
     "title": {
       "translate": "advancements.rpg_series.trade_with_monk.title"
-    },
-    "hidden": true
+    }
   },
   "requirements": [
     [
       "trade_with_monk"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

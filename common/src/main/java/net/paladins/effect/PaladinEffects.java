@@ -33,7 +33,7 @@ public class PaladinEffects {
     public static final Effects.Entry BATTLE_BANNER = add(new Effects.Entry(
             Identifier.of(PaladinsMod.ID, "battle_banner"),
             "Battle Banner",
-            "Increases attack speed, spell haste, and knockback resistance",
+            "Increases attack speed and knockback resistance",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff),
             new EffectConfig(List.of(
                     new AttributeModifier(
@@ -61,7 +61,7 @@ public class PaladinEffects {
 
     public static final Effects.Entry JUDGEMENT = add(new Effects.Entry(
             Identifier.of(PaladinsMod.ID, "judgement"),
-            "Judgement",
+            "Stunned",
             "Prevents movement and actions",
             new JudgementStatusEffect(StatusEffectCategory.HARMFUL, 0xffffcc),
             new EffectConfig(List.of(
@@ -77,7 +77,7 @@ public class PaladinEffects {
     public static final Effects.Entry ABSORPTION = add(new Effects.Entry(
             Identifier.of(PaladinsMod.ID, "priest_absorption"),
             "Absorption",
-            "Increases maximum absorption",
+            "Absorbs some damage you would take",
             new PriestAbsorptionStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(

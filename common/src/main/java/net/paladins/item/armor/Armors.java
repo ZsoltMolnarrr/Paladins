@@ -132,6 +132,7 @@ public class Armors {
                     new ArmorSetConfig.Piece(2)
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t1_spell_power))
             ), 1)
+            .translatedName("Paladin Helmet", "Paladin Chestplate", "Paladin Leggings", "Paladin Boots")
             .armorSet();
 
     public static final Armor.Set paladinArmorSet_t2 = create(
@@ -149,6 +150,7 @@ public class Armors {
                     new ArmorSetConfig.Piece(3)
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t2_spell_power))
             ), 2)
+            .translatedName("Crusader Helmet", "Crusader Chestplate", "Crusader Leggings", "Crusader Boots")
             .armorSet();
 
     public static final Armor.Set paladinArmorSet_t3 = create(
@@ -171,6 +173,7 @@ public class Armors {
                             .addAll(AttributeModifier.bonuses(List.of(SpellSchools.HEALING.id), paladin_t3_spell_power))
 
             ), 3)
+            .translatedName("Netherite Crusader Helmet", "Netherite Crusader Chestplate", "Netherite Crusader Leggings", "Netherite Crusader Boots")
             .armorSet();
 
     private static final float priest_t1_spell_power = 0.2F;
@@ -194,6 +197,7 @@ public class Armors {
                     new ArmorSetConfig.Piece(1)
                             .add(AttributeModifier.multiply(SpellSchools.HEALING.id, priest_t1_spell_power))
             ), 1)
+            .translatedName("Priest Collar", "Priest Vestment", "Priest Trousers", "Priest Boots")
             .armorSet();
 
     public static final Armor.Set priestArmorSet_t2 = create(
@@ -223,6 +227,7 @@ public class Armors {
                                     AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t2_haste)
                             ))
             ), 2)
+            .translatedName("Prior Collar", "Prior Vestment", "Prior Trousers", "Prior Boots")
             .armorSet();
 
     public static final Armor.Set priestArmorSet_t3 = create(
@@ -252,6 +257,7 @@ public class Armors {
                                     AttributeModifier.multiply(SpellPowerMechanics.HASTE.id, priest_t3_haste)
                             ))
             ), 3)
+            .translatedName("Netherite Prior Collar", "Netherite Prior Vestment", "Netherite Prior Trousers", "Netherite Prior Boots")
             .armorSet();
 
     public static void register(Map<String, ArmorSetConfig> configs) {

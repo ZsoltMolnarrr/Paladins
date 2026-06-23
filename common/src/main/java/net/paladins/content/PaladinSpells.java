@@ -24,7 +24,24 @@ import java.util.List;
 public class PaladinSpells {
 
     public enum WeaponGroup { HOLY_WAND, HOLY_STAFF }
-    public enum Book { PALADIN, PRIEST }
+    public enum Book {
+        PALADIN("Paladin Libram", "Paladin Spell Scroll",
+                "Spell Book of Paladins, using weapons and spells to attack enemies and support allies\n- Strengths: Versatile in battle, able to heal, strike, and defend\n- Weaknesses: Limited ranged attacks and mobility\n- Equipment: Heavily armored"),
+        PRIEST("Holy Book", "Holy Spell Scroll",
+                "Spell Book of Priests, using holy magic to heal allies and damage enemies\n- Strengths: Supporting and healing allies, destroying undead\n- Weaknesses: Low damage and poor physical defense\n- Equipment: Lightly armored");
+
+        /** Display name of the generated spell book item. Source for {@code item.paladins.spell_book/<book>}. */
+        public final String bookName;
+        /** Display name of the generated spell scroll item. Source for {@code item.paladins.spell_scroll/<book>}. */
+        public final String scrollName;
+        /** Spell binding tooltip. Source for {@code item.paladins.spell_book/<book>.spell_binding.description}. */
+        public final String bindingDescription;
+        Book(String bookName, String scrollName, String bindingDescription) {
+            this.bookName = bookName;
+            this.scrollName = scrollName;
+            this.bindingDescription = bindingDescription;
+        }
+    }
     public record Entry(Identifier id, Spell spell, String title, String description,
                         @Nullable SpellTooltip.DescriptionMutator mutator,
                         @Nullable List<WeaponGroup> weaponGroups,
@@ -93,7 +110,7 @@ public class PaladinSpells {
     private static Entry flash_heal() {
         var id = Identifier.of(PaladinsMod.ID, "flash_heal");
         var title = "Flash Heal";
-        var description = "";
+        var description = "Heals you or a friendly target by {heal} health points.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
@@ -137,7 +154,7 @@ public class PaladinSpells {
     private static Entry divine_protection() {
         var id = Identifier.of(PaladinsMod.ID, "divine_protection");
         var title = "Divine Protection";
-        var description = "";
+        var description = "Protects you from the next incoming attacks (up to {effect_amplifier_cap}), for {effect_duration} seconds.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
@@ -171,7 +188,7 @@ public class PaladinSpells {
     private static Entry judgement() {
         var id = Identifier.of(PaladinsMod.ID, "judgement");
         var title = "Judgement";
-        var description = "";
+        var description = "Strikes your target and enemies around it, within {impact_range} blocks, causing up to {damage} damage and stunning them for {effect_duration} seconds.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
@@ -266,7 +283,7 @@ public class PaladinSpells {
     private static Entry battle_banner() {
         var id = Identifier.of(PaladinsMod.ID, "battle_banner");
         var title = "Battle Banner";
-        var description = "";
+        var description = "Increases attack speed and knockback resistance for you and allies nearby, within {cloud_radius} blocks, for {cloud_duration} seconds.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
@@ -325,7 +342,7 @@ public class PaladinSpells {
     private static Entry heal() {
         var id = Identifier.of(PaladinsMod.ID, "heal");
         var title = "Heal";
-        var description = "";
+        var description = "Heals you or a friendly target by {heal} health points.";
 
         var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
@@ -371,7 +388,7 @@ public class PaladinSpells {
     private static Entry holy_shock() {
         var id = Identifier.of(PaladinsMod.ID, "holy_shock");
         var title = "Holy Shock";
-        var description = "";
+        var description = "Heals you or a friendly target by {heal}, smites an enemy dealing {damage} spell damage.";
 
         var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
@@ -428,7 +445,7 @@ public class PaladinSpells {
     private static Entry holy_beam() {
         var id = Identifier.of(PaladinsMod.ID, "holy_beam");
         var title = "Holy Light";
-        var description = "";
+        var description = "Channels a beam of light, healing friends by {heal}, and dealing {damage} spell damage to enemies every second.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
@@ -519,7 +536,7 @@ public class PaladinSpells {
     private static Entry circle_of_healing() {
         var id = Identifier.of(PaladinsMod.ID, "circle_of_healing");
         var title = "Circle of Healing";
-        var description = "";
+        var description = "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.";
 
         float range = 8;
 
@@ -589,7 +606,7 @@ public class PaladinSpells {
     private static Entry barrier() {
         var id = Identifier.of(PaladinsMod.ID, "barrier");
         var title = "Barrier";
-        var description = "";
+        var description = "Summons a circular barrier, protecting you and allies from projectiles, magic or enemies intruding the area.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;

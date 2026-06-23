@@ -1,0 +1,29 @@
+{
+  "parent": "rpg_series:path_choose_paladin",
+  "criteria": {
+    "bind": {
+      "conditions": {
+        "complete": false,
+        "spell_pool": "paladins:spell_book/paladin"
+      },
+      "trigger": "spell_engine:spell_binding"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.rpg_series.spell_novice_paladin.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "paladins:iron_mace"
+    },
+    "title": {
+      "translate": "advancements.rpg_series.spell_novice_paladin.title"
+    }
+  },
+  "requirements": [
+    [
+      "bind"
+    ]
+  ]
+}

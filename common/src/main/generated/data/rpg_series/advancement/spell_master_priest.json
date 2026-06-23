@@ -1,0 +1,30 @@
+{
+  "parent": "rpg_series:spell_novice_priest",
+  "criteria": {
+    "cast": {
+      "conditions": {
+        "complete": true,
+        "spell_pool": "paladins:spell_book/priest"
+      },
+      "trigger": "spell_engine:spell_binding"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.rpg_series.spell_master_priest.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "paladins:holy_staff"
+    },
+    "title": {
+      "translate": "advancements.rpg_series.spell_master_priest.title"
+    }
+  },
+  "requirements": [
+    [
+      "cast"
+    ]
+  ]
+}

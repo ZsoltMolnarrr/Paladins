@@ -48,68 +48,90 @@ public class PaladinWeapons {
     // MARK: Claymores
 
     public static final Weapon.Entry stone_claymore = add(Weapons.claymoreWithSkill(
-            NAMESPACE, "stone_claymore", Equipment.Tier.TIER_0, () -> Ingredient.ofItems(Items.COBBLESTONE)));
+            NAMESPACE, "stone_claymore", Equipment.Tier.TIER_0, () -> Ingredient.ofItems(Items.COBBLESTONE))
+            .translatedName("Stone Claymore"));
     public static final Weapon.Entry iron_claymore = add(Weapons.claymoreWithSkill(
-            NAMESPACE, "iron_claymore", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT)));
+            NAMESPACE, "iron_claymore", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT))
+            .translatedName("Iron Claymore"));
     public static final Weapon.Entry golden_claymore = add(Weapons.claymoreWithSkill(
-            NAMESPACE, "golden_claymore", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT)));
+            NAMESPACE, "golden_claymore", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT))
+            .translatedName("Golden Claymore"));
     public static final Weapon.Entry diamond_claymore = add(Weapons.claymoreWithSkill(
-            NAMESPACE, "diamond_claymore", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND)));
+            NAMESPACE, "diamond_claymore", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND))
+            .translatedName("Diamond Claymore"));
     public static final Weapon.Entry netherite_claymore = add(Weapons.claymoreWithSkill(
-            NAMESPACE, "netherite_claymore", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)));
+            NAMESPACE, "netherite_claymore", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT))
+            .translatedName("Netherite Claymore"));
 
     // MARK: Hammers
 
     public static final Weapon.Entry wooden_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "wooden_great_hammer", Equipment.Tier.WOODEN, () -> Ingredient.fromTag(ItemTags.PLANKS)));
+            NAMESPACE, "wooden_great_hammer", Equipment.Tier.WOODEN, () -> Ingredient.fromTag(ItemTags.PLANKS))
+            .translatedName("Wooden Great Hammer"));
     public static final Weapon.Entry stone_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "stone_great_hammer", Equipment.Tier.TIER_0, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS)));
+            NAMESPACE, "stone_great_hammer", Equipment.Tier.TIER_0, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS))
+            .translatedName("Stone Great Hammer"));
     public static final Weapon.Entry iron_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "iron_great_hammer", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT)));
+            NAMESPACE, "iron_great_hammer", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT))
+            .translatedName("Iron Great Hammer"));
     public static final Weapon.Entry golden_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "golden_great_hammer", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT)));
+            NAMESPACE, "golden_great_hammer", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT))
+            .translatedName("Golden Great Hammer"));
     public static final Weapon.Entry diamond_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "diamond_great_hammer", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND)));
+            NAMESPACE, "diamond_great_hammer", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND))
+            .translatedName("Diamond Great Hammer"));
     public static final Weapon.Entry netherite_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "netherite_great_hammer", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)));
+            NAMESPACE, "netherite_great_hammer", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT))
+            .translatedName("Netherite Great Hammer"));
 
     // MARK: Maces
 
     public static final Weapon.Entry iron_mace = add(Weapons.maceWithSkill(
-            NAMESPACE, "iron_mace", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT)));
+            NAMESPACE, "iron_mace", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT))
+            .translatedName("Iron Mace"));
     public static final Weapon.Entry golden_mace = add(Weapons.maceWithSkill(
-            NAMESPACE, "golden_mace", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT)));
+            NAMESPACE, "golden_mace", Equipment.Tier.GOLDEN, () -> Ingredient.ofItems(Items.GOLD_INGOT))
+            .translatedName("Golden Mace"));
     public static final Weapon.Entry diamond_mace = add(Weapons.maceWithSkill(
-            NAMESPACE, "diamond_mace", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND)));
+            NAMESPACE, "diamond_mace", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND))
+            .translatedName("Diamond Mace"));
     public static final Weapon.Entry netherite_mace = add(Weapons.maceWithSkill(
-            NAMESPACE, "netherite_mace", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT)));
+            NAMESPACE, "netherite_mace", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT))
+            .translatedName("Netherite Mace"));
 
     // MARK: Wands
 
     public static final Weapon.Entry acolyte_wand = add(Weapons.healingWand(
             NAMESPACE, "acolyte_wand", Equipment.Tier.TIER_0, () -> Ingredient.ofItems(Items.STICK))
-            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id())));
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id()))
+            .translatedName("Acolyte Wand"));
     public static final Weapon.Entry holy_wand = add(Weapons.healingWand(
             NAMESPACE, "holy_wand", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.GOLD_INGOT))
-            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id())));
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id()))
+            .translatedName("Holy Wand"));
     public static final Weapon.Entry diamond_holy_wand = add(Weapons.healingWand(
             NAMESPACE, "diamond_holy_wand", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND))
-            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id())));
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id()))
+            .translatedName("Diamond Holy Wand"));
     public static final Weapon.Entry netherite_holy_wand = add(Weapons.healingWand(
             NAMESPACE, "netherite_holy_wand", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT))
-            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id())));
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HEAL.id()))
+            .translatedName("Netherite Holy Wand"));
 
     // MARK: Staves
 
     public static final Weapon.Entry holy_staff = add(Weapons.healingStaff(
             NAMESPACE, "holy_staff", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.GOLD_INGOT))
-            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id())));
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id()))
+            .translatedName("Holy Staff"));
     public static final Weapon.Entry diamond_holy_staff = add(Weapons.healingStaff(
             NAMESPACE, "diamond_holy_staff", Equipment.Tier.TIER_2, () -> Ingredient.ofItems(Items.DIAMOND))
-            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id())));
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id()))
+            .translatedName("Diamond Holy Staff"));
     public static final Weapon.Entry netherite_holy_staff = add(Weapons.healingStaff(
             NAMESPACE, "netherite_holy_staff", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT))
-            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id())));
+            .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id()))
+            .translatedName("Netherite Holy Staff"));
 
     // MARK: Register
 

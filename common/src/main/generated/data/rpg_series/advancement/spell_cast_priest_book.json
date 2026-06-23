@@ -1,0 +1,33 @@
+{
+  "parent": "rpg_series:spell_novice_priest",
+  "criteria": {
+    "cast": {
+      "conditions": {
+        "spell": "#paladins:spell_book/priest"
+      },
+      "trigger": "spell_engine:spell_cast"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.rpg_series.spell_cast_priest_book.description"
+    },
+    "icon": {
+      "components": {
+        "spell_engine:item_model": "paladins:item/spell_book/priest"
+      },
+      "count": 1,
+      "id": "spell_engine:spell_book"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.rpg_series.spell_cast_priest_book.title"
+    }
+  },
+  "requirements": [
+    [
+      "cast"
+    ]
+  ]
+}

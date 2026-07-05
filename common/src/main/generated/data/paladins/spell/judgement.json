@@ -70,10 +70,16 @@
               "color_rgba": 4294954239
             }
           ],
-          "model": {
-            "model_id": "paladins:spell_projectile/judgement",
-            "light_emission": "RADIATE",
-            "scale": 1.2
+          "composite_model": {
+            "models": [
+              {
+                "fx": {
+                  "model_id": "paladins:spell_projectile/judgement",
+                  "light_emission": "RADIATE",
+                  "scale": 1.2
+                }
+              }
+            ]
           }
         }
       }

@@ -16,6 +16,9 @@
     "type": "CLOUD",
     "clouds": [
       {
+        "entity_type_id": "paladins:battle_banner",
+        "spawn_ticks": 43,
+        "despawn_ticks": 43,
         "volume": {
           "radius": 3.0,
           "extra_radius": {
@@ -58,12 +61,24 @@
               "max_speed": 0.1,
               "color_rgba": 4294954239
             }
-          ],
-          "model": {
-            "model_id": "paladins:spell_effect/battle_banner",
-            "light_emission": "NONE",
-            "rotate_degrees_per_tick": 0.0
-          }
+          ]
+        }
+      },
+      {
+        "spawn_ticks": 43,
+        "despawn_ticks": 43,
+        "volume": {
+          "radius": 0.0
+        },
+        "time_to_live_seconds": 10.0,
+        "impact_tick_interval": 10000,
+        "placement": {
+          "location_offset_by_look": 2.0,
+          "location_yaw_offset": 20.0,
+          "apply_yaw": true
+        },
+        "client_data": {
+          "light_level": 15
         }
       }
     ]

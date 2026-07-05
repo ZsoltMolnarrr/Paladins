@@ -9,6 +9,7 @@ import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
 import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.fx.ModelEffect;
 import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.client.gui.SpellTooltip;
@@ -116,7 +117,6 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 16;
         spell.tier = 2;
-        spell.group = SpellBuilder.GROUP_PRIMARY;
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
@@ -229,11 +229,7 @@ public class PaladinSpells {
                         4, 0, 0.1F, 0)
                         .color(Color.HOLY.toRGBA())
         };
-        var model = new Spell.ProjectileModel();
-        model.light_emission = LightEmission.RADIATE;
-        model.model_id = "paladins:spell_projectile/judgement";
-        model.scale = 1.2F;
-        projectile.client_data.model = model;
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("paladins:spell_projectile/judgement", 1.2F, LightEmission.RADIATE);
 
         meteor.projectile = projectile;
         spell.deliver.meteor = meteor;
@@ -297,6 +293,7 @@ public class PaladinSpells {
 
         spell.deliver.type = Spell.Delivery.Type.CLOUD;
         var cloud = new Spell.Delivery.Cloud();
+        cloud.entity_type_id = PaladinEntities.BANNER_ID.toString();
         cloud.volume.radius = 3;
         cloud.volume.extra_radius = new Spell.AreaImpact.ExtraRadius();
         cloud.volume.extra_radius.power_coefficient = 1;
@@ -305,12 +302,12 @@ public class PaladinSpells {
         cloud.presence_sound = Sound.withRandomness(PaladinSounds.battle_banner_presence.id(), 0);
         cloud.impact_tick_interval = 10;
         cloud.time_to_live_seconds = 10;
+        // Spawn/despawn phases sized to the `place` animation (2.15s = 43 ticks); the model
+        // plays it forward while spawning and in reverse while despawning.
+        cloud.spawn_ticks = 43;
+        cloud.despawn_ticks = 43;
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.light_level = 15;
-        cloud.client_data.model = new Spell.ProjectileModel();
-        cloud.client_data.model.model_id = "paladins:spell_effect/battle_banner";
-        cloud.client_data.model.rotate_degrees_per_tick = 0;
-        cloud.client_data.model.light_emission = LightEmission.NONE;
         cloud.client_data.particles = new ParticleBatch[] {
                 new ParticleBatch(SPARK_DECELERATE.toString(),
                         ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
@@ -326,7 +323,22 @@ public class PaladinSpells {
         cloud.placement.location_yaw_offset = 20;
         cloud.placement.apply_yaw = true;
 
-        spell.deliver.clouds = List.of(cloud);
+        // Dummy co-located vanilla cloud, only to emit dynamic light. LambDynLights handlers are
+        // keyed by entity type (SpellCloud.ENTITY_TYPE), so the custom BannerEntity type gets no
+        // dynamic light of its own. Zero radius and a beyond-lifetime impact interval make it
+        // gameplay- and visually inert.
+        var lightSource = new Spell.Delivery.Cloud();
+        lightSource.volume.radius = 0;
+        lightSource.impact_tick_interval = 10000;
+        lightSource.time_to_live_seconds = 10;
+        // Mirror the banner's phases so the light's total lifetime matches exactly
+        lightSource.spawn_ticks = 43;
+        lightSource.despawn_ticks = 43;
+        lightSource.client_data = new Spell.Delivery.Cloud.ClientData();
+        lightSource.client_data.light_level = 15;
+        lightSource.placement = cloud.placement;
+
+        spell.deliver.clouds = List.of(cloud, lightSource);
 
         var buff = SpellBuilder.Impacts.effectSet(PaladinEffects.BATTLE_BANNER.id.toString(), 2, 0);
         spell.impacts = List.of(buff);
@@ -346,7 +358,6 @@ public class PaladinSpells {
 
         var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
-        spell.group = SpellBuilder.GROUP_PRIMARY;
         spell.range = 16;
         spell.tier = 0;
 
@@ -392,7 +403,6 @@ public class PaladinSpells {
 
         var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
-        spell.group = SpellBuilder.GROUP_PRIMARY;
         spell.tier = 1;
         spell.range = 16;
 

@@ -2,11 +2,13 @@ package net.paladins.client;
 
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.paladins.client.armor.PriestArmorRenderer;
 import net.paladins.client.effect.DivineProtectionRenderer;
 import net.paladins.client.entity.BannerEntityRenderer;
+import net.paladins.client.entity.BattleBannerEntityModel;
 import net.paladins.client.entity.BarrierEntityRenderer;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.BannerEntity;
@@ -42,6 +44,7 @@ public class PaladinsClientMod {
         );
 
         EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(BattleBannerEntityModel.LAYER, BattleBannerEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(BannerEntity.ENTITY_TYPE, BannerEntityRenderer::new);
 
         BarrierEntityRenderer.setup();

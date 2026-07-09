@@ -302,10 +302,13 @@ public class PaladinSpells {
         cloud.presence_sound = Sound.withRandomness(PaladinSounds.battle_banner_presence.id(), 0);
         cloud.impact_tick_interval = 10;
         cloud.time_to_live_seconds = 10;
+
+        var spawnDurationTicks = 43;
+
         // Spawn/despawn phases sized to the `place` animation (2.15s = 43 ticks); the model
         // plays it forward while spawning and in reverse while despawning.
-        cloud.spawn_ticks = 43;
-        cloud.despawn_ticks = 43;
+        cloud.spawn_ticks = spawnDurationTicks;
+        cloud.despawn_ticks = spawnDurationTicks;
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.light_level = 15;
         cloud.client_data.particles = new ParticleBatch[] {
@@ -332,8 +335,8 @@ public class PaladinSpells {
         lightSource.impact_tick_interval = 10000;
         lightSource.time_to_live_seconds = 10;
         // Mirror the banner's phases so the light's total lifetime matches exactly
-        lightSource.spawn_ticks = 43;
-        lightSource.despawn_ticks = 43;
+        lightSource.spawn_ticks = spawnDurationTicks;
+        lightSource.despawn_ticks = spawnDurationTicks;
         lightSource.client_data = new Spell.Delivery.Cloud.ClientData();
         lightSource.client_data.light_level = 15;
         lightSource.placement = cloud.placement;

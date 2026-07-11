@@ -20,10 +20,10 @@ import java.util.List;
 /// spawns and configures it. See {@code WizardSummons} for the reference pattern.
 public class PaladinSummons {
 
-    private static final String LIGHTWELL_HEAL = PaladinsMod.ID + ":lightwell_heal";
+    private static final String LIGHTWELL_ORB = PaladinsMod.ID + ":lightwell_orb";
 
-    private static final String HOLY_ASCEND = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.HOLY,
+    private static final String SPARKS = SpellEngineParticles.MagicParticles.get(
+            SpellEngineParticles.MagicParticles.Shape.SPARK,
             SpellEngineParticles.MagicParticles.Motion.ASCEND).id().toString();
 
     private static final String HOLY_DECELERATE = SpellEngineParticles.MagicParticles.get(
@@ -65,8 +65,8 @@ public class PaladinSummons {
         clear.on_action_completed = List.of(afterHeal);
         b.targeting.clear_condition = clear;
 
-        // Action: cast the instant single-target heal at the acquired ally. No target = don't fire.
-        var heal = new SummonBehaviour.Action.SpellCast(LIGHTWELL_HEAL, 30);
+        // Action: lob the healing orb at the acquired ally. No target = don't fire.
+        var heal = new SummonBehaviour.Action.SpellCast(LIGHTWELL_ORB, 30);
         heal.aiming.accept_target = true;
         heal.aiming.fallback = SummonBehaviour.Action.SpellCast.Aiming.Fallback.NONE;
         heal.release_animation_variants = List.of(1);
@@ -89,7 +89,7 @@ public class PaladinSummons {
         aura.interval_ticks = 6;
         aura.particles = new ParticleBatch[] {
                 new ParticleBatch(
-                        HOLY_ASCEND,
+                        SPARKS,
                         ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
                         2, 0.02F, 0.12F).extent(0.45F).color(Color.HOLY.toRGBA())
         };

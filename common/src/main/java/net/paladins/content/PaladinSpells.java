@@ -691,18 +691,20 @@ public class PaladinSpells {
         return new Entry(id, spell, title, description);
     }
 
-    // Internal heal cast by the Lightwell summon on nearby wounded allies. Not learnable and bound to
-    // no book/weapon — it exists only to be referenced by PaladinSummons.lightwell()'s SpellCast action.
-    // Must be instant + DIRECT (summons can't channel); scales off the well's own healing spell power.
-    public static final Entry LIGHTWELL_HEAL = add(lightwell_heal());
-    private static Entry lightwell_heal() {
-        var id = Identifier.of(PaladinsMod.ID, "lightwell_heal");
-        var title = "Lightwell";
-        var description = "Heals a nearby ally by {heal} health points.";
+    // Heal cast by the Lightwell summon on nearby wounded allies. Not learnable and bound to no
+    // book/weapon — it exists only to be referenced by PaladinSummons.lightwell()'s SpellCast action.
+    // Same heal payload as the priest's Heal, but lobbed as a holy orb (Celestial-Orbs model) that
+    // arcs upward and homes back down onto the ally, bouncing once off terrain. Must be instant so the
+    // summon can cast it (summons can't channel); scales off the well's own healing spell power.
+    public static final Entry LIGHTWELL_ORB = add(lightwell_orb());
+    private static Entry lightwell_orb() {
+        var id = Identifier.of(PaladinsMod.ID, "lightwell_orb");
+        var title = "Holy Mote";
+        var description = "Heals a friendly target by {heal} health points.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
-        spell.range = 8;
+        spell.range = 10;
         spell.tier = 0;
         spell.learn = null;
 
@@ -712,6 +714,32 @@ public class PaladinSpells {
 
         SpellBuilder.Target.aim(spell);
         spell.target.aim.required = true;
+
+        // Delivery: a holy orb lobbed 40° above the aim line, arcing back down onto the ally via homing,
+        // and able to ricochet once off terrain along the way.
+        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
+        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
+        spell.deliver.projectile.direction_offsets = new Spell.Delivery.ShootProjectile.DirectionOffset[] {
+                new Spell.Delivery.ShootProjectile.DirectionOffset(0, -30) // negative pitch = aim upwards
+        };
+        spell.deliver.projectile.launch_properties.velocity = 1.0F;
+
+        var projectile = new Spell.ProjectileData();
+        projectile.homing_angle = 16F;
+        projectile.homing_after_relative_distance = 0.15F; // fly up first, then curve toward the ally
+        projectile.perks.bounce = 1;
+        projectile.client_data = new Spell.ProjectileData.Client();
+        projectile.client_data.light_level = 12;
+        projectile.client_data.travel_particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        SPARKS_FLOAT.toString(),
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        ParticleBatch.Rotation.LOOK,
+                        5, 0, 0.1F, 0).color(Color.HOLY.toRGBA())
+        };
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single(
+                "paladins:spell_projectile/lightwell_orb", 1.0F, LightEmission.GLOW);
+        spell.deliver.projectile.projectile = projectile;
 
         var heal = SpellBuilder.Impacts.heal(0.35F);
         heal.particles = new ParticleBatch[] {

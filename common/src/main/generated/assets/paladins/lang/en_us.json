@@ -128,6 +128,6 @@
   "spell.paladins.judgement.name": "Judgement",
   "spell.paladins.lightwell.description": "Summons a Lightwell that heals you and nearby wounded allies. It lasts {summon_duration} sec.",
   "spell.paladins.lightwell.name": "Lightwell",
-  "spell.paladins.lightwell_heal.description": "Heals a nearby ally by {heal} health points.",
-  "spell.paladins.lightwell_heal.name": "Lightwell"
+  "spell.paladins.lightwell_orb.description": "Heals a friendly target by {heal} health points.",
+  "spell.paladins.lightwell_orb.name": "Holy Mote"
 }

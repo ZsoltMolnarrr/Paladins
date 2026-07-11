@@ -35,7 +35,7 @@
               {
                 "particles": [
                   {
-                    "particle_id": "spell_engine:magic_holy_ascend",
+                    "particle_id": "spell_engine:magic_spark_ascend",
                     "origin": "FEET",
                     "shape": "PILLAR",
                     "count": 2.0,
@@ -82,7 +82,7 @@
               {
                 "type": "SPELL_CAST",
                 "spell_cast": {
-                  "spell_id": "paladins:lightwell_heal",
+                  "spell_id": "paladins:lightwell_orb",
                   "cooldown": 30
                 }
               }

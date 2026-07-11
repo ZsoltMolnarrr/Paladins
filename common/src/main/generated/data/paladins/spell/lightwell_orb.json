@@ -1,6 +1,6 @@
 {
   "school": "spell_power:healing",
-  "range": 8.0,
+  "range": 10.0,
   "tier": 0,
   "active": {},
   "release": {
@@ -12,6 +12,46 @@
     "type": "AIM",
     "aim": {
       "required": true
+    }
+  },
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "direction_offsets": [
+        {
+          "pitch": -30.0
+        }
+      ],
+      "projectile": {
+        "homing_angle": 16.0,
+        "homing_after_relative_distance": 0.15,
+        "perks": {
+          "bounce": 1
+        },
+        "client_data": {
+          "light_level": 12,
+          "travel_particles": [
+            {
+              "particle_id": "spell_engine:magic_spark_float",
+              "origin": "CENTER",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "count": 5.0,
+              "max_speed": 0.1,
+              "color_rgba": 4294954239
+            }
+          ],
+          "composite_model": {
+            "models": [
+              {
+                "fx": {
+                  "model_id": "paladins:spell_projectile/lightwell_orb"
+                }
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "impacts": [

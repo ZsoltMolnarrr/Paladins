@@ -10,9 +10,12 @@ import net.paladins.client.effect.DivineProtectionRenderer;
 import net.paladins.client.entity.BannerEntityRenderer;
 import net.paladins.client.entity.BattleBannerEntityModel;
 import net.paladins.client.entity.BarrierEntityRenderer;
+import net.paladins.client.entity.LightwellEntityModel;
+import net.paladins.client.entity.LightwellEntityRenderer;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.BannerEntity;
 import net.paladins.entity.BarrierEntity;
+import net.paladins.entity.LightwellEntity;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
@@ -46,6 +49,9 @@ public class PaladinsClientMod {
         EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(BattleBannerEntityModel.LAYER, BattleBannerEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(BannerEntity.ENTITY_TYPE, BannerEntityRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(LightwellEntityModel.LAYER, LightwellEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(LightwellEntity.TYPE, LightwellEntityRenderer::new);
 
         BarrierEntityRenderer.setup();
 

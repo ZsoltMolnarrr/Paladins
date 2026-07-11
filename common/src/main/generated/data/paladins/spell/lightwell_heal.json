@@ -1,0 +1,50 @@
+{
+  "school": "spell_power:healing",
+  "range": 8.0,
+  "tier": 0,
+  "active": {},
+  "release": {
+    "animation": {
+      "id": "spell_engine:one_handed_healing_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "required": true
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.35
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_heal_ascend",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 15.0,
+          "min_speed": 0.02,
+          "max_speed": 0.15,
+          "color_rgba": 1728014079
+        },
+        {
+          "particle_id": "spell_engine:magic_holy_decelerate",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 12.0,
+          "min_speed": 0.2,
+          "max_speed": 0.25,
+          "color_rgba": 4294954239
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_2"
+      }
+    }
+  ]
+}

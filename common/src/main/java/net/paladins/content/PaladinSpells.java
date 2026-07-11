@@ -4,6 +4,7 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.PaladinEntities;
+import net.paladins.entity.PaladinSummons;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
@@ -118,7 +119,7 @@ public class PaladinSpells {
         spell.range = 16;
         spell.tier = 2;
         spell.order = 2;
-        
+
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
@@ -661,6 +662,72 @@ public class PaladinSpells {
         SpellBuilder.Cost.cooldown(spell, 40);
         SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.4F;
+
+        return new Entry(id, spell, title, description);
+    }
+
+    public static final Entry LIGHTWELL = add(lightwell().book(Book.PRIEST));
+    private static Entry lightwell() {
+        var id = Identifier.of(PaladinsMod.ID, "lightwell");
+        var title = "Lightwell";
+        var description = "Summons a Lightwell that heals you and nearby wounded allies. It lasts "
+                + SpellTooltip.placeholder(SpellTooltip.summonDurationToken) + " sec.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = SpellSchools.HEALING;
+        spell.range = 0;
+        spell.tier = 4;
+
+        SpellBuilder.Casting.instant(spell);
+
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
+
+        spell.impacts = List.of(SpellBuilder.Impacts.summon(PaladinSummons.lightwell()));
+
+        SpellBuilder.Cost.cooldown(spell, 45);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.3F;
+
+        return new Entry(id, spell, title, description);
+    }
+
+    // Internal heal cast by the Lightwell summon on nearby wounded allies. Not learnable and bound to
+    // no book/weapon — it exists only to be referenced by PaladinSummons.lightwell()'s SpellCast action.
+    // Must be instant + DIRECT (summons can't channel); scales off the well's own healing spell power.
+    public static final Entry LIGHTWELL_HEAL = add(lightwell_heal());
+    private static Entry lightwell_heal() {
+        var id = Identifier.of(PaladinsMod.ID, "lightwell_heal");
+        var title = "Lightwell";
+        var description = "Heals a nearby ally by {heal} health points.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = SpellSchools.HEALING;
+        spell.range = 8;
+        spell.tier = 0;
+        spell.learn = null;
+
+        SpellBuilder.Casting.instant(spell);
+
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
+
+        SpellBuilder.Target.aim(spell);
+        spell.target.aim.required = true;
+
+        var heal = SpellBuilder.Impacts.heal(0.35F);
+        heal.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HEALING_PARTICLES.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        15, 0.02F, 0.15F)
+                        .color(Color.NATURE.toRGBA()),
+                new ParticleBatch(
+                        HOLY_IMPACT_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        12, 0.2F, 0.25F).color(Color.HOLY.toRGBA())
+        };
+        heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
+
+        spell.impacts = List.of(heal);
 
         return new Entry(id, spell, title, description);
     }

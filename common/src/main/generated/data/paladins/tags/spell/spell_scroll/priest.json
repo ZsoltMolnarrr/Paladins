@@ -11,6 +11,10 @@
     {
       "id": "paladins:barrier",
       "required": false
+    },
+    {
+      "id": "paladins:lightwell",
+      "required": false
     }
   ]
 }

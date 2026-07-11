@@ -1,7 +1,8 @@
 {
   "school": "spell_power:healing",
   "range": 0.0,
-  "tier": 2,
+  "tier": 3,
+  "order": 2,
   "learn": {},
   "active": {},
   "release": {

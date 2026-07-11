@@ -117,7 +117,8 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 16;
         spell.tier = 2;
-
+        spell.order = 2;
+        
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
@@ -159,7 +160,8 @@ public class PaladinSpells {
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = 0;
-        spell.tier = 2;
+        spell.tier = 3;
+        spell.order = 2;
 
         SpellBuilder.Casting.instant(spell);
 
@@ -285,6 +287,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 0;
         spell.tier = 4;
+        spell.order = 2;
 
         SpellBuilder.Casting.instant(spell);
 
@@ -625,6 +628,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 4;
         spell.tier = 4;
+        spell.order = 2;
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);

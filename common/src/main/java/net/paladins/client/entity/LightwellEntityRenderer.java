@@ -14,8 +14,6 @@ public class LightwellEntityRenderer extends MobEntityRenderer<LightwellEntity, 
 
     private static final float FLOAT_AMPLITUDE = 0.1F;
     private static final float FLOAT_FREQUENCY = (float)(Math.PI / 20.0); // 2-second cycle (40 ticks)
-    // Lift the whole model off the ground so its base doesn't clip into the floor.
-    private static final float GROUND_OFFSET = 0.25F;
 
     public LightwellEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new LightwellEntityModel(context.getPart(LightwellEntityModel.LAYER)), 0.4f);
@@ -26,7 +24,8 @@ public class LightwellEntityRenderer extends MobEntityRenderer<LightwellEntity, 
     protected void setupTransforms(LightwellEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta, float scale) {
         super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta, scale);
         // Lift off the ground plus a gentle levitation bob, mirroring the Frost Elemental's float.
-        matrices.translate(0.0, GROUND_OFFSET + MathHelper.sin(animationProgress * FLOAT_FREQUENCY) * FLOAT_AMPLITUDE, 0.0);
+        var groundOffset = entity.getWidth() * 0.25F;
+        matrices.translate(0.0, groundOffset + MathHelper.sin(animationProgress * FLOAT_FREQUENCY) * FLOAT_AMPLITUDE, 0.0);
     }
 
     @Override

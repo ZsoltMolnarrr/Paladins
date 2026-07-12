@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.spell.summon.SummonedEntities;
 import net.spell_engine.api.spell.summon.SummonedEntityConfig;
+import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
 
 public class PaladinEntities {
@@ -22,6 +23,11 @@ public class PaladinEntities {
         e.common = new SummonedEntityConfig.CommonAttributes(20, 0.0, 0); // health, speed (stationary), attack
         e.common.follow_range = 16;
         e.custom.add(new SummonedEntityConfig.CustomAttribute(SpellSchools.HEALING.id.toString(), 1));
+        // Seed Haste at the neutral baseline (100 = 1.0x). Required so getHaste has an attribute to read
+        // (without it the well's haste would be 0 -> effectively infinite cooldown); the summon's
+        // attribute_scaling then mirrors the owner's Healing Haste on top (see PaladinSummons.lightwell).
+        e.custom.add(new SummonedEntityConfig.CustomAttribute(
+                SpellPowerMechanics.HASTE.id.toString(), SpellPowerMechanics.PERCENT_ATTRIBUTE_BASELINE));
         return e;
     }
 

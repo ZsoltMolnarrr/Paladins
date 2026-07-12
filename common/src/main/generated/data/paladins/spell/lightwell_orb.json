@@ -1,11 +1,14 @@
 {
   "school": "spell_power:healing",
-  "range": 10.0,
+  "range": 12.0,
   "tier": 0,
   "active": {},
   "release": {
     "animation": {
       "id": "spell_engine:one_handed_healing_release"
+    },
+    "sound": {
+      "id": "spell_engine:generic_healing_release_2"
     }
   },
   "target": {
@@ -86,5 +89,10 @@
         "id": "spell_engine:generic_healing_impact_2"
       }
     }
-  ]
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 1.5
+    }
+  }
 }

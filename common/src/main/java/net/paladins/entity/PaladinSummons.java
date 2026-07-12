@@ -11,6 +11,7 @@ import net.spell_engine.api.spell.summon.AttributeScaling;
 import net.spell_engine.api.spell.summon.SummonBehaviour;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
+import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
 
 import java.util.List;
@@ -65,7 +66,9 @@ public class PaladinSummons {
         clear.on_action_completed = List.of(afterHeal);
         b.targeting.clear_condition = clear;
 
-        // Action: lob the healing orb at the acquired ally. No target = don't fire.
+        // Action: lob the healing orb at the acquired ally. No target = don't fire. The real cadence
+        // comes from the spell's own haste-affected cooldown (see lightwell_orb); this action-level
+        // cooldown is only the fallback used when a spell defines none, so it never applies here.
         var heal = new SummonBehaviour.Action.SpellCast(LIGHTWELL_ORB, 30);
         heal.aiming.accept_target = true;
         heal.aiming.fallback = SummonBehaviour.Action.SpellCast.Aiming.Fallback.NONE;
@@ -99,9 +102,15 @@ public class PaladinSummons {
         var placement = Placements.pointAtAngle(1.5F, 0F);
 
         var summon = new Summon(LightwellEntity.ID.toString(), b, List.of(placement), 1);
-        // Scale the well's healing power off the owner's healing spell power.
         summon.attribute_scaling.entries = List.of(
-                scalingEntry(SpellSchools.HEALING.id.toString(), SpellSchools.HEALING.id.toString(), 0, 0.3));
+                // Scale the well's healing power off the owner's healing spell power.
+                scalingEntry(SpellSchools.HEALING.id.toString(), SpellSchools.HEALING.id.toString(), 0, 0.5),
+                // Mirror the owner's Healing Haste onto the well so its (haste-affected) cooldown speeds
+                // up with the caster. Haste is a percent stat where 100 = neutral (1.0x); the well seeds
+                // at 100 (see PaladinEntities.lightwellDefaults), so add (owner - 100) to land it exactly
+                // on the owner's value: base -100, coefficient 1.
+                scalingEntry(SpellPowerMechanics.HASTE.id.toString(), SpellPowerMechanics.HASTE.id.toString(),
+                        -SpellPowerMechanics.PERCENT_ATTRIBUTE_BASELINE, 1.0));
         return summon;
     }
 

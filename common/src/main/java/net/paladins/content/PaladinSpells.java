@@ -704,13 +704,14 @@ public class PaladinSpells {
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
-        spell.range = 10;
+        spell.range = 12;
         spell.tier = 0;
         spell.learn = null;
 
         SpellBuilder.Casting.instant(spell);
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
+        spell.release.sound = Sound.of(SpellEngineSounds.GENERIC_HEALING_RELEASE_2.id());
 
         SpellBuilder.Target.aim(spell);
         spell.target.aim.required = true;
@@ -756,6 +757,13 @@ public class PaladinSpells {
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
 
         spell.impacts = List.of(heal);
+
+        // Firing cadence lives on the spell (not the summon's SpellCast action) so it runs through
+        // SpellEngine's haste-aware cooldown path: the well pulses faster the more Healing Haste its
+        // owner has (mirrored onto the well via attribute scaling). haste_affected is on by default;
+        // set explicitly for intent. Also obeys the server's `haste_affects_cooldown` config.
+        SpellBuilder.Cost.cooldown(spell, 1.5F);
+        spell.cost.cooldown.haste_affected = true;
 
         return new Entry(id, spell, title, description);
     }

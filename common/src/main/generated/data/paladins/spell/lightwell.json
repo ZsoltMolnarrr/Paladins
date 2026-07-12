@@ -97,7 +97,18 @@
                     "attribute_id": "spell_power:healing",
                     "operation": "ADD_VALUE",
                     "base": 0.0,
-                    "coefficient": 0.3
+                    "coefficient": 0.5
+                  }
+                ]
+              },
+              {
+                "attribute_id": "spell_power:haste",
+                "modifiers": [
+                  {
+                    "attribute_id": "spell_power:haste",
+                    "operation": "ADD_VALUE",
+                    "base": -100.0,
+                    "coefficient": 1.0
                   }
                 ]
               }

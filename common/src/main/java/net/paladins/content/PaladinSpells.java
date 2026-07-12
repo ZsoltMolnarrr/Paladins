@@ -373,7 +373,7 @@ public class PaladinSpells {
         SpellBuilder.Casting.instant(spell);
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_shout_release");
-        spell.release.sound = new Sound(PaladinSounds.holy_shock_damage.id());
+        spell.release.sound = new Sound(PaladinSounds.immolation_release.id());
         spell.release.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         SPARK_DECELERATE.toString(),
@@ -399,11 +399,12 @@ public class PaladinSpells {
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
+        spell.target.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
         spell.target.area.vertical_range_multiplier = 0.5F;
 
         // Physical-melee spell, but this damage impact is powered by the paladin's Healing Spell Power
         // (impact-level school override; the spell's own school stays PHYSICAL_MELEE).
-        var damage = SpellBuilder.Impacts.damage(0.9F, 1F);
+        var damage = SpellBuilder.Impacts.damage(1.2F, 1F);
         damage.school = SpellSchools.HEALING;
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(

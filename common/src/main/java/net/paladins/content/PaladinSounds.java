@@ -101,6 +101,8 @@ public class PaladinSounds {
     public static final Entry lightwell_spawn = add(new Entry("lightwell_spawn"));
     public static final Entry lightwell_despawn = add(new Entry("lightwell_despawn"));
     public static final Entry lightwell_ambient = add(new Entry("lightwell_ambient"));
+    public static final Entry immolation_release = add(new Entry("immolation_release"));
+
 
     public static void register() {
         for (var entry: entries) {

@@ -81,6 +81,11 @@
       "paladins:holy_shock_heal"
     ]
   },
+  "immolation_release": {
+    "sounds": [
+      "paladins:immolation_release"
+    ]
+  },
   "judgement_impact": {
     "sounds": [
       "paladins:judgement_impact"

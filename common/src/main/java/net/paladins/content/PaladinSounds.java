@@ -20,6 +20,7 @@ public class PaladinSounds {
         private final SoundEvent soundEvent;
         private RegistryEntry<SoundEvent> entry;
         private int variants = 1;
+        private String soundFile;
 
         public Entry(Identifier id, SoundEvent soundEvent) {
             this.id = id;
@@ -35,11 +36,20 @@ public class PaladinSounds {
         }
 
         public Entry travelDistance(float distance) {
-            return new Entry(id, SoundEvent.of(id, distance));
+            var copy = new Entry(id, SoundEvent.of(id, distance));
+            copy.variants = variants;
+            copy.soundFile = soundFile;
+            return copy;
         }
 
         public Entry variants(int variants) {
             this.variants = variants;
+            return this;
+        }
+
+        /// Play the `.ogg` files of another sound, instead of files named after this entry.
+        public Entry soundFile(String soundFile) {
+            this.soundFile = soundFile;
             return this;
         }
 
@@ -58,6 +68,10 @@ public class PaladinSounds {
         public int variants() {
             return variants;
         }
+
+        public String soundFile() {
+            return soundFile != null ? soundFile : id.getPath();
+        }
     }
     public static final List<Entry> entries = new ArrayList<>();
     public static Entry add(Entry entry) {
@@ -67,7 +81,7 @@ public class PaladinSounds {
 
     public static final Entry paladin_armor_equip = add(new Entry("plate_equip").variants(3));
     public static final Entry priest_robe_equip = add(new Entry("cloth_equip").variants(3));
-    public static final Entry shield_equip = add(new Entry("shield_equip"));
+    public static final Entry shield_equip = add(new Entry("shield_equip").soundFile("plate_equip").variants(3));
     public static final Entry holy_barrier_activate = add(new Entry("holy_barrier_activate"));
     public static final Entry holy_barrier_idle = add(new Entry("holy_barrier_idle"));
     public static final Entry holy_barrier_impact = add(new Entry("holy_barrier_impact"));

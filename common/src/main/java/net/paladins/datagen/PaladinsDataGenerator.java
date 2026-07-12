@@ -14,12 +14,14 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
+import net.paladins.content.PaladinSounds;
 import net.paladins.content.PaladinSpells;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.item.PaladinShields;
 import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.datagen.NamespacedLangGenerator;
+import net.spell_engine.api.datagen.SimpleSoundGeneratorV2;
 import net.spell_engine.api.datagen.SpellGenerator;
 import net.spell_engine.api.datagen.WeaponAttributeGenerator;
 import net.spell_engine.api.spell.Spell;
@@ -38,8 +40,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-        // SoundGen needs support for sounds with multiple file entries "paladins:plate_equip_1","paladins:plate_equip_2","paladins:plate_equip_3"
-        // pack.addProvider(SoundGen::new);
+        pack.addProvider(SoundGen::new);
         pack.addProvider(SpellGen::new);
         pack.addProvider(SpellTagGenerator::new);
         pack.addProvider(ItemTagGenerator::new);
@@ -115,21 +116,24 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         }
     }
 
-//    public static class SoundGen extends SimpleSoundGeneratorV2 {
-//        public SoundGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-//            super(dataOutput, registryLookup);
-//        }
-//
-//        @Override
-//        public void generateSounds(Builder builder) {
-//            builder.entries.add(new Entry(PaladinsMod.ID,
-//                            PaladinSounds.entries.stream()
-//                                    .map(entry -> SoundEntry.withVariants(entry.id().getPath(), entry.variants()))
-//                                    .toList()
-//                    )
-//            );
-//        }
-//    }
+    public static class SoundGen extends SimpleSoundGeneratorV2 {
+        public SoundGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+            super(dataOutput, registryLookup);
+        }
+
+        @Override
+        public void generateSounds(Builder builder) {
+            builder.entries.add(new Entry(PaladinsMod.ID,
+                            PaladinSounds.entries.stream()
+                                    .map(entry -> new SoundEntry(
+                                            entry.id().getPath(),
+                                            SoundEntry.withVariants(entry.soundFile(), entry.variants()).variants()
+                                    ))
+                                    .toList()
+                    )
+            );
+        }
+    }
 
     public static class UnsmeltGenerator extends FabricRecipeProvider {
         public UnsmeltGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {

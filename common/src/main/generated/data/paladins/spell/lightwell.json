@@ -76,7 +76,9 @@
               "despawn_ticks": 20
             },
             "sounds": {
-              "spawn": "paladins:battle_banner_release"
+              "spawn": "paladins:lightwell_spawn",
+              "despawn": "paladins:lightwell_despawn",
+              "ambient": "paladins:lightwell_ambient"
             },
             "actions": [
               {

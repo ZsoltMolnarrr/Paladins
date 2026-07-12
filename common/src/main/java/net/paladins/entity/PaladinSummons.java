@@ -76,7 +76,9 @@ public class PaladinSummons {
         b.actions = List.of(SummonBehaviour.Action.spell(heal));
 
         // Lifecycle sounds (reused holy SFX — no new assets).
-        b.sounds.spawn = PaladinSounds.battle_banner_release.id().toString();
+        b.sounds.spawn = PaladinSounds.lightwell_spawn.id().toString();
+        b.sounds.ambient = PaladinSounds.lightwell_ambient.id().toString();
+        b.sounds.despawn = PaladinSounds.lightwell_despawn.id().toString();
 
         // Spawn FX: a rising holy burst as the well forms.
         b.spawn_fx = new VFX();

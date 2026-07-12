@@ -357,6 +357,71 @@ public class PaladinSpells {
         return new Entry(id, spell, title, description);
     }
 
+    public static final Entry IMMOLATION = add(immolation().book(Book.PALADIN));
+    private static Entry immolation() {
+        var id = Identifier.of(PaladinsMod.ID, "immolation");
+        var title = "Immolation";
+        var description = "Erupts in holy fire, dealing {damage} damage to all enemies around you.";
+
+        float range = 4;
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
+        spell.range = range;
+        spell.tier = 4;
+
+        SpellBuilder.Casting.instant(spell);
+
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_shout_release");
+        spell.release.sound = new Sound(PaladinSounds.holy_shock_damage.id());
+        spell.release.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        SPARK_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        60, 0.4F, 0.5F)
+                        .preSpawnTravel(1)
+                        .color(Color.HOLY.toRGBA())
+        };
+        spell.release.particles_scaled_with_ranged = new ParticleBatch[] {
+                new ParticleBatch(
+                        SpellEngineParticles.area_effect_637.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        1, 0, 0)
+                        .scale(0.6F)
+                        .color(Color.HOLY.toRGBA()),
+                new ParticleBatch(
+                        SpellEngineParticles.aura_effect_676.id().toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        1, 0, 0)
+                        .scale(0.6F)
+                        .color(Color.HOLY.toRGBA())
+        };
+
+        spell.target.type = Spell.Target.Type.AREA;
+        spell.target.area = new Spell.Target.Area();
+        spell.target.area.vertical_range_multiplier = 0.5F;
+
+        // Physical-melee spell, but this damage impact is powered by the paladin's Healing Spell Power
+        // (impact-level school override; the spell's own school stays PHYSICAL_MELEE).
+        var damage = SpellBuilder.Impacts.damage(0.9F, 1F);
+        damage.school = SpellSchools.HEALING;
+        damage.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_IMPACT_BURST.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        30, 0.2F, 0.7F).color(Color.HOLY.toRGBA())
+        };
+        damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
+
+        spell.impacts = List.of(damage);
+
+        SpellBuilder.Cost.cooldown(spell, 12);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.3F;
+
+        return new Entry(id, spell, title, description);
+    }
+
     public static final Entry HEAL = add(heal().weaponGroup(WeaponGroup.HOLY_WAND));
     private static Entry heal() {
         var id = Identifier.of(PaladinsMod.ID, "heal");

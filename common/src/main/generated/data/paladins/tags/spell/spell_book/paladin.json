@@ -15,6 +15,10 @@
     {
       "id": "paladins:battle_banner",
       "required": false
+    },
+    {
+      "id": "paladins:immolation",
+      "required": false
     }
   ]
 }

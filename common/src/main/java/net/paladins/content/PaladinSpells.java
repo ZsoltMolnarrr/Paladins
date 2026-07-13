@@ -361,7 +361,7 @@ public class PaladinSpells {
     private static Entry immolation() {
         var id = Identifier.of(PaladinsMod.ID, "immolation");
         var title = "Immolation";
-        var description = "Erupts in holy fire, dealing {damage} damage to all enemies around you.";
+        var description = "Erupts in holy fire, dealing {damage} damage to nearby enemies and setting them ablaze, while healing you and nearby allies by {heal}.";
 
         float range = 4;
 
@@ -401,6 +401,10 @@ public class PaladinSpells {
         spell.target.area = new Spell.Target.Area();
         spell.target.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
         spell.target.area.vertical_range_multiplier = 0.5F;
+        // The flames wash over allies too. Impacts are intent-filtered per target, so the DAMAGE/FIRE
+        // impacts below only land on enemies and the HEAL only on allies (and the caster) — one burst
+        // that both burns and mends.
+        spell.target.area.include_caster = true;
 
         // Physical-melee spell, but this damage impact is powered by the paladin's Healing Spell Power
         // (impact-level school override; the spell's own school stays PHYSICAL_MELEE).
@@ -413,8 +417,28 @@ public class PaladinSpells {
                         30, 0.2F, 0.7F).color(Color.HOLY.toRGBA())
         };
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
+        // Holy fire purges the undead: +50% power and a guaranteed critical strike against them.
+        damage.target_modifiers = List.of(
+                SpellBuilder.ImpactModifiers.extraDamageAgainstUndead(),
+                SpellBuilder.ImpactModifiers.alwaysCritAgainstUndead());
 
-        spell.impacts = List.of(damage);
+        // Ignite: enemies caught in the eruption keep burning afterwards (HARMFUL intent, enemies only).
+        var ignite = SpellBuilder.Impacts.fire(4F);
+
+        // Mend: allies (and the caster) standing in the flames are healed instead of burned. Powered by
+        // Healing Spell Power, like the damage — the spell's own school (PHYSICAL_MELEE) has none.
+        var heal = SpellBuilder.Impacts.heal(0.5F);
+        heal.school = SpellSchools.HEALING;
+        heal.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HEALING_PARTICLES.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        20, 0.02F, 0.15F)
+                        .color(Color.NATURE.toRGBA())
+        };
+        heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
+
+        spell.impacts = List.of(damage, ignite, heal);
 
         SpellBuilder.Cost.cooldown(spell, 12);
         SpellBuilder.Cost.item(spell, "runes:healing_stone");

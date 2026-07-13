@@ -47,16 +47,39 @@
   "target": {
     "type": "AREA",
     "area": {
-      "vertical_range_multiplier": 0.5
+      "vertical_range_multiplier": 0.5,
+      "include_caster": true
     }
   },
   "impacts": [
     {
       "school": "spell_power:healing",
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:undead"
+            }
+          ],
+          "modifier": {
+            "power_multiplier": 0.5
+          }
+        },
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:undead"
+            }
+          ],
+          "modifier": {
+            "critical_chance_bonus": 1.0
+          }
+        }
+      ],
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.9
+          "spell_power_coefficient": 1.2
         }
       },
       "particles": [
@@ -72,6 +95,37 @@
       ],
       "sound": {
         "id": "paladins:holy_shock_damage"
+      }
+    },
+    {
+      "action": {
+        "type": "FIRE",
+        "fire": {
+          "duration": 4.0
+        }
+      }
+    },
+    {
+      "school": "spell_power:healing",
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_heal_ascend",
+          "origin": "FEET",
+          "shape": "PILLAR",
+          "count": 20.0,
+          "min_speed": 0.02,
+          "max_speed": 0.15,
+          "color_rgba": 1728014079
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_2"
       }
     }
   ],

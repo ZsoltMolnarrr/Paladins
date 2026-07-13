@@ -363,7 +363,7 @@ public class PaladinSpells {
         var title = "Immolation";
         var description = "Erupts in holy fire, dealing {damage} damage to nearby enemies and setting them ablaze, while healing you and nearby allies by {heal}.";
 
-        float range = 4;
+        float range = 5;
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;

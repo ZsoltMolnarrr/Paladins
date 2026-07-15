@@ -46,6 +46,18 @@ public class PaladinsClientMod {
                 ).withFrequency(30).scaleWithAmplifier(false)
         );
 
+        // A soft ring of clouds puffing around the feet of a levitating entity — the cloud they drift on.
+        CustomParticleStatusEffect.register(
+                PaladinEffects.LEVITATE.effect,
+                new BuffParticleSpawner(
+                        new ParticleBatch(
+                                "cloud",
+                                ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
+                                2, 0.01F, 0.05F)
+                                .extent(0.45F)
+                ).withFrequency(3).scaleWithAmplifier(false)
+        );
+
         EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(BattleBannerEntityModel.LAYER, BattleBannerEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(BannerEntity.ENTITY_TYPE, BannerEntityRenderer::new);

@@ -6,10 +6,10 @@
   "learn": {},
   "active": {
     "cast": {
-      "duration": 2.5,
+      "duration": 1.5,
       "type": "CHANNEL",
       "channel": {
-        "ticks": 5
+        "ticks": 4
       },
       "animation": {
         "id": "spell_engine:one_handed_levitate_channel"
@@ -51,10 +51,16 @@
   "impacts": [
     {
       "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "effect_id": "paladins:floating",
-          "duration": 6.0
+        "type": "VELOCITY",
+        "velocity": {
+          "frame": "LOOK",
+          "push": {
+            "x": 0.0,
+            "y": 0.15,
+            "z": 0.0
+          },
+          "reset_velocity": true,
+          "intent": "HELPFUL"
         }
       }
     },
@@ -62,15 +68,15 @@
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "paladins:levitating",
-          "duration": 1.0
+          "effect_id": "paladins:levitate",
+          "duration": 6.0
         }
       }
     }
   ],
   "cost": {
     "cooldown": {
-      "duration": 14.0,
+      "duration": 18.0,
       "proportional": true
     },
     "item": {

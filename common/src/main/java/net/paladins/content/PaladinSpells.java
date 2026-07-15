@@ -17,6 +17,7 @@ import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
 import net.spell_engine.fx.SpellEngineSounds;
+import net.spell_engine.internals.target.SpellTarget;
 import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
 
@@ -978,10 +979,10 @@ public class PaladinSpells {
         spell.tier = 2;
         spell.group = DISCIPLINE;
 
-        // Under 3s, 5 releases (one every 0.5s). Each release re-applies both gravity effects, keeping
-        // them topped up while channeling; they lapse shortly after it stops (Levitating first, since
-        // it is the short one — so the caster stops rising and is left only Floating).
-        SpellBuilder.Casting.channel(spell, 2.5F, 5);
+        // Under 3s, 5 releases (one every 0.5s). Each release kicks the caster upward and refreshes
+        // Floating; once the channel stops the kicks cease and only Floating lingers, so the caster
+        // stops rising and drifts gently back down.
+        SpellBuilder.Casting.channel(spell, 1.5F, 4);
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_levitate_channel");
         spell.active.cast.movement_speed = 0F; // rooted horizontally; the lift is purely vertical
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
@@ -1000,14 +1001,20 @@ public class PaladinSpells {
 
         spell.target.type = Spell.Target.Type.CASTER;
 
-        // Floating (near-zero gravity, long) refreshed each tick so it lingers after the channel; layered
-        // with the short Levitating (extra lift) the caster rises while channeling. See PaladinEffects
-        // for the additive-gravity math. Set (not stacked): each tick just refreshes their duration.
-        var floating = SpellBuilder.Impacts.effectSet(PaladinEffects.FLOATING.id.toString(), 6, 0);
-        var levitating = SpellBuilder.Impacts.effectSet(PaladinEffects.LEVITATING.id.toString(), 1, 0);
-        spell.impacts = List.of(floating, levitating);
+        // Each channel tick launches the caster straight up. reset_velocity makes every kick land the
+        // same regardless of prior motion, so the ascent is a steady climb instead of an accelerating
+        // one; with the Levitate effect cancelling gravity, the ~0.2/tick kick carries them up a handful
+        // of blocks over the channel.
+        var lift = SpellBuilder.Impacts.velocityUp(0.15F);
+        lift.action.velocity.reset_velocity = true;
+        lift.action.velocity.intent = SpellTarget.Intent.HELPFUL;
 
-        SpellBuilder.Cost.cooldown(spell, 14);
+        // Levitate effect (near-zero gravity) refreshed each tick so it lingers after the channel. Set
+        // (not stacked): each tick just refreshes its duration.
+        var levitate = SpellBuilder.Impacts.effectSet(PaladinEffects.LEVITATE.id.toString(), 6, 0);
+        spell.impacts = List.of(lift, levitate);
+
+        SpellBuilder.Cost.cooldown(spell, 18);
         spell.cost.cooldown.proportional = true; // released early => proportionally shorter cooldown
         SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.1F;

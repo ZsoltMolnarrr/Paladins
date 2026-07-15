@@ -86,41 +86,20 @@ public class PaladinEffects {
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
     ));
 
-    // Levitate is built from two overlapping gravity effects (see PaladinSpells.levitate). Both are
-    // GENERIC_GRAVITY (default 0.08, clamped [-1, 1]) ADD_MULTIPLIED_TOTAL modifiers, so while both are
-    // active their multipliers add: final = 0.08 * (1 + sum). FLOATING nearly cancels gravity on its
-    // own; LEVITATING tips it the rest of the way negative when layered on top.
-
-    /// Nearly cancels the holder's gravity, leaving them hanging in the air and drifting down very
-    /// slowly. Alone: 0.08 * (1 - 0.95) = +0.004. Outlives the Levitate channel, so the caster stays
-    /// afloat after releasing.
-    public static final Effects.Entry FLOATING = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "floating"),
-            "Floating",
-            "You drift gently through the air, buoyed by holy light",
-            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
+    /// Nearly cancels the holder's gravity (GENERIC_GRAVITY default 0.08, clamped [-1, 1]), leaving them
+    /// hanging in the air and drifting down only very slowly: 0.08 * (1 - 0.95) = +0.004. Used by Levitate
+    /// (see PaladinSpells.levitate): the spell's upward velocity kicks provide the ascent, while this just
+    /// stops normal gravity from clawing the caster back down — and, since it outlives the channel, keeps
+    /// them afloat afterwards until it fades and they settle gently to the ground.
+    public static final Effects.Entry LEVITATE = add(new Effects.Entry(
+            Identifier.of(PaladinsMod.ID, "levitate"),
+            "Levitate",
+            "You drift gently through the air.",
+            new LevitateStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
                             EntityAttributes.GENERIC_GRAVITY.getIdAsString(),
-                            -0.95F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-                    )
-            ))
-    ));
-
-    /// The extra lift that makes the caster actually ascend while channeling Levitate. On its own it
-    /// barely reduces gravity, but stacked with FLOATING it pushes the total negative
-    /// (0.08 * (1 - 0.10 - 0.95) = -0.004), so the caster rises. Short-lived and re-applied each channel
-    /// tick, so the ascent lasts only as long as the channel keeps refreshing it.
-    public static final Effects.Entry LEVITATING = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "levitating"),
-            "Levitating",
-            "Holy light lifts you into the air",
-            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
-            new EffectConfig(List.of(
-                    new AttributeModifier(
-                            EntityAttributes.GENERIC_GRAVITY.getIdAsString(),
-                            -0.10F,
+                            -0.99F,
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                     )
             ))
@@ -144,6 +123,9 @@ public class PaladinEffects {
         Synchronized.configure(DIVINE_PROTECTION.effect, true);
         Synchronized.configure(JUDGEMENT.effect, true);
         Synchronized.configure(ABSORPTION.effect, true);
+        // Synced so its cloud particle spawner (registered client-side in PaladinsClientMod) can find it
+        // on levitating entities — the visual mixin only iterates synchronized effects.
+        Synchronized.configure(LEVITATE.effect, true);
         ActionImpairing.configure(JUDGEMENT.effect, EntityActionsAllowed.STUN);
 
         // Holy glow on the wielded weapon, brightening with each seal. 0.2 opacity per stack, so the

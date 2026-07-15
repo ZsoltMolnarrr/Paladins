@@ -1,15 +1,20 @@
 {
   "school": "spell_power:healing",
-  "range": 16.0,
-  "tier": 1,
-  "group": "priest_holy",
+  "range": 0.0,
+  "tier": 2,
+  "group": "paladin_retribution",
   "learn": {},
   "active": {
     "cast": {
-      "duration": 1.5,
+      "duration": 2.5,
+      "type": "CHANNEL",
+      "channel": {
+        "ticks": 5
+      },
       "animation": {
         "id": "spell_engine:one_handed_projectile_charge"
       },
+      "animation_pitch": false,
       "sound": {
         "id": "spell_engine:generic_healing_casting",
         "randomness": 0.0
@@ -17,11 +22,13 @@
       "particles": [
         {
           "particle_id": "spell_engine:magic_spark_float",
-          "origin": "FEET",
-          "shape": "WIDE_PIPE",
-          "count": 1.0,
-          "min_speed": 0.05,
+          "origin": "OVER_HEAD",
+          "shape": "SPHERE",
+          "count": 4.0,
+          "min_speed": 0.02,
           "max_speed": 0.1,
+          "pre_spawn_travel": 14.0,
+          "invert": true,
           "color_rgba": 4294954239
         }
       ]
@@ -29,51 +36,39 @@
   },
   "release": {
     "animation": {
-      "id": "spell_engine:one_handed_healing_release"
+      "id": "spell_engine:one_handed_area_release"
     },
+    "particles": [
+      {
+        "particle_id": "spell_engine:magic_spark_float",
+        "origin": "OVER_HEAD",
+        "shape": "SPHERE",
+        "count": 4.0,
+        "min_speed": 0.02,
+        "max_speed": 0.1,
+        "color_rgba": 4294954239
+      }
+    ],
     "sound": {
       "id": "spell_engine:generic_healing_release"
     }
   },
-  "target": {
-    "type": "AIM",
-    "aim": {
-      "sticky": true,
-      "use_caster_as_fallback": true
+  "deliver": {
+    "type": "STASH_EFFECT",
+    "stash_effect": {
+      "id": "paladins:seal_of_righteousness",
+      "amplifier": 4,
+      "stacking": true,
+      "duration": 15.0,
+      "triggers": [
+        {
+          "type": "MELEE_IMPACT"
+        }
+      ],
+      "consumed_next_tick": true
     }
   },
   "impacts": [
-    {
-      "action": {
-        "type": "HEAL",
-        "heal": {
-          "spell_power_coefficient": 0.4
-        }
-      },
-      "particles": [
-        {
-          "particle_id": "spell_engine:magic_heal_ascend",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 15.0,
-          "min_speed": 0.02,
-          "max_speed": 0.15,
-          "color_rgba": 1728014079
-        },
-        {
-          "particle_id": "spell_engine:magic_holy_decelerate",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 15.0,
-          "min_speed": 0.2,
-          "max_speed": 0.25,
-          "color_rgba": 4294954239
-        }
-      ],
-      "sound": {
-        "id": "paladins:holy_shock_heal"
-      }
-    },
     {
       "action": {
         "type": "DAMAGE",
@@ -101,8 +96,8 @@
   "cost": {
     "exhaust": 0.2,
     "cooldown": {
-      "group": "weapon",
-      "duration": 3.0
+      "duration": 12.0,
+      "proportional": true
     },
     "item": {
       "id": "runes:healing_stone"

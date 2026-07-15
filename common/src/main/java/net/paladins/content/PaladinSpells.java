@@ -69,6 +69,15 @@ public class PaladinSpells {
         return entry;
     }
 
+    // MARK: Spell groups
+    // Prefixed by the book they belong to, since a group is only ever read alongside the groups of
+    // other mods, where a bare `protection` would say nothing about whose protection it is.
+
+    public static final String RETRIBUTION = "paladin_retribution";
+    public static final String PROTECTION = "paladin_protection";
+    public static final String HOLY = "priest_holy";
+    public static final String DISCIPLINE = "priest_discipline";
+
     private static ParticleBatch castingParticles(String particleId) {
         return new ParticleBatch(
                 particleId,
@@ -118,7 +127,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 16;
         spell.tier = 2;
-        spell.order = 2;
+        spell.group = PROTECTION;
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
@@ -152,6 +161,97 @@ public class PaladinSpells {
         return new Entry(id, spell, title, description);
     }
 
+    public static final Entry SEAL_OF_RIGHTEOUSNESS = add(seal_of_righteousness().book(Book.PALADIN));
+    private static Entry seal_of_righteousness() {
+        var id = Identifier.of(PaladinsMod.ID, "seal_of_righteousness");
+        var title = "Seal of Righteousness";
+        var description = "Channels holy light into your weapon, sealing it with up to 5 charges. Each melee strike spends a charge to deal {damage} additional spell damage.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = SpellSchools.HEALING;
+        spell.range = 0;
+        spell.tier = 2;
+        spell.group = RETRIBUTION;
+
+
+
+//        SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_projectile_charge");
+//        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+//        spell.active.cast.particles = new ParticleBatch[] {
+//                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
+//        };
+//
+//        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
+//        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+
+
+
+        // 2.5s channel, 5 releases (one every 0.5s). Each release re-runs the STASH_EFFECT delivery,
+        // and with `stacking` on that adds one seal — so the weapon lights up charge by charge as it is
+        // channeled. Releasing the channel early simply yields fewer seals.
+        SpellBuilder.Casting.channel(spell, 2.5F, 5);
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
+        spell.active.cast.animation_pitch = false;
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        // Holy sparks gathering into the weapon while channeling. Pre-spawn travel throws them out to
+        // arm's length and `invert` turns them around, so they fall back inwards — light drawn into the
+        // blade, seal by seal.
+        spell.active.cast.particles = new ParticleBatch[] {
+                sealSparks().invert().preSpawnTravel(14)
+        };
+
+        // The same sparks let loose outwards: the gathered light flares off the weapon as the seals set.
+        spell.release.particles = new ParticleBatch[] { sealSparks() };
+        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
+
+        // The seals are stashed on the caster themselves.
+        spell.target.type = Spell.Target.Type.CASTER;
+
+        // Each melee hit fires the stashed spell (the damage impact below) on the struck enemy and
+        // consumes one seal. No `target_override`: the impacts land on the melee victim, not the caster.
+        var meleeTrigger = new Spell.Trigger();
+        meleeTrigger.type = Spell.Trigger.Type.MELEE_IMPACT;
+
+        SpellBuilder.Deliver.stash(spell, PaladinEffects.SEAL_OF_RIGHTEOUSNESS.id.toString(), 15F, meleeTrigger);
+        spell.deliver.stash_effect.stacking = true; // add seals one by one (one per channel release)
+        spell.deliver.stash_effect.amplifier = 4;   // cap: amplifier is "stacks - 1", so 4 => 5 seals
+        spell.deliver.stash_effect.consume = 1;     // one seal spent per melee hit
+        // Defer the seal decrement to next tick instead of removing it inline. Each enemy struck this
+        // tick then still reads the seal as present, so a single seal sears every foe caught in one
+        // multi-target swing (Better Combat sweep / cleave), yet only one seal is spent for the swing.
+        spell.deliver.stash_effect.consumed_next_tick = true;
+
+        // Same holy burst as Holy Shock's damage.
+        var damage = SpellBuilder.Impacts.damage(0.8F, 0.5F);
+        damage.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_IMPACT_BURST.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        30, 0.2F, 0.7F).color(Color.HOLY.toRGBA())
+        };
+        damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
+
+        spell.impacts = List.of(damage);
+
+        SpellBuilder.Cost.cooldown(spell, 12);
+        spell.cost.cooldown.proportional = true; // channel cut short => proportionally shorter cooldown
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.2F;
+
+        return new Entry(id, spell, title, description);
+    }
+
+    /// A loose sphere of slow holy sparks at the caster's weapon hand. Flows outwards on its own;
+    /// call `invert()` (paired with `preSpawnTravel`) to have it converge inwards instead.
+    private static ParticleBatch sealSparks() {
+        return new ParticleBatch(
+                SPARKS_FLOAT.toString(),
+                ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.OVER_HEAD,
+                4, 0.02F, 0.1F)
+                .color(Color.HOLY.toRGBA());
+    }
+
     public static final Entry DIVINE_PROTECTION = add(divine_protection().book(Book.PALADIN));
     private static Entry divine_protection() {
         var id = Identifier.of(PaladinsMod.ID, "divine_protection");
@@ -162,7 +262,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 0;
         spell.tier = 3;
-        spell.order = 2;
+        spell.group = PROTECTION;
 
         SpellBuilder.Casting.instant(spell);
 
@@ -197,6 +297,7 @@ public class PaladinSpells {
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
         spell.range = 16;
         spell.tier = 3;
+        spell.group = RETRIBUTION;
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
@@ -288,7 +389,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 0;
         spell.tier = 4;
-        spell.order = 2;
+        spell.group = PROTECTION;
 
         SpellBuilder.Casting.instant(spell);
 
@@ -369,6 +470,7 @@ public class PaladinSpells {
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
         spell.range = range;
         spell.tier = 4;
+        spell.group = RETRIBUTION;
 
         SpellBuilder.Casting.instant(spell);
 
@@ -457,6 +559,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 16;
         spell.tier = 0;
+        spell.group = HOLY;
 
         spell.learn = null;
 
@@ -501,6 +604,7 @@ public class PaladinSpells {
         var spell = SpellBuilder.createWeaponSpell();
         spell.school = SpellSchools.HEALING;
         spell.tier = 1;
+        spell.group = HOLY;
         spell.range = 16;
 
         SpellBuilder.Casting.cast(spell, 1.5F, "spell_engine:one_handed_projectile_charge");
@@ -558,6 +662,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 32;
         spell.tier = 2;
+        spell.group = HOLY;
 
         SpellBuilder.Casting.channel(spell, 5, 25);
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
@@ -651,6 +756,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = range;
         spell.tier = 3;
+        spell.group = HOLY;
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
@@ -719,7 +825,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 4;
         spell.tier = 4;
-        spell.order = 2;
+        spell.group = DISCIPLINE;
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
@@ -767,6 +873,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 0;
         spell.tier = 4;
+        spell.group = HOLY;
 
         SpellBuilder.Casting.instant(spell);
 
@@ -796,6 +903,7 @@ public class PaladinSpells {
         spell.school = SpellSchools.HEALING;
         spell.range = 12;
         spell.tier = 0;
+        spell.group = HOLY;
         spell.learn = null;
 
         SpellBuilder.Casting.instant(spell);
@@ -854,6 +962,192 @@ public class PaladinSpells {
         // set explicitly for intent. Also obeys the server's `haste_affects_cooldown` config.
         SpellBuilder.Cost.cooldown(spell, 1.5F);
         spell.cost.cooldown.haste_affected = true;
+
+        return new Entry(id, spell, title, description);
+    }
+
+    public static final Entry LEVITATE = add(levitate().book(Book.PRIEST));
+    private static Entry levitate() {
+        var id = Identifier.of(PaladinsMod.ID, "levitate");
+        var title = "Levitate";
+        var description = "Channel to rise into the air on holy light. When you stop, you keep floating and drift gently back down.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = SpellSchools.HEALING;
+        spell.range = 0;
+        spell.tier = 2;
+        spell.group = DISCIPLINE;
+
+        // Under 3s, 5 releases (one every 0.5s). Each release re-applies both gravity effects, keeping
+        // them topped up while channeling; they lapse shortly after it stops (Levitating first, since
+        // it is the short one — so the caster stops rising and is left only Floating).
+        SpellBuilder.Casting.channel(spell, 2.5F, 5);
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_levitate_channel");
+        spell.active.cast.movement_speed = 0F; // rooted horizontally; the lift is purely vertical
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        SPARKS_FLOAT.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        4, 0.02F, 0.12F).extent(0.5F).color(Color.HOLY.toRGBA()),
+                new ParticleBatch(
+                        HOLY_SPELL_FLOAT.toString(),
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
+                        2, 0.02F, 0.1F).extent(0.5F).color(Color.HOLY.toRGBA())
+        };
+
+        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+
+        spell.target.type = Spell.Target.Type.CASTER;
+
+        // Floating (near-zero gravity, long) refreshed each tick so it lingers after the channel; layered
+        // with the short Levitating (extra lift) the caster rises while channeling. See PaladinEffects
+        // for the additive-gravity math. Set (not stacked): each tick just refreshes their duration.
+        var floating = SpellBuilder.Impacts.effectSet(PaladinEffects.FLOATING.id.toString(), 6, 0);
+        var levitating = SpellBuilder.Impacts.effectSet(PaladinEffects.LEVITATING.id.toString(), 1, 0);
+        spell.impacts = List.of(floating, levitating);
+
+        SpellBuilder.Cost.cooldown(spell, 14);
+        spell.cost.cooldown.proportional = true; // released early => proportionally shorter cooldown
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.1F;
+
+        return new Entry(id, spell, title, description);
+    }
+
+    public static final Entry HOLY_FIRE = add(holy_fire().book(Book.PRIEST));
+    private static Entry holy_fire() {
+        var id = Identifier.of(PaladinsMod.ID, "holy_fire");
+        var title = "Holy Fire";
+        var description = "Calls down a comet of holy fire onto a target or aimed location, dealing {damage} damage and setting enemies within {impact_range} blocks ablaze.";
+
+        var spell = SpellBuilder.createSpellActive();
+        spell.school = SpellSchools.HEALING;
+        spell.range = 20;
+        spell.tier = 3;
+        spell.sub_tier = 2; // sorts after Circle of Healing (sub_tier 1) within the HOLY tier-3 slot
+        spell.group = HOLY;
+
+        SpellBuilder.Casting.cast(spell, 0.7F, "spell_engine:one_handed_projectile_charge");
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        // Gathering holy fire at the hand: golden motes with a flicker of flame.
+        spell.active.cast.particles = new ParticleBatch[] {
+                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA()),
+                castingParticles("flame")
+        };
+
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
+        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+
+        // Aim locks the entity under the crosshair, or the aimed ground location when there is none
+        // (required stays false; the meteor strikes whichever position aim resolves).
+        SpellBuilder.Target.aim(spell);
+        spell.target.aim.sticky = true;
+
+        // Delivery: a comet of holy fire plunging from overhead onto the target/location.
+        spell.deliver.type = Spell.Delivery.Type.METEOR;
+        var meteor = new Spell.Delivery.Meteor();
+        meteor.launch_height = 14;
+        meteor.launch_properties.velocity = 1.4F;
+        var projectile = new Spell.ProjectileData();
+        projectile.homing_angle = 1;
+        projectile.client_data = new Spell.ProjectileData.Client();
+        projectile.client_data.light_level = 15;
+        projectile.client_data.travel_particles = new ParticleBatch[] {
+                // Golden holy tail spiralling off the comet
+                new ParticleBatch(
+                        HOLY_IMPACT_FLOAT.toString(),
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
+                        5, 0, 0.1F, 0).color(Color.HOLY.toRGBA()),
+                // Trailing flames
+                new ParticleBatch(
+                        "flame",
+                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
+                        4, 0, 0.08F, 0),
+                // A bright ember streak down the core
+                new ParticleBatch(
+                        "end_rod",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        3, 0.02F, 0.1F),
+                // Golden sparks shed along the way
+                new ParticleBatch(
+                        SPARKS_FLOAT.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        4, 0.05F, 0.15F).color(Color.HOLY.toRGBA())
+        };
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single(
+                "paladins:spell_projectile/judgement", 1.3F, LightEmission.RADIATE);
+        meteor.projectile = projectile;
+        spell.deliver.meteor = meteor;
+
+        // Direct hit on the struck target: a blossom of holy flame that also ignites. Holy fire purges
+        // the undead — bonus power and a guaranteed critical strike against them.
+        var damage = SpellBuilder.Impacts.damage(1.1F, 0.5F);
+        damage.target_modifiers = List.of(
+                SpellBuilder.ImpactModifiers.extraDamageAgainstUndead(),
+                SpellBuilder.ImpactModifiers.alwaysCritAgainstUndead());
+        damage.particles = new ParticleBatch[] {
+                new ParticleBatch(
+                        HOLY_IMPACT_BURST.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        30, 0.2F, 0.8F).color(Color.HOLY.toRGBA()),
+                new ParticleBatch(
+                        "flame",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        25, 0.1F, 0.4F),
+                new ParticleBatch(
+                        "lava",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        6, 0.05F, 0.2F)
+        };
+        damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
+
+        var ignite = SpellBuilder.Impacts.fire(5F);
+
+        spell.impacts = List.of(damage, ignite);
+
+        // Small area impact: the point of impact erupts in a pillar of holy fire, scorching everything
+        // in a tight radius. The primary damage/fire impacts are re-applied to enemies caught here
+        // (with squared distance dropoff), so a ground strike still burns nearby foes.
+        spell.area_impact = new Spell.AreaImpact();
+        spell.area_impact.radius = 3;
+        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
+        spell.area_impact.particles = new ParticleBatch[] {
+                // Golden shockwave washing outward
+                new ParticleBatch(
+                        HOLY_IMPACT_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        60, 0.5F, 0.7F).color(Color.HOLY.toRGBA()),
+                // Pillar of radiant embers erupting upward
+                new ParticleBatch(
+                        "end_rod",
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        40, 0.15F, 0.5F).extent(2F),
+                new ParticleBatch(
+                        SPARK_DECELERATE.toString(),
+                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
+                        50, 0.2F, 0.5F).extent(2.5F).color(Color.HOLY.toRGBA()),
+                // Flames licking across the scorched ground
+                new ParticleBatch(
+                        "flame",
+                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
+                        40, 0.05F, 0.25F).extent(3F),
+                // Scorch smoke
+                new ParticleBatch(
+                        "large_smoke",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        25, 0.1F, 0.3F),
+                // Bright sparkle glints
+                new ParticleBatch(
+                        "firework",
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        10, 0.1F, 0.4F)
+        };
+        spell.area_impact.sound = Sound.withVolume(PaladinSounds.judgement_impact.id(), 1.2F);
+
+        SpellBuilder.Cost.cooldown(spell, 9);
+        SpellBuilder.Cost.item(spell, "runes:healing_stone");
+        spell.cost.exhaust = 0.25F;
 
         return new Entry(id, spell, title, description);
     }

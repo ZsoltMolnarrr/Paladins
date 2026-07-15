@@ -2,7 +2,7 @@
   "school": "spell_power:healing",
   "range": 16.0,
   "tier": 2,
-  "order": 2,
+  "group": "paladin_protection",
   "learn": {},
   "active": {
     "cast": {

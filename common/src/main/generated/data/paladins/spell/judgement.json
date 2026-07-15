@@ -2,6 +2,7 @@
   "school": "spell_power:physical_melee",
   "range": 16.0,
   "tier": 3,
+  "group": "paladin_retribution",
   "learn": {},
   "active": {
     "cast": {

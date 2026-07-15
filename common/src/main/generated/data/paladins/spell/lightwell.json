@@ -2,6 +2,7 @@
   "school": "spell_power:healing",
   "range": 0.0,
   "tier": 4,
+  "group": "priest_holy",
   "learn": {},
   "active": {},
   "release": {

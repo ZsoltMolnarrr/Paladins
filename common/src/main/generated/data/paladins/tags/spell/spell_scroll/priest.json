@@ -15,6 +15,14 @@
     {
       "id": "paladins:lightwell",
       "required": false
+    },
+    {
+      "id": "paladins:levitate",
+      "required": false
+    },
+    {
+      "id": "paladins:holy_fire",
+      "required": false
     }
   ]
 }

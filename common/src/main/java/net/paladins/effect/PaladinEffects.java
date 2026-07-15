@@ -11,6 +11,7 @@ import net.spell_engine.api.config.ConfigFile;
 import net.spell_engine.api.config.EffectConfig;
 import net.spell_engine.api.effect.*;
 import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.client.util.Color;
 import net.spell_power.api.SpellPowerMechanics;
 
 import java.util.ArrayList;
@@ -74,6 +75,57 @@ public class PaladinEffects {
             )
     ));
 
+    /// Charges the wielded weapon with holy light. Applied as a stacking stash effect by
+    /// {@code PaladinSpells.seal_of_righteousness}; each melee hit consumes one stack to deal bonus
+    /// holy damage. Rendered by {@link GlowingItemStatusEffect} — the glow brightens as the seals are
+    /// channeled on, and dims again as they are spent.
+    public static final Effects.Entry SEAL_OF_RIGHTEOUSNESS = add(new Effects.Entry(
+            Identifier.of(PaladinsMod.ID, "seal_of_righteousness"),
+            "Seal of Righteousness",
+            "Your weapon is charged with holy light, searing enemies you strike",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
+    ));
+
+    // Levitate is built from two overlapping gravity effects (see PaladinSpells.levitate). Both are
+    // GENERIC_GRAVITY (default 0.08, clamped [-1, 1]) ADD_MULTIPLIED_TOTAL modifiers, so while both are
+    // active their multipliers add: final = 0.08 * (1 + sum). FLOATING nearly cancels gravity on its
+    // own; LEVITATING tips it the rest of the way negative when layered on top.
+
+    /// Nearly cancels the holder's gravity, leaving them hanging in the air and drifting down very
+    /// slowly. Alone: 0.08 * (1 - 0.95) = +0.004. Outlives the Levitate channel, so the caster stays
+    /// afloat after releasing.
+    public static final Effects.Entry FLOATING = add(new Effects.Entry(
+            Identifier.of(PaladinsMod.ID, "floating"),
+            "Floating",
+            "You drift gently through the air, buoyed by holy light",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
+            new EffectConfig(List.of(
+                    new AttributeModifier(
+                            EntityAttributes.GENERIC_GRAVITY.getIdAsString(),
+                            -0.95F,
+                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                    )
+            ))
+    ));
+
+    /// The extra lift that makes the caster actually ascend while channeling Levitate. On its own it
+    /// barely reduces gravity, but stacked with FLOATING it pushes the total negative
+    /// (0.08 * (1 - 0.10 - 0.95) = -0.004), so the caster rises. Short-lived and re-applied each channel
+    /// tick, so the ascent lasts only as long as the channel keeps refreshing it.
+    public static final Effects.Entry LEVITATING = add(new Effects.Entry(
+            Identifier.of(PaladinsMod.ID, "levitating"),
+            "Levitating",
+            "Holy light lifts you into the air",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
+            new EffectConfig(List.of(
+                    new AttributeModifier(
+                            EntityAttributes.GENERIC_GRAVITY.getIdAsString(),
+                            -0.10F,
+                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                    )
+            ))
+    ));
+
     public static final Effects.Entry ABSORPTION = add(new Effects.Entry(
             Identifier.of(PaladinsMod.ID, "priest_absorption"),
             "Absorption",
@@ -93,6 +145,11 @@ public class PaladinEffects {
         Synchronized.configure(JUDGEMENT.effect, true);
         Synchronized.configure(ABSORPTION.effect, true);
         ActionImpairing.configure(JUDGEMENT.effect, EntityActionsAllowed.STUN);
+
+        // Holy glow on the wielded weapon, brightening with each seal. 0.2 opacity per stack, so the
+        // full 5 stacks land on exactly 1.0 (fully opaque) — a dark weapon at 0 seals, blazing at 5.
+        // register() also marks the effect Synchronized (clients can only glow what they know about).
+        GlowingItemStatusEffect.register(SEAL_OF_RIGHTEOUSNESS.effect, Color.HOLY, 0.2F);
 
         Effects.register(entries, config.effects);
 

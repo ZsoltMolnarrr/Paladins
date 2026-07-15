@@ -5,6 +5,10 @@
       "required": false
     },
     {
+      "id": "paladins:seal_of_righteousness",
+      "required": false
+    },
+    {
       "id": "paladins:divine_protection",
       "required": false
     },

@@ -1,3 +1,9 @@
+# 3.0.0
+
+Spell books now offer 6 spells (2 choices across 3 tiers).
+
+- New spells: Seal of Righteousness, Immolation
+
 # 2.7.1
 
 - Added cooldown for Holy Shock spell (to be counteracted by Skill Tree)

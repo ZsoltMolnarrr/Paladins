@@ -1037,9 +1037,8 @@ public class PaladinSpells {
         // Short channel: 3 bolts over 1.5s (one every 0.5s). Each release fires one homing bolt, and
         // each bolt that lands runs the impacts below.
         SpellBuilder.Casting.channel(spell, 1.5F, 3);
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
-        spell.active.cast.start_sound = new Sound(PaladinSounds.holy_beam_start_casting.id());
-        spell.active.cast.sound = Sound.withRandomness(PaladinSounds.holy_beam_casting.id(), 0);
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:off_hand_channeling");
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
                 castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
@@ -1113,9 +1112,9 @@ public class PaladinSpells {
         var shield = SpellBuilder.Impacts.effectAdd(PaladinEffects.ABSORPTION.id.toString(), 8F, 1, 4);
         shield.particles = new ParticleBatch[] {
                 new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
+                        SPARK_DECELERATE.toString(),
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        12, 0.1F, 0.25F).color(Color.HOLY.toRGBA())
+                        12, 0.2F, 0.25F).color(Color.HOLY.toRGBA())
         };
 
         spell.impacts = List.of(damage, shield);

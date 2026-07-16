@@ -3,7 +3,7 @@
   "range": 20.0,
   "tier": 3,
   "sub_tier": 2,
-  "group": "priest_holy",
+  "group": "priest_discipline",
   "learn": {},
   "active": {
     "cast": {

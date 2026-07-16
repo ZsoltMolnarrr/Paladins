@@ -1033,7 +1033,7 @@ public class PaladinSpells {
         spell.range = 20;
         spell.tier = 3;
         spell.sub_tier = 2; // sorts after Circle of Healing (sub_tier 1) within the HOLY tier-3 slot
-        spell.group = HOLY;
+        spell.group = DISCIPLINE;
 
         SpellBuilder.Casting.cast(spell, 0.7F, "spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);

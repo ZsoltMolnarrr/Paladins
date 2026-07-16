@@ -32,7 +32,8 @@
     ]
   },
   "mixins": [
-    "paladins.mixins.json"
+    "paladins.mixins.json",
+    "paladins.fabric.mixins.json"
   ],
   "depends": {
     "minecraft": ">=${minecraft_compat_version}",

@@ -2,7 +2,12 @@
 
 Spell books now offer 6 spells (2 choices across 3 tiers).
 
-- New spells: Seal of Righteousness, Immolation
+- New Paladin spells: Seal of Righteousness, Immolation
+- New Priest spells: Levitate, Penance, Lightwell
+
+Other changes:
+
+- Updated Battle Banner renderer (now animated) 
 
 # 2.7.1
 

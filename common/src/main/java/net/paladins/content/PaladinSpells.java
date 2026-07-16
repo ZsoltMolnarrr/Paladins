@@ -1022,139 +1022,131 @@ public class PaladinSpells {
         return new Entry(id, spell, title, description);
     }
 
-    public static final Entry HOLY_FIRE = add(holy_fire().book(Book.PRIEST));
-    private static Entry holy_fire() {
-        var id = Identifier.of(PaladinsMod.ID, "holy_fire");
-        var title = "Holy Fire";
-        var description = "Calls down a comet of holy fire onto a target or aimed location, dealing {damage} damage and setting enemies within {impact_range} blocks ablaze.";
+    public static final Entry PENANCE = add(penance().book(Book.PRIEST));
+    private static Entry penance() {
+        var id = Identifier.of(PaladinsMod.ID, "penance");
+        var title = "Penance";
+        var description = "Channel a volley of holy bolts at an enemy. Each of the three bolts deals {damage} damage and radiates an absorption shield to allies within {impact_range} blocks of your target — your offense is their protection.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
         spell.range = 20;
         spell.tier = 3;
-        spell.sub_tier = 2; // sorts after Circle of Healing (sub_tier 1) within the HOLY tier-3 slot
         spell.group = DISCIPLINE;
 
-        SpellBuilder.Casting.cast(spell, 0.7F, "spell_engine:one_handed_projectile_charge");
-        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        // Gathering holy fire at the hand: golden motes with a flicker of flame.
+        // Short channel: 3 bolts over 1.5s (one every 0.5s). Each release fires one homing bolt, and
+        // each bolt that lands runs the impacts below.
+        SpellBuilder.Casting.channel(spell, 1.5F, 3);
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
+        spell.active.cast.start_sound = new Sound(PaladinSounds.holy_beam_start_casting.id());
+        spell.active.cast.sound = Sound.withRandomness(PaladinSounds.holy_beam_casting.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA()),
-                castingParticles("flame")
+                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
-        // Aim locks the entity under the crosshair, or the aimed ground location when there is none
-        // (required stays false; the meteor strikes whichever position aim resolves).
+        // Must lock an enemy — this is an offensive bolt volley. Sticky keeps the mark across the channel.
         SpellBuilder.Target.aim(spell);
         spell.target.aim.sticky = true;
 
-        // Delivery: a comet of holy fire plunging from overhead onto the target/location.
-        spell.deliver.type = Spell.Delivery.Type.METEOR;
-        var meteor = new Spell.Delivery.Meteor();
-        meteor.launch_height = 14;
-        meteor.launch_properties.velocity = 1.4F;
+        // Spin rate (degrees/tick) shared by the orbiting orb model and the spiraling spark helix, so
+        // the two swirl together at the same angular speed.
+        final float ORB_SPIN = 15F;
+
+        // Delivery: one homing holy bolt per channel release, curving onto the locked target.
+        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
+        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
+        spell.deliver.projectile.launch_properties.velocity = 0.8F;
+
         var projectile = new Spell.ProjectileData();
-        projectile.homing_angle = 1;
+        projectile.homing_angle = 16F;
         projectile.client_data = new Spell.ProjectileData.Client();
-        projectile.client_data.light_level = 15;
+        projectile.client_data.light_level = 12;
+        // Spiraling sparks, coupled to the orbiting orb below. Magic-Arrow technique (Archers): a
+        // Shape.LINE batch with Rotation.LOOK spawns each spark at the flight-path centre and casts it
+        // outward along a direction that `roll` sweeps around the travel axis every tick — successive
+        // sparks form a clean helical wake. Two strands 180° apart (roll_offset) make a double helix.
+        // The roll rate is set to the orb's own spin (ORB_SPIN below), so the sparks spiral at the same
+        // angular speed as the orb, reading as one coupled swirl around the bolt rather than two effects.
         projectile.client_data.travel_particles = new ParticleBatch[] {
-                // Golden holy tail spiralling off the comet
-                new ParticleBatch(
-                        HOLY_IMPACT_FLOAT.toString(),
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
-                        5, 0, 0.1F, 0).color(Color.HOLY.toRGBA()),
-                // Trailing flames
-                new ParticleBatch(
-                        "flame",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
-                        4, 0, 0.08F, 0),
-                // A bright ember streak down the core
-                new ParticleBatch(
-                        "end_rod",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        3, 0.02F, 0.1F),
-                // Golden sparks shed along the way
                 new ParticleBatch(
                         SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        4, 0.05F, 0.15F).color(Color.HOLY.toRGBA())
+                        ParticleBatch.Shape.LINE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
+                        3, 0.12F, 0.16F, 0)
+                        .roll(ORB_SPIN).color(Color.HOLY.toRGBA()),
+                new ParticleBatch(
+                        SPARKS_FLOAT.toString(),
+                        ParticleBatch.Shape.LINE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
+                        3, 0.12F, 0.16F, 0)
+                        .roll(ORB_SPIN).rollOffset(180F).color(Color.HOLY.toRGBA())
         };
-        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single(
-                "paladins:spell_projectile/judgement", 1.3F, LightEmission.RADIATE);
-        meteor.projectile = projectile;
-        spell.deliver.meteor = meteor;
 
-        // Direct hit on the struck target: a blossom of holy flame that also ignites. Holy fire purges
-        // the undead — bonus power and a guaranteed critical strike against them.
-        var damage = SpellBuilder.Impacts.damage(1.1F, 0.5F);
-        damage.target_modifiers = List.of(
-                SpellBuilder.ImpactModifiers.extraDamageAgainstUndead(),
-                SpellBuilder.ImpactModifiers.alwaysCritAgainstUndead());
+        // Orbit tweak: the orb model (reused from Lightwell Orb) rides offset from the projectile centre
+        // via an fx.initial translate, while the built-in per-tick spin sweeps that offset around the
+        // travel axis — so the orb circles its own flight path. The renderer applies the spin *before*
+        // the fx transforms (SpellProjectileRenderer), which is what turns a static offset into an orbit.
+        var orb = SpellBuilder.ProjectileModels.model(
+                "paladins:spell_projectile/lightwell_orb", 0.9F, LightEmission.GLOW);
+        orb.rotate_degrees_per_tick = ORB_SPIN; // orbital angular speed, shared with the spark helix above
+        var orbitOffset = new ModelEffect.Transform();
+        orbitOffset.operation = "translate";
+        orbitOffset.x = 0.6F; // orbit radius
+        orb.fx.initial = List.of(orbitOffset);
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.composite(orb);
+
+        spell.deliver.projectile.projectile = projectile;
+
+        // Per bolt — harmful: damage the struck enemy.
+        var damage = SpellBuilder.Impacts.damage(0.55F, 0.2F);
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        30, 0.2F, 0.8F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        "flame",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        25, 0.1F, 0.4F),
-                new ParticleBatch(
-                        "lava",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        6, 0.05F, 0.2F)
+                        18, 0.2F, 0.6F).color(Color.HOLY.toRGBA())
         };
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
 
-        var ignite = SpellBuilder.Impacts.fire(5F);
-
-        spell.impacts = List.of(damage, ignite);
-
-        // Small area impact: the point of impact erupts in a pillar of holy fire, scorching everything
-        // in a tight radius. The primary damage/fire impacts are re-applied to enemies caught here
-        // (with squared distance dropoff), so a ground strike still burns nearby foes.
-        spell.area_impact = new Spell.AreaImpact();
-        spell.area_impact.radius = 3;
-        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
-        spell.area_impact.particles = new ParticleBatch[] {
-                // Golden shockwave washing outward
+        // Per bolt — helpful: an absorption shield (+1 stack per bolt, ADD mode, capped). It is placed by
+        // the area impact below, not on the primary target: intent filtering keeps it off the struck
+        // enemy, and the splash spreads it to friendlies near the impact. Particles land on each ally hit.
+        var shield = SpellBuilder.Impacts.effectAdd(PaladinEffects.ABSORPTION.id.toString(), 8F, 1, 4);
+        shield.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_DECELERATE.toString(),
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        60, 0.5F, 0.7F).color(Color.HOLY.toRGBA()),
-                // Pillar of radiant embers erupting upward
-                new ParticleBatch(
-                        "end_rod",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        40, 0.15F, 0.5F).extent(2F),
-                new ParticleBatch(
-                        SPARK_DECELERATE.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        50, 0.2F, 0.5F).extent(2.5F).color(Color.HOLY.toRGBA()),
-                // Flames licking across the scorched ground
-                new ParticleBatch(
-                        "flame",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        40, 0.05F, 0.25F).extent(3F),
-                // Scorch smoke
-                new ParticleBatch(
-                        "large_smoke",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        25, 0.1F, 0.3F),
-                // Bright sparkle glints
-                new ParticleBatch(
-                        "firework",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        10, 0.1F, 0.4F)
+                        12, 0.1F, 0.25F).color(Color.HOLY.toRGBA())
         };
-        spell.area_impact.sound = Sound.withVolume(PaladinSounds.judgement_impact.id(), 1.2F);
 
-        SpellBuilder.Cost.cooldown(spell, 9);
+        spell.impacts = List.of(damage, shield);
+
+        // Atonement: the shield ripples out from the point of impact. On a successful hit
+        // (triggering_action_type DAMAGE) the splash runs only the absorption (execute_action_type
+        // STATUS_EFFECT), so the bolt's damage stays single-target while friendly entities within the
+        // radius are shielded — intent filtering keeps damage off allies and shields off enemies. No
+        // dropoff: every ally in range gets the full stack.
+        spell.area_impact = new Spell.AreaImpact();
+        spell.area_impact.radius = 8;
+        spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
+        spell.area_impact.triggering_action_type = Spell.Impact.Action.Type.DAMAGE;
+        spell.area_impact.execute_action_type = Spell.Impact.Action.Type.STATUS_EFFECT;
+        spell.area_impact.particles = new ParticleBatch[] {
+                // A golden pulse washing out from the struck enemy to the allies it shields.
+                new ParticleBatch(
+                        HOLY_IMPACT_DECELERATE.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        40, 0.4F, 0.6F).color(Color.HOLY.toRGBA()),
+                new ParticleBatch(
+                        SPARKS_FLOAT.toString(),
+                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
+                        30, 0.2F, 0.4F).color(Color.HOLY.toRGBA())
+        };
+        spell.area_impact.sound = new Sound(PaladinSounds.holy_shock_heal.id());
+
+        SpellBuilder.Cost.cooldown(spell, 8);
+        spell.cost.cooldown.proportional = true; // released early => proportionally shorter cooldown
         SpellBuilder.Cost.item(spell, "runes:healing_stone");
-        spell.cost.exhaust = 0.25F;
+        spell.cost.exhaust = 0.2F;
 
         return new Entry(id, spell, title, description);
     }

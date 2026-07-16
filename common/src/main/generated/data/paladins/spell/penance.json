@@ -1,0 +1,192 @@
+{
+  "school": "spell_power:healing",
+  "range": 20.0,
+  "tier": 3,
+  "group": "priest_discipline",
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 1.5,
+      "type": "CHANNEL",
+      "channel": {
+        "ticks": 3
+      },
+      "animation": {
+        "id": "spell_engine:two_handed_channeling"
+      },
+      "start_sound": {
+        "id": "paladins:holy_beam_start_casting"
+      },
+      "sound": {
+        "id": "paladins:holy_beam_casting",
+        "randomness": 0.0
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_spark_float",
+          "origin": "FEET",
+          "shape": "WIDE_PIPE",
+          "count": 1.0,
+          "min_speed": 0.05,
+          "max_speed": 0.1,
+          "color_rgba": 4294954239
+        }
+      ]
+    }
+  },
+  "release": {
+    "sound": {
+      "id": "spell_engine:generic_healing_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "sticky": true
+    }
+  },
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "launch_properties": {
+        "velocity": 0.8
+      },
+      "projectile": {
+        "homing_angle": 16.0,
+        "client_data": {
+          "light_level": 12,
+          "travel_particles": [
+            {
+              "particle_id": "spell_engine:magic_spark_float",
+              "origin": "CENTER",
+              "shape": "LINE",
+              "rotation": "LOOK",
+              "roll": 15.0,
+              "count": 3.0,
+              "min_speed": 0.12,
+              "max_speed": 0.16,
+              "color_rgba": 4294954239
+            },
+            {
+              "particle_id": "spell_engine:magic_spark_float",
+              "origin": "CENTER",
+              "shape": "LINE",
+              "rotation": "LOOK",
+              "roll": 15.0,
+              "roll_offset": 180.0,
+              "count": 3.0,
+              "min_speed": 0.12,
+              "max_speed": 0.16,
+              "color_rgba": 4294954239
+            }
+          ],
+          "composite_model": {
+            "models": [
+              {
+                "rotate_degrees_per_tick": 15.0,
+                "fx": {
+                  "model_id": "paladins:spell_projectile/lightwell_orb",
+                  "scale": 0.9,
+                  "initial": [
+                    {
+                      "operation": "translate",
+                      "x": 0.6,
+                      "y": 0.0,
+                      "z": 0.0
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.55,
+          "knockback": 0.2
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_burst",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 18.0,
+          "min_speed": 0.2,
+          "max_speed": 0.6,
+          "color_rgba": 4294954239
+        }
+      ],
+      "sound": {
+        "id": "paladins:holy_shock_damage"
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "paladins:priest_absorption",
+          "duration": 8.0,
+          "amplifier": 1,
+          "amplifier_cap": 4,
+          "apply_mode": "ADD"
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_holy_decelerate",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 12.0,
+          "min_speed": 0.1,
+          "max_speed": 0.25,
+          "color_rgba": 4294954239
+        }
+      ]
+    }
+  ],
+  "area_impact": {
+    "triggering_action_type": "DAMAGE",
+    "execute_action_type": "STATUS_EFFECT",
+    "radius": 8.0,
+    "particles": [
+      {
+        "particle_id": "spell_engine:magic_holy_decelerate",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 40.0,
+        "min_speed": 0.4,
+        "max_speed": 0.6,
+        "color_rgba": 4294954239
+      },
+      {
+        "particle_id": "spell_engine:magic_spark_float",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 30.0,
+        "min_speed": 0.2,
+        "max_speed": 0.4,
+        "color_rgba": 4294954239
+      }
+    ],
+    "sound": {
+      "id": "paladins:holy_shock_heal"
+    }
+  },
+  "cost": {
+    "exhaust": 0.2,
+    "cooldown": {
+      "duration": 8.0,
+      "proportional": true
+    },
+    "item": {
+      "id": "runes:healing_stone"
+    }
+  }
+}

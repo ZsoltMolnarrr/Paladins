@@ -126,8 +126,6 @@
   "spell.paladins.heal.name": "Heal",
   "spell.paladins.holy_beam.description": "Channels a beam of light, healing friends by {heal}, and dealing {damage} spell damage to enemies every second.",
   "spell.paladins.holy_beam.name": "Holy Light",
-  "spell.paladins.holy_fire.description": "Calls down a comet of holy fire onto a target or aimed location, dealing {damage} damage and setting enemies within {impact_range} blocks ablaze.",
-  "spell.paladins.holy_fire.name": "Holy Fire",
   "spell.paladins.holy_shock.description": "Heals you or a friendly target by {heal}, smites an enemy dealing {damage} spell damage.",
   "spell.paladins.holy_shock.name": "Holy Shock",
   "spell.paladins.immolation.description": "Erupts in holy fire, dealing {damage} damage to nearby enemies and setting them ablaze, while healing you and nearby allies by {heal}.",
@@ -140,6 +138,8 @@
   "spell.paladins.lightwell.name": "Lightwell",
   "spell.paladins.lightwell_orb.description": "Heals a friendly target by {heal} health points.",
   "spell.paladins.lightwell_orb.name": "Holy Mote",
+  "spell.paladins.penance.description": "Channel a volley of holy bolts at an enemy. Each of the three bolts deals {damage} damage and radiates an absorption shield to allies within {impact_range} blocks of your target — your offense is their protection.",
+  "spell.paladins.penance.name": "Penance",
   "spell.paladins.seal_of_righteousness.description": "Channels holy light into your weapon, sealing it with up to 5 charges. Each melee strike spends a charge to deal {damage} additional spell damage.",
   "spell.paladins.seal_of_righteousness.name": "Seal of Righteousness"
 }

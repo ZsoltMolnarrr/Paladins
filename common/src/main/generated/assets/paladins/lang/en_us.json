@@ -25,6 +25,8 @@
   "block.paladins.monk_workbench.hint": "Workbench for Monk Villagers.",
   "effect.paladins.battle_banner": "Battle Banner",
   "effect.paladins.battle_banner.description": "Increases attack speed and knockback resistance",
+  "effect.paladins.blessed_strikes": "Blessed Strikes",
+  "effect.paladins.blessed_strikes.description": "Your weapon is charged with holy light, searing enemies you strike",
   "effect.paladins.divine_protection": "Divine Protection",
   "effect.paladins.divine_protection.description": "Protects you from the incoming attack",
   "effect.paladins.judgement": "Stunned",
@@ -33,8 +35,6 @@
   "effect.paladins.levitate.description": "You drift gently through the air.",
   "effect.paladins.priest_absorption": "Absorption",
   "effect.paladins.priest_absorption.description": "Absorbs some damage you would take",
-  "effect.paladins.seal_of_righteousness": "Seal of Righteousness",
-  "effect.paladins.seal_of_righteousness.description": "Your weapon is charged with holy light, searing enemies you strike",
   "entity.minecraft.villager.monk": "Monk",
   "entity.minecraft.villager.paladins.monk": "Monk",
   "entity.minecraft.villager.paladins:monk": "Monk",
@@ -116,6 +116,8 @@
   "spell.paladins.barrier.name": "Barrier",
   "spell.paladins.battle_banner.description": "Increases attack speed and knockback resistance for you and allies nearby, within {cloud_radius} blocks, for {cloud_duration} seconds.",
   "spell.paladins.battle_banner.name": "Battle Banner",
+  "spell.paladins.blessed_strikes.description": "Channels holy light into your weapon, blessing it up to 5 times. Each melee strike spends a blessing to deal {damage} additional spell damage.",
+  "spell.paladins.blessed_strikes.name": "Blessed Strikes",
   "spell.paladins.circle_of_healing.description": "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.",
   "spell.paladins.circle_of_healing.name": "Circle of Healing",
   "spell.paladins.divine_protection.description": "Protects you from the next incoming attacks (up to {effect_amplifier_cap}), for {effect_duration} seconds.",
@@ -139,7 +141,5 @@
   "spell.paladins.lightwell_orb.description": "Heals a friendly target by {heal} health points.",
   "spell.paladins.lightwell_orb.name": "Holy Mote",
   "spell.paladins.penance.description": "Channel a volley of holy bolts at an enemy. Each of the three bolts deals {damage} damage and radiates an absorption shield to allies within {impact_range} blocks of your target — your offense is their protection.",
-  "spell.paladins.penance.name": "Penance",
-  "spell.paladins.seal_of_righteousness.description": "Channels holy light into your weapon, sealing it with up to 5 charges. Each melee strike spends a charge to deal {damage} additional spell damage.",
-  "spell.paladins.seal_of_righteousness.name": "Seal of Righteousness"
+  "spell.paladins.penance.name": "Penance"
 }

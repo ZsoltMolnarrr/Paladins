@@ -131,7 +131,8 @@
           "effect_id": "paladins:priest_absorption",
           "duration": 8.0,
           "amplifier": 1,
-          "amplifier_cap": 4,
+          "amplifier_cap": 1,
+          "amplifier_cap_power_multiplier": 0.125,
           "apply_mode": "ADD"
         }
       },

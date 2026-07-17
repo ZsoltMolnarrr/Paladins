@@ -56,7 +56,7 @@
   "deliver": {
     "type": "STASH_EFFECT",
     "stash_effect": {
-      "id": "paladins:seal_of_righteousness",
+      "id": "paladins:blessed_strikes",
       "amplifier": 4,
       "stacking": true,
       "duration": 15.0,

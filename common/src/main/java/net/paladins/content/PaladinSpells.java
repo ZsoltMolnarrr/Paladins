@@ -162,11 +162,11 @@ public class PaladinSpells {
         return new Entry(id, spell, title, description);
     }
 
-    public static final Entry SEAL_OF_RIGHTEOUSNESS = add(seal_of_righteousness().book(Book.PALADIN));
-    private static Entry seal_of_righteousness() {
-        var id = Identifier.of(PaladinsMod.ID, "seal_of_righteousness");
-        var title = "Seal of Righteousness";
-        var description = "Channels holy light into your weapon, sealing it with up to 5 charges. Each melee strike spends a charge to deal {damage} additional spell damage.";
+    public static final Entry BLESSED_STRIKES = add(blessed_strikes().book(Book.PALADIN));
+    private static Entry blessed_strikes() {
+        var id = Identifier.of(PaladinsMod.ID, "blessed_strikes");
+        var title = "Blessed Strikes";
+        var description = "Channels holy light into your weapon, blessing it up to 5 times. Each melee strike spends a blessing to deal {damage} additional spell damage.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
@@ -214,7 +214,7 @@ public class PaladinSpells {
         var meleeTrigger = new Spell.Trigger();
         meleeTrigger.type = Spell.Trigger.Type.MELEE_IMPACT;
 
-        SpellBuilder.Deliver.stash(spell, PaladinEffects.SEAL_OF_RIGHTEOUSNESS.id.toString(), 15F, meleeTrigger);
+        SpellBuilder.Deliver.stash(spell, PaladinEffects.BLESSED_STRIKES.id.toString(), 15F, meleeTrigger);
         spell.deliver.stash_effect.stacking = true; // add seals one by one (one per channel release)
         spell.deliver.stash_effect.amplifier = 4;   // cap: amplifier is "stacks - 1", so 4 => 5 seals
         spell.deliver.stash_effect.consume = 1;     // one seal spent per melee hit
@@ -1106,10 +1106,15 @@ public class PaladinSpells {
         };
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
 
-        // Per bolt — helpful: an absorption shield (+1 stack per bolt, ADD mode, capped). It is placed by
-        // the area impact below, not on the primary target: intent filtering keeps it off the struck
-        // enemy, and the splash spreads it to friendlies near the impact. Particles land on each ally hit.
-        var shield = SpellBuilder.Impacts.effectAdd(PaladinEffects.ABSORPTION.id.toString(), 8F, 1, 4);
+        // Per bolt — helpful: an absorption shield that stacks up as the volley lands. ADD mode adds one
+        // stack each time a bolt hits, so allies caught by more bolts get a thicker shield. Spell power
+        // scales the stack ceiling rather than the per-hit amount (base cap 1, +1 per 8 Healing power via
+        // the 0.125 coefficient) — a low-power priest tops out a step short of the full three-bolt shield,
+        // a well-geared one reaches it. It is placed by the area impact below, not on the primary target:
+        // intent filtering keeps it off the struck enemy, and the splash spreads it to friendlies near the
+        // impact. Particles land on each ally hit.
+        var shield = SpellBuilder.Impacts.effectAdd_ScaledCap(
+                PaladinEffects.ABSORPTION.id.toString(), 8F, 0.125F);
         shield.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         SPARK_DECELERATE.toString(),

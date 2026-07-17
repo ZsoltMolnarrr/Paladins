@@ -76,12 +76,12 @@ public class PaladinEffects {
     ));
 
     /// Charges the wielded weapon with holy light. Applied as a stacking stash effect by
-    /// {@code PaladinSpells.seal_of_righteousness}; each melee hit consumes one stack to deal bonus
-    /// holy damage. Rendered by {@link GlowingItemStatusEffect} — the glow brightens as the seals are
+    /// {@code PaladinSpells.blessed_strikes}; each melee hit consumes one stack to deal bonus
+    /// holy damage. Rendered by {@link GlowingItemStatusEffect} — the glow brightens as the blessings are
     /// channeled on, and dims again as they are spent.
-    public static final Effects.Entry SEAL_OF_RIGHTEOUSNESS = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "seal_of_righteousness"),
-            "Seal of Righteousness",
+    public static final Effects.Entry BLESSED_STRIKES = add(new Effects.Entry(
+            Identifier.of(PaladinsMod.ID, "blessed_strikes"),
+            "Blessed Strikes",
             "Your weapon is charged with holy light, searing enemies you strike",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
     ));
@@ -128,10 +128,10 @@ public class PaladinEffects {
         Synchronized.configure(LEVITATE.effect, true);
         ActionImpairing.configure(JUDGEMENT.effect, EntityActionsAllowed.STUN);
 
-        // Holy glow on the wielded weapon, brightening with each seal. 0.2 opacity per stack, so the
-        // full 5 stacks land on exactly 1.0 (fully opaque) — a dark weapon at 0 seals, blazing at 5.
+        // Holy glow on the wielded weapon, brightening with each blessing. 0.2 opacity per stack, so the
+        // full 5 stacks land on exactly 1.0 (fully opaque) — a dark weapon at 0 blessings, blazing at 5.
         // register() also marks the effect Synchronized (clients can only glow what they know about).
-        GlowingItemStatusEffect.register(SEAL_OF_RIGHTEOUSNESS.effect, Color.HOLY, 0.2F);
+        GlowingItemStatusEffect.register(BLESSED_STRIKES.effect, Color.HOLY, 0.2F);
 
         Effects.register(entries, config.effects);
 

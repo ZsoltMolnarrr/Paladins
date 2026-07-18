@@ -1,5 +1,5 @@
 {
-  "school": "spell_power:healing",
+  "school": "spell_power:physical_melee",
   "range": 0.0,
   "tier": 2,
   "group": "paladin_retribution",
@@ -70,6 +70,13 @@
   },
   "impacts": [
     {
+      "power_blend": [
+        {
+          "school": "spell_power:healing",
+          "power": true,
+          "weight": 3.0
+        }
+      ],
       "action": {
         "type": "DAMAGE",
         "damage": {

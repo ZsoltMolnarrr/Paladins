@@ -54,7 +54,13 @@
   },
   "impacts": [
     {
-      "school": "spell_power:healing",
+      "power_blend": [
+        {
+          "school": "spell_power:healing",
+          "power": true,
+          "weight": 3.0
+        }
+      ],
       "target_modifiers": [
         {
           "conditions": [
@@ -107,7 +113,13 @@
       }
     },
     {
-      "school": "spell_power:healing",
+      "power_blend": [
+        {
+          "school": "spell_power:healing",
+          "power": true,
+          "weight": 3.0
+        }
+      ],
       "action": {
         "type": "HEAL",
         "heal": {

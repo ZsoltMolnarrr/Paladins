@@ -88,6 +88,13 @@
   },
   "impacts": [
     {
+      "power_blend": [
+        {
+          "school": "spell_power:healing",
+          "power": true,
+          "weight": 0.33333334
+        }
+      ],
       "target_modifiers": [
         {
           "conditions": [

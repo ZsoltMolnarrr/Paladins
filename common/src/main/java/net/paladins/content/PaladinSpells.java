@@ -169,7 +169,7 @@ public class PaladinSpells {
         var description = "Channels holy light into your weapon, blessing it up to 5 times. Each melee strike spends a blessing to deal {damage} additional spell damage.";
 
         var spell = SpellBuilder.createSpellActive();
-        spell.school = SpellSchools.HEALING;
+        spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
         spell.range = 0;
         spell.tier = 2;
         spell.group = RETRIBUTION;
@@ -224,7 +224,9 @@ public class PaladinSpells {
         spell.deliver.stash_effect.consumed_next_tick = true;
 
         // Same holy burst as Holy Shock's damage.
+        // Hybrid power: 25% melee / 75% healing (base PHYSICAL_MELEE weighs 1, healing weighs 3).
         var damage = SpellBuilder.Impacts.damage(0.8F, 0.5F);
+        damage.power_blend = List.of(SpellBuilder.Impacts.powerBlend(SpellSchools.HEALING, 3F));
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
@@ -339,7 +341,9 @@ public class PaladinSpells {
         meteor.projectile = projectile;
         spell.deliver.meteor = meteor;
 
+        // Hybrid power: 75% melee / 25% healing (base PHYSICAL_MELEE weighs 1, healing weighs 1/3).
         var damage = SpellBuilder.Impacts.damage(0.9F, 1F);
+        damage.power_blend = List.of(SpellBuilder.Impacts.powerBlend(SpellSchools.HEALING, 1F / 3F));
         damage.target_modifiers = List.of(SpellBuilder.ImpactModifiers.extraDamageAgainstUndead());
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
@@ -509,10 +513,9 @@ public class PaladinSpells {
         // that both burns and mends.
         spell.target.area.include_caster = true;
 
-        // Physical-melee spell, but this damage impact is powered by the paladin's Healing Spell Power
-        // (impact-level school override; the spell's own school stays PHYSICAL_MELEE).
+        // Hybrid power: 25% melee / 75% healing (base PHYSICAL_MELEE weighs 1, healing weighs 3).
         var damage = SpellBuilder.Impacts.damage(1.2F, 1F);
-        damage.school = SpellSchools.HEALING;
+        damage.power_blend = List.of(SpellBuilder.Impacts.powerBlend(SpellSchools.HEALING, 3F));
         damage.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HOLY_IMPACT_BURST.toString(),
@@ -528,10 +531,10 @@ public class PaladinSpells {
         // Ignite: enemies caught in the eruption keep burning afterwards (HARMFUL intent, enemies only).
         var ignite = SpellBuilder.Impacts.fire(4F);
 
-        // Mend: allies (and the caster) standing in the flames are healed instead of burned. Powered by
-        // Healing Spell Power, like the damage — the spell's own school (PHYSICAL_MELEE) has none.
+        // Mend: allies (and the caster) standing in the flames are healed instead of burned.
+        // Same hybrid power split as the damage.
         var heal = SpellBuilder.Impacts.heal(0.5F);
-        heal.school = SpellSchools.HEALING;
+        heal.power_blend = List.of(SpellBuilder.Impacts.powerBlend(SpellSchools.HEALING, 3F));
         heal.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         HEALING_PARTICLES.toString(),

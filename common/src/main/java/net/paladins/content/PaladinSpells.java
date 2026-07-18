@@ -749,7 +749,7 @@ public class PaladinSpells {
     private static Entry circle_of_healing() {
         var id = Identifier.of(PaladinsMod.ID, "circle_of_healing");
         var title = "Circle of Healing";
-        var description = "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.";
+        var description = "Heals you and friendly targets around you by {heal}.";
 
         float range = 8;
 
@@ -804,10 +804,7 @@ public class PaladinSpells {
         };
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
 
-        var buff = SpellBuilder.Impacts.effectSet_ScaledAmplifier(
-                PaladinEffects.ABSORPTION.id.toString(), 6, 0, 0.25F);
-
-        spell.impacts = List.of(heal, buff);
+        spell.impacts = List.of(heal);
 
         SpellBuilder.Cost.cooldown(spell, 10);
         SpellBuilder.Cost.item(spell, "runes:healing_stone");

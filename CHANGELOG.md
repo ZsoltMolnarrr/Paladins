@@ -8,6 +8,7 @@ Spell books now offer 6 spells (2 choices across 3 tiers).
 Other changes:
 
 - Updated Battle Banner renderer (now animated) 
+- Circle of Healing no longer provides absorption effect by default
 
 # 2.7.1
 

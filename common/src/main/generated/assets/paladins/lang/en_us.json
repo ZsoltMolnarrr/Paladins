@@ -118,7 +118,7 @@
   "spell.paladins.battle_banner.name": "Battle Banner",
   "spell.paladins.blessed_strikes.description": "Channels holy light into your weapon, blessing it up to 5 times. Each melee strike spends a blessing to deal {damage} additional spell damage.",
   "spell.paladins.blessed_strikes.name": "Blessed Strikes",
-  "spell.paladins.circle_of_healing.description": "Heals you and friendly targets around you by {heal}, and applies some absorption for {effect_duration} seconds.",
+  "spell.paladins.circle_of_healing.description": "Heals you and friendly targets around you by {heal}.",
   "spell.paladins.circle_of_healing.name": "Circle of Healing",
   "spell.paladins.divine_protection.description": "Protects you from the next incoming attacks (up to {effect_amplifier_cap}), for {effect_duration} seconds.",
   "spell.paladins.divine_protection.name": "Divine Protection",

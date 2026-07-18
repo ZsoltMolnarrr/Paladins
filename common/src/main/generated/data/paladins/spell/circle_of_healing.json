@@ -105,16 +105,6 @@
       "sound": {
         "id": "spell_engine:generic_healing_impact_2"
       }
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "effect_id": "paladins:priest_absorption",
-          "duration": 6.0,
-          "amplifier_power_multiplier": 0.25
-        }
-      }
     }
   ],
   "cost": {

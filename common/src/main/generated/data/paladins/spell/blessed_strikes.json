@@ -57,7 +57,7 @@
     "type": "STASH_EFFECT",
     "stash_effect": {
       "id": "paladins:blessed_strikes",
-      "amplifier": 4,
+      "amplifier": 20,
       "stacking": true,
       "duration": 15.0,
       "triggers": [

@@ -216,7 +216,10 @@ public class PaladinSpells {
 
         SpellBuilder.Deliver.stash(spell, PaladinEffects.BLESSED_STRIKES.id.toString(), 15F, meleeTrigger);
         spell.deliver.stash_effect.stacking = true; // add seals one by one (one per channel release)
-        spell.deliver.stash_effect.amplifier = 4;   // cap: amplifier is "stacks - 1", so 4 => 5 seals
+        // Cap: amplifier is "stacks - 1". Deliberately far above the base channel's 5 releases —
+        // the real seal count is bounded by the number of releases, and the loose cap leaves room
+        // for skill tree modifiers (extra channel releases etc.) without touching this spell.
+        spell.deliver.stash_effect.amplifier = 20;
         spell.deliver.stash_effect.consume = 1;     // one seal spent per melee hit
         // Defer the seal decrement to next tick instead of removing it inline. Each enemy struck this
         // tick then still reads the seal as present, so a single seal sears every foe caught in one

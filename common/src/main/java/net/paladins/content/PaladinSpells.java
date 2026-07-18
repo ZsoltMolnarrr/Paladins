@@ -1106,15 +1106,14 @@ public class PaladinSpells {
         };
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
 
-        // Per bolt — helpful: an absorption shield that stacks up as the volley lands. ADD mode adds one
-        // stack each time a bolt hits, so allies caught by more bolts get a thicker shield. Spell power
-        // scales the stack ceiling rather than the per-hit amount (base cap 1, +1 per 8 Healing power via
-        // the 0.125 coefficient) — a low-power priest tops out a step short of the full three-bolt shield,
-        // a well-geared one reaches it. It is placed by the area impact below, not on the primary target:
-        // intent filtering keeps it off the struck enemy, and the splash spreads it to friendlies near the
-        // impact. Particles land on each ally hit.
-        var shield = SpellBuilder.Impacts.effectAdd_ScaledCap(
-                PaladinEffects.ABSORPTION.id.toString(), 8F, 0.125F);
+        // Per bolt — helpful: an absorption shield that stacks up as the volley lands. ADD mode adds
+        // 1 + floor(0.125 * Healing power) stacks each time a bolt hits, so both spell power and the
+        // number of bolts that reach an ally thicken the shield. Uncapped (cap 0): with more power the
+        // shield keeps climbing rather than plateauing. It is placed by the area impact below, not on the
+        // primary target: intent filtering keeps it off the struck enemy, and the splash spreads it to
+        // friendlies near the impact. Particles land on each ally hit.
+        var shield = SpellBuilder.Impacts.effectAdd_ScaledAmplifier(
+                PaladinEffects.ABSORPTION.id.toString(), 8F, 1, 0.125F);
         shield.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         SPARK_DECELERATE.toString(),

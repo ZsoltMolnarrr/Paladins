@@ -9,6 +9,21 @@
       "paladins:battle_banner_release"
     ]
   },
+  "blessed_strike_casting": {
+    "sounds": [
+      "paladins:blessed_strike_casting"
+    ]
+  },
+  "blessed_strike_release": {
+    "sounds": [
+      "paladins:blessed_strike_release"
+    ]
+  },
+  "blessed_strike_start": {
+    "sounds": [
+      "paladins:blessed_strike_start"
+    ]
+  },
   "cloth_equip": {
     "sounds": [
       "paladins:cloth_equip_1",
@@ -81,6 +96,11 @@
       "paladins:holy_shock_heal"
     ]
   },
+  "holy_ward_impact": {
+    "sounds": [
+      "paladins:holy_ward_impact"
+    ]
+  },
   "immolation_release": {
     "sounds": [
       "paladins:immolation_release"
@@ -104,6 +124,18 @@
   "lightwell_spawn": {
     "sounds": [
       "paladins:lightwell_spawn"
+    ]
+  },
+  "penance_impact": {
+    "sounds": [
+      "paladins:penance_impact"
+    ]
+  },
+  "penance_release": {
+    "sounds": [
+      "paladins:penance_release_1",
+      "paladins:penance_release_2",
+      "paladins:penance_release_3"
     ]
   },
   "plate_equip": {

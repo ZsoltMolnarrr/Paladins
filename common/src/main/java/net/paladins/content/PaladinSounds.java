@@ -98,11 +98,16 @@ public class PaladinSounds {
     public static final Entry holy_beam_damage = add(new Entry("holy_beam_damage"));
     public static final Entry holy_beam_heal = add(new Entry("holy_beam_heal"));
     public static final Entry holy_beam_release = add(new Entry("holy_beam_release"));
+    public static final Entry holy_ward_impact = add(new Entry("holy_ward_impact"));
+    public static final Entry penance_impact =  add(new Entry("penance_impact"));
+    public static final Entry penance_release =  add(new Entry("penance_release").variants(3));
     public static final Entry lightwell_spawn = add(new Entry("lightwell_spawn"));
     public static final Entry lightwell_despawn = add(new Entry("lightwell_despawn"));
     public static final Entry lightwell_ambient = add(new Entry("lightwell_ambient"));
     public static final Entry immolation_release = add(new Entry("immolation_release"));
-
+    public static final Entry blessed_strike_start =  add(new Entry("blessed_strike_start"));
+    public static final Entry blessed_strike_casting = add(new Entry("blessed_strike_casting"));
+    public static final Entry blessed_strike_release = add(new Entry("blessed_strike_release"));
 
     public static void register() {
         for (var entry: entries) {

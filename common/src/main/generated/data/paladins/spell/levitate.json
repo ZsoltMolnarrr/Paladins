@@ -15,8 +15,11 @@
         "id": "spell_engine:one_handed_levitate_channel"
       },
       "movement_speed": 0.0,
+      "start_sound": {
+        "id": "paladins:holy_ward_impact"
+      },
       "sound": {
-        "id": "spell_engine:generic_healing_casting",
+        "id": "spell_engine:generic_wind_casting",
         "randomness": 0.0
       },
       "particles": [
@@ -45,7 +48,7 @@
   },
   "release": {
     "sound": {
-      "id": "spell_engine:generic_healing_release"
+      "id": "spell_engine:generic_wind_gust"
     }
   },
   "impacts": [

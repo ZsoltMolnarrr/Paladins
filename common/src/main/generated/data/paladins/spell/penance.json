@@ -46,7 +46,11 @@
     "type": "PROJECTILE",
     "projectile": {
       "launch_properties": {
-        "velocity": 0.8
+        "velocity": 0.8,
+        "sound": {
+          "id": "paladins:penance_release",
+          "volume": 0.5
+        }
       },
       "projectile": {
         "homing_angle": 16.0,
@@ -175,7 +179,7 @@
       }
     ],
     "sound": {
-      "id": "paladins:holy_shock_heal"
+      "id": "paladins:penance_impact"
     }
   },
   "cost": {

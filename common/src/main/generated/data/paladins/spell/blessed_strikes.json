@@ -12,11 +12,14 @@
         "ticks": 5
       },
       "animation": {
-        "id": "spell_engine:one_handed_projectile_charge"
+        "id": "spell_engine:one_handed_weapon_channel_overhead"
       },
       "animation_pitch": false,
+      "start_sound": {
+        "id": "paladins:blessed_strike_start"
+      },
       "sound": {
-        "id": "spell_engine:generic_healing_casting",
+        "id": "paladins:blessed_strike_casting",
         "randomness": 0.0
       },
       "particles": [
@@ -35,9 +38,6 @@
     }
   },
   "release": {
-    "animation": {
-      "id": "spell_engine:one_handed_area_release"
-    },
     "particles": [
       {
         "particle_id": "spell_engine:magic_spark_float",
@@ -50,7 +50,7 @@
       }
     ],
     "sound": {
-      "id": "spell_engine:generic_healing_release"
+      "id": "paladins:blessed_strike_release"
     }
   },
   "deliver": {

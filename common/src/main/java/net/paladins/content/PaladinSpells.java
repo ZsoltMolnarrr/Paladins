@@ -191,9 +191,10 @@ public class PaladinSpells {
         // and with `stacking` on that adds one seal — so the weapon lights up charge by charge as it is
         // channeled. Releasing the channel early simply yields fewer seals.
         SpellBuilder.Casting.channel(spell, 2.5F, 5);
-        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_weapon_channel_overhead");
         spell.active.cast.animation_pitch = false;
-        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.sound = Sound.withRandomness(PaladinSounds.blessed_strike_casting.id(), 0);
+        spell.active.cast.start_sound = Sound.of(PaladinSounds.blessed_strike_start.id());
         // Holy sparks gathering into the weapon while channeling. Pre-spawn travel throws them out to
         // arm's length and `invert` turns them around, so they fall back inwards — light drawn into the
         // blade, seal by seal.
@@ -203,8 +204,7 @@ public class PaladinSpells {
 
         // The same sparks let loose outwards: the gathered light flares off the weapon as the seals set.
         spell.release.particles = new ParticleBatch[] { sealSparks() };
-        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
-        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
+        spell.release.sound = new Sound(PaladinSounds.blessed_strike_release.id());
 
         // The seals are stashed on the caster themselves.
         spell.target.type = Spell.Target.Type.CASTER;
@@ -993,7 +993,8 @@ public class PaladinSpells {
         SpellBuilder.Casting.channel(spell, 1.5F, 4);
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_levitate_channel");
         spell.active.cast.movement_speed = 0F; // rooted horizontally; the lift is purely vertical
-        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_WIND_CASTING.id(), 0);
+        spell.active.cast.start_sound = Sound.of(PaladinSounds.holy_ward_impact.id());
         spell.active.cast.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         SPARKS_FLOAT.toString(),
@@ -1005,7 +1006,7 @@ public class PaladinSpells {
                         2, 0.02F, 0.1F).extent(0.5F).color(Color.HOLY.toRGBA())
         };
 
-        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
+        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_WIND_GUST.id());
 
         spell.target.type = Spell.Target.Type.CASTER;
 
@@ -1072,6 +1073,7 @@ public class PaladinSpells {
         spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
         spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
         spell.deliver.projectile.launch_properties.velocity = 0.8F;
+        spell.deliver.projectile.launch_properties.sound = Sound.withVolume(PaladinSounds.penance_release.id(), 0.5F);
 
         var projectile = new Spell.ProjectileData();
         projectile.homing_angle = 16F;
@@ -1166,7 +1168,7 @@ public class PaladinSpells {
                         ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
                         30, 0.2F, 0.4F).color(Color.HOLY.toRGBA())
         };
-        spell.area_impact.sound = new Sound(PaladinSounds.holy_shock_heal.id());
+        spell.area_impact.sound = new Sound(PaladinSounds.penance_impact.id());
 
         SpellBuilder.Cost.cooldown(spell, 8);
         spell.cost.cooldown.proportional = true; // released early => proportionally shorter cooldown

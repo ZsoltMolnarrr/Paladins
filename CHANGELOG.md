@@ -9,6 +9,7 @@ Other changes:
 
 - Updated Battle Banner renderer (now animated) 
 - Circle of Healing no longer provides absorption effect by default
+- Significantly rebalanced offensive paladin spells
 
 # 2.7.1
 

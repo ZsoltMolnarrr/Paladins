@@ -1,5 +1,5 @@
 {
-  "school": "spell_power:physical_melee",
+  "school": "spell_power:healing",
   "range": 5.0,
   "tier": 4,
   "group": "paladin_retribution",
@@ -56,9 +56,11 @@
     {
       "power_blend": [
         {
-          "school": "spell_power:healing",
+          "school": "spell_power:physical_melee",
           "power": true,
-          "weight": 3.0
+          "critical_chance": true,
+          "critical_damage": true,
+          "weight": 0.33333334
         }
       ],
       "target_modifiers": [
@@ -115,9 +117,11 @@
     {
       "power_blend": [
         {
-          "school": "spell_power:healing",
+          "school": "spell_power:physical_melee",
           "power": true,
-          "weight": 3.0
+          "critical_chance": true,
+          "critical_damage": true,
+          "weight": 0.33333334
         }
       ],
       "action": {

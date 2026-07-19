@@ -1042,9 +1042,16 @@ public class PaladinSpells {
         spell.tier = 3;
         spell.group = DISCIPLINE;
 
-        // Short channel: 3 bolts over 1.5s (one every 0.5s). Each release fires one homing bolt, and
+        // Volley + shield tuning kept as one source of truth: the absorption cap below is derived from
+        // these so it always tracks what a single full volley can build (change `BOLTS` and the cap
+        // follows). BOLTS = channel releases; each release fires one homing bolt that runs the impacts.
+        final int BOLTS = 3;                              // channel releases (bolts per cast)
+        final int SHIELD_STACKS_PER_BOLT = 1;             // base absorption stacks added per bolt
+        final float SHIELD_POWER_COEFFICIENT = 0.125F;    // extra stacks per bolt per Healing power (floored)
+
+        // Short channel: BOLTS bolts over 1.5s (one every 0.5s). Each release fires one homing bolt, and
         // each bolt that lands runs the impacts below.
-        SpellBuilder.Casting.channel(spell, 1.5F, 3);
+        SpellBuilder.Casting.channel(spell, 1.5F, BOLTS);
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:off_hand_channeling");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
         spell.active.cast.particles = new ParticleBatch[] {
@@ -1115,13 +1122,20 @@ public class PaladinSpells {
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
 
         // Per bolt — helpful: an absorption shield that stacks up as the volley lands. ADD mode adds
-        // 1 + floor(0.125 * Healing power) stacks each time a bolt hits, so both spell power and the
-        // number of bolts that reach an ally thicken the shield. Uncapped (cap 0): with more power the
-        // shield keeps climbing rather than plateauing. It is placed by the area impact below, not on the
-        // primary target: intent filtering keeps it off the struck enemy, and the splash spreads it to
-        // friendlies near the impact. Particles land on each ally hit.
+        // SHIELD_STACKS_PER_BOLT + floor(SHIELD_POWER_COEFFICIENT * Healing power) stacks each time a bolt
+        // hits, so both spell power and the number of bolts that reach an ally thicken the shield. It is
+        // placed by the area impact below, not on the primary target: intent filtering keeps it off the
+        // struck enemy, and the splash spreads it to friendlies near the impact. Particles land on each
+        // ally hit.
         var shield = SpellBuilder.Impacts.effectAdd_ScaledAmplifier(
-                PaladinEffects.ABSORPTION.id.toString(), 8F, 1, 0.125F);
+                PaladinEffects.ABSORPTION.id.toString(), 8F, SHIELD_STACKS_PER_BOLT, SHIELD_POWER_COEFFICIENT);
+        // Power-scaled cap set to exactly what one priest's own full volley reaches, so it never nerfs a
+        // solo priest but stops two priests double-stacking (ADD is clamped to the caster's cap, so the
+        // ceiling is the strongest priest's cap, not the sum). A full volley of BOLTS bolts builds to
+        // amplifier `BOLTS * (SHIELD_STACKS_PER_BOLT + floor(coeff*power)) - 1`, whose power-independent
+        // part is the base cap and whose per-power part is the cap's power multiplier.
+        shield.action.status_effect.amplifier_cap = BOLTS * SHIELD_STACKS_PER_BOLT - 1;
+        shield.action.status_effect.amplifier_cap_power_multiplier = SHIELD_POWER_COEFFICIENT * BOLTS;
         shield.particles = new ParticleBatch[] {
                 new ParticleBatch(
                         SPARK_DECELERATE.toString(),

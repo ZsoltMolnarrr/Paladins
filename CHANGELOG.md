@@ -1,6 +1,6 @@
 # 3.0.0
 
-Spell books now offer 6 spells (2 choices across 3 tiers).
+SPELL EXPANSION! - Spell books now offer 6 spells (2 choices across 3 tiers).
 
 - New Paladin spells: Seal of Righteousness, Immolation
 - New Priest spells: Levitate, Penance, Lightwell

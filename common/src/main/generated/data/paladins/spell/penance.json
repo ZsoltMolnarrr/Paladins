@@ -133,11 +133,11 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "paladins:priest_absorption",
-          "duration": 8.0,
+          "duration": 6.0,
           "amplifier": 1,
-          "amplifier_power_multiplier": 0.125,
+          "amplifier_power_multiplier": 0.1,
           "amplifier_cap": 2,
-          "amplifier_cap_power_multiplier": 0.375,
+          "amplifier_cap_power_multiplier": 0.3,
           "apply_mode": "ADD"
         }
       },
@@ -185,7 +185,7 @@
   "cost": {
     "exhaust": 0.2,
     "cooldown": {
-      "duration": 8.0,
+      "duration": 12.0,
       "proportional": true
     },
     "item": {

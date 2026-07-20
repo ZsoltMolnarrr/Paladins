@@ -1,3 +1,9 @@
+# 3.0.1
+
+- Nerfed Blessed Strikes: reduced power coefficient
+- Nerfed Levitation: reduced duration and increased cooldown
+- Nerfed Penance: shorter absorption effect, with slightly lower power coefficient, increased cooldown
+
 # 3.0.0
 
 SPELL EXPANSION! - Spell books now offer 6 spells (2 choices across 3 tiers).

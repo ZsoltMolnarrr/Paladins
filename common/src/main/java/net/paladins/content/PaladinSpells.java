@@ -229,7 +229,7 @@ public class PaladinSpells {
         // Same holy burst as Holy Shock's damage.
         // Hybrid power: 25% melee / 75% healing (base HEALING weighs 1, melee weighs 1/3),
         // crit chance/damage blended at the same ratio.
-        var damage = SpellBuilder.Impacts.damage(0.8F, 0.5F);
+        var damage = SpellBuilder.Impacts.damage(0.5F, 0.5F);
         damage.power_blend = List.of(SpellBuilder.Impacts.powerBlend(
                 ExternalSpellSchools.PHYSICAL_MELEE, 1F / 3F, true, true, true));
         damage.particles = new ParticleBatch[] {
@@ -1020,10 +1020,10 @@ public class PaladinSpells {
 
         // Levitate effect (near-zero gravity) refreshed each tick so it lingers after the channel. Set
         // (not stacked): each tick just refreshes its duration.
-        var levitate = SpellBuilder.Impacts.effectSet(PaladinEffects.LEVITATE.id.toString(), 6, 0);
+        var levitate = SpellBuilder.Impacts.effectSet(PaladinEffects.LEVITATE.id.toString(), 5, 0);
         spell.impacts = List.of(lift, levitate);
 
-        SpellBuilder.Cost.cooldown(spell, 18);
+        SpellBuilder.Cost.cooldown(spell, 24);
         spell.cost.cooldown.proportional = true; // released early => proportionally shorter cooldown
         SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.1F;
@@ -1048,7 +1048,7 @@ public class PaladinSpells {
         // follows). BOLTS = channel releases; each release fires one homing bolt that runs the impacts.
         final int BOLTS = 3;                              // channel releases (bolts per cast)
         final int SHIELD_STACKS_PER_BOLT = 1;             // base absorption stacks added per bolt
-        final float SHIELD_POWER_COEFFICIENT = 0.125F;    // extra stacks per bolt per Healing power (floored)
+        final float SHIELD_POWER_COEFFICIENT = 0.1F;    // extra stacks per bolt per Healing power (floored)
 
         // Short channel: BOLTS bolts over 1.5s (one every 0.5s). Each release fires one homing bolt, and
         // each bolt that lands runs the impacts below.
@@ -1130,7 +1130,7 @@ public class PaladinSpells {
         // struck enemy, and the splash spreads it to friendlies near the impact. Particles land on each
         // ally hit.
         var shield = SpellBuilder.Impacts.effectAdd_ScaledAmplifier(
-                PaladinEffects.ABSORPTION.id.toString(), 8F, SHIELD_STACKS_PER_BOLT, SHIELD_POWER_COEFFICIENT);
+                PaladinEffects.ABSORPTION.id.toString(), 6F, SHIELD_STACKS_PER_BOLT, SHIELD_POWER_COEFFICIENT);
         // Power-scaled cap set to exactly what one priest's own full volley reaches, so it never nerfs a
         // solo priest but stops two priests double-stacking (ADD is clamped to the caster's cap, so the
         // ceiling is the strongest priest's cap, not the sum). A full volley of BOLTS bolts builds to
@@ -1170,7 +1170,7 @@ public class PaladinSpells {
         };
         spell.area_impact.sound = new Sound(PaladinSounds.penance_impact.id());
 
-        SpellBuilder.Cost.cooldown(spell, 8);
+        SpellBuilder.Cost.cooldown(spell, 12);
         spell.cost.cooldown.proportional = true; // released early => proportionally shorter cooldown
         SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.2F;

@@ -72,14 +72,14 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "paladins:levitate",
-          "duration": 6.0
+          "duration": 5.0
         }
       }
     }
   ],
   "cost": {
     "cooldown": {
-      "duration": 18.0,
+      "duration": 24.0,
       "proportional": true
     },
     "item": {

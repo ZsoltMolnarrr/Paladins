@@ -130,7 +130,8 @@
   "cost": {
     "exhaust": 0.3,
     "cooldown": {
-      "duration": 45.0
+      "duration": 45.0,
+      "haste_affected": false
     },
     "item": {
       "id": "runes:healing_stone"

@@ -891,6 +891,7 @@ public class PaladinSpells {
         spell.impacts = List.of(SpellBuilder.Impacts.summon(PaladinSummons.lightwell()));
 
         SpellBuilder.Cost.cooldown(spell, 45);
+        spell.cost.cooldown.haste_affected = false; // summon uptime shouldn't scale with haste
         SpellBuilder.Cost.item(spell, "runes:healing_stone");
         spell.cost.exhaust = 0.3F;
 

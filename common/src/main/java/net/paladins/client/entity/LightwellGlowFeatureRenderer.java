@@ -10,13 +10,17 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.entity.LightwellEntity;
+import net.spell_engine.api.render.CustomLayers;
+import net.spell_engine.api.render.LightEmission;
 
 /// Fullbright glow overlay for the Lightwell — the emissive counterpart to its base texture, so the
 /// light column reads as radiant regardless of world light. Mirrors the Frost Elemental's glow layer.
 public class LightwellGlowFeatureRenderer extends FeatureRenderer<LightwellEntity, LightwellEntityModel> {
     public static final Identifier TEXTURE =
             Identifier.of(PaladinsMod.ID, "textures/entity/lightwell_glow.png");
-    private static final RenderLayer LAYER = RenderLayer.getEyes(TEXTURE);
+    // No-cull emissive layer (DISABLE_CULLING), unlike vanilla's culled `getEyes`: the glow shell has
+    // faces the base model doesn't, and culling was dropping the ones facing away from the camera.
+    private static final RenderLayer LAYER = CustomLayers.spellObject(TEXTURE, LightEmission.RADIATE, true);
 
     public LightwellGlowFeatureRenderer(FeatureRendererContext<LightwellEntity, LightwellEntityModel> context) {
         super(context);

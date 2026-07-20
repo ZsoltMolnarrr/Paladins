@@ -1,6 +1,7 @@
 package net.paladins.client.entity;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.util.Identifier;
@@ -19,6 +20,11 @@ public class BattleBannerEntityModel extends SinglePartEntityModel<BannerEntity>
 	private final ModelPart flag_part_4;
 
 	public BattleBannerEntityModel(ModelPart root) {
+		// Backface-culled layer, overriding the default `getEntityCutoutNoCull`. The flag panels are
+		// zero-thickness cuboids, so each one's north and south faces are coplanar; drawn without culling
+		// they z-fight against each other. Culling keeps only the camera-facing face of each pair, so the
+		// flag still shows from both sides but the two coplanar quads never fight.
+		super(RenderLayer::getEntityCutout);
 		this.root = root;
 		this.battle_flag = root.getChild("battle_flag");
 		this.flag_part = this.battle_flag.getChild("flag_part");

@@ -875,8 +875,7 @@ public class PaladinSpells {
     private static Entry lightwell() {
         var id = Identifier.of(PaladinsMod.ID, "lightwell");
         var title = "Lightwell";
-        var description = "Summons a Lightwell that heals you and nearby wounded allies. It lasts "
-                + SpellTooltip.placeholder(SpellTooltip.summonDurationToken) + " sec.";
+        var description = "Summons a Lightwell that heals you and nearby wounded allies. It lasts {summon_duration} sec.";
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;

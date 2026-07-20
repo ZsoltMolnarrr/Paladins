@@ -1,5 +1,6 @@
 # 3.0.1
 
+- Lightwell cooldown is no longer reduced by spell haste
 - Nerfed Blessed Strikes: reduced power coefficient
 - Nerfed Levitation: reduced duration and increased cooldown
 - Nerfed Penance: shorter absorption effect, with slightly lower power coefficient, increased cooldown

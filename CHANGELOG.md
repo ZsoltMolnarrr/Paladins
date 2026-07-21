@@ -1,3 +1,7 @@
+# 3.0.2
+
+- Fix entity renderer registrations (NeoForge launch halt)
+
 # 3.0.1
 
 - Lightwell cooldown is no longer reduced by spell haste

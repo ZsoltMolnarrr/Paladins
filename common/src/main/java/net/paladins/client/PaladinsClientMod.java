@@ -2,20 +2,11 @@ package net.paladins.client;
 
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRenderer;
 import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.paladins.client.armor.PriestArmorRenderer;
 import net.paladins.client.effect.DivineProtectionRenderer;
-import net.paladins.client.entity.BannerEntityRenderer;
-import net.paladins.client.entity.BattleBannerEntityModel;
 import net.paladins.client.entity.BarrierEntityRenderer;
-import net.paladins.client.entity.LightwellEntityModel;
-import net.paladins.client.entity.LightwellEntityRenderer;
 import net.paladins.effect.PaladinEffects;
-import net.paladins.entity.BannerEntity;
-import net.paladins.entity.BarrierEntity;
-import net.paladins.entity.LightwellEntity;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
@@ -58,13 +49,11 @@ public class PaladinsClientMod {
                 ).withFrequency(3).scaleWithAmplifier(false)
         );
 
-        EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(BattleBannerEntityModel.LAYER, BattleBannerEntityModel::getTexturedModelData);
-        EntityRendererRegistry.register(BannerEntity.ENTITY_TYPE, BannerEntityRenderer::new);
-
-        EntityModelLayerRegistry.registerModelLayer(LightwellEntityModel.LAYER, LightwellEntityModel::getTexturedModelData);
-        EntityRendererRegistry.register(LightwellEntity.TYPE, LightwellEntityRenderer::new);
-
+        // Entity model layers + renderers are registered per-platform:
+        //   Fabric   -> FabricModClient (Fabric API)
+        //   NeoForge -> NeoForgeClientMod (EntityRenderersEvent.RegisterLayerDefinitions / RegisterRenderers)
+        // Layer definitions MUST be contributed during the RegisterLayerDefinitions phase, which is
+        // over by the time FMLClientSetupEvent (where this init runs on NeoForge) fires.
         BarrierEntityRenderer.setup();
 
         registerArmorRenderer(Armors.paladinArmorSet_t1, PaladinArmorRenderer::paladin);

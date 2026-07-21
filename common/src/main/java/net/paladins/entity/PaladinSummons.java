@@ -6,6 +6,7 @@ import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.datagen.SpellBuilder.Placements;
 import net.spell_engine.api.spell.Spell.Impact.Action.Summon;
 import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.api.spell.fx.VFX;
 import net.spell_engine.api.spell.summon.AttributeScaling;
 import net.spell_engine.api.spell.summon.SummonBehaviour;
@@ -76,9 +77,9 @@ public class PaladinSummons {
         b.actions = List.of(SummonBehaviour.Action.spell(heal));
 
         // Lifecycle sounds (reused holy SFX — no new assets).
-        b.sounds.spawn = PaladinSounds.lightwell_spawn.id().toString();
-        b.sounds.ambient = PaladinSounds.lightwell_ambient.id().toString();
-        b.sounds.despawn = PaladinSounds.lightwell_despawn.id().toString();
+        b.sounds.spawn = new Sound(PaladinSounds.lightwell_spawn.id());
+        b.sounds.ambient = new Sound(PaladinSounds.lightwell_ambient.id());
+        b.sounds.despawn = new Sound(PaladinSounds.lightwell_despawn.id());
 
         // Spawn FX: a rising holy burst as the well forms.
         b.spawn_fx = new VFX();

@@ -17,6 +17,7 @@ import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.paladins.content.PaladinSpells;
 import net.paladins.effect.PaladinEffects;
+import net.paladins.entity.PaladinEntities;
 import net.paladins.item.PaladinShields;
 import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
@@ -314,9 +315,10 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                 addItemName(builder, set.idOf(set.feet), set.feetTranslation);
             }
 
-            // Summoned entities
-            builder.add("entity." + namespace + ".barrier", "Barrier");
-            builder.add("entity." + namespace + ".battle_banner", "Battle Banner");
+            // Custom entities — code-sourced display names (paired with the type in PaladinEntities.Entry)
+            for (var entry : PaladinEntities.entries) {
+                builder.add("entity." + namespace + "." + entry.id.getPath(), entry.name);
+            }
 
             // Monk villager (several key formats are referenced across versions) + workbench
             builder.add("entity.minecraft.villager.monk", "Monk");

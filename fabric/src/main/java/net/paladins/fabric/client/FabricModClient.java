@@ -12,9 +12,7 @@ import net.paladins.client.entity.BarrierEntityRenderer;
 import net.paladins.client.entity.BattleBannerEntityModel;
 import net.paladins.client.entity.LightwellEntityModel;
 import net.paladins.client.entity.LightwellEntityRenderer;
-import net.paladins.entity.BannerEntity;
-import net.paladins.entity.BarrierEntity;
-import net.paladins.entity.LightwellEntity;
+import net.paladins.entity.PaladinEntities;
 
 public final class FabricModClient implements ClientModInitializer {
     @Override
@@ -22,11 +20,11 @@ public final class FabricModClient implements ClientModInitializer {
         PaladinsClientMod.init();
 
         // Entity model layers + renderers (Fabric API)
-        EntityRendererRegistry.register(BarrierEntity.TYPE, BarrierEntityRenderer::new);
+        EntityRendererRegistry.register(PaladinEntities.BARRIER.type, BarrierEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(BattleBannerEntityModel.LAYER, BattleBannerEntityModel::getTexturedModelData);
-        EntityRendererRegistry.register(BannerEntity.ENTITY_TYPE, BannerEntityRenderer::new);
+        EntityRendererRegistry.register(PaladinEntities.BANNER.type, BannerEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(LightwellEntityModel.LAYER, LightwellEntityModel::getTexturedModelData);
-        EntityRendererRegistry.register(LightwellEntity.TYPE, LightwellEntityRenderer::new);
+        EntityRendererRegistry.register(PaladinEntities.LIGHTWELL.type, LightwellEntityRenderer::new);
 
         // Fabric-specific render layer registration
         BlockRenderLayerMap.INSTANCE.putBlock(PaladinBlocks.MONK_WORKBENCH, RenderLayer.getCutout());

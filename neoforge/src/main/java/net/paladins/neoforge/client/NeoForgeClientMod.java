@@ -14,9 +14,7 @@ import net.paladins.client.entity.BarrierEntityRenderer;
 import net.paladins.client.entity.BattleBannerEntityModel;
 import net.paladins.client.entity.LightwellEntityModel;
 import net.paladins.client.entity.LightwellEntityRenderer;
-import net.paladins.entity.BannerEntity;
-import net.paladins.entity.BarrierEntity;
-import net.paladins.entity.LightwellEntity;
+import net.paladins.entity.PaladinEntities;
 import net.spell_engine.client.gui.ConfigMenuScreen;
 
 @EventBusSubscriber(modid = PaladinsMod.ID, value = Dist.CLIENT)
@@ -35,8 +33,8 @@ public class NeoForgeClientMod {
 
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(BarrierEntity.TYPE, BarrierEntityRenderer::new);
-        event.registerEntityRenderer(BannerEntity.ENTITY_TYPE, BannerEntityRenderer::new);
-        event.registerEntityRenderer(LightwellEntity.TYPE, LightwellEntityRenderer::new);
+        event.registerEntityRenderer(PaladinEntities.BARRIER.type, BarrierEntityRenderer::new);
+        event.registerEntityRenderer(PaladinEntities.BANNER.type, BannerEntityRenderer::new);
+        event.registerEntityRenderer(PaladinEntities.LIGHTWELL.type, LightwellEntityRenderer::new);
     }
 }

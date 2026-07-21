@@ -103,7 +103,7 @@ public class PaladinSummons {
         // Placement: a single well ~1.5 blocks ahead of the caster, ground-snapped and facing them.
         var placement = Placements.pointAtAngle(1.5F, 0F);
 
-        var summon = new Summon(LightwellEntity.ID.toString(), b, List.of(placement), 1);
+        var summon = new Summon(PaladinEntities.LIGHTWELL.id.toString(), b, List.of(placement), 1);
         summon.attribute_scaling.entries = List.of(
                 // Scale the well's healing power off the owner's healing spell power.
                 scalingEntry(SpellSchools.HEALING.id.toString(), SpellSchools.HEALING.id.toString(), 0, 0.5),

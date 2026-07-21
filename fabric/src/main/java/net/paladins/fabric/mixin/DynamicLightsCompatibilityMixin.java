@@ -1,6 +1,6 @@
 package net.paladins.fabric.mixin;
 
-import net.paladins.entity.LightwellEntity;
+import net.paladins.entity.PaladinEntities;
 import net.spell_engine.fabric.client.compat.DynamicLightsCompatibility;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +27,7 @@ public class DynamicLightsCompatibilityMixin {
     @Inject(method = "registrations", at = @At("RETURN"), remap = false)
     private static void paladins$addLightwell(CallbackInfoReturnable<List<DynamicLightsCompatibility.Registration<?>>> cir) {
         cir.getReturnValue().add(new DynamicLightsCompatibility.Registration<>(
-                LightwellEntity.TYPE,
+                PaladinEntities.LIGHTWELL.type,
                 entity -> LIGHTWELL_LUMINANCE));
     }
 }

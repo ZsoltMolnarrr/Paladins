@@ -408,7 +408,7 @@ public class PaladinSpells {
 
         spell.deliver.type = Spell.Delivery.Type.CLOUD;
         var cloud = new Spell.Delivery.Cloud();
-        cloud.entity_type_id = PaladinEntities.BANNER_ID.toString();
+        cloud.entity_type_id = PaladinEntities.BANNER.id.toString();
         cloud.volume.radius = 3;
         cloud.volume.extra_radius = new Spell.AreaImpact.ExtraRadius();
         cloud.volume.extra_radius.power_coefficient = 1;
@@ -859,7 +859,7 @@ public class PaladinSpells {
         spawn.action = new Spell.Impact.Action();
         spawn.action.type = Spell.Impact.Action.Type.SPAWN;
         var barrier = new Spell.Impact.Action.Spawn();
-        barrier.entity_type_id = PaladinEntities.BARRIER_ID.toString();
+        barrier.entity_type_id = PaladinEntities.BARRIER.id.toString();
         barrier.time_to_live_seconds = 10;
         spawn.action.spawns = List.of(barrier);
         spell.impacts = List.of(spawn);

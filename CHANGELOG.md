@@ -1,3 +1,7 @@
+# 3.0.3
+
+- Fix entity name translations
+
 # 3.0.2
 
 - Fix entity renderer registrations (NeoForge launch halt)

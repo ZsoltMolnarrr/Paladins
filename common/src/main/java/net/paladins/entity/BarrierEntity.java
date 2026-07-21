@@ -27,7 +27,6 @@ import net.spell_engine.utils.SoundPlayerWorld;
 import org.jetbrains.annotations.Nullable;
 
 public class BarrierEntity extends Entity implements SpellEntity.Spawned {
-    public static EntityType<BarrierEntity> TYPE;
 
     private Identifier spellId;
     private int ownerId;

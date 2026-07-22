@@ -12,6 +12,7 @@ import net.spell_engine.api.spell.summon.SummonedEntities;
 import net.spell_engine.api.spell.summon.SummonedEntityConfig;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
+import net.tiny_config.ConfigManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class PaladinEntities {
         /// English display name, emitted as {@code entity.<namespace>.<path>} by lang datagen.
         public final String name;
         public final EntityType<T> type;
-        /// Attribute defaults for summoned entities (seeded into config/spell_engine/summoned_entities.json).
+        /// Attribute defaults for summoned entities (seeded into Paladins' own config/paladins/summoned_entities.json).
         /// Null for entities that aren't spell-power-scaled summons (e.g. barrier, banner).
         @Nullable public final SummonedEntityConfig.Entry summonConfig;
 
@@ -81,9 +82,10 @@ public class PaladinEntities {
                     .build(),
             lightwellDefaults()));
 
-    // Base attributes for the Lightwell summon, seeded into config/spell_engine/summoned_entities.json.
-    // Its heal scales off its OWN healing spell power (summons don't use the owner's), so a base value
-    // is granted here and topped up from the owner via the summon's attribute_scaling.
+    // Base attributes for the Lightwell summon, seeded into Paladins' OWN config file
+    // (config/paladins/summoned_entities.json), versioned independently. Its heal scales off its OWN
+    // healing spell power (summons don't use the owner's), so a base value is granted here and topped up
+    // from the owner via the summon's attribute_scaling.
     public static SummonedEntityConfig.Entry lightwellDefaults() {
         var e = new SummonedEntityConfig.Entry();
         e.common = new SummonedEntityConfig.CommonAttributes(20, 0.0, 0); // health, speed (stationary), attack
@@ -97,7 +99,29 @@ public class PaladinEntities {
         return e;
     }
 
+    /// Paladins' own summoned-entity config file, seeded from the per-entity defaults above and versioned
+    /// independently (bump `schemaVersion` to reset users' files after a defaults change). Declared after
+    /// the entity constants so {@link #entries} is fully populated when the defaults are collected.
+    public static final ConfigManager<SummonedEntityConfig> summonConfig = new ConfigManager<>
+            ("summoned_entities", seededDefaults())
+            .builder()
+            .setDirectory(PaladinsMod.ID)
+            .schemaVersion(1)
+            .sanitize(true)
+            .build();
+
+    private static SummonedEntityConfig seededDefaults() {
+        var config = new SummonedEntityConfig();
+        for (var entry : entries) {
+            if (entry.summonConfig != null) {
+                config.entries.put(entry.id.toString(), entry.summonConfig);
+            }
+        }
+        return config;
+    }
+
     public static void register() {
+        summonConfig.refresh(); // load (or write) Paladins' own config file before reading values from it
         for (var entry : entries) {
             Registry.register(Registries.ENTITY_TYPE, entry.id, entry.type);
             if (entry.summonConfig != null) {
@@ -105,7 +129,8 @@ public class PaladinEntities {
                 @SuppressWarnings("unchecked")
                 var livingType = (EntityType<? extends LivingEntity>) entry.type;
                 // Type and attributes registered together — no ordering requirement (see summons docs §3.3).
-                SummonedEntities.registerAttributes(entry.id, livingType, entry.summonConfig);
+                // Inject Paladins' config as the attribute source — a plain Function<Identifier, Entry>.
+                SummonedEntities.registerAttributes(entry.id, livingType, summonConfig.value::entryFor);
             }
         }
     }

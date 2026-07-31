@@ -109,8 +109,11 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
     }
 
     public static void renderShield(BarrierEntity entity, MatrixStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {
-        var entry = entity.getSpellEntry();
         if (entity == null) {
+            return;
+        }
+        var entry = entity.getSpellEntry();
+        if (entry == null) {
             return;
         }
         var spell = entry.value();

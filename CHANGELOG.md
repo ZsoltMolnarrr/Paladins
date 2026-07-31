@@ -2,6 +2,7 @@
 
 - Blessed Strikes is now capped at 6 stacks
 - Blessed Strikes cooldown is no longer proportional to channeling
+- Fixed crashing when summoning barrier via command #80
 
 # 3.0.3
 

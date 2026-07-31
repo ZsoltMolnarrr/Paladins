@@ -57,7 +57,7 @@
     "type": "STASH_EFFECT",
     "stash_effect": {
       "id": "paladins:blessed_strikes",
-      "amplifier": 20,
+      "amplifier": 5,
       "stacking": true,
       "duration": 15.0,
       "triggers": [
@@ -105,8 +105,7 @@
   "cost": {
     "exhaust": 0.2,
     "cooldown": {
-      "duration": 12.0,
-      "proportional": true
+      "duration": 12.0
     },
     "item": {
       "id": "runes:healing_stone"

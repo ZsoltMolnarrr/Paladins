@@ -1,3 +1,8 @@
+# 3.0.4
+
+- Blessed Strikes is now capped at 6 stacks
+- Blessed Strikes cooldown is no longer proportional to channeling
+
 # 3.0.3
 
 - Fix entity name translations

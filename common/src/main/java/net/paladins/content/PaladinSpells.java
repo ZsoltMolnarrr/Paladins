@@ -799,6 +799,12 @@ public class PaladinSpells {
                         50, 0.1F, 0.2F
                 ).extent(range).color(Color.HOLY.toRGBA())
         };
+        // Ground zone decal marking the healed area, using the same particle as Firestorm.
+        // `particles_scaled_with_ranged` sizes it to the spell's effective range at cast time.
+        spell.release.particles_scaled_with_ranged = new ParticleBatch[] {
+                SpellBuilder.Particles.area(SpellEngineParticles.area_effect_637.id())
+                        .color(Color.HOLY.alpha(0.5F).toRGBA())
+        };
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();

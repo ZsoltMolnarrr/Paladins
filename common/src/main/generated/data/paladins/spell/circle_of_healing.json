@@ -63,6 +63,16 @@
         "color_rgba": 4294954239
       }
     ],
+    "particles_scaled_with_ranged": [
+      {
+        "particle_id": "spell_engine:area_effect_637",
+        "origin": "GROUND",
+        "shape": "SPHERE",
+        "count": 1.0,
+        "max_speed": 0.0,
+        "color_rgba": 4294954111
+      }
+    ],
     "sound": {
       "id": "spell_engine:generic_healing_release"
     }

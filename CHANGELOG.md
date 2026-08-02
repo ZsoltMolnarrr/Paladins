@@ -2,6 +2,7 @@
 
 - Updated Judgement particles
 - Updated Blessed Strikes particles
+- Updated Circle of Healing particles
 
 # 3.0.4
 

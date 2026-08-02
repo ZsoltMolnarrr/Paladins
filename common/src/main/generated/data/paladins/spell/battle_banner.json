@@ -54,7 +54,7 @@
               "color_rgba": 4294954239
             },
             {
-              "particle_id": "spell_engine:magic_spell_float",
+              "particle_id": "spell_engine:magic_stripe_float",
               "origin": "FEET",
               "shape": "PIPE",
               "count": 3.0,

@@ -118,6 +118,10 @@ public class PaladinSpells {
             SpellEngineParticles.MagicParticles.Shape.SPELL,
             SpellEngineParticles.MagicParticles.Motion.DECELERATE).id();
 
+    private static final Identifier HOLY_STRIPE_FLOAT = SpellEngineParticles.MagicParticles.get(
+            SpellEngineParticles.MagicParticles.Shape.STRIPE,
+            SpellEngineParticles.MagicParticles.Motion.FLOAT).id();
+
     public static final Entry FLASH_HEAL = add(flash_heal().book(Book.PALADIN));
     private static Entry flash_heal() {
         var id = Identifier.of(PaladinsMod.ID, "flash_heal");
@@ -329,13 +333,14 @@ public class PaladinSpells {
         projectile.client_data.light_level = 15;
         projectile.client_data.travel_particles = new ParticleBatch[] {
                 new ParticleBatch(
-                        HOLY_IMPACT_FLOAT.toString(),
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        HOLY_STRIPE_FLOAT.toString(),
+                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.CENTER,
                         ParticleBatch.Rotation.LOOK,
-                        5, 0, 0.1F, 0),
+                        5, 0, 0.2F, 0)
+                        .color(Color.HOLY.toRGBA()),
                 new ParticleBatch(
                         SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
+                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.CENTER,
                         ParticleBatch.Rotation.LOOK,
                         4, 0, 0.1F, 0)
                         .color(Color.HOLY.toRGBA())
@@ -430,7 +435,7 @@ public class PaladinSpells {
                         ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
                         null, 15, 0.1F, 0.15F, 0.0F, 0F)
                         .color(Color.HOLY.toRGBA()),
-                new ParticleBatch(HOLY_SPELL_FLOAT.toString(),
+                new ParticleBatch(HOLY_STRIPE_FLOAT.toString(),
                         ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
                         null, 3, 0.05F, 0.1F, 0.0F, 0F)
                         .color(Color.HOLY.toRGBA())

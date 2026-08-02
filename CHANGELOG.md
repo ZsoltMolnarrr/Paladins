@@ -1,3 +1,8 @@
+# 3.0.5
+
+- Updated Judgement particles
+- Updated Blessed Strikes particles
+
 # 3.0.4
 
 - Blessed Strikes is now capped at 6 stacks

@@ -10,8 +10,11 @@ import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
 import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.fx.Fx;
 import net.spell_engine.api.spell.fx.ModelEffect;
-import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.api.spell.fx.ParticleGroup;
+import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
+import net.spell_engine.api.spell.fx.ParticleGroupBuilder.Batches;
 import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
@@ -79,48 +82,40 @@ public class PaladinSpells {
     public static final String HOLY = "priest_holy";
     public static final String DISCIPLINE = "priest_discipline";
 
-    private static ParticleBatch castingParticles(String particleId) {
-        return new ParticleBatch(
-                particleId,
-                ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
-                1, 0.05F, 0.1F);
+    // MARK: Shared particle effects
+    // Motion is chosen per effect rather than baked into the particle id, so one registered
+    // `magic_*` texture covers every use of it here.
+
+    /// Holy sparks swirling up around the caster's feet while a spell is being cast.
+    private static ParticleGroup holyCastingSparks() {
+        return ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                .batch(Batches.casting(1, 0.1F));
     }
 
-    private static final Identifier SPARKS_FLOAT = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.SPARK,
-            SpellEngineParticles.MagicParticles.Motion.FLOAT).id();
+    /// The column of motes rising off a healed target.
+    private static ParticleGroup healPillar(float count) {
+        return ParticleGroupBuilder.magic(SpellEngineParticles.magic_heal, ParticleGroup.Motion.ASCEND, Color.NATURE)
+                .batch(b -> b.shape(ParticleGroup.Shape.PILLAR).count(count)
+                        .speed(0.02F, 0.15F).verticalOrigin(Batches.FEET));
+    }
 
-    private static final Identifier SPARK_DECELERATE = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.SPARK,
-            SpellEngineParticles.MagicParticles.Motion.DECELERATE).id();
+    /// The golden burst of a holy strike landing.
+    private static ParticleGroup holyBurst(float count, float maxSpeed) {
+        return ParticleGroupBuilder.magic(SpellEngineParticles.magic_holy, ParticleGroup.Motion.BURST, Color.HOLY)
+                .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(count).speed(0.2F, maxSpeed));
+    }
 
-    private static final Identifier HOLY_IMPACT_DECELERATE = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.HOLY,
-            SpellEngineParticles.MagicParticles.Motion.DECELERATE).id();
+    /// Slow holy motes settling over a target — heals, buffs, the wash of an area impact.
+    private static ParticleGroup holyGlimmer(float count, float minSpeed, float maxSpeed) {
+        return ParticleGroupBuilder.magic(SpellEngineParticles.magic_holy, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(count).speed(minSpeed, maxSpeed));
+    }
 
-    private static final Identifier HOLY_IMPACT_FLOAT = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.HOLY,
-            SpellEngineParticles.MagicParticles.Motion.FLOAT).id();
-
-    private static final Identifier HOLY_IMPACT_BURST = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.HOLY,
-            SpellEngineParticles.MagicParticles.Motion.BURST).id();
-
-    private static final Identifier HEALING_PARTICLES = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.HEAL,
-            SpellEngineParticles.MagicParticles.Motion.ASCEND).id();
-
-    private static final Identifier HOLY_SPELL_FLOAT = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.SPELL,
-            SpellEngineParticles.MagicParticles.Motion.FLOAT).id();
-
-    private static final Identifier HOLY_SPELL_DECELERATE = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.SPELL,
-            SpellEngineParticles.MagicParticles.Motion.DECELERATE).id();
-
-    private static final Identifier HOLY_STRIPE_FLOAT = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.STRIPE,
-            SpellEngineParticles.MagicParticles.Motion.FLOAT).id();
+    /// A spray of fine holy sparks — the glitter layered over a heavier burst.
+    private static ParticleGroup holySparks(float count, float minSpeed, float maxSpeed) {
+        return ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(count).speed(minSpeed, maxSpeed));
+    }
 
     public static final Entry FLASH_HEAL = add(flash_heal().book(Book.PALADIN));
     private static Entry flash_heal() {
@@ -136,9 +131,7 @@ public class PaladinSpells {
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_RELEASE.id(), 0);
@@ -148,13 +141,7 @@ public class PaladinSpells {
         spell.target.aim.sticky = true;
 
         var heal = SpellBuilder.Impacts.heal(1.2F);
-        heal.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HEALING_PARTICLES.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        30, 0.02F, 0.15F)
-                        .color(Color.NATURE.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(healPillar(30));
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
 
         spell.impacts = List.of(heal);
@@ -182,9 +169,7 @@ public class PaladinSpells {
 
 //        SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_projectile_charge");
 //        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-//        spell.active.cast.particles = new ParticleBatch[] {
-//                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-//        };
+//        spell.active.cast.particles = List.of(holyCastingSparks());
 //
 //        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
 //        spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
@@ -199,15 +184,15 @@ public class PaladinSpells {
         spell.active.cast.animation_pitch = false;
         spell.active.cast.sound = Sound.withRandomness(PaladinSounds.blessed_strike_casting.id(), 0);
         spell.active.cast.start_sound = Sound.of(PaladinSounds.blessed_strike_start.id());
-        // Holy sparks gathering into the weapon while channeling. Pre-spawn travel throws them out to
-        // arm's length and `invert` turns them around, so they fall back inwards — light drawn into the
+        // Holy sparks gathering into the weapon while channeling. `preTravel` throws them out to arm's
+        // length and `invert` turns them around, so they fall back inwards — light drawn into the
         // blade, seal by seal.
-        spell.active.cast.particles = new ParticleBatch[] {
-                sealSparks().invert().preSpawnTravel(14)
-        };
+        spell.active.cast.particles = List.of(
+                sealSparks().batch(b -> b.invert(true).preTravel(14))
+        );
 
         // The same sparks let loose outwards: the gathered light flares off the weapon as the seals set.
-        spell.release.particles = new ParticleBatch[] { sealSparks() };
+        spell.release.visuals = Fx.Visuals.of(sealSparks());
         spell.release.sound = new Sound(PaladinSounds.blessed_strike_release.id());
 
         // The seals are stashed on the caster themselves.
@@ -236,12 +221,7 @@ public class PaladinSpells {
         var damage = SpellBuilder.Impacts.damage(0.5F, 0.5F);
         damage.power_blend = List.of(SpellBuilder.Impacts.powerBlend(
                 ExternalSpellSchools.PHYSICAL_MELEE, 1F / 3F, true, true, true));
-        damage.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_BURST.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        30, 0.2F, 0.7F).color(Color.HOLY.toRGBA())
-        };
+        damage.visuals = Fx.Visuals.of(holyBurst(30, 0.7F));
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
 
         spell.impacts = List.of(damage);
@@ -254,13 +234,11 @@ public class PaladinSpells {
     }
 
     /// A loose sphere of slow holy sparks at the caster's weapon hand. Flows outwards on its own;
-    /// call `invert()` (paired with `preSpawnTravel`) to have it converge inwards instead.
-    private static ParticleBatch sealSparks() {
-        return new ParticleBatch(
-                SPARKS_FLOAT.toString(),
-                ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.OVER_HEAD,
-                4, 0.02F, 0.1F)
-                .color(Color.HOLY.toRGBA());
+    /// invert the batch (paired with `preTravel`) to have it converge inwards instead.
+    private static ParticleGroup sealSparks() {
+        return ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(4)
+                        .speed(0.02F, 0.1F).verticalOrigin(Batches.OVER_HEAD));
     }
 
     public static final Entry DIVINE_PROTECTION = add(divine_protection().book(Book.PALADIN));
@@ -282,12 +260,7 @@ public class PaladinSpells {
         var buff = SpellBuilder.Impacts.effectSet_ScaledAmplifier_Cap(
                 PaladinEffects.DIVINE_PROTECTION.id.toString(), 8, 0, 0.5F, 2);
         buff.sound = new Sound(PaladinSounds.divine_protection_release.id());
-        buff.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        40, 0.2F, 0.2F).color(Color.HOLY.toRGBA())
-        };
+        buff.visuals = Fx.Visuals.of(holyGlimmer(40, 0.2F, 0.2F));
 
         spell.impacts = List.of(buff);
 
@@ -312,9 +285,7 @@ public class PaladinSpells {
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
@@ -331,20 +302,14 @@ public class PaladinSpells {
         projectile.homing_angle = 1;
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.light_level = 15;
-        projectile.client_data.travel_particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_STRIPE_FLOAT.toString(),
-                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.CENTER,
-                        ParticleBatch.Rotation.LOOK,
-                        5, 0, 0.2F, 0)
-                        .color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.CENTER,
-                        ParticleBatch.Rotation.LOOK,
-                        4, 0, 0.1F, 0)
-                        .color(Color.HOLY.toRGBA())
-        };
+        projectile.client_data.travel_particles = List.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_stripe, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F).count(5).speed(0, 0.2F)
+                                .alignment(ParticleGroup.Alignment.LOOK)),
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F).count(4).speed(0, 0.1F)
+                                .alignment(ParticleGroup.Alignment.LOOK))
+        );
         projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("paladins:spell_projectile/judgement", 1.2F, LightEmission.RADIATE);
 
         meteor.projectile = projectile;
@@ -354,12 +319,7 @@ public class PaladinSpells {
         var damage = SpellBuilder.Impacts.damage(0.9F, 1F);
         damage.power_blend = List.of(SpellBuilder.Impacts.powerBlend(SpellSchools.HEALING, 1F / 3F));
         damage.target_modifiers = List.of(SpellBuilder.ImpactModifiers.extraDamageAgainstUndead());
-        damage.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_BURST.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        25, 0.2F, 1F).color(Color.HOLY.toRGBA())
-        };
+        damage.visuals = Fx.Visuals.of(holyBurst(25, 1F));
 
         var stun = SpellBuilder.Impacts.effectSet(PaladinEffects.JUDGEMENT.id.toString(), 3, 0);
         stun.action.status_effect.apply_limit = new Spell.Impact.Action.StatusEffect.ApplyLimit();
@@ -371,20 +331,12 @@ public class PaladinSpells {
         spell.area_impact = new Spell.AreaImpact();
         spell.area_impact.radius = 6;
         spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
-        spell.area_impact.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        100, 0.8F, 0.9F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        100, 0.2F, 0.4F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        "smoke",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        50, 0.1F, 0.3F)
-        };
+        spell.area_impact.visuals = Fx.Visuals.of(
+                holyGlimmer(100, 0.8F, 0.9F),
+                holySparks(100, 0.2F, 0.4F),
+                ParticleGroupBuilder.of("smoke")
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(50).speed(0.1F, 0.3F))
+        );
         spell.area_impact.sound = Sound.withVolume(PaladinSounds.judgement_impact.id(), 1.5F);
 
         SpellBuilder.Cost.cooldown(spell, 15);
@@ -430,16 +382,14 @@ public class PaladinSpells {
         cloud.despawn_ticks = spawnDurationTicks;
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.light_level = 15;
-        cloud.client_data.particles = new ParticleBatch[] {
-                new ParticleBatch(SPARK_DECELERATE.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        null, 15, 0.1F, 0.15F, 0.0F, 0F)
-                        .color(Color.HOLY.toRGBA()),
-                new ParticleBatch(HOLY_STRIPE_FLOAT.toString(),
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        null, 3, 0.05F, 0.1F, 0.0F, 0F)
-                        .color(Color.HOLY.toRGBA())
-        };
+        cloud.client_data.particles = List.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PILLAR).count(15).speed(0.1F, 0.15F)
+                                .verticalOrigin(Batches.FEET)),
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_stripe, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).count(3).speed(0.05F, 0.1F)
+                                .verticalOrigin(Batches.FEET))
+        );
         cloud.placement = new Spell.EntityPlacement();
         cloud.placement.location_offset_by_look = 2;
         cloud.placement.location_yaw_offset = 20;
@@ -490,28 +440,22 @@ public class PaladinSpells {
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_shout_release");
         spell.release.sound = new Sound(PaladinSounds.immolation_release.id());
-        spell.release.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARK_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        60, 0.4F, 0.5F)
-                        .preSpawnTravel(1)
-                        .color(Color.HOLY.toRGBA())
-        };
-        spell.release.particles_scaled_with_ranged = new ParticleBatch[] {
-                new ParticleBatch(
-                        SpellEngineParticles.area_effect_637.id().toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        1, 0, 0)
-                        .scale(0.6F)
-                        .color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        SpellEngineParticles.aura_effect_676.id().toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        1, 0, 0)
-                        .scale(0.6F)
-                        .color(Color.HOLY.toRGBA())
-        };
+        // The eruption itself, plus a ground decal and an upright flare sized to the spell's reach.
+        // `scale_with` multiplies the authored scale, so the two range-scaled effects keep the
+        // default scale of 1 and simply draw at the spell's reach.
+        spell.release.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(60).speed(0.4F, 0.5F).preTravel(1)),
+                ParticleGroupBuilder.of(SpellEngineParticles.area_effect_637)
+                        .color(Color.HOLY)
+                        .scaleWith(Fx.ScaleWith.RANGE)
+                        .batch(Batches.placed(1)),
+                ParticleGroupBuilder.of(SpellEngineParticles.area_effect_676)
+                        .facing(ParticleGroup.Facing.CAMERA)
+                        .color(Color.HOLY)
+                        .scaleWith(Fx.ScaleWith.RANGE)
+                        .batch(Batches.placed(1))
+        );
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
@@ -527,12 +471,7 @@ public class PaladinSpells {
         var damage = SpellBuilder.Impacts.damage(1.2F, 1F);
         damage.power_blend = List.of(SpellBuilder.Impacts.powerBlend(
                 ExternalSpellSchools.PHYSICAL_MELEE, 1F / 3F, true, true, true));
-        damage.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_BURST.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        30, 0.2F, 0.7F).color(Color.HOLY.toRGBA())
-        };
+        damage.visuals = Fx.Visuals.of(holyBurst(30, 0.7F));
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
         // Holy fire purges the undead: +50% power and a guaranteed critical strike against them.
         damage.target_modifiers = List.of(
@@ -547,13 +486,7 @@ public class PaladinSpells {
         var heal = SpellBuilder.Impacts.heal(0.5F);
         heal.power_blend = List.of(SpellBuilder.Impacts.powerBlend(
                 ExternalSpellSchools.PHYSICAL_MELEE, 1F / 3F, true, true, true));
-        heal.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HEALING_PARTICLES.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        20, 0.02F, 0.15F)
-                        .color(Color.NATURE.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(healPillar(20));
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
 
         spell.impacts = List.of(damage, ignite, heal);
@@ -581,9 +514,7 @@ public class PaladinSpells {
 
         SpellBuilder.Casting.cast(spell, 1F, "spell_engine:one_handed_healing_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
@@ -594,13 +525,7 @@ public class PaladinSpells {
 
         var heal = SpellBuilder.Impacts.heal(0.5F);
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
-        heal.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HEALING_PARTICLES.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        20, 0.02F, 0.15F)
-                        .color(Color.NATURE.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(healPillar(20));
         spell.impacts = List.of(heal);
 
         // createWeaponSpell sets cooldown group "weapon"; override with a plain 4s cooldown
@@ -625,9 +550,7 @@ public class PaladinSpells {
 
         SpellBuilder.Casting.cast(spell, 1.5F, "spell_engine:one_handed_projectile_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
@@ -637,26 +560,11 @@ public class PaladinSpells {
         spell.target.aim.use_caster_as_fallback = true;
 
         var heal = SpellBuilder.Impacts.heal(0.4F);
-        heal.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HEALING_PARTICLES.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        15, 0.02F, 0.15F)
-                        .color(Color.NATURE.toRGBA()),
-                new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        15, 0.2F, 0.25F).color(Color.HOLY.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(healPillar(15), holyGlimmer(15, 0.2F, 0.25F));
         heal.sound = new Sound(PaladinSounds.holy_shock_heal.id());
 
         var damage = SpellBuilder.Impacts.damage(0.8F, 0.5F);
-        damage.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_BURST.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        30, 0.2F, 0.7F).color(Color.HOLY.toRGBA())
-        };
+        damage.visuals = Fx.Visuals.of(holyBurst(30, 0.7F));
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
 
         spell.impacts = List.of(heal, damage);
@@ -684,17 +592,16 @@ public class PaladinSpells {
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
         spell.active.cast.start_sound = new Sound(PaladinSounds.holy_beam_start_casting.id());
         spell.active.cast.sound = Sound.withRandomness(PaladinSounds.holy_beam_casting.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,
-                        3, 0.1F, 0.2F, 0)
-                        .color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        "firework",
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,
-                        0.5F, 0.1F, 0.2F, 0)
-        };
+        spell.active.cast.particles = List.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).count(3).speed(0.1F, 0.2F)
+                                .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
+                                .alignment(ParticleGroup.Alignment.LOOK)),
+                ParticleGroupBuilder.of("firework")
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).count(0.5F).speed(0.1F, 0.2F)
+                                .anchor(ParticleGroup.Anchor.LAUNCH_POINT)
+                                .alignment(ParticleGroup.Alignment.LOOK))
+        );
 
         spell.release.sound = new Sound(PaladinSounds.holy_beam_release.id());
 
@@ -702,52 +609,23 @@ public class PaladinSpells {
         var beam = new Spell.Target.Beam();
         beam.color_rgba = 0xFFCC66FFL;
         beam.flow = 1.5F;
-        beam.block_hit_particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_SPELL_FLOAT.toString(),
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
-                        1F, 0.1F, 0.2F, 0)
-                        .color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        "firework",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
-                        1F, 0.1F, 0.2F, 0),
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        5, 0.1F, 0.2F)
-                        .color(Color.HOLY.toRGBA())
-        };
+        beam.block_hit = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spell, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE).count(1F).speed(0.1F, 0.2F)
+                                .alignment(ParticleGroup.Alignment.LOOK)),
+                ParticleGroupBuilder.of("firework")
+                        .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE).count(1F).speed(0.1F, 0.2F)
+                                .alignment(ParticleGroup.Alignment.LOOK)),
+                holySparks(5, 0.1F, 0.2F)
+        );
         spell.target.beam = beam;
 
         var heal = SpellBuilder.Impacts.heal(0.4F);
-        heal.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HEALING_PARTICLES.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        1, 0.02F, 0.15F)
-                        .color(Color.NATURE.toRGBA()),
-                new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        1, 0.2F, 0.25F)
-                        .color(Color.HOLY.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(healPillar(1), holyGlimmer(1, 0.2F, 0.25F));
         heal.sound = new Sound(PaladinSounds.holy_beam_heal.id());
 
         var damage = SpellBuilder.Impacts.damage(0.8F, 0.5F);
-        damage.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_BURST.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        3, 0.2F, 0.7F)
-                        .color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        6, 0.2F, 0.4F)
-                        .color(Color.HOLY.toRGBA())
-        };
+        damage.visuals = Fx.Visuals.of(holyBurst(3, 0.7F), holySparks(6, 0.2F, 0.4F));
         damage.sound = new Sound(PaladinSounds.holy_beam_damage.id());
 
         spell.impacts = List.of(heal, damage);
@@ -776,35 +654,26 @@ public class PaladinSpells {
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
-        spell.release.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARK_DECELERATE.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        100, 0.3F, 0.5F
-                ).extent(range - 0.5F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        HOLY_SPELL_DECELERATE.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        50, 0.1F, 0.5F
-                ).extent(range - 0.5F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        HOLY_IMPACT_FLOAT.toString(),
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        50, 0.1F, 0.2F
-                ).extent(range).color(Color.HOLY.toRGBA())
-        };
-        // Ground zone decal marking the healed area, using the same particle as Firestorm.
-        // `particles_scaled_with_ranged` sizes it to the spell's effective range at cast time.
-        spell.release.particles_scaled_with_ranged = new ParticleBatch[] {
+        spell.release.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PILLAR).count(100).speed(0.3F, 0.5F)
+                                .verticalOrigin(Batches.FEET).extent(range - 0.5F)),
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spell, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PILLAR).count(50).speed(0.1F, 0.5F)
+                                .verticalOrigin(Batches.FEET).extent(range - 0.5F)),
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_holy, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).count(50).speed(0.1F, 0.2F)
+                                .verticalOrigin(Batches.FEET).extent(range)),
+                // Ground zone decal marking the healed area, using the same particle as Firestorm.
+                // `scale_with = RANGE` sizes it to the spell's effective range at cast time.
                 SpellBuilder.Particles.area(SpellEngineParticles.area_effect_637.id())
-                        .color(Color.HOLY.alpha(0.5F).toRGBA())
-        };
+                        .appearance(a -> a.color(Color.HOLY.alpha(0.5F).toRGBA())
+                                .scaleWith(Fx.ScaleWith.RANGE))
+        );
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
@@ -812,17 +681,7 @@ public class PaladinSpells {
         spell.target.area.include_caster = true;
 
         var heal = SpellBuilder.Impacts.heal(0.4F);
-        heal.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HEALING_PARTICLES.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        15, 0.02F, 0.15F)
-                        .color(Color.NATURE.toRGBA()),
-                new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        15, 0.2F, 0.25F).color(Color.HOLY.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(healPillar(15), holyGlimmer(15, 0.2F, 0.25F));
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
 
         spell.impacts = List.of(heal);
@@ -848,22 +707,16 @@ public class PaladinSpells {
 
         SpellBuilder.Casting.cast(spell, 0.5F, "spell_engine:one_handed_area_charge");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
         spell.release.sound = new Sound(PaladinSounds.holy_barrier_activate.id());
-        spell.release.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_SPELL_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        50, 1F, 1F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        SPARK_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        50, 1F, 1F).color(Color.HOLY.toRGBA())
-        };
+        spell.release.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spell, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(50).speed(1F, 1F)),
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(50).speed(1F, 1F))
+        );
 
         var spawn = new Spell.Impact();
         spawn.action = new Spell.Impact.Action();
@@ -948,29 +801,16 @@ public class PaladinSpells {
         projectile.perks.bounce = 1;
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.light_level = 12;
-        projectile.client_data.travel_particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        ParticleBatch.Rotation.LOOK,
-                        5, 0, 0.1F, 0).color(Color.HOLY.toRGBA())
-        };
+        projectile.client_data.travel_particles = List.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(Batches.travel(5, 0.1F).andThen(b -> b.speed(0, 0.1F)))
+        );
         projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single(
                 "paladins:spell_projectile/lightwell_orb", 1.0F, LightEmission.GLOW);
         spell.deliver.projectile.projectile = projectile;
 
         var heal = SpellBuilder.Impacts.heal(0.35F);
-        heal.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HEALING_PARTICLES.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        15, 0.02F, 0.15F)
-                        .color(Color.NATURE.toRGBA()),
-                new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        12, 0.2F, 0.25F).color(Color.HOLY.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(healPillar(15), holyGlimmer(12, 0.2F, 0.25F));
         heal.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_2.id());
 
         spell.impacts = List.of(heal);
@@ -1005,16 +845,14 @@ public class PaladinSpells {
         spell.active.cast.movement_speed = 0F; // rooted horizontally; the lift is purely vertical
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_WIND_CASTING.id(), 0);
         spell.active.cast.start_sound = Sound.of(PaladinSounds.holy_ward_impact.id());
-        spell.active.cast.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        4, 0.02F, 0.12F).extent(0.5F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        HOLY_SPELL_FLOAT.toString(),
-                        ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET,
-                        2, 0.02F, 0.1F).extent(0.5F).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PILLAR).count(4).speed(0.02F, 0.12F)
+                                .verticalOrigin(Batches.FEET).extent(0.5F)),
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spell, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).count(2).speed(0.02F, 0.1F)
+                                .verticalOrigin(Batches.FEET).extent(0.5F))
+        );
 
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_WIND_GUST.id());
 
@@ -1065,9 +903,7 @@ public class PaladinSpells {
         SpellBuilder.Casting.channel(spell, 1.5F, BOLTS);
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:off_hand_channeling");
         spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
-        spell.active.cast.particles = new ParticleBatch[] {
-                castingParticles(SPARKS_FLOAT.toString()).color(Color.HOLY.toRGBA())
-        };
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_RELEASE.id());
 
@@ -1089,24 +925,18 @@ public class PaladinSpells {
         projectile.homing_angle = 16F;
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.light_level = 12;
-        // Spiraling sparks, coupled to the orbiting orb below. Magic-Arrow technique (Archers): a
-        // Shape.LINE batch with Rotation.LOOK spawns each spark at the flight-path centre and casts it
-        // outward along a direction that `roll` sweeps around the travel axis every tick — successive
-        // sparks form a clean helical wake. Two strands 180° apart (roll_offset) make a double helix.
-        // The roll rate is set to the orb's own spin (ORB_SPIN below), so the sparks spiral at the same
-        // angular speed as the orb, reading as one coupled swirl around the bolt rather than two effects.
-        projectile.client_data.travel_particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.LINE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
-                        3, 0.12F, 0.16F, 0)
-                        .roll(ORB_SPIN).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.LINE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK,
-                        3, 0.12F, 0.16F, 0)
-                        .roll(ORB_SPIN).rollOffset(180F).color(Color.HOLY.toRGBA())
-        };
+        // Spiraling sparks, coupled to the orbiting orb below. Magic-Arrow technique (Archers), packaged
+        // as `Batches.helix`: a LINE batch aligned to LOOK spawns each spark at the flight-path centre and
+        // casts it outward along a direction that the roll rate sweeps around the travel axis every tick —
+        // successive sparks form a clean helical wake. Two strands 180° apart make a double helix. The roll
+        // rate is set to the orb's own spin (ORB_SPIN below), so the sparks spiral at the same angular speed
+        // as the orb, reading as one coupled swirl around the bolt rather than two effects.
+        projectile.client_data.travel_particles = List.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(Batches.helix(3, 0.16F, ORB_SPIN, 0)),
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
+                        .batch(Batches.helix(3, 0.16F, ORB_SPIN, 180F))
+        );
 
         // Orbit tweak: the orb model (reused from Lightwell Orb) rides offset from the projectile centre
         // via an fx.initial translate, while the built-in per-tick spin sweeps that offset around the
@@ -1125,12 +955,7 @@ public class PaladinSpells {
 
         // Per bolt — harmful: damage the struck enemy.
         var damage = SpellBuilder.Impacts.damage(0.55F, 0.2F);
-        damage.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_IMPACT_BURST.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        18, 0.2F, 0.6F).color(Color.HOLY.toRGBA())
-        };
+        damage.visuals = Fx.Visuals.of(holyBurst(18, 0.6F));
         damage.sound = new Sound(PaladinSounds.holy_shock_damage.id());
 
         // Per bolt — helpful: an absorption shield that stacks up as the volley lands. ADD mode adds
@@ -1148,12 +973,10 @@ public class PaladinSpells {
         // part is the base cap and whose per-power part is the cap's power multiplier.
         shield.action.status_effect.amplifier_cap = BOLTS * SHIELD_STACKS_PER_BOLT - 1;
         shield.action.status_effect.amplifier_cap_power_multiplier = SHIELD_POWER_COEFFICIENT * BOLTS;
-        shield.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARK_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        12, 0.2F, 0.25F).color(Color.HOLY.toRGBA())
-        };
+        shield.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(12).speed(0.2F, 0.25F))
+        );
 
         spell.impacts = List.of(damage, shield);
 
@@ -1167,17 +990,11 @@ public class PaladinSpells {
         spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.NONE;
         spell.area_impact.triggering_action_type = Spell.Impact.Action.Type.DAMAGE;
         spell.area_impact.execute_action_type = Spell.Impact.Action.Type.STATUS_EFFECT;
-        spell.area_impact.particles = new ParticleBatch[] {
-                // A golden pulse washing out from the struck enemy to the allies it shields.
-                new ParticleBatch(
-                        HOLY_IMPACT_DECELERATE.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        40, 0.4F, 0.6F).color(Color.HOLY.toRGBA()),
-                new ParticleBatch(
-                        SPARKS_FLOAT.toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        30, 0.2F, 0.4F).color(Color.HOLY.toRGBA())
-        };
+        // A golden pulse washing out from the struck enemy to the allies it shields.
+        spell.area_impact.visuals = Fx.Visuals.of(
+                holyGlimmer(40, 0.4F, 0.6F),
+                holySparks(30, 0.2F, 0.4F)
+        );
         spell.area_impact.sound = new Sound(PaladinSounds.penance_impact.id());
 
         SpellBuilder.Cost.cooldown(spell, 12);

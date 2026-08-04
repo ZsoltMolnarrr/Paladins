@@ -10,7 +10,6 @@ import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.ConfigFile;
 import net.spell_engine.api.config.EffectConfig;
 import net.spell_engine.api.effect.*;
-import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.client.util.Color;
 import net.spell_power.api.SpellPowerMechanics;
 
@@ -136,7 +135,7 @@ public class PaladinEffects {
         Effects.register(entries, config.effects);
 
         Protection.register(DIVINE_PROTECTION.entry, new Protection.Pop(
-                new ParticleBatch[]{ DivineProtectionStatusEffect.particles },
+                List.of(DivineProtectionStatusEffect.particles),
                 PaladinSounds.divine_protection_impact.soundEvent()
         ));
     }

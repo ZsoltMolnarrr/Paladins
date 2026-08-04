@@ -5,9 +5,11 @@ import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.datagen.SpellBuilder.Placements;
 import net.spell_engine.api.spell.Spell.Impact.Action.Summon;
-import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.api.spell.fx.Fx;
+import net.spell_engine.api.spell.fx.ParticleGroup;
+import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
+import net.spell_engine.api.spell.fx.ParticleGroupBuilder.Batches;
 import net.spell_engine.api.spell.fx.Sound;
-import net.spell_engine.api.spell.fx.VFX;
 import net.spell_engine.api.spell.summon.AttributeScaling;
 import net.spell_engine.api.spell.summon.SummonBehaviour;
 import net.spell_engine.client.util.Color;
@@ -23,14 +25,6 @@ import java.util.List;
 public class PaladinSummons {
 
     private static final String LIGHTWELL_ORB = PaladinsMod.ID + ":lightwell_orb";
-
-    private static final String SPARKS = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.SPARK,
-            SpellEngineParticles.MagicParticles.Motion.ASCEND).id().toString();
-
-    private static final String HOLY_DECELERATE = SpellEngineParticles.MagicParticles.get(
-            SpellEngineParticles.MagicParticles.Shape.HOLY,
-            SpellEngineParticles.MagicParticles.Motion.DECELERATE).id().toString();
 
     /// A stationary holy well that heals nearby wounded allies (and its owner). It never moves, can't
     /// be pushed or collided with, and is untargetable/invulnerable — a pure support fixture. It scales
@@ -82,23 +76,19 @@ public class PaladinSummons {
         b.sounds.despawn = new Sound(PaladinSounds.lightwell_despawn.id());
 
         // Spawn FX: a rising holy burst as the well forms.
-        b.spawn_fx = new VFX();
-        b.spawn_fx.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        HOLY_DECELERATE,
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        30, 0.2F, 0.4F).color(Color.HOLY.toRGBA())
-        };
+        b.spawn_fx = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_holy, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                        .batch(b2 -> b2.shape(ParticleGroup.Shape.SPHERE).count(30).speed(0.2F, 0.4F))
+        );
 
         // Existence FX: a gentle column of holy motes ascending from the well throughout its life.
         var aura = new SummonBehaviour.ExistenceParticles();
         aura.interval_ticks = 6;
-        aura.particles = new ParticleBatch[] {
-                new ParticleBatch(
-                        SPARKS,
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        2, 0.02F, 0.12F).extent(0.45F).color(Color.HOLY.toRGBA())
-        };
+        aura.particles = List.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.ASCEND, Color.HOLY)
+                        .batch(b2 -> b2.shape(ParticleGroup.Shape.PILLAR).count(2).speed(0.02F, 0.12F)
+                                .verticalOrigin(Batches.FEET).extent(0.45F))
+        );
         b.existence_particles = List.of(aura);
 
         // Placement: a single well ~1.5 blocks ahead of the caster, ground-snapped and facing them.

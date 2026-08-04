@@ -16,13 +16,20 @@
       },
       "particles": [
         {
-          "particle_id": "spell_engine:magic_spark_float",
-          "origin": "FEET",
-          "shape": "WIDE_PIPE",
-          "count": 1.0,
-          "min_speed": 0.05,
-          "max_speed": 0.1,
-          "color_rgba": 4294954239
+          "id": "spell_engine:magic_spark",
+          "appearance": {
+            "color": 4294954239,
+            "motion": "FLOAT"
+          },
+          "batch": {
+            "count": 1.0,
+            "shape": "PIPE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.1,
+            "width_factor": 2.0
+          }
         }
       ]
     }
@@ -31,24 +38,38 @@
     "animation": {
       "id": "spell_engine:one_handed_area_release"
     },
-    "particles": [
-      {
-        "particle_id": "spell_engine:magic_spell_decelerate",
-        "origin": "CENTER",
-        "shape": "SPHERE",
-        "count": 50.0,
-        "min_speed": 1.0,
-        "color_rgba": 4294954239
-      },
-      {
-        "particle_id": "spell_engine:magic_spark_decelerate",
-        "origin": "CENTER",
-        "shape": "SPHERE",
-        "count": 50.0,
-        "min_speed": 1.0,
-        "color_rgba": 4294954239
-      }
-    ],
+    "visuals": {
+      "particles": [
+        {
+          "id": "spell_engine:magic_spell",
+          "appearance": {
+            "color": 4294954239,
+            "motion": "DECELERATE"
+          },
+          "batch": {
+            "count": 50.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 1.0,
+            "max_speed": 1.0
+          }
+        },
+        {
+          "id": "spell_engine:magic_spark",
+          "appearance": {
+            "color": 4294954239,
+            "motion": "DECELERATE"
+          },
+          "batch": {
+            "count": 50.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 1.0,
+            "max_speed": 1.0
+          }
+        }
+      ]
+    },
     "sound": {
       "id": "paladins:holy_barrier_activate"
     }

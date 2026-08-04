@@ -24,24 +24,36 @@
       },
       "particles": [
         {
-          "particle_id": "spell_engine:magic_spark_float",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 4.0,
-          "min_speed": 0.02,
-          "max_speed": 0.12,
-          "extent": 0.5,
-          "color_rgba": 4294954239
+          "id": "spell_engine:magic_spark",
+          "appearance": {
+            "color": 4294954239,
+            "motion": "FLOAT"
+          },
+          "batch": {
+            "count": 4.0,
+            "shape": "PILLAR",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.02,
+            "max_speed": 0.12,
+            "extent": 0.5
+          }
         },
         {
-          "particle_id": "spell_engine:magic_spell_float",
-          "origin": "FEET",
-          "shape": "PIPE",
-          "count": 2.0,
-          "min_speed": 0.02,
-          "max_speed": 0.1,
-          "extent": 0.5,
-          "color_rgba": 4294954239
+          "id": "spell_engine:magic_spell",
+          "appearance": {
+            "color": 4294954239,
+            "motion": "FLOAT"
+          },
+          "batch": {
+            "count": 2.0,
+            "shape": "PIPE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.02,
+            "max_speed": 0.1,
+            "extent": 0.5
+          }
         }
       ]
     }

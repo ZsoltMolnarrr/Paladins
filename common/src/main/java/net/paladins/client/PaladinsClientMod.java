@@ -13,7 +13,9 @@ import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.rpg_series.item.Armor;
 import net.spell_engine.api.render.BuffParticleSpawner;
 import net.spell_engine.api.render.StunParticleSpawner;
-import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.api.spell.fx.ParticleGroup;
+import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
+import net.spell_engine.api.spell.fx.ParticleGroupBuilder.Batches;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
 
@@ -27,13 +29,13 @@ public class PaladinsClientMod {
         CustomParticleStatusEffect.register(
                 PaladinEffects.ABSORPTION.effect,
                 new BuffParticleSpawner(
-                        new ParticleBatch(
-                                SpellEngineParticles.aura_effect_553.id().toString(),
-                                ParticleBatch.Shape.LINE, ParticleBatch.Origin.CENTER,
-                                1, 0, 0)
+                        // The V1 `aura_*` twins are gone: the same texture rendered camera-facing
+                        // instead of flat on the ground is what makes it an aura now.
+                        ParticleGroupBuilder.aura(SpellEngineParticles.area_effect_553)
+                                .attached()
                                 .scale(1.4F)
-                                .followEntity(true)
-                                .color(Color.HOLY.alpha(0.75F).toRGBA())
+                                .color(Color.HOLY.alpha(0.75F))
+                                .batch(b -> b.shape(ParticleGroup.Shape.LINE))
                 ).withFrequency(30).scaleWithAmplifier(false)
         );
 
@@ -41,11 +43,9 @@ public class PaladinsClientMod {
         CustomParticleStatusEffect.register(
                 PaladinEffects.LEVITATE.effect,
                 new BuffParticleSpawner(
-                        new ParticleBatch(
-                                "cloud",
-                                ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                                2, 0.01F, 0.05F)
-                                .extent(0.45F)
+                        ParticleGroupBuilder.of("cloud")
+                                .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE).count(2)
+                                        .speed(0.01F, 0.05F).verticalOrigin(Batches.FEET).extent(0.45F))
                 ).withFrequency(3).scaleWithAmplifier(false)
         );
 

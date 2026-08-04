@@ -9,38 +9,50 @@
     "animation": {
       "id": "spell_engine:one_handed_shout_release"
     },
-    "particles": [
-      {
-        "particle_id": "spell_engine:magic_spark_decelerate",
-        "origin": "CENTER",
-        "shape": "SPHERE",
-        "count": 60.0,
-        "min_speed": 0.4,
-        "max_speed": 0.5,
-        "pre_spawn_travel": 1.0,
-        "color_rgba": 4294954239
-      }
-    ],
-    "particles_scaled_with_ranged": [
-      {
-        "particle_id": "spell_engine:area_effect_637",
-        "origin": "CENTER",
-        "shape": "SPHERE",
-        "count": 1.0,
-        "max_speed": 0.0,
-        "color_rgba": 4294954239,
-        "scale": 0.6
-      },
-      {
-        "particle_id": "spell_engine:aura_effect_676",
-        "origin": "CENTER",
-        "shape": "SPHERE",
-        "count": 1.0,
-        "max_speed": 0.0,
-        "color_rgba": 4294954239,
-        "scale": 0.6
-      }
-    ],
+    "visuals": {
+      "particles": [
+        {
+          "id": "spell_engine:magic_spark",
+          "appearance": {
+            "color": 4294954239,
+            "motion": "DECELERATE"
+          },
+          "batch": {
+            "count": 60.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.4,
+            "max_speed": 0.5,
+            "pre_travel": 1.0
+          }
+        },
+        {
+          "id": "spell_engine:area_effect_637",
+          "appearance": {
+            "color": 4294954239,
+            "scale_with": "RANGE"
+          },
+          "batch": {
+            "count": 1.0,
+            "shape": "NONE",
+            "anchor": "ENTITY"
+          }
+        },
+        {
+          "id": "spell_engine:area_effect_676",
+          "appearance": {
+            "color": 4294954239,
+            "scale_with": "RANGE",
+            "facing": "CAMERA"
+          },
+          "batch": {
+            "count": 1.0,
+            "shape": "NONE",
+            "anchor": "ENTITY"
+          }
+        }
+      ]
+    },
     "sound": {
       "id": "paladins:immolation_release"
     }
@@ -91,17 +103,24 @@
           "spell_power_coefficient": 1.2
         }
       },
-      "particles": [
-        {
-          "particle_id": "spell_engine:magic_holy_burst",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 30.0,
-          "min_speed": 0.2,
-          "max_speed": 0.7,
-          "color_rgba": 4294954239
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_holy",
+            "appearance": {
+              "color": 4294954239,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 30.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.7
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "paladins:holy_shock_damage"
       }
@@ -130,17 +149,25 @@
           "spell_power_coefficient": 0.5
         }
       },
-      "particles": [
-        {
-          "particle_id": "spell_engine:magic_heal_ascend",
-          "origin": "FEET",
-          "shape": "PILLAR",
-          "count": 20.0,
-          "min_speed": 0.02,
-          "max_speed": 0.15,
-          "color_rgba": 1728014079
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_heal",
+            "appearance": {
+              "color": 1728014079,
+              "motion": "ASCEND"
+            },
+            "batch": {
+              "count": 20.0,
+              "shape": "PILLAR",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.02,
+              "max_speed": 0.15
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "spell_engine:generic_healing_impact_2"
       }

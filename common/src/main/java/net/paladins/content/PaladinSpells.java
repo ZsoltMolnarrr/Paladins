@@ -16,7 +16,6 @@ import net.spell_engine.api.spell.fx.ParticleGroup;
 import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
 import net.spell_engine.api.spell.fx.ParticleGroupBuilder.Batches;
 import net.spell_engine.api.spell.fx.Sound;
-import net.spell_engine.client.gui.SpellTooltip;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
 import net.spell_engine.fx.SpellEngineSounds;
@@ -49,22 +48,18 @@ public class PaladinSpells {
         }
     }
     public record Entry(Identifier id, Spell spell, String title, String description,
-                        @Nullable SpellTooltip.DescriptionMutator mutator,
                         @Nullable List<WeaponGroup> weaponGroups,
                         @Nullable Book book) {
         public Entry(Identifier id, Spell spell, String title, String description) {
-            this(id, spell, title, description, null, List.of(), null);
-        }
-        public Entry mutator(SpellTooltip.DescriptionMutator mutator) {
-            return new Entry(id, spell, title, description, mutator, weaponGroups, book);
+            this(id, spell, title, description, List.of(), null);
         }
         public Entry weaponGroup(WeaponGroup weaponGroup) {
             var newGroups = new ArrayList<>(weaponGroups != null ? weaponGroups : List.of());
             newGroups.add(weaponGroup);
-            return new Entry(id, spell, title, description, mutator, newGroups, book);
+            return new Entry(id, spell, title, description, newGroups, book);
         }
         public Entry book(Book book) {
-            return new Entry(id, spell, title, description, mutator, weaponGroups, book);
+            return new Entry(id, spell, title, description, weaponGroups, book);
         }
     }
     public static final List<Entry> entries = new ArrayList<>();

@@ -5,7 +5,6 @@ import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererRegistry;
 import net.paladins.client.armor.PaladinArmorRenderer;
 import net.paladins.client.armor.PriestArmorRenderer;
 import net.paladins.client.effect.DivineProtectionRenderer;
-import net.paladins.client.entity.BarrierEntityRenderer;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.api.effect.CustomModelStatusEffect;
@@ -54,7 +53,8 @@ public class PaladinsClientMod {
         //   NeoForge -> NeoForgeClientMod (EntityRenderersEvent.RegisterLayerDefinitions / RegisterRenderers)
         // Layer definitions MUST be contributed during the RegisterLayerDefinitions phase, which is
         // over by the time FMLClientSetupEvent (where this init runs on NeoForge) fires.
-        BarrierEntityRenderer.setup();
+        // The barrier's after-translucent render pass (BarrierEntityRenderer.renderAfterTranslucent) is
+        // likewise wired per-platform from each client entrypoint's native world-render event.
 
         registerArmorRenderer(Armors.paladinArmorSet_t1, PaladinArmorRenderer::paladin);
         registerArmorRenderer(Armors.paladinArmorSet_t2, PaladinArmorRenderer::crusader);

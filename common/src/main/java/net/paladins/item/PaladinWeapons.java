@@ -1,6 +1,6 @@
 package net.paladins.item;
 
-import net.fabricmc.loader.api.FabricLoader;
+import net.spell_engine.Platform;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -136,22 +136,22 @@ public class PaladinWeapons {
     // MARK: Register
 
     public static void register(Map<String, WeaponConfig> configs) {
-        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(BETTER_NETHER)) {
-            var repair = ingredient("betternether:nether_ruby", FabricLoader.getInstance().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
+        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || Platform.util().isModLoaded(BETTER_NETHER)) {
+            var repair = ingredient("betternether:nether_ruby", Platform.util().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
             add(Weapons.healingStaff(NAMESPACE, "ruby_holy_staff", Equipment.Tier.TIER_4, repair)
                     .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id())));
             add(Weapons.claymoreWithSkill(NAMESPACE, "ruby_claymore", Equipment.Tier.TIER_4, repair));
             add(Weapons.hammerWithSkill(NAMESPACE, "ruby_great_hammer", Equipment.Tier.TIER_4, repair));
             add(Weapons.maceWithSkill(NAMESPACE, "ruby_mace", Equipment.Tier.TIER_4, repair));
         }
-        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(BETTER_END)) {
-            var repair = ingredient("betterend:aeternium_ingot", FabricLoader.getInstance().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
+        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || Platform.util().isModLoaded(BETTER_END)) {
+            var repair = ingredient("betterend:aeternium_ingot", Platform.util().isModLoaded(BETTER_END), Items.NETHERITE_INGOT);
             add(Weapons.claymoreWithSkill(NAMESPACE, "aeternium_claymore", Equipment.Tier.TIER_4, repair));
             add(Weapons.hammerWithSkill(NAMESPACE, "aeternium_great_hammer", Equipment.Tier.TIER_4, repair));
             add(Weapons.maceWithSkill(NAMESPACE, "aeternium_mace", Equipment.Tier.TIER_4, repair));
         }
-        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || FabricLoader.getInstance().isModLoaded(AETHER)) {
-            var repair = ingredient("aether:ambrosium_shard", FabricLoader.getInstance().isModLoaded(AETHER), Items.NETHERITE_INGOT);
+        if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || Platform.util().isModLoaded(AETHER)) {
+            var repair = ingredient("aether:ambrosium_shard", Platform.util().isModLoaded(AETHER), Items.NETHERITE_INGOT);
             add(Weapons.healingStaff(NAMESPACE, "aether_holy_staff", Equipment.Tier.TIER_4, repair)
                     .spellContainer(SpellContainers.forMagicWeapon().withSpellId(PaladinSpells.HOLY_SHOCK.id()))
                     .loot(Equipment.LootProperties.of("aether")));

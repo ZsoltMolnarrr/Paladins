@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.render.RenderLayer;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.client.PaladinsClientMod;
@@ -28,5 +29,10 @@ public final class FabricModClient implements ClientModInitializer {
 
         // Fabric-specific render layer registration
         BlockRenderLayerMap.INSTANCE.putBlock(PaladinBlocks.MONK_WORKBENCH, RenderLayer.getCutout());
+
+        // Batched barrier rendering, replayed after translucent terrain (see BarrierEntityRenderer).
+        WorldRenderEvents.AFTER_TRANSLUCENT.register(context ->
+                BarrierEntityRenderer.renderAfterTranslucent(context.matrixStack(), context.camera(),
+                        context.tickCounter().getTickDelta(true)));
     }
 }

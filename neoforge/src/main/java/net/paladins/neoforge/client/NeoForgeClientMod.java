@@ -6,7 +6,9 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.common.NeoForge;
 import net.paladins.PaladinsMod;
 import net.paladins.client.PaladinsClientMod;
 import net.paladins.client.entity.BannerEntityRenderer;
@@ -23,6 +25,19 @@ public class NeoForgeClientMod {
     public static void onClientSetup(FMLClientSetupEvent event) {
         PaladinsClientMod.init();
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (modContainer, parent) -> new ConfigMenuScreen(parent));
+
+        // Batched barrier rendering, replayed after the particle pass (see BarrierEntityRenderer).
+        // Game-bus event, subscribed here since this class is on the mod bus.
+        // NOTE: must be AFTER_PARTICLES, not AFTER_TRANSLUCENT_BLOCKS. Vanilla renders particles
+        // *after* translucent terrain, so AFTER_TRANSLUCENT_BLOCKS fires before particles and any
+        // particle would paint over the barrier model. AFTER_PARTICLES matches where Fabric's
+        // WorldRenderEvents.AFTER_TRANSLUCENT injects (just before clouds, after particles).
+        NeoForge.EVENT_BUS.addListener(RenderLevelStageEvent.class, render -> {
+            if (render.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
+                BarrierEntityRenderer.renderAfterTranslucent(render.getPoseStack(), render.getCamera(),
+                        render.getPartialTick().getTickDelta(true));
+            }
+        });
     }
 
     @SubscribeEvent

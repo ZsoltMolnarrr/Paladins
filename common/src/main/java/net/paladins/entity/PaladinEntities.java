@@ -59,7 +59,9 @@ public class PaladinEntities {
                     .makeFireImmune()
                     .maxTrackingRange(128)
                     .trackingTickInterval(20)
-                    .build()));
+                    // Vanilla build(String id) — the no-arg build() is a Fabric API interface-injected
+                    // default (FabricEntityType.Builder) absent on NeoForge at runtime.
+                    .build("barrier")));
 
     public static final Entry<BannerEntity> BANNER = add(new Entry<>(
             Identifier.of(PaladinsMod.ID, "battle_banner"),
@@ -69,7 +71,7 @@ public class PaladinEntities {
                     .makeFireImmune()
                     .maxTrackingRange(128)
                     .trackingTickInterval(20)
-                    .build()));
+                    .build("battle_banner")));
 
     public static final Entry<LightwellEntity> LIGHTWELL = add(new Entry<>(
             Identifier.of(PaladinsMod.ID, "lightwell"),
@@ -79,7 +81,7 @@ public class PaladinEntities {
                     .makeFireImmune()
                     .maxTrackingRange(64)
                     .trackingTickInterval(3)
-                    .build(),
+                    .build("lightwell"),
             lightwellDefaults()));
 
     // Base attributes for the Lightwell summon, seeded into Paladins' OWN config file

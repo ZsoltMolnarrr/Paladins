@@ -2,10 +2,7 @@ package net.paladins.village;
 
 import com.google.common.collect.ImmutableSet;
 import net.fabric_extras.structure_pool.api.StructurePoolAPI;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -20,17 +17,33 @@ import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.paladins.content.PaladinSounds;
 import net.runes.api.RuneItems;
+import net.spell_engine.Platform;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 public class PaladinVillagers {
     public static final String PALADIN_MERCHANT = "monk";
+    public static final Identifier POI_ID = Identifier.of(PaladinsMod.ID, PALADIN_MERCHANT);
+    public static final int POI_TICKET_COUNT = 1;
+    public static final int POI_SEARCH_DISTANCE = 10;
 
-    public static PointOfInterestType registerPOI(String name, Block block) {
-        return PointOfInterestHelper.register(Identifier.of(PaladinsMod.ID, name),
-                1, 10, ImmutableSet.copyOf(block.getStateManager().getStates()));
+    /// The monk-workbench workstation block states for the POI. Registration itself is loader-specific
+    /// (Fabric: `PointOfInterestHelper`; NeoForge: a plain `Registry.register` of a `PointOfInterestType`,
+    /// whose block-state mapping NeoForge wires via its POI registry callback) — done in each platform's
+    /// entrypoint; this only exposes the shared state set.
+    public static Set<BlockState> poiBlockStates() {
+        return ImmutableSet.copyOf(PaladinBlocks.MONK_WORKBENCH.getStateManager().getStates());
     }
+
+    /// The registered monk profession, set by {@link #registerVillagers()}. Read by the loader-specific
+    /// trade-offer registration (Fabric `TradeOfferHelper` / NeoForge `VillagerTradesEvent`).
+    public static VillagerProfession PROFESSION;
+
+    /// Trade offers per merchant tier (1..5), populated by {@link #registerVillagers()}. Actual registration
+    /// with the game is loader-specific and lives in each platform's entrypoint.
+    public static final LinkedHashMap<Integer, List<TradeOffers.Factory>> TRADES = new LinkedHashMap<>();
 
     public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> workStation) {
         var id = Identifier.of(PaladinsMod.ID, name);
@@ -74,18 +87,14 @@ public class PaladinVillagers {
 //        }
 //    }
 
-    public static void registerPOI() {
-        if (!FabricLoader.getInstance().isModLoaded("lithostitched")) {
+    public static void registerVillagers() {
+        if (!Platform.util().isModLoaded("lithostitched")) {
             // Only inject the village if the Lithostitched is not present
             StructurePoolAPI.injectAll(PaladinsMod.villageConfig.value);
         }
-        registerPOI(PALADIN_MERCHANT, PaladinBlocks.MONK_WORKBENCH);
-    }
-
-    public static void registerVillagers() {
-        var profession = registerProfession(
+        PROFESSION = registerProfession(
                 PALADIN_MERCHANT,
-                RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), Identifier.of(PaladinsMod.ID, PALADIN_MERCHANT)));
+                RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), POI_ID));
 
 //        List<Offer> paladinMerchantOffers = List.of(
 //                Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.HEALING), 8), 2, 128, 1, 0.01f),
@@ -107,64 +116,37 @@ public class PaladinVillagers {
 //                Offer.sell(4, Armors.priestArmorSet_t1.legs.getDefaultStack(), 20, 12, 15, 0.05f)
 //            );
 
-        LinkedHashMap<Integer, List<TradeOffers.Factory>> trades = new LinkedHashMap<>();
-        trades.put(1, List.of(
+        TRADES.clear();
+        TRADES.put(1, List.of(
                 new TradeOffers.SellItemFactory(RuneItems.get(RuneItems.RuneType.HEALING), 2, 8, 128, 1, 0.01f),
                 new TradeOffers.SellItemFactory(PaladinWeapons.acolyte_wand.item(), 4, 1, 12, 5),
                 new TradeOffers.SellItemFactory(PaladinWeapons.wooden_great_hammer.item(), 8, 1, 12, 8)
         ));
-        trades.put(2, List.of(
+        TRADES.put(2, List.of(
                 new TradeOffers.BuyItemFactory(Items.WHITE_WOOL, 5, 12, 5, 8),
                 new TradeOffers.BuyItemFactory(Items.IRON_INGOT, 6, 12, 5, 8),
                 new TradeOffers.BuyItemFactory(Items.CHAIN, 6, 12, 5, 8),
                 new TradeOffers.BuyItemFactory(Items.GOLD_INGOT, 6, 12, 5, 8)
         ));
-        trades.put(3, List.of(
+        TRADES.put(3, List.of(
                 new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.head, 15, 1, 12, 13),
                 new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.feet, 15, 1, 12, 13),
                 new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.head, 15, 1, 12, 13),
                 new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.feet, 15, 1, 12, 13)
         ));
-        trades.put(4, List.of(
+        TRADES.put(4, List.of(
                 new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.chest, 20, 1, 12, 15),
                 new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.legs, 20, 1, 12, 15),
                 new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.chest, 20, 1, 12, 15),
                 new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.legs, 20, 1, 12, 15)
         ));
-
-        for (var entry: trades.entrySet()) {
-            TradeOfferHelper.registerVillagerOffers(profession, entry.getKey(), factories -> {
-                factories.addAll(entry.getValue());
-            });
-        }
-
-        TradeOfferHelper.registerVillagerOffers(profession, 5, factories -> {
-            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    PaladinWeapons.diamond_holy_staff.item(),
-                    40,
-                    3,
-                    30,
-                    0F).create(entity, random)
-            ));
-            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    PaladinWeapons.diamond_claymore.item(),
-                    40,
-                    3,
-                    30,
-                    0F).create(entity, random)
-            ));
-            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                    PaladinWeapons.diamond_great_hammer.item(),
-                    40,
-                    3,
-                    30,
-                    0F).create(entity, random)
-            ));
-        });
-    }
-
-    public static void register() {
-        registerPOI();
-        registerVillagers();
+        TRADES.put(5, List.of(
+                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+                        PaladinWeapons.diamond_holy_staff.item(), 40, 3, 30, 0F).create(entity, random),
+                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+                        PaladinWeapons.diamond_claymore.item(), 40, 3, 30, 0F).create(entity, random),
+                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+                        PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F).create(entity, random)
+        ));
     }
 }

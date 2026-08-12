@@ -1,6 +1,5 @@
 package net.paladins.client.entity;
 
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -30,11 +29,13 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
     private static final int[] LIGHT_UP_ORDER = {0, 2, 8, 6, 4, 3, 9, 1, 5, 10, 7, 11};
 
-    public static void setup() {
-        WorldRenderEvents.AFTER_TRANSLUCENT.register(context -> {
-            VertexConsumerProvider.Immediate vcProvider = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-            renderAllInWorld(context.matrixStack(), vcProvider, context.camera(), LightmapTextureManager.MAX_LIGHT_COORDINATE, context.tickCounter().getTickDelta(true));
-        });
+    // Replays the batched barrier renders during the world's after-translucent pass. Loader-neutral —
+    // each platform's client entrypoint calls this from its own event (Fabric
+    // `WorldRenderEvents.AFTER_TRANSLUCENT`; NeoForge `RenderLevelStageEvent` AFTER_TRANSLUCENT_BLOCKS),
+    // mirroring SpellEngine's BeamRenderer.renderAfterTranslucent.
+    public static void renderAfterTranslucent(MatrixStack matrices, Camera camera, float tickDelta) {
+        VertexConsumerProvider.Immediate vcProvider = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+        renderAllInWorld(matrices, vcProvider, camera, LightmapTextureManager.MAX_LIGHT_COORDINATE, tickDelta);
     }
 
     public BarrierEntityRenderer(EntityRendererFactory.Context context) {

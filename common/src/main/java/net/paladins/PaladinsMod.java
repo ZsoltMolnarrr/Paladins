@@ -1,8 +1,7 @@
 package net.paladins;
 
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,6 +18,7 @@ import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.paladins.content.PaladinSounds;
 import net.paladins.village.PaladinVillagers;
+import net.spell_engine.Platform;
 import net.spell_engine.api.config.ConfigFile;
 import net.tiny_config.ConfigManager;
 
@@ -65,7 +65,7 @@ public class PaladinsMod {
         effectsConfig.refresh();
         villageConfig.refresh();
         tweaksConfig.refresh();
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+        if (Platform.util().isDevelopmentEnvironment()) {
             tweaksConfig.value.ignore_items_required_mods = true;
         }
     }
@@ -79,7 +79,7 @@ public class PaladinsMod {
     }
 
     public static void registerItems() {
-        Group.PALADINS = FabricItemGroup.builder()
+        Group.PALADINS = new ItemGroup.Builder(ItemGroup.Row.TOP, 0)
                 .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
                 .displayName(Text.translatable("itemGroup.paladins.general"))
                 .build();
@@ -98,10 +98,6 @@ public class PaladinsMod {
     public static void registerEffects() {
         PaladinEffects.register(effectsConfig.value);
         effectsConfig.save();
-    }
-
-    public static void registerPOI() {
-        PaladinVillagers.registerPOI();
     }
 
     public static void registerVillagers() {

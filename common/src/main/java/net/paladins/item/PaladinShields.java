@@ -9,7 +9,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
-import net.spell_engine.api.config.ShieldConfig;
+import net.spell_engine.rpg_series.config.ShieldConfig;
 import net.spell_engine.rpg_series.item.Equipment;
 import net.spell_engine.rpg_series.item.Shield;
 import net.spell_engine.rpg_series.item.Shields;

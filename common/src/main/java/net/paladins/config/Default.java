@@ -1,7 +1,7 @@
 package net.paladins.config;
 
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
-import net.spell_engine.api.config.ConfigFile;
+import net.spell_engine.rpg_series.config.ConfigFile;
 
 import java.util.Arrays;
 import java.util.Collection;

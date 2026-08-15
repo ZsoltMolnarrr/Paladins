@@ -9,7 +9,7 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSpells;
-import net.spell_engine.api.config.WeaponConfig;
+import net.spell_engine.rpg_series.config.WeaponConfig;
 import net.spell_engine.api.spell.container.SpellContainers;
 import net.spell_engine.rpg_series.item.Equipment;
 import net.spell_engine.rpg_series.item.Weapon;

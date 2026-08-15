@@ -19,7 +19,7 @@ import net.paladins.item.armor.Armors;
 import net.paladins.content.PaladinSounds;
 import net.paladins.village.PaladinVillagers;
 import net.spell_engine.Platform;
-import net.spell_engine.api.config.ConfigFile;
+import net.spell_engine.rpg_series.config.ConfigFile;
 import net.tiny_config.ConfigManager;
 
 public class PaladinsMod {

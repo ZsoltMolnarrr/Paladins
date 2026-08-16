@@ -1,9 +1,7 @@
 {
   "itemGroup.paladins.general": "팔라딘 & 사제 (RPG 시리즈)",
-
   "item.paladins.spell_book/paladin": "팔라딘 성서",
   "item.paladins.spell_book/priest": "성경",
-
   "item.paladins.paladin_armor_head": "팔라딘 투구",
   "item.paladins.paladin_armor_chest": "팔라딘 흉갑",
   "item.paladins.paladin_armor_legs": "팔라딘 레깅스",
@@ -12,7 +10,6 @@
   "item.paladins.crusader_armor_chest": "성전사 흉갑",
   "item.paladins.crusader_armor_legs": "성전사 레깅스",
   "item.paladins.crusader_armor_feet": "성전사 부츠",
-
   "item.paladins.stone_claymore": "돌 클레이모어",
   "item.paladins.iron_claymore": "철 클레이모어",
   "item.paladins.golden_claymore": "금 클레이모어",
@@ -20,7 +17,6 @@
   "item.paladins.netherite_claymore": "네더라이트 클레이모어",
   "item.paladins.aeternium_claymore": "에테르늄 클레이모어",
   "item.paladins.ruby_claymore": "루비 클레이모어",
-
   "item.paladins.wooden_great_hammer": "나무 대형 망치",
   "item.paladins.stone_great_hammer": "돌 대형 망치",
   "item.paladins.iron_great_hammer": "철 대형 망치",
@@ -29,7 +25,6 @@
   "item.paladins.netherite_great_hammer": "네더라이트 대형 망치",
   "item.paladins.aeternium_great_hammer": "에테르늄 대형 망치",
   "item.paladins.ruby_great_hammer": "루비 대형 망치",
-
   "item.paladins.stone_mace": "돌 메이스",
   "item.paladins.iron_mace": "철 메이스",
   "item.paladins.golden_mace": "금 메이스",
@@ -37,7 +32,6 @@
   "item.paladins.netherite_mace": "네더라이트 메이스",
   "item.paladins.aeternium_mace": "에테르늄 메이스",
   "item.paladins.ruby_mace": "루비 메이스",
-
   "item.paladins.priest_robe_head": "사제 칼라",
   "item.paladins.priest_robe_chest": "사제 의복",
   "item.paladins.priest_robe_legs": "사제 바지",
@@ -46,17 +40,14 @@
   "item.paladins.prior_robe_chest": "수도사 의복",
   "item.paladins.prior_robe_legs": "수도사 바지",
   "item.paladins.prior_robe_feet": "수도사 부츠",
-
   "item.paladins.acolyte_wand": "수련생 완드",
   "item.paladins.holy_wand": "신성한 완드",
   "item.paladins.diamond_holy_wand": "다이아몬드 신성한 완드",
   "item.paladins.netherite_holy_wand": "네더라이트 신성한 완드",
-
   "item.paladins.holy_staff": "신성한 스태프",
   "item.paladins.diamond_holy_staff": "다이아몬드 신성한 스태프",
   "item.paladins.netherite_holy_staff": "네더라이트 신성한 스태프",
   "item.paladins.ruby_holy_staff": "루비 신성한 스태프",
-
   "spell.paladins.flash_heal.name": "순간 치유",
   "spell.paladins.flash_heal.description": "자신 또는 아군을 {heal}만큼 치유합니다.",
   "spell.paladins.divine_protection.name": "신성 보호",
@@ -71,7 +62,6 @@
   "spell.paladins.battle_banner.description": "{cloud_radius}블록 내의 자신과 아군의 공격 속도와 밀치기 저항을 {cloud_duration}초 동안 증가시킵니다.",
   "effect.paladins.battle_banner": "전투 깃발",
   "effect.paladins.battle_banner.description": "공격 속도와 밀치기 저항을 증가시킵니다.",
-
   "spell.paladins.heal.name": "치유",
   "spell.paladins.heal.description": "자신 또는 아군을 {heal}만큼 치유합니다.",
   "spell.paladins.holy_shock.name": "신성한 충격",
@@ -84,7 +74,6 @@
   "effect.paladins.priest_absorption.description": "받는 피해를 흡수합니다.",
   "spell.paladins.barrier.name": "보호막",
   "spell.paladins.barrier.description": "원형 보호막을 소환하여 자신과 아군을 투사체, 마법 또는 적의 공격으로부터 보호합니다.",
-
   "entity.paladins.barrier": "보호막",
   "entity.paladins.battle_banner": "전투 깃발",
   "entity.minecraft.villager.monk": "수도사",
@@ -92,25 +81,20 @@
   "entity.minecraft.villager.paladins:monk": "수도사",
   "block.paladins.monk_workbench": "수도사 작업대",
   "block.paladins.monk_workbench.hint": "수도사 마을 주민을 위한 작업대입니다.",
-
   "advancements.rpg_series.path_choose_paladin.title": "정의의 길",
   "advancements.rpg_series.path_choose_paladin.description": "팔라딘 성서를 만드세요",
   "advancements.rpg_series.path_choose_priest.title": "빛의 길",
   "advancements.rpg_series.path_choose_priest.description": "성경을 만드세요",
-
   "advancements.rpg_series.spell_novice_paladin.title": "열정적인 수호자",
   "advancements.rpg_series.spell_novice_paladin.description": "첫 번째 팔라딘 주문을 얻으세요",
   "advancements.rpg_series.spell_novice_priest.title": "승천의 약속",
   "advancements.rpg_series.spell_novice_priest.description": "첫 번째 사제 주문을 얻으세요",
-
   "advancements.rpg_series.spell_master_paladin.title": "심판의 시간",
   "advancements.rpg_series.spell_master_paladin.description": "모든 팔라딘 주문을 얻으세요",
   "advancements.rpg_series.spell_master_priest.title": "오리의 종",
   "advancements.rpg_series.spell_master_priest.description": "모든 사제 주문을 얻으세요",
-
   "advancements.rpg_series.obtain_healing_rune.title": "치유의 길",
   "advancements.rpg_series.obtain_healing_rune.description": "치유의 룬을 얻으세요",
-
   "item.paladins.spell_scroll/paladin": "팔라딘 주문서",
   "item.paladins.spell_scroll/priest": "성스러운 주문서",
   "item.paladins.spell_book/paladin.spell_binding.description": "팔라딘의 성서. 무기와 주문을 사용하여 적을 공격하고 아군을 지원합니다.\n- 강점: 회복, 공격, 방어에 능숙한 다재다능함\n- 약점: 제한적인 원거리 공격과 기동성\n- 장비: 중갑",
@@ -141,5 +125,22 @@
   "advancements.rpg_series.spell_cast_priest_wand.title": "치유의 감각",
   "advancements.rpg_series.spell_cast_priest_wand.description": "치유 완드로 주문 시전하기",
   "advancements.rpg_series.trade_with_monk.title": "힐러 교환",
-  "advancements.rpg_series.trade_with_monk.description": "수도사 주민에게서 아이템 구매하기"
+  "advancements.rpg_series.trade_with_monk.description": "수도사 주민에게서 아이템 구매하기",
+  "effect.paladins.blessed_strikes": "축복의 타격",
+  "effect.paladins.blessed_strikes.description": "무기에 신성한 빛이 깃들어, 공격하는 적을 불태웁니다",
+  "effect.paladins.levitate": "공중부양",
+  "effect.paladins.levitate.description": "공중에서 부드럽게 떠다닙니다.",
+  "entity.paladins.lightwell": "빛의 샘",
+  "spell.paladins.blessed_strikes.description": "무기에 신성한 빛을 불어넣어 최대 5번까지 축복을 부여합니다. 근접 공격을 할 때마다 축복을 하나 소모하여 {damage}의 추가 주문 피해를 줍니다.",
+  "spell.paladins.blessed_strikes.name": "축복의 타격",
+  "spell.paladins.immolation.description": "신성한 불길을 터뜨려 주변 적에게 {damage}의 피해를 주고 불태우며, 자신과 주변 아군을 {heal}만큼 치유합니다.",
+  "spell.paladins.immolation.name": "신성한 불길",
+  "spell.paladins.levitate.description": "신성한 빛으로 공중에 떠오르도록 시전합니다. 시전을 멈추면 계속 떠 있다가 서서히 내려옵니다.",
+  "spell.paladins.levitate.name": "공중부양",
+  "spell.paladins.lightwell.description": "빛의 샘을 소환하여 자신과 주변의 부상당한 아군을 치유합니다. {summon_duration}초 동안 지속됩니다.",
+  "spell.paladins.lightwell.name": "빛의 샘",
+  "spell.paladins.lightwell_orb.description": "아군 대상을 체력 {heal}만큼 치유합니다.",
+  "spell.paladins.lightwell_orb.name": "빛의 파편",
+  "spell.paladins.penance.description": "적에게 신성한 화살 세례를 시전합니다. 세 발의 화살은 각각 {damage}의 피해를 주며, 대상으로부터 {impact_range}블록 이내의 아군에게 흡수 효과를 발산합니다 — 당신의 공격이 곧 그들의 보호가 됩니다.",
+  "spell.paladins.penance.name": "고해"
 }

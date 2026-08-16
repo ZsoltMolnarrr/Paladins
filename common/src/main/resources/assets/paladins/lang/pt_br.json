@@ -125,5 +125,22 @@
   "advancements.rpg_series.obtain_healing_rune.title": "Caminho da Cura",
   "advancements.rpg_series.obtain_healing_rune.description": "Obtenha uma Runa de Cura",
   "advancements.rpg_series.trade_with_monk.title": "Comércio de Curandeiros",
-  "advancements.rpg_series.trade_with_monk.description": "Compre um item de um aldeão Monge"
+  "advancements.rpg_series.trade_with_monk.description": "Compre um item de um aldeão Monge",
+  "effect.paladins.blessed_strikes": "Golpes abençoados",
+  "effect.paladins.blessed_strikes.description": "Sua arma está carregada com luz sagrada, queimando os inimigos que você atinge",
+  "effect.paladins.levitate": "Levitação",
+  "effect.paladins.levitate.description": "Você flutua suavemente pelo ar.",
+  "entity.paladins.lightwell": "Poço de luz",
+  "spell.paladins.blessed_strikes.description": "Canaliza luz sagrada em sua arma, abençoando-a até 5 vezes. Cada golpe corpo a corpo consome uma bênção para causar {damage} de dano mágico adicional.",
+  "spell.paladins.blessed_strikes.name": "Golpes abençoados",
+  "spell.paladins.immolation.description": "Explode em fogo sagrado, causando {damage} de dano a inimigos próximos e incendiando-os, enquanto cura você e aliados próximos em {heal}.",
+  "spell.paladins.immolation.name": "Imolação",
+  "spell.paladins.levitate.description": "Canalize para se elevar no ar com luz sagrada. Ao parar, você continua flutuando e desce suavemente de volta ao chão.",
+  "spell.paladins.levitate.name": "Levitação",
+  "spell.paladins.lightwell.description": "Invoca um Poço de luz que cura você e aliados feridos próximos. Dura {summon_duration} seg.",
+  "spell.paladins.lightwell.name": "Poço de luz",
+  "spell.paladins.lightwell_orb.description": "Cura um alvo amigo em {heal} pontos de vida.",
+  "spell.paladins.lightwell_orb.name": "Partícula sagrada",
+  "spell.paladins.penance.description": "Canalize uma rajada de raios sagrados contra um inimigo. Cada um dos três raios causa {damage} de dano e irradia um escudo de absorção para aliados a até {impact_range} blocos do seu alvo — seu ataque é a proteção deles.",
+  "spell.paladins.penance.name": "Penitência"
 }

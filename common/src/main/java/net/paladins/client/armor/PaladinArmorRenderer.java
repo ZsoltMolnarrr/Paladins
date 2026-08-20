@@ -1,27 +1,26 @@
 package net.paladins.client.armor;
 
-import mod.azure.azurelibarmor.common.render.armor.AzArmorRenderer;
-import mod.azure.azurelibarmor.common.render.armor.AzArmorRendererConfig;
-import mod.azure.azurelibarmor.common.render.layer.AzArmorTrimLayer;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
+import net.rpg_foundation.armor_api.client.GeoArmorRenderer;
 
-public class PaladinArmorRenderer extends AzArmorRenderer {
-    public static PaladinArmorRenderer paladin() {
-        return new PaladinArmorRenderer("paladin_armor", "paladin_armor");
+public final class PaladinArmorRenderer {
+    private PaladinArmorRenderer() { }
+
+    public static GeoArmorRenderer paladin() {
+        return make("paladin_armor", "paladin_armor");
     }
-    public static PaladinArmorRenderer crusader() {
-        return new PaladinArmorRenderer("paladin_armor", "crusader_armor");
+    public static GeoArmorRenderer crusader() {
+        return make("paladin_armor", "crusader_armor");
     }
-    public static PaladinArmorRenderer netheriteCrusader() {
-        return new PaladinArmorRenderer("paladin_armor", "netherite_crusader_armor");
+    public static GeoArmorRenderer netheriteCrusader() {
+        return make("paladin_armor", "netherite_crusader_armor");
     }
 
-    public PaladinArmorRenderer(String modelName, String textureName) {
-        super(AzArmorRendererConfig.builder(
+    private static GeoArmorRenderer make(String modelName, String textureName) {
+        return GeoArmorRenderer.of(
                 Identifier.of(PaladinsMod.ID, "geo/" + modelName + ".geo.json"),
                 Identifier.of(PaladinsMod.ID, "textures/armor/" + textureName + ".png"))
-                .addRenderLayer(new AzArmorTrimLayer(Identifier.of(PaladinsMod.ID, "armor/trim/" + textureName + "_generic"), false))
-                .build());
+                .trim(Identifier.of(PaladinsMod.ID, "armor/trim/" + textureName + "_generic"), false);
     }
 }

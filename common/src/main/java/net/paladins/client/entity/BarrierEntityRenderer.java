@@ -105,8 +105,9 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         // (lightning-style, SRC_ALPHA/ONE) variant so the panels stay vibrant when bloomed.
         private static final RenderLayer VANILLA_LAYER =
                 CustomLayers.spellObject(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, LightEmission.GLOW, true);
-        private static final RenderLayer IRIS_LAYER =
-                CustomLayers.spellObjectAdditive(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+        // Shader packs: vanilla's lightning pipeline, as on 1.21.1 (flat color, additive; Iris handles it as
+        // lightning, not as a full-bright beacon beam, so it does not bloom out)
+        private static final RenderLayer IRIS_LAYER = CustomLayers.spellObjectLightning();
 
         public static final Config VANILLA = new Config(VANILLA_LAYER,
                 shield.red(), shield.green(), shield.blue(), 0.8f, 0.9f, 1f);

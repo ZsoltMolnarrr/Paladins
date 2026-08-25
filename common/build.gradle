@@ -5,11 +5,6 @@ architectury {
 // Dummy platform for common compile
 def platform = "fabric";
 
-if (!rootProject.enable_shields.toBoolean()) {
-    sourceSets.main.java.exclude 'net/paladins/item/PaladinShields.java'
-    sourceSets.main.java.exclude 'net/paladins/item/shield/**'
-}
-
 repositories {
     maven { url = 'https://repo.redlance.org/public' } // PAL (Player Animation Library)
     maven { url = 'https://maven.shedaniel.me/' }

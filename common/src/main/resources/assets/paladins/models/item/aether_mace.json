@@ -1,6 +1,7 @@
 {
   "parent": "paladins:item/base/mace",
   "textures": {
-    "1": "paladins:item/aether_mace"
+    "1": "paladins:item/aether_mace",
+    "particle": "paladins:item/aether_mace"
   }
 }

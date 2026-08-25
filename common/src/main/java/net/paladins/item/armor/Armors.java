@@ -75,8 +75,8 @@ public class Armors {
     }
 
     
-    private static final Identifier ATTACK_DAMAGE_ID = Identifier.ofVanilla("generic.attack_damage");
-    private static final Identifier ARMOR_TOUGHNESS_ID = Identifier.ofVanilla("generic.armor_toughness");
+    private static final Identifier ATTACK_DAMAGE_ID = Identifier.ofVanilla("attack_damage");
+    private static final Identifier ARMOR_TOUGHNESS_ID = Identifier.ofVanilla("armor_toughness");
     private static AttributeModifier damageMultiplier(float value) {
         return new AttributeModifier(
                 ATTACK_DAMAGE_ID.toString(),

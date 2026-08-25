@@ -34,7 +34,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         @Nullable public BarrierEntity barrier;
     }
 
-    public static final Identifier blankTextureId = Identifier.of(PaladinsMod.ID, "item/barrier");
+    public static final Identifier blankTextureId = Identifier.of(PaladinsMod.ID, "spell_effect/barrier");
     public static final List<BarrierEntity> activeBarriers = new ArrayList<>();
 
     private static final int[] LIGHT_UP_ORDER = {0, 2, 8, 6, 4, 3, 9, 1, 5, 10, 7, 11};

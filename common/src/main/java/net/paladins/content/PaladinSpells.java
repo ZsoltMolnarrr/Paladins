@@ -421,9 +421,12 @@ public class PaladinSpells {
     private static Entry immolation() {
         var id = Identifier.of(PaladinsMod.ID, "immolation");
         var title = "Immolation";
-        var description = "Erupts in holy fire, dealing {damage} damage to nearby enemies and setting them ablaze, while healing you and nearby allies by {heal}.";
+        var description = "Erupts in holy fire, dealing {damage} damage to nearby enemies and setting them ablaze, while healing you and nearby allies by {heal}. The longer the cast is held, the harder it hits and the wider it spreads.";
 
-        float range = 5;
+        // The eruption grows with the hold: `range` is the bare-release footprint, and the charge
+        // bonus below adds the rest, so a FULL charge reaches the historical 5 blocks.
+        float range = 2;
+        float rangeAtFullCharge = 5;
 
         var spell = SpellBuilder.createSpellActive();
         spell.school = SpellSchools.HEALING;
@@ -431,7 +434,24 @@ public class PaladinSpells {
         spell.tier = 4;
         spell.group = RETRIBUTION;
 
-        SpellBuilder.Casting.instant(spell);
+        // Charged eruption: the holy fire gathers while the key is held and bursts on release.
+        // The impact values below describe a FULL charge — an early release erupts weaker.
+        // `output_scaling` keeps the per-target swing modest (0.6 -> ~55% output at the earliest
+        // allowed release); the radius scaling on top of it is what really rewards a full hold,
+        // since an AREA burst covers ground with the square of its reach.
+        // LINEAR curve on purpose: radius growth reads best as a steady expansion, and the
+        // area-times-output product is already steep without an easing on top.
+        var charge = SpellBuilder.Casting.charge(spell, 1F);
+        charge.min_release_ratio = 0.25F;
+        charge.output_scaling = 0.6F;
+        // Ratio-scaled by the curve at release: 2 blocks at a bare release, 5 at a full one.
+        // This also opts the caster's own range modifiers (e.g. the skill tree's `Immolation`
+        // radius root) into the same scaling — see SpellParameters.getRangeCurved.
+        charge.bonus.range_add = rangeAtFullCharge - range;
+
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_area_charge");
+        spell.active.cast.sound = Sound.withRandomness(SpellEngineSounds.GENERIC_HEALING_CASTING.id(), 0);
+        spell.active.cast.particles = List.of(holyCastingSparks());
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_shout_release");
         spell.release.sound = new Sound(PaladinSounds.immolation_release.id());

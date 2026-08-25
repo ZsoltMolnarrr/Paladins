@@ -1,10 +1,47 @@
 {
   "school": "spell_power:healing",
-  "range": 5.0,
+  "range": 2.0,
   "tier": 4,
   "group": "paladin_retribution",
   "learn": {},
-  "active": {},
+  "active": {
+    "cast": {
+      "duration": 1.0,
+      "type": "CHARGE",
+      "charge": {
+        "min_release_ratio": 0.25,
+        "output_scaling": 0.6,
+        "bonus": {
+          "range_add": 3.0
+        }
+      },
+      "animation": {
+        "id": "spell_engine:one_handed_area_charge"
+      },
+      "sound": {
+        "id": "spell_engine:generic_healing_casting",
+        "randomness": 0.0
+      },
+      "particles": [
+        {
+          "id": "spell_engine:magic_spark",
+          "appearance": {
+            "color": 4294954239,
+            "motion": "FLOAT"
+          },
+          "batch": {
+            "count": 1.0,
+            "shape": "PIPE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.05,
+            "max_speed": 0.1,
+            "width_factor": 2.0
+          }
+        }
+      ]
+    }
+  },
   "release": {
     "animation": {
       "id": "spell_engine:one_handed_shout_release"

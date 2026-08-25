@@ -100,19 +100,18 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
         private static final Color shield = Color.from(0xffcc66);
 
-        // 1.21.11: `RenderPhase`/program constants are gone — a layer is a `RenderSetup` over a
-        // `RenderPipeline`. The vanilla and Iris variants used to differ only in the shader program
-        // (beacon-beam vs lightning) and blend; the lightning pipeline's vertex format is
-        // POSITION_COLOR only (no texture/overlay/lightmap), so both now share SpellEngine's emissive,
-        // no-cull, translucent spell-object layer — which matches the beacon-beam look and the
-        // vertex writes below. The per-variant colours/alphas are kept.
-        private static final RenderLayer BARRIER_LAYER =
-                CustomLayers.spellObject(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, LightEmission.RADIATE, true);
+        // 1.21.11: a layer is a `RenderSetup` over a `RenderPipeline`. Same split as 1.21.1: vanilla draws
+        // through the beacon-beam program with translucent blending, shader packs through an additive
+        // (lightning-style, SRC_ALPHA/ONE) variant so the panels stay vibrant when bloomed.
+        private static final RenderLayer VANILLA_LAYER =
+                CustomLayers.spellObject(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, LightEmission.GLOW, true);
+        private static final RenderLayer IRIS_LAYER =
+                CustomLayers.spellObjectAdditive(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 
-        public static final Config VANILLA = new Config(BARRIER_LAYER,
+        public static final Config VANILLA = new Config(VANILLA_LAYER,
                 shield.red(), shield.green(), shield.blue(), 0.8f, 0.9f, 1f);
 
-        public static final Config IRIS = new Config(BARRIER_LAYER,
+        public static final Config IRIS = new Config(IRIS_LAYER,
                 shield.red(), shield.green(), shield.blue(), 0.5f, 1f, 0.8f);
     }
 

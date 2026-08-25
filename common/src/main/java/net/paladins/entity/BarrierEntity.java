@@ -6,7 +6,9 @@ import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -58,7 +60,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
     }
 
     @Override
-    public boolean isCollidable() {
+    public boolean isCollidable(@Nullable Entity entity) {
         return true;
     }
 
@@ -84,10 +86,13 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         return super.collidesWith(other);
     }
 
+    /// `Entity#damage` is abstract since 1.21.2 (there is no inheritable no-op any more). The barrier
+    /// takes no damage — hitting it only plays the impact sound, which is what the 1.21.1 code did too
+    /// (the old `Entity#damage` base always returned false for a non-living entity).
     @Override
-    public boolean damage(DamageSource source, float amount) {
-        this.getWorld().playSoundFromEntity(null, this, PaladinSounds.holy_barrier_impact.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
-        return super.damage(source, amount);
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        this.getEntityWorld().playSoundFromEntity(null, this, PaladinSounds.holy_barrier_impact.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
+        return false;
     }
 
     @Override
@@ -138,20 +143,20 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
 
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.spellId = Identifier.of(nbt.getString(NBTKey.SPELL_ID.key));
-        this.ownerId = nbt.getInt(NBTKey.OWNER_ID.key);
-        this.timeToLive = nbt.getInt(NBTKey.TIME_TO_LIVE.key);
+    protected void readCustomData(ReadView view) {
+        this.spellId = Identifier.of(view.getString(NBTKey.SPELL_ID.key, ""));
+        this.ownerId = view.getInt(NBTKey.OWNER_ID.key, 0);
+        this.timeToLive = view.getInt(NBTKey.TIME_TO_LIVE.key, 0);
 
         this.getDataTracker().set(SPELL_ID_TRACKER, this.spellId.toString());
         this.getDataTracker().set(OWNER_ID_TRACKER, this.ownerId);
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putString(NBTKey.SPELL_ID.key, this.spellId.toString());
-        nbt.putInt(NBTKey.OWNER_ID.key, this.ownerId);
-        nbt.putInt(NBTKey.TIME_TO_LIVE.key, this.timeToLive);
+    protected void writeCustomData(WriteView view) {
+        view.putString(NBTKey.SPELL_ID.key, this.spellId.toString());
+        view.putInt(NBTKey.OWNER_ID.key, this.ownerId);
+        view.putInt(NBTKey.TIME_TO_LIVE.key, this.timeToLive);
     }
 
     @Override
@@ -172,20 +177,20 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
             return;
         }
         var spell = spellEntry.value();
-        var world = this.getWorld();
+        var world = this.getEntityWorld();
         if (world.isClient()) {
             // Client
             if (!idleSoundFired) {
                 ((SoundPlayerWorld)world).playSoundFromEntity(this, PaladinSounds.holy_barrier_idle.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
                 idleSoundFired = true;
             }
-        } else {
+        } else if (world instanceof ServerWorld serverWorld) {
             // Server
             if (this.age > this.timeToLive) {
-                this.kill();
+                this.kill(serverWorld);
             }
             if (this.age % checkInterval == 0) {
-                var entities = getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.1F));
+                var entities = getEntityWorld().getOtherEntities(this, this.getBoundingBox().expand(0.1F));
                 for (var entity : entities) {
                     if (entity instanceof LivingEntity livingEntity) {
                         if (isProtected(livingEntity)) {
@@ -204,7 +209,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
                 }
             }
             if (this.age == (this.timeToLive - expirationDuration())) {
-                this.getWorld().playSoundFromEntity(null, this, PaladinSounds.holy_barrier_deactivate.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
+                this.getEntityWorld().playSoundFromEntity(null, this, PaladinSounds.holy_barrier_deactivate.soundEvent(), SoundCategory.PLAYERS, 1F, 1F);
             }
         }
     }
@@ -235,7 +240,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
     }
 
     @Nullable public RegistryEntry<Spell> getSpellEntry() {
-        return SpellRegistry.from(this.getWorld()).getEntry(this.spellId).orElse(null);
+        return SpellRegistry.from(this.getEntityWorld()).getEntry(this.spellId).orElse(null);
     }
 
     private LivingEntity cachedOwner = null;
@@ -244,7 +249,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         if (cachedOwner != null) {
             return cachedOwner;
         }
-        var owner = this.getWorld().getEntityById(this.ownerId);
+        var owner = this.getEntityWorld().getEntityById(this.ownerId);
         if (owner instanceof LivingEntity livingOwner) {
             cachedOwner = livingOwner;
             return livingOwner;

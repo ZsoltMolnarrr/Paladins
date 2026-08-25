@@ -6,6 +6,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.spell.summon.SummonedEntities;
@@ -43,6 +45,10 @@ public class PaladinEntities {
         }
     }
 
+    private static RegistryKey<EntityType<?>> entityKey(String path) {
+        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(PaladinsMod.ID, path));
+    }
+
     public static final List<Entry<?>> entries = new ArrayList<>();
     private static <T extends Entity> Entry<T> add(Entry<T> entry) {
         entries.add(entry);
@@ -59,9 +65,9 @@ public class PaladinEntities {
                     .makeFireImmune()
                     .maxTrackingRange(128)
                     .trackingTickInterval(20)
-                    // Vanilla build(String id) — the no-arg build() is a Fabric API interface-injected
+                    // Vanilla build(RegistryKey) — the no-arg build() is a Fabric API interface-injected
                     // default (FabricEntityType.Builder) absent on NeoForge at runtime.
-                    .build("barrier")));
+                    .build(entityKey("barrier"))));
 
     public static final Entry<BannerEntity> BANNER = add(new Entry<>(
             Identifier.of(PaladinsMod.ID, "battle_banner"),
@@ -71,7 +77,7 @@ public class PaladinEntities {
                     .makeFireImmune()
                     .maxTrackingRange(128)
                     .trackingTickInterval(20)
-                    .build("battle_banner")));
+                    .build(entityKey("battle_banner"))));
 
     public static final Entry<LightwellEntity> LIGHTWELL = add(new Entry<>(
             Identifier.of(PaladinsMod.ID, "lightwell"),
@@ -81,7 +87,7 @@ public class PaladinEntities {
                     .makeFireImmune()
                     .maxTrackingRange(64)
                     .trackingTickInterval(3)
-                    .build("lightwell"),
+                    .build(entityKey("lightwell")),
             lightwellDefaults()));
 
     // Base attributes for the Lightwell summon, seeded into Paladins' OWN config file

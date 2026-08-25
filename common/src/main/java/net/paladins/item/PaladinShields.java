@@ -1,6 +1,5 @@
 package net.paladins.item;
 
-import net.fabric_extras.shield_api.item.CustomShieldItem;
 import net.spell_engine.Platform;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -9,6 +8,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
+import net.paladins.item.shield.VanillaShields;
 import net.spell_engine.rpg_series.config.ShieldConfig;
 import net.spell_engine.rpg_series.item.Equipment;
 import net.spell_engine.rpg_series.item.Shield;
@@ -64,6 +64,6 @@ public class PaladinShields {
             add(Shields.createStandard(PaladinsMod.ID, "aether_kite_shield", Equipment.Tier.TIER_4, repair, PaladinSounds.shield_equip.entry())
                     .loot(-1, "aether"));
         }
-        Shield.register(configs, entries, Group.KEY, CustomShieldItem::new);
+        Shield.register(configs, entries, Group.KEY, VanillaShields::create);
     }
 }

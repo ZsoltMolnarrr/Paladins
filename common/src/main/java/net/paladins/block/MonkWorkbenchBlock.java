@@ -3,23 +3,16 @@ package net.paladins.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.paladins.PaladinsMod;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class MonkWorkbenchBlock extends Block {
     public static final String NAME = "monk_workbench";
@@ -27,11 +20,8 @@ public class MonkWorkbenchBlock extends Block {
         super(settings);
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
-        super.appendTooltip(stack, context, tooltip, options);
-        tooltip.add(Text.translatable("block." + PaladinsMod.ID + "." + NAME +".hint").formatted(Formatting.GRAY, Formatting.ITALIC));
-    }
+    // `Block#appendTooltip` is gone since 1.21.5 — the hint is appended by the block item
+    // (see PaladinBlocks.MONK_WORKBENCH_BLOCK).
 
     // MARK: Shape
 
@@ -47,7 +37,7 @@ public class MonkWorkbenchBlock extends Block {
 
     // MARK: Facing
 
-    private static DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    private static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     @Nullable
     @Override
@@ -57,13 +47,13 @@ public class MonkWorkbenchBlock extends Block {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        FACING = Properties.HORIZONTAL_FACING;
         builder.add(FACING);
     }
 
     // MARK: Partial transparency
 
-    public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+    @Override
+    protected boolean isTransparent(BlockState state) {
         return true;
     }
 }

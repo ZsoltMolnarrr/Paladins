@@ -1,8 +1,8 @@
 package net.paladins.item;
 
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.paladins.item.armor.Armors;
+import net.spell_engine.rpg_series.item.Armor;
 
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ public class PaladinItems {
         for(var entry: Armors.entries) {
             var set = entry.armorSet();
             for (var piece: set.pieces()) {
-                var armorItem = (ArmorItem) piece;
+                var armorItem = (Armor.CustomItem) piece;
                 entries.put(set.idOf(armorItem).toString(), armorItem);
             }
         }

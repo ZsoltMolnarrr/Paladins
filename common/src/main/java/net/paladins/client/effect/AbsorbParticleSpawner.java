@@ -17,8 +17,8 @@ public class AbsorbParticleSpawner implements CustomParticleStatusEffect.Spawner
 
     @Override
     public void spawnParticles(LivingEntity livingEntity, int amplifier) {
-        var world = livingEntity.getWorld();
-        if (world.isClient) {
+        var world = livingEntity.getEntityWorld();
+        if (world.isClient()) {
             var scaledParticles = particles.copy();
             scaledParticles.batch.count *= (amplifier + 1);
             scaledParticles.batch.max_speed *= livingEntity.getScaleFactor();

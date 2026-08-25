@@ -24,7 +24,7 @@ public final class FabricMod implements ModInitializer {
                 PaladinVillagers.poiBlockStates());
         PaladinsMod.registerVillagers(); // registers the profession + builds PaladinVillagers.TRADES
         PaladinVillagers.TRADES.forEach((tier, factories) ->
-                TradeOfferHelper.registerVillagerOffers(PaladinVillagers.PROFESSION, tier,
+                TradeOfferHelper.registerVillagerOffers(PaladinVillagers.PROFESSION_KEY, tier,
                         list -> list.addAll(factories)));
 
         // Monk workbench into the Paladins creative tab — Fabric API.

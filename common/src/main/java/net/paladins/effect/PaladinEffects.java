@@ -37,7 +37,7 @@ public class PaladinEffects {
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_ATTACK_SPEED.getIdAsString(),
+                            EntityAttributes.ATTACK_SPEED.getIdAsString(),
                             0.4F,
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
                     ),
@@ -47,7 +47,7 @@ public class PaladinEffects {
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
                     ),
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.getIdAsString(),
+                            EntityAttributes.KNOCKBACK_RESISTANCE.getIdAsString(),
                             0.4F,
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
                     ),
@@ -66,7 +66,7 @@ public class PaladinEffects {
             new JudgementStatusEffect(StatusEffectCategory.HARMFUL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_JUMP_STRENGTH.getIdAsString(),
+                            EntityAttributes.JUMP_STRENGTH.getIdAsString(),
                             0,
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                     )
@@ -97,7 +97,7 @@ public class PaladinEffects {
             new LevitateStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_GRAVITY.getIdAsString(),
+                            EntityAttributes.GRAVITY.getIdAsString(),
                             -0.99F,
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                     )
@@ -111,7 +111,7 @@ public class PaladinEffects {
             new PriestAbsorptionStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_MAX_ABSORPTION.getIdAsString(),
+                            EntityAttributes.MAX_ABSORPTION.getIdAsString(),
                             2,
                             EntityAttributeModifier.Operation.ADD_VALUE
                     )

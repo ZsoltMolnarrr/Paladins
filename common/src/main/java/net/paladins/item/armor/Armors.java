@@ -1,14 +1,15 @@
 package net.paladins.item.armor;
 
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.item.Item;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentAsset;
+import net.minecraft.item.equipment.EquipmentAssetKeys;
+import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
@@ -28,7 +29,7 @@ import java.util.function.Supplier;
 
 public class Armors {
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
-    private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability,
+    private static Armor.Entry create(ArmorMaterial material, Identifier id, int durability,
                                       Armor.Set.ItemFactory factory, ArmorSetConfig defaults, int tier) {
         var entry = Armor.Entry.create(
                 material,
@@ -42,21 +43,35 @@ public class Armors {
         return entry;
     }
 
-    public static RegistryEntry<ArmorMaterial> material(
-            String name, int protectionHead, int protectionChest, int protectionLegs, int protectionFeet,
-            int enchantability, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredient) {
+    /// Since 1.21.2 `ArmorMaterial` is a plain record (no registry) whose `durability` is the
+    /// per-slot multiplier, repair is a `TagKey<Item>` (the `minecraft:repairable` component) and
+    /// rendering is keyed by an `EquipmentAsset` id instead of a texture-layer list. We deliberately
+    /// point every set at a `paladins:` asset id that no `assets/paladins/equipment/*.json` defines:
+    /// the vanilla humanoid armor layers then resolve to `EquipmentModel.EMPTY` (silently — see
+    /// `EquipmentModelLoader`), leaving the geo models from Armor Model API as the only armor drawn.
+    public static ArmorMaterial material(
+            String name, int durability,
+            int protectionHead, int protectionChest, int protectionLegs, int protectionFeet,
+            int enchantability, RegistryEntry<SoundEvent> equipSound, TagKey<Item> repairIngredient) {
 
-        var material = new ArmorMaterial(
+        return new ArmorMaterial(
+                durability,
                 Map.of(
-                        ArmorItem.Type.HELMET, protectionHead,
-                        ArmorItem.Type.CHESTPLATE, protectionChest,
-                        ArmorItem.Type.LEGGINGS, protectionLegs,
-                        ArmorItem.Type.BOOTS, protectionFeet),
-                enchantability, equipSound, repairIngredient,
-                List.of(new ArmorMaterial.Layer(Identifier.of(PaladinsMod.ID, name))),
-                0,0
+                        EquipmentType.HELMET, protectionHead,
+                        EquipmentType.CHESTPLATE, protectionChest,
+                        EquipmentType.LEGGINGS, protectionLegs,
+                        EquipmentType.BOOTS, protectionFeet),
+                enchantability,
+                equipSound,
+                0F,
+                0F,
+                repairIngredient,
+                assetKey(name)
         );
-        return Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(PaladinsMod.ID, name), material);
+    }
+
+    private static RegistryKey<EquipmentAsset> assetKey(String name) {
+        return RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Identifier.of(PaladinsMod.ID, name));
     }
 
     
@@ -76,41 +91,47 @@ public class Armors {
                 EntityAttributeModifier.Operation.ADD_VALUE);
     }
 
-    public static RegistryEntry<ArmorMaterial> paladin_armor = material(
+    public static ArmorMaterial paladin_armor = material(
             "paladin_armor",
+            15,
             2, 6, 5, 2,
             9,
-            PaladinSounds.paladin_armor_equip.entry(), () -> { return Ingredient.ofItems(Items.IRON_INGOT); });
+            PaladinSounds.paladin_armor_equip.entry(), ItemTags.REPAIRS_IRON_ARMOR);
 
-    public static RegistryEntry<ArmorMaterial> crusader_armor = material(
+    public static ArmorMaterial crusader_armor = material(
             "crusader_armor",
+            25,
             3, 8, 6, 3,
             10,
-            PaladinSounds.paladin_armor_equip.entry(), () -> { return Ingredient.ofItems(Items.GOLD_INGOT); });
+            PaladinSounds.paladin_armor_equip.entry(), ItemTags.REPAIRS_GOLD_ARMOR);
 
-    public static RegistryEntry<ArmorMaterial> netherite_crusader_armor = material(
+    public static ArmorMaterial netherite_crusader_armor = material(
             "netherite_crusader_armor",
+            37,
             3, 8, 6, 3,
             15,
-            PaladinSounds.paladin_armor_equip.entry(), () -> { return Ingredient.ofItems(Items.NETHERITE_INGOT); });
+            PaladinSounds.paladin_armor_equip.entry(), ItemTags.REPAIRS_NETHERITE_ARMOR);
 
-    public static RegistryEntry<ArmorMaterial> priest_robe = material(
+    public static ArmorMaterial priest_robe = material(
             "priest_robe",
+            10,
             1, 3, 2, 1,
             9,
-            PaladinSounds.priest_robe_equip.entry(), () -> { return Ingredient.fromTag(ItemTags.WOOL); });
+            PaladinSounds.priest_robe_equip.entry(), ItemTags.WOOL);
 
-    public static RegistryEntry<ArmorMaterial> prior_robe = material(
+    public static ArmorMaterial prior_robe = material(
             "prior_robe",
+            20,
             1, 3, 2, 1,
             10,
-            PaladinSounds.priest_robe_equip.entry(), () -> { return Ingredient.ofItems(Items.GOLD_INGOT); });
+            PaladinSounds.priest_robe_equip.entry(), ItemTags.REPAIRS_GOLD_ARMOR);
 
-    public static RegistryEntry<ArmorMaterial> netherite_prior_robe = material(
+    public static ArmorMaterial netherite_prior_robe = material(
             "netherite_prior_robe",
+            30,
             1, 3, 2, 1,
             15,
-            PaladinSounds.priest_robe_equip.entry(), () -> { return Ingredient.ofItems(Items.NETHERITE_INGOT); });
+            PaladinSounds.priest_robe_equip.entry(), ItemTags.REPAIRS_NETHERITE_ARMOR);
 
     private static final float paladin_t1_spell_power = 0.5F;
     private static final float paladin_t2_spell_power = 1F;

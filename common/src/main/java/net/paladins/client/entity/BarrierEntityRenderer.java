@@ -2,11 +2,15 @@ package net.paladins.client.entity;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.state.EntityRenderState;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Atlases;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
@@ -14,16 +18,22 @@ import net.minecraft.util.math.Vec3d;
 import net.paladins.PaladinsMod;
 import net.paladins.entity.BarrierEntity;
 import net.spell_engine.api.render.CustomLayers;
+import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.client.compatibility.ShaderCompatibility;
 import net.spell_engine.client.util.Color;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.Nullable;
 
-import static net.minecraft.client.render.RenderPhase.*;
+public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRenderer<T, BarrierEntityRenderer.State> {
+    /// Rendering was split into extraction and render in 1.21.2; the barrier is drawn from a
+    /// deferred batch (see {@link #renderAfterTranslucent}), so the state only carries the entity.
+    public static class State extends EntityRenderState {
+        @Nullable public BarrierEntity barrier;
+    }
 
-public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRenderer<T> {
     public static final Identifier blankTextureId = Identifier.of(PaladinsMod.ID, "item/barrier");
     public static final List<BarrierEntity> activeBarriers = new ArrayList<>();
 
@@ -43,22 +53,28 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
     }
 
     @Override
-    public Identifier getTexture(T entity) {
-        return null;
+    public State createRenderState() {
+        return new State();
     }
 
+    @Override
+    public void updateRenderState(T entity, State state, float tickDelta) {
+        super.updateRenderState(entity, state, tickDelta);
+        state.barrier = entity;
+    }
 
     @Override
-    public void render(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        if (entity.isAlive()) {
+    public void render(State state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        var entity = state.barrier;
+        if (entity != null && entity.isAlive()) {
             activeBarriers.add(entity); // rendering is batched, and instead called AFTER_TRANSLUCENT to correctly apply transparency(issues with transparency may still persist with other objects)
         }
-        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
+        super.render(state, matrices, queue, cameraState);
     }
 
     public static void renderAllInWorld(MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, Camera camera, int light, float tickDelta) {
         matrices.push();
-        Vec3d camPos = camera.getPos();
+        Vec3d camPos = camera.getCameraPos();
         matrices.translate(-camPos.x, -camPos.y, -camPos.z);
         var config = ShaderCompatibility.isShaderPackInUse() ? Config.IRIS : Config.VANILLA;
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(config.layer());
@@ -84,28 +100,19 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
         private static final Color shield = Color.from(0xffcc66);
 
-        public static final Config VANILLA = new Config(
-                CustomLayers.create(
-                        SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
-                        BEACON_BEAM_PROGRAM,
-                        TRANSLUCENT_TRANSPARENCY,
-                        DISABLE_CULLING,
-                        COLOR_MASK,
-                        ENABLE_OVERLAY_COLOR,
-                        MAIN_TARGET,
-                        true),
+        // 1.21.11: `RenderPhase`/program constants are gone — a layer is a `RenderSetup` over a
+        // `RenderPipeline`. The vanilla and Iris variants used to differ only in the shader program
+        // (beacon-beam vs lightning) and blend; the lightning pipeline's vertex format is
+        // POSITION_COLOR only (no texture/overlay/lightmap), so both now share SpellEngine's emissive,
+        // no-cull, translucent spell-object layer — which matches the beacon-beam look and the
+        // vertex writes below. The per-variant colours/alphas are kept.
+        private static final RenderLayer BARRIER_LAYER =
+                CustomLayers.spellObject(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, LightEmission.RADIATE, true);
+
+        public static final Config VANILLA = new Config(BARRIER_LAYER,
                 shield.red(), shield.green(), shield.blue(), 0.8f, 0.9f, 1f);
 
-        public static final Config IRIS = new Config(
-                CustomLayers.create(
-                        SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
-                        LIGHTNING_PROGRAM,
-                        LIGHTNING_TRANSPARENCY,
-                        DISABLE_CULLING,
-                        COLOR_MASK,
-                        ENABLE_OVERLAY_COLOR,
-                        MAIN_TARGET,
-                        false),
+        public static final Config IRIS = new Config(BARRIER_LAYER,
                 shield.red(), shield.green(), shield.blue(), 0.5f, 1f, 0.8f);
     }
 
@@ -126,14 +133,14 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
         int overlayUV = OverlayTexture.DEFAULT_UV;
 
-        Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).apply(blankTextureId);
+        Sprite sprite = MinecraftClient.getInstance().getAtlasManager().getAtlasTexture(Atlases.BLOCKS).getSprite(blankTextureId);
         float u1 = sprite.getMinU();
         float u2 = sprite.getMaxU();
         float v1 = sprite.getMinV();
         float v2 = sprite.getMaxV();
 
-        double fullTime = entity.getWorld().getTime()/20d;
-        long time = entity.getWorld().getTime()/20;
+        double fullTime = entity.getEntityWorld().getTime()/20d;
+        long time = entity.getEntityWorld().getTime()/20;
         double delta = (fullTime-time)*2; // delta is how far along the animation is
         if (delta > 1) delta = 2-delta; // send in opposite direction if halfway
         delta = 1 - Math.pow(1 - delta, 4); // ease out interpolation

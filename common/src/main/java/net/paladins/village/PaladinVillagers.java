@@ -7,6 +7,8 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
@@ -41,6 +43,12 @@ public class PaladinVillagers {
     /// trade-offer registration (Fabric `TradeOfferHelper` / NeoForge `VillagerTradesEvent`).
     public static VillagerProfession PROFESSION;
 
+    /// The profession's registry key. Both loaders now address professions by key
+    /// (Fabric `TradeOfferHelper.registerVillagerOffers(RegistryKey, ...)`,
+    /// NeoForge `VillagerTradesEvent#getType()`), so it is kept alongside the value.
+    public static final RegistryKey<VillagerProfession> PROFESSION_KEY =
+            RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, Identifier.of(PaladinsMod.ID, PALADIN_MERCHANT));
+
     /// Trade offers per merchant tier (1..5), populated by {@link #registerVillagers()}. Actual registration
     /// with the game is loader-specific and lives in each platform's entrypoint.
     public static final LinkedHashMap<Integer, List<TradeOffers.Factory>> TRADES = new LinkedHashMap<>();
@@ -48,7 +56,8 @@ public class PaladinVillagers {
     public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> workStation) {
         var id = Identifier.of(PaladinsMod.ID, name);
         return Registry.register(Registries.VILLAGER_PROFESSION, Identifier.of(PaladinsMod.ID, name), new VillagerProfession(
-                id.toString(),
+                // 1.21.11: `VillagerProfession.id` is a Text (the profession's display name)
+                Text.translatable("entity.minecraft.villager." + id.getNamespace() + "." + id.getPath()),
                 (entry) -> {
                     return entry.matchesKey(workStation);
                 },
@@ -102,7 +111,7 @@ public class PaladinVillagers {
 //                Offer.sell(1, Weapons.wooden_great_hammer.item().getDefaultStack(), 8, 12, 8, 0.1f),
 //                Offer.buy(2, new ItemStack(Items.WHITE_WOOL, 5), 8, 12, 8, 0.0f),
 //                Offer.buy(2, new ItemStack(Items.IRON_INGOT, 6), 9, 12, 8, 0.0f),
-//                Offer.buy(2, new ItemStack(Items.CHAIN, 6), 3, 12, 8, 0.0f),
+//                Offer.buy(2, new ItemStack(Items.IRON_CHAIN, 6), 3, 12, 8, 0.0f),
 //                Offer.buy(2, new ItemStack(Items.GOLD_INGOT, 6), 9, 12, 8, 0.0f),
 //                Offer.sell(2, Weapons.holy_staff.item().getDefaultStack(), 12, 12, 10, 0.05f),
 //                Offer.sell(2, Weapons.iron_great_hammer.item().getDefaultStack(), 12, 12, 10, 0.05f),
@@ -125,7 +134,7 @@ public class PaladinVillagers {
         TRADES.put(2, List.of(
                 new TradeOffers.BuyItemFactory(Items.WHITE_WOOL, 5, 12, 5, 8),
                 new TradeOffers.BuyItemFactory(Items.IRON_INGOT, 6, 12, 5, 8),
-                new TradeOffers.BuyItemFactory(Items.CHAIN, 6, 12, 5, 8),
+                new TradeOffers.BuyItemFactory(Items.IRON_CHAIN, 6, 12, 5, 8),
                 new TradeOffers.BuyItemFactory(Items.GOLD_INGOT, 6, 12, 5, 8)
         ));
         TRADES.put(3, List.of(
@@ -141,12 +150,12 @@ public class PaladinVillagers {
                 new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.legs, 20, 1, 12, 15)
         ));
         TRADES.put(5, List.of(
-                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_holy_staff.item(), 40, 3, 30, 0F).create(entity, random),
-                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_claymore.item(), 40, 3, 30, 0F).create(entity, random),
-                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F).create(entity, random)
+                (TradeOffers.Factory) (world, entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+                        PaladinWeapons.diamond_holy_staff.item(), 40, 3, 30, 0F).create(world, entity, random),
+                (TradeOffers.Factory) (world, entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+                        PaladinWeapons.diamond_claymore.item(), 40, 3, 30, 0F).create(world, entity, random),
+                (TradeOffers.Factory) (world, entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+                        PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F).create(world, entity, random)
         ));
     }
 }

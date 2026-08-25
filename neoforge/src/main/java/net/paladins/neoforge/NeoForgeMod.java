@@ -62,7 +62,7 @@ public final class NeoForgeMod {
     }
 
     private static void onVillagerTrades(VillagerTradesEvent event) {
-        if (event.getType() != PaladinVillagers.PROFESSION) {
+        if (!PaladinVillagers.PROFESSION_KEY.equals(event.getType())) {
             return;
         }
         PaladinVillagers.TRADES.forEach((tier, factories) -> {

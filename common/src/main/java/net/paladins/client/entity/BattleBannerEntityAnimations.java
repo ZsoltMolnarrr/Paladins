@@ -1,6 +1,6 @@
 package net.paladins.client.entity;
 
-import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.AnimationDefinition;
 import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
@@ -10,7 +10,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
  * Exported for Minecraft version 1.19 or later with Yarn mappings
  */
 public class BattleBannerEntityAnimations {
-	public static final Animation idle = Animation.Builder.create(2.5F).looping()
+	public static final AnimationDefinition idle = AnimationDefinition.Builder.create(2.5F).looping()
 		.addBoneAnimation("flag_part", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.4F, AnimationHelper.createRotationalVector(-5.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -20,7 +20,7 @@ public class BattleBannerEntityAnimations {
 			new Keyframe(2.1F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
-		.addBoneAnimation("flag_part", new Transformation(Transformation.Targets.TRANSLATE, 
+		.addBoneAnimation("flag_part", new Transformation(Transformation.Targets.MOVE_ORIGIN, 
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
@@ -53,7 +53,7 @@ public class BattleBannerEntityAnimations {
 		))
 		.build();
 
-	public static final Animation place = Animation.Builder.create(2.15F)
+	public static final AnimationDefinition place = AnimationDefinition.Builder.create(2.15F)
 		.addBoneAnimation("flag_part", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(-20.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(0.3F, AnimationHelper.createRotationalVector(-19.98F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
@@ -61,7 +61,7 @@ public class BattleBannerEntityAnimations {
 			new Keyframe(1.4F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(2.15F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("flag_part", new Transformation(Transformation.Targets.TRANSLATE, 
+		.addBoneAnimation("flag_part", new Transformation(Transformation.Targets.MOVE_ORIGIN, 
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(0.6F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(1.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -73,7 +73,7 @@ public class BattleBannerEntityAnimations {
 			new Keyframe(0.65F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.95F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("battle_flag", new Transformation(Transformation.Targets.TRANSLATE, 
+		.addBoneAnimation("battle_flag", new Transformation(Transformation.Targets.MOVE_ORIGIN, 
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 16.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(0.1F, AnimationHelper.createTranslationalVector(0.0F, 20.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.35F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),

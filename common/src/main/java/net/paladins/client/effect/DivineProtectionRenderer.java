@@ -1,7 +1,6 @@
 package net.paladins.client.effect;
 
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.render.CustomLayers;
@@ -14,8 +13,10 @@ public class DivineProtectionRenderer extends OrbitingEffectRenderer {
     public static final Identifier modelId_base = Identifier.of(PaladinsMod.ID, "spell_effect/divine_protection");
     public static final Identifier modelId_overlay = Identifier.of(PaladinsMod.ID, "spell_effect/divine_protection_glow");
 
+    // `RenderLayer.getEntityTranslucent` is gone; SpellEngine's own block-atlas spell-object layer
+    // is the 1.21.11 equivalent (translucent, backface-culled, not part of the entity outline).
     private static final RenderLayer BASE_RENDER_LAYER =
-            RenderLayer.getEntityTranslucent(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+            CustomLayers.spellObject(LightEmission.NONE);
     private static final RenderLayer GLOWING_RENDER_LAYER =
             CustomLayers.spellEffect(LightEmission.RADIATE, false);
 

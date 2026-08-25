@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.server.world.ServerWorld;
 import net.spell_engine.api.effect.CustomStatusEffect;
 
 /// The Levitate "afloat" effect. Behaves like a plain {@link CustomStatusEffect} — its near-zero
@@ -26,13 +27,12 @@ public class LevitateStatusEffect extends CustomStatusEffect {
         return duration <= 1;
     }
 
+    // 1.21.2+: the update hook is server-side by signature (it receives the ServerWorld),
+    // so the old `isClient` guard is gone.
     @Override
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        // Server-authoritative; the applied effect syncs to the client on its own.
-        if (!entity.getWorld().isClient()) {
-            entity.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.SLOW_FALLING, SLOW_FALLING_TICKS, 0, false, true, true));
-        }
+    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
+        entity.addStatusEffect(new StatusEffectInstance(
+                StatusEffects.SLOW_FALLING, SLOW_FALLING_TICKS, 0, false, true, true));
         return true; // keep the normal lifecycle — returning false would force early removal
     }
 }

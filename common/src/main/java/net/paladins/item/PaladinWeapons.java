@@ -6,6 +6,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSpells;
@@ -41,6 +42,15 @@ public class PaladinWeapons {
         }
     }
 
+    /// `Ingredient.fromTag` is gone since 1.21.2; ingredients wrap a `RegistryEntryList`.
+    /// Item tags are not yet populated while items are being constructed, so the resulting
+    /// ingredient is empty at that moment and SpellEngine's `Weapon.CustomMaterial` leaves the
+    /// `minecraft:repairable` component the vanilla `ToolMaterial` already installed — which for
+    /// the wooden/stone tiers is exactly `wooden_tool_materials` / `stone_tool_materials`.
+    private static Supplier<Ingredient> repairTag(TagKey<Item> tag) {
+        return () -> Ingredient.ofTag(Registries.ITEM.getOrThrow(tag));
+    }
+
     private static final String AETHER = "aether";
     private static final String BETTER_END = "betterend";
     private static final String BETTER_NETHER = "betternether";
@@ -66,10 +76,10 @@ public class PaladinWeapons {
     // MARK: Hammers
 
     public static final Weapon.Entry wooden_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "wooden_great_hammer", Equipment.Tier.WOODEN, () -> Ingredient.fromTag(ItemTags.PLANKS))
+            NAMESPACE, "wooden_great_hammer", Equipment.Tier.WOODEN, repairTag(ItemTags.PLANKS))
             .translatedName("Wooden Great Hammer"));
     public static final Weapon.Entry stone_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "stone_great_hammer", Equipment.Tier.TIER_0, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS))
+            NAMESPACE, "stone_great_hammer", Equipment.Tier.TIER_0, repairTag(ItemTags.STONE_TOOL_MATERIALS))
             .translatedName("Stone Great Hammer"));
     public static final Weapon.Entry iron_great_hammer = add(Weapons.hammerWithSkill(
             NAMESPACE, "iron_great_hammer", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT))

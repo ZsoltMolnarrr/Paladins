@@ -6,11 +6,13 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
@@ -73,21 +75,21 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         @Override
         protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
             var namespace = PaladinsMod.ID;
-            var treasureTagBuilder = getOrCreateTagBuilder(SpellTags.TREASURE);
+            var treasureTagBuilder = builder(SpellTags.TREASURE);
             var processedBooks = new HashSet<PaladinSpells.Book>();
             PaladinSpells.entries.forEach(entry -> {
                 if (entry.book() != null) {
                     var bookTagKey = SpellTags.spellBook(namespace, entry.book().toString().toLowerCase());
-                    getOrCreateTagBuilder(bookTagKey).addOptional(entry.id());
+                    builder(bookTagKey).addOptional(RegistryKey.of(SpellRegistry.KEY, entry.id()));
                     var scrollTagKey = SpellTags.spellScroll(namespace, entry.book().toString().toLowerCase());
-                    getOrCreateTagBuilder(scrollTagKey).addOptional(entry.id());
+                    builder(scrollTagKey).addOptional(RegistryKey.of(SpellRegistry.KEY, entry.id()));
                     if (processedBooks.add(entry.book())) {
                         treasureTagBuilder.addOptionalTag(scrollTagKey);
                     }
                 }
                 for (var group : entry.weaponGroups()) {
                     var weaponGroupTagKey = SpellTags.weapon(namespace, group.toString().toLowerCase());
-                    getOrCreateTagBuilder(weaponGroupTagKey).addOptional(entry.id());
+                    builder(weaponGroupTagKey).addOptional(RegistryKey.of(SpellRegistry.KEY, entry.id()));
                 }
             });
         }
@@ -144,61 +146,69 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         public static int UNSMELT_TIME = 300;
 
         @Override
-        public void generate(RecipeExporter exporter) {
-            disassembleArmor(exporter, Armors.paladinArmorSet_t1, Items.IRON_NUGGET);
-            disassembleArmor(exporter, Armors.paladinArmorSet_t2, Items.GOLD_NUGGET);
-            disassembleArmor(exporter, Armors.paladinArmorSet_t3, Items.NETHERITE_SCRAP);
-            disassembleArmor(exporter, Armors.priestArmorSet_t1, Items.IRON_NUGGET);
-            disassembleArmor(exporter, Armors.priestArmorSet_t2, Items.GOLD_NUGGET);
-            disassembleArmor(exporter, Armors.priestArmorSet_t3, Items.NETHERITE_SCRAP);
+        public String getName() {
+            return "Paladin Unsmelting Recipes";
+        }
 
-            disassemble(exporter,
+        @Override
+        protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
+            return new RecipeGenerator(registryLookup, exporter) {
+                @Override
+                public void generate() {
+            disassembleArmor(Armors.paladinArmorSet_t1, Items.IRON_NUGGET);
+            disassembleArmor(Armors.paladinArmorSet_t2, Items.GOLD_NUGGET);
+            disassembleArmor(Armors.paladinArmorSet_t3, Items.NETHERITE_SCRAP);
+            disassembleArmor(Armors.priestArmorSet_t1, Items.IRON_NUGGET);
+            disassembleArmor(Armors.priestArmorSet_t2, Items.GOLD_NUGGET);
+            disassembleArmor(Armors.priestArmorSet_t3, Items.NETHERITE_SCRAP);
+
+            disassemble(
                     PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("gold"))
                             .map(entry -> (ItemConvertible) entry.item()).toList(),
                     Items.GOLD_NUGGET);
-            disassemble(exporter,
+            disassemble(
                     PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("iron"))
                             .map(entry -> (ItemConvertible) entry.item()).toList(),
                     Items.IRON_NUGGET);
-//            disassemble(exporter,
+//            disassemble(
 //                    Weapons.entries.stream()
 //                            .filter(entry -> entry.id().getPath().contains("diamond"))
 //                            .map(entry -> (ItemConvertible) entry.item()).toList(),
 //                    Items.DIAM);
-            disassemble(exporter,
+            disassemble(
                     PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("netherite"))
                             .map(entry -> (ItemConvertible) entry.item()).toList(),
                     Items.NETHERITE_SCRAP);
 
-            disassemble(exporter,
+            disassemble(
                     List.of(PaladinWeapons.holy_staff.item(), PaladinWeapons.holy_wand.item()),
                     Items.GOLD_NUGGET);
 
-            disassemble(exporter,
+            disassemble(
                     List.of(PaladinShields.iron_kite_shield.item()),
                     Items.IRON_NUGGET);
-            disassemble(exporter,
+            disassemble(
                     List.of(PaladinShields.golden_kite_shield.item()),
                     Items.GOLD_NUGGET);
-            disassemble(exporter,
+            disassemble(
                     List.of(PaladinShields.netherite_kite_shield.item()),
                     Items.NETHERITE_SCRAP);
         }
 
-        private static void disassembleArmor(RecipeExporter exporter, Armor.Set armorSet, Item output) {
-            FabricRecipeProvider.offerSmelting(exporter,
-                    armorSet.pieces(),
+        private void disassembleArmor(Armor.Set<?> armorSet, Item output) {
+            offerSmelting(
+                    List.<ItemConvertible>copyOf(armorSet.pieces()),
                     RecipeCategory.MISC,
                     output,
                     0.1f,
                     UNSMELT_TIME,
                     "disassemble"
             );
-            FabricRecipeProvider.offerBlasting(exporter,
-                    armorSet.pieces(),
+            offerBlasting(
+                    List.<ItemConvertible>copyOf(armorSet.pieces()),
                     RecipeCategory.MISC,
                     output,
                     0.1f,
@@ -207,8 +217,8 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             );
         }
 
-        private static void disassemble(RecipeExporter exporter, List<ItemConvertible> items, Item output) {
-            FabricRecipeProvider.offerSmelting(exporter,
+        private void disassemble(List<ItemConvertible> items, Item output) {
+            offerSmelting(
                     items,
                     RecipeCategory.MISC,
                     output,
@@ -216,7 +226,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     UNSMELT_TIME,
                     "disassemble"
             );
-            FabricRecipeProvider.offerBlasting(exporter,
+            offerBlasting(
                     items,
                     RecipeCategory.MISC,
                     output,
@@ -224,6 +234,8 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     UNSMELT_TIME / 2,
                     "disassemble"
             );
+        }
+            };
         }
     }
 

@@ -1,5 +1,6 @@
 package net.paladins.neoforge.client;
 
+import net.minecraft.client.MinecraftClient;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
@@ -32,11 +33,12 @@ public class NeoForgeClientMod {
         // *after* translucent terrain, so AFTER_TRANSLUCENT_BLOCKS fires before particles and any
         // particle would paint over the barrier model. AFTER_PARTICLES matches where Fabric's
         // WorldRenderEvents.AFTER_TRANSLUCENT injects (just before clouds, after particles).
-        NeoForge.EVENT_BUS.addListener(RenderLevelStageEvent.class, render -> {
-            if (render.getStage() == RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
-                BarrierEntityRenderer.renderAfterTranslucent(render.getPoseStack(), render.getCamera(),
-                        render.getPartialTick().getTickDelta(true));
-            }
+        // 21.11: the stages are event subclasses, and camera / tick progress are no longer carried
+        // by the event — they come from the client (same as SpellEngine's BeamRenderer hook).
+        NeoForge.EVENT_BUS.addListener(RenderLevelStageEvent.AfterParticles.class, render -> {
+            var client = MinecraftClient.getInstance();
+            BarrierEntityRenderer.renderAfterTranslucent(render.getPoseStack(), client.gameRenderer.getCamera(),
+                    client.getRenderTickCounter().getTickProgress(true));
         });
     }
 

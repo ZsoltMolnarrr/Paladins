@@ -4,9 +4,7 @@
   "cookingtime": 150,
   "experience": 0.1,
   "group": "disassemble",
-  "ingredient": {
-    "item": "paladins:iron_claymore"
-  },
+  "ingredient": "paladins:iron_claymore",
   "result": {
     "id": "minecraft:iron_nugget"
   }

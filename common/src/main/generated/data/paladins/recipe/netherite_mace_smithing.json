@@ -1,16 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": {
-    "item": "minecraft:netherite_ingot"
-  },
-  "base": {
-    "item": "paladins:diamond_mace"
-  },
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "paladins:diamond_mace",
   "result": {
-    "count": 1,
     "id": "paladins:netherite_mace"
   },
-  "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
-  }
+  "template": "minecraft:netherite_upgrade_smithing_template"
 }

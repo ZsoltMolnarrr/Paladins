@@ -16,15 +16,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "A": {
-      "item": "betternether:nether_ruby"
-    },
-    "T": {
-      "item": "minecraft:ghast_tear"
-    },
-    "H": {
-      "item": "betternether:cincinnasite_ingot"
-    }
+    "A": "betternether:nether_ruby",
+    "T": "minecraft:ghast_tear",
+    "H": "betternether:cincinnasite_ingot"
   },
   "pattern": [
     " AT",

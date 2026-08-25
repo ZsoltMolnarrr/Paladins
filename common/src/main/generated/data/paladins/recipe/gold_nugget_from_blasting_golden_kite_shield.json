@@ -4,9 +4,7 @@
   "cookingtime": 150,
   "experience": 0.1,
   "group": "disassemble",
-  "ingredient": {
-    "item": "paladins:golden_kite_shield"
-  },
+  "ingredient": "paladins:golden_kite_shield",
   "result": {
     "id": "minecraft:gold_nugget"
   }

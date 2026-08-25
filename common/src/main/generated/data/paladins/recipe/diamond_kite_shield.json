@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "L": {
-      "item": "minecraft:leather"
-    },
-    "M": {
-      "item": "minecraft:diamond"
-    }
+    "L": "minecraft:leather",
+    "M": "minecraft:diamond"
   },
   "pattern": [
     "MLM",

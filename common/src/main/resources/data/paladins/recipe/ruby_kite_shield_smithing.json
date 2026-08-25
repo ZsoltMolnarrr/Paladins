@@ -14,16 +14,10 @@
     }
   ],
   "type": "minecraft:smithing_transform",
-  "addition": {
-    "item": "betternether:nether_ruby"
-  },
-  "base": {
-    "item": "paladins:netherite_kite_shield"
-  },
+  "addition": "betternether:nether_ruby",
+  "base": "paladins:netherite_kite_shield",
   "result": {
     "id": "paladins:ruby_kite_shield"
   },
-  "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
-  }
+  "template": "minecraft:netherite_upgrade_smithing_template"
 }

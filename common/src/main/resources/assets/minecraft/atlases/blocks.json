@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "comment": "The barrier spell panel is drawn from the block atlas by BarrierEntityRenderer. Since 1.21.4 item textures live on the separate `minecraft:items` atlas, so this sprite has to be stitched into the block atlas explicitly.",
+      "type": "minecraft:single",
+      "resource": "paladins:item/barrier"
+    }
+  ]
+}

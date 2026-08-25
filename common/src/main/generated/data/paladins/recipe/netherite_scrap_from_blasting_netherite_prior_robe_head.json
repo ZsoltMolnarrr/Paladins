@@ -4,9 +4,7 @@
   "cookingtime": 150,
   "experience": 0.1,
   "group": "disassemble",
-  "ingredient": {
-    "item": "paladins:netherite_prior_robe_head"
-  },
+  "ingredient": "paladins:netherite_prior_robe_head",
   "result": {
     "id": "minecraft:netherite_scrap"
   }

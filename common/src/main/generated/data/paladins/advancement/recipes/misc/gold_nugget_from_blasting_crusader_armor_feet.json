@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:gold_nugget_from_blasting_crusader_armor_feet"
+        "recipe": "paladins:gold_nugget_from_blasting_crusader_armor_feet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:gold_nugget_from_blasting_crusader_armor_feet"
+      "paladins:gold_nugget_from_blasting_crusader_armor_feet"
     ]
   }
 }

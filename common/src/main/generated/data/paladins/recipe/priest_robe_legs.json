@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "L": {
-      "item": "minecraft:chain"
-    },
-    "W": {
-      "tag": "minecraft:wool"
-    }
+    "L": "minecraft:iron_chain",
+    "W": "#minecraft:wool"
   },
   "pattern": [
     "LLL",

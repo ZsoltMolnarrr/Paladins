@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "G": {
-      "item": "minecraft:gold_ingot"
-    },
-    "T": {
-      "item": "minecraft:ghast_tear"
-    },
-    "W": {
-      "tag": "minecraft:wool"
-    }
+    "G": "minecraft:gold_ingot",
+    "T": "minecraft:ghast_tear",
+    "W": "#minecraft:wool"
   },
   "pattern": [
     "G G",

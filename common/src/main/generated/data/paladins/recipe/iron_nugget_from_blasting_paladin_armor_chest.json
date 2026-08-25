@@ -4,9 +4,7 @@
   "cookingtime": 150,
   "experience": 0.1,
   "group": "disassemble",
-  "ingredient": {
-    "item": "paladins:paladin_armor_chest"
-  },
+  "ingredient": "paladins:paladin_armor_chest",
   "result": {
     "id": "minecraft:iron_nugget"
   }

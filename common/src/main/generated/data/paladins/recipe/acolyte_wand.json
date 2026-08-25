@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "H": {
-      "item": "minecraft:stick"
-    },
-    "S": {
-      "item": "minecraft:string"
-    }
+    "H": "minecraft:stick",
+    "S": "minecraft:string"
   },
   "pattern": [
     " HH",

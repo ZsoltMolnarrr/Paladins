@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "A": {
-      "item": "minecraft:diamond"
-    },
-    "H": {
-      "item": "minecraft:gold_ingot"
-    }
+    "A": "minecraft:diamond",
+    "H": "minecraft:gold_ingot"
   },
   "pattern": [
     " AA",

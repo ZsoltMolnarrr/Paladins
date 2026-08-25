@@ -16,16 +16,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "betterend:aeternium_ingot"
-    },
+    "B": "betterend:aeternium_ingot",
     "H": [
-      {
-        "tag": "c:wood_sticks"
-      },
-      {
-        "item": "minecraft:stick"
-      }
+      "#c:wood_sticks",
+      "minecraft:stick"
     ]
   },
   "pattern": [

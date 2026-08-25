@@ -32,9 +32,10 @@ public class PaladinShields {
             return () -> Ingredient.ofItems(fallback);
         } else {
             return () -> {
-                var item = Registries.ITEM.get(id);
-                var ingredient = item != null ? item : fallback;
-                return Ingredient.ofItems(ingredient);
+                // `Registries.ITEM` is defaulted, so `get(Identifier)` never returns null — it returns AIR
+                // for an unknown id. Ask for the optional value instead and fall back explicitly.
+                var item = Registries.ITEM.getOptionalValue(id).orElse(fallback);
+                return Ingredient.ofItems(item);
             };
         }
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:gold_nugget_from_smelting_holy_staff"
+        "recipe": "paladins:gold_nugget_from_smelting_holy_staff"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:gold_nugget_from_smelting_holy_staff"
+      "paladins:gold_nugget_from_smelting_holy_staff"
     ]
   }
 }

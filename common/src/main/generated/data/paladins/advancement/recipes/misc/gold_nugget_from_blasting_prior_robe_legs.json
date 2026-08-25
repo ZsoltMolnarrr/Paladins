@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:gold_nugget_from_blasting_prior_robe_legs"
+        "recipe": "paladins:gold_nugget_from_blasting_prior_robe_legs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:gold_nugget_from_blasting_prior_robe_legs"
+      "paladins:gold_nugget_from_blasting_prior_robe_legs"
     ]
   }
 }

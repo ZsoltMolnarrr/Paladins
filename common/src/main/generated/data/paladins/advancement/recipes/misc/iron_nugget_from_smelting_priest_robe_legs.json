@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:iron_nugget_from_smelting_priest_robe_legs"
+        "recipe": "paladins:iron_nugget_from_smelting_priest_robe_legs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:iron_nugget_from_smelting_priest_robe_legs"
+      "paladins:iron_nugget_from_smelting_priest_robe_legs"
     ]
   }
 }

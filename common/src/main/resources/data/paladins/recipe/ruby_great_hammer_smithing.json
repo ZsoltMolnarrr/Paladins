@@ -14,16 +14,10 @@
     }
   ],
   "type": "minecraft:smithing_transform",
-  "addition": {
-    "item": "betternether:nether_ruby"
-  },
-  "base": {
-    "item": "paladins:netherite_great_hammer"
-  },
+  "addition": "betternether:nether_ruby",
+  "base": "paladins:netherite_great_hammer",
   "result": {
     "id": "paladins:ruby_great_hammer"
   },
-  "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
-  }
+  "template": "minecraft:netherite_upgrade_smithing_template"
 }

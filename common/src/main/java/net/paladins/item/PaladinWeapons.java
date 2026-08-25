@@ -5,8 +5,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSpells;
@@ -35,21 +33,23 @@ public class PaladinWeapons {
             return () -> Ingredient.ofItems(fallback);
         } else {
             return () -> {
-                var item = Registries.ITEM.get(id);
-                var ingredient = item != null ? item : fallback;
-                return Ingredient.ofItems(ingredient);
+                // `Registries.ITEM` is defaulted, so `get(Identifier)` never returns null — it returns AIR
+                // for an unknown id. Ask for the optional value instead and fall back explicitly.
+                var item = Registries.ITEM.getOptionalValue(id).orElse(fallback);
+                return Ingredient.ofItems(item);
             };
         }
     }
 
-    /// `Ingredient.fromTag` is gone since 1.21.2; ingredients wrap a `RegistryEntryList`.
-    /// Item tags are not yet populated while items are being constructed, so the resulting
-    /// ingredient is empty at that moment and SpellEngine's `Weapon.CustomMaterial` leaves the
-    /// `minecraft:repairable` component the vanilla `ToolMaterial` already installed — which for
-    /// the wooden/stone tiers is exactly `wooden_tool_materials` / `stone_tool_materials`.
-    private static Supplier<Ingredient> repairTag(TagKey<Item> tag) {
-        return () -> Ingredient.ofTag(Registries.ITEM.getOrThrow(tag));
-    }
+    /// `Ingredient.fromTag` is gone since 1.21.2 and repair is the `minecraft:repairable` component,
+    /// which SpellEngine's `Weapon.CustomMaterial` resolves from the supplier while the item is being
+    /// constructed — long before tags are bound (`Registries.ITEM.getOrThrow(TagKey)` throws
+    /// "Tags not bound" there). Returning an empty ingredient makes SpellEngine skip the override, so
+    /// the item keeps the `repairable` component the vanilla `ToolMaterial` already installed:
+    /// `wooden_tool_materials` for `Tier.WOODEN` (a superset of planks) and `stone_tool_materials`
+    /// for `Tier.TIER_0` — i.e. exactly what the 1.21.1 tag ingredients expressed.
+    /// (`null`, not an empty `Ingredient`: `Ingredient.ofItems()` throws "Ingredients can't be empty".)
+    private static final Supplier<Ingredient> MATERIAL_DEFAULT_REPAIR = () -> null;
 
     private static final String AETHER = "aether";
     private static final String BETTER_END = "betterend";
@@ -76,10 +76,10 @@ public class PaladinWeapons {
     // MARK: Hammers
 
     public static final Weapon.Entry wooden_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "wooden_great_hammer", Equipment.Tier.WOODEN, repairTag(ItemTags.PLANKS))
+            NAMESPACE, "wooden_great_hammer", Equipment.Tier.WOODEN, MATERIAL_DEFAULT_REPAIR)
             .translatedName("Wooden Great Hammer"));
     public static final Weapon.Entry stone_great_hammer = add(Weapons.hammerWithSkill(
-            NAMESPACE, "stone_great_hammer", Equipment.Tier.TIER_0, repairTag(ItemTags.STONE_TOOL_MATERIALS))
+            NAMESPACE, "stone_great_hammer", Equipment.Tier.TIER_0, MATERIAL_DEFAULT_REPAIR)
             .translatedName("Stone Great Hammer"));
     public static final Weapon.Entry iron_great_hammer = add(Weapons.hammerWithSkill(
             NAMESPACE, "iron_great_hammer", Equipment.Tier.TIER_1, () -> Ingredient.ofItems(Items.IRON_INGOT))

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "tag": "minecraft:logs_that_burn"
-    },
-    "H": {
-      "item": "minecraft:stick"
-    }
+    "B": "#minecraft:logs_that_burn",
+    "H": "minecraft:stick"
   },
   "pattern": [
     " BB",

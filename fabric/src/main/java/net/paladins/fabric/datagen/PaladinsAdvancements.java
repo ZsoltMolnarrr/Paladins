@@ -16,7 +16,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_engine.misc.criteria.SpellCastCriteria;
 import net.spell_engine.spellbinding.SpellBindingCriteria;
 import net.spell_engine.spellbinding.SpellBookCreationCriteria;
@@ -175,7 +174,7 @@ public class PaladinsAdvancements extends FabricAdvancementProvider {
 
     private static ItemStack spellBookIcon(String book) {
         var stack = new ItemStack(Registries.ITEM.get(Identifier.of("spell_engine", "spell_book")));
-        stack.set(SpellDataComponents.ITEM_MODEL, Identifier.of("paladins", "item/spell_book/" + book));
+        stack.set(net.minecraft.component.DataComponentTypes.ITEM_MODEL, Identifier.of("paladins", "spell_book/" + book)); // vanilla item-model definition = pool id (assets/paladins/items/spell_book/<pool>.json)
         return stack;
     }
 

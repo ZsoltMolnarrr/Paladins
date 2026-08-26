@@ -13,6 +13,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
@@ -20,6 +21,7 @@ import net.paladins.content.PaladinSounds;
 import net.paladins.content.PaladinSpells;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.PaladinEntities;
+import net.paladins.item.PaladinItemTags;
 import net.paladins.item.PaladinShields;
 import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
@@ -116,6 +118,13 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     new RPGSeriesDataGen.ShieldEntry(entry.id(), entry.lootProperties)
             ).toList();
             generateShieldTags(shieldEntries);
+
+            // Anvil repair tags (`minecraft:repairable`), one per material
+            for (var repair: PaladinItemTags.REPAIR_TAGS) {
+                var tag = builder(repair.tag());
+                repair.required().forEach(id -> tag.add(RegistryKey.of(RegistryKeys.ITEM, id)));
+                repair.optional().forEach(id -> tag.addOptional(RegistryKey.of(RegistryKeys.ITEM, id)));
+            }
         }
     }
 

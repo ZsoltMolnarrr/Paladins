@@ -36,7 +36,7 @@
     "paladins.fabric.mixins.json"
   ],
   "depends": {
-    "minecraft": "~1.21.11",
+    "minecraft": ">=${minecraft_min_version}",
     "fabricloader": ">=0.19.3",
     "armor_model_api": ">=${armor_model_api_version}",
     "spell_engine": ">=${spell_engine_version}",

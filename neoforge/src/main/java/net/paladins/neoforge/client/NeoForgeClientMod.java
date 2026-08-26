@@ -1,6 +1,6 @@
 package net.paladins.neoforge.client;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
@@ -36,9 +36,9 @@ public class NeoForgeClientMod {
         // 21.11: the stages are event subclasses, and camera / tick progress are no longer carried
         // by the event — they come from the client (same as SpellEngine's BeamRenderer hook).
         NeoForge.EVENT_BUS.addListener(RenderLevelStageEvent.AfterParticles.class, render -> {
-            var client = MinecraftClient.getInstance();
-            BarrierEntityRenderer.renderAfterTranslucent(render.getPoseStack(), client.gameRenderer.getCamera(),
-                    client.getRenderTickCounter().getTickProgress(true));
+            var client = Minecraft.getInstance();
+            BarrierEntityRenderer.renderAfterTranslucent(render.getPoseStack(), client.gameRenderer.getMainCamera(),
+                    client.getDeltaTracker().getGameTimeDeltaPartialTick(true));
         });
     }
 

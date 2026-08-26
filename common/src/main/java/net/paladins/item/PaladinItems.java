@@ -1,6 +1,6 @@
 package net.paladins.item;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.rpg_series.item.Armor;
 

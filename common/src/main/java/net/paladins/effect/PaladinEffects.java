@@ -1,9 +1,8 @@
 package net.paladins.effect;
 
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.spell_engine.rpg_series.config.AttributeModifier;
@@ -24,51 +23,51 @@ public class PaladinEffects {
     }
 
     public static final Effects.Entry DIVINE_PROTECTION = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "divine_protection"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "divine_protection"),
             "Divine Protection",
             "Protects you from the incoming attack",
-            new DivineProtectionStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff)
+            new DivineProtectionStatusEffect(MobEffectCategory.BENEFICIAL, 0x66ccff)
     ));
 
     public static final Effects.Entry BATTLE_BANNER = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "battle_banner"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "battle_banner"),
             "Battle Banner",
             "Increases attack speed and knockback resistance",
-            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff),
+            new CustomStatusEffect(MobEffectCategory.BENEFICIAL, 0x66ccff),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.ATTACK_SPEED.getIdAsString(),
+                            Attributes.ATTACK_SPEED.getRegisteredName(),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                     ),
                     new AttributeModifier(
                             SpellPowerMechanics.HASTE.id.toString(),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                     ),
                     new AttributeModifier(
-                            EntityAttributes.KNOCKBACK_RESISTANCE.getIdAsString(),
+                            Attributes.KNOCKBACK_RESISTANCE.getRegisteredName(),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                     ),
                     new AttributeModifier(
-                            Identifier.of("ranged_weapon", "haste").toString(),
+                            Identifier.fromNamespaceAndPath("ranged_weapon", "haste").toString(),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                     )
             ))
     ));
 
     public static final Effects.Entry JUDGEMENT = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "judgement"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "judgement"),
             "Stunned",
             "Prevents movement and actions",
-            new JudgementStatusEffect(StatusEffectCategory.HARMFUL, 0xffffcc),
+            new JudgementStatusEffect(MobEffectCategory.HARMFUL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.JUMP_STRENGTH.getIdAsString(),
+                            Attributes.JUMP_STRENGTH.getRegisteredName(),
                             0,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                            net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                     )
                 )
             )
@@ -79,10 +78,10 @@ public class PaladinEffects {
     /// holy damage. Rendered by {@link GlowingItemStatusEffect} — the glow brightens as the blessings are
     /// channeled on, and dims again as they are spent.
     public static final Effects.Entry BLESSED_STRIKES = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "blessed_strikes"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "blessed_strikes"),
             "Blessed Strikes",
             "Your weapon is charged with holy light, searing enemies you strike",
-            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
+            new CustomStatusEffect(MobEffectCategory.BENEFICIAL, 0xffffcc)
     ));
 
     /// Nearly cancels the holder's gravity (GENERIC_GRAVITY default 0.08, clamped [-1, 1]), leaving them
@@ -91,29 +90,29 @@ public class PaladinEffects {
     /// stops normal gravity from clawing the caster back down — and, since it outlives the channel, keeps
     /// them afloat afterwards until it fades and they settle gently to the ground.
     public static final Effects.Entry LEVITATE = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "levitate"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "levitate"),
             "Levitate",
             "You drift gently through the air.",
-            new LevitateStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
+            new LevitateStatusEffect(MobEffectCategory.BENEFICIAL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GRAVITY.getIdAsString(),
+                            Attributes.GRAVITY.getRegisteredName(),
                             -0.99F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                            net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
                     )
             ))
     ));
 
     public static final Effects.Entry ABSORPTION = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "priest_absorption"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "priest_absorption"),
             "Absorption",
             "Absorbs some damage you would take",
-            new PriestAbsorptionStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
+            new PriestAbsorptionStatusEffect(MobEffectCategory.BENEFICIAL, 0xffffcc),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.MAX_ABSORPTION.getIdAsString(),
+                            Attributes.MAX_ABSORPTION.getRegisteredName(),
                             2,
-                            EntityAttributeModifier.Operation.ADD_VALUE
+                            net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE
                     )
             ))
     ));

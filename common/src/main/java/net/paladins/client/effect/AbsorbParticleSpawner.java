@@ -1,6 +1,6 @@
 package net.paladins.client.effect;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.api.spell.fx.ParticleGroup;
 import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
@@ -17,11 +17,11 @@ public class AbsorbParticleSpawner implements CustomParticleStatusEffect.Spawner
 
     @Override
     public void spawnParticles(LivingEntity livingEntity, int amplifier) {
-        var world = livingEntity.getEntityWorld();
-        if (world.isClient()) {
+        var world = livingEntity.level();
+        if (world.isClientSide()) {
             var scaledParticles = particles.copy();
             scaledParticles.batch.count *= (amplifier + 1);
-            scaledParticles.batch.max_speed *= livingEntity.getScaleFactor();
+            scaledParticles.batch.max_speed *= livingEntity.getAgeScale();
             ParticleHelper.play(world, livingEntity, scaledParticles);
         }
     }

@@ -2,17 +2,17 @@ package net.paladins.village;
 
 import com.google.common.collect.ImmutableSet;
 import net.rpg_foundation.structure_pool.api.StructurePoolAPI;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.village.TradeOffers;
-import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.BlockState;
 import net.paladins.PaladinsMod;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.item.PaladinWeapons;
@@ -27,7 +27,7 @@ import java.util.Set;
 
 public class PaladinVillagers {
     public static final String PALADIN_MERCHANT = "monk";
-    public static final Identifier POI_ID = Identifier.of(PaladinsMod.ID, PALADIN_MERCHANT);
+    public static final Identifier POI_ID = Identifier.fromNamespaceAndPath(PaladinsMod.ID, PALADIN_MERCHANT);
     public static final int POI_TICKET_COUNT = 1;
     public static final int POI_SEARCH_DISTANCE = 10;
 
@@ -36,7 +36,7 @@ public class PaladinVillagers {
     /// whose block-state mapping NeoForge wires via its POI registry callback) — done in each platform's
     /// entrypoint; this only exposes the shared state set.
     public static Set<BlockState> poiBlockStates() {
-        return ImmutableSet.copyOf(PaladinBlocks.MONK_WORKBENCH.getStateManager().getStates());
+        return ImmutableSet.copyOf(PaladinBlocks.MONK_WORKBENCH.getStateDefinition().getPossibleStates());
     }
 
     /// The registered monk profession, set by {@link #registerVillagers()}. Read by the loader-specific
@@ -46,23 +46,23 @@ public class PaladinVillagers {
     /// The profession's registry key. Both loaders now address professions by key
     /// (Fabric `TradeOfferHelper.registerVillagerOffers(RegistryKey, ...)`,
     /// NeoForge `VillagerTradesEvent#getType()`), so it is kept alongside the value.
-    public static final RegistryKey<VillagerProfession> PROFESSION_KEY =
-            RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, Identifier.of(PaladinsMod.ID, PALADIN_MERCHANT));
+    public static final ResourceKey<VillagerProfession> PROFESSION_KEY =
+            ResourceKey.create(Registries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(PaladinsMod.ID, PALADIN_MERCHANT));
 
     /// Trade offers per merchant tier (1..5), populated by {@link #registerVillagers()}. Actual registration
     /// with the game is loader-specific and lives in each platform's entrypoint.
-    public static final LinkedHashMap<Integer, List<TradeOffers.Factory>> TRADES = new LinkedHashMap<>();
+    public static final LinkedHashMap<Integer, List<VillagerTrades.ItemListing>> TRADES = new LinkedHashMap<>();
 
-    public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> workStation) {
-        var id = Identifier.of(PaladinsMod.ID, name);
-        return Registry.register(Registries.VILLAGER_PROFESSION, Identifier.of(PaladinsMod.ID, name), new VillagerProfession(
+    public static VillagerProfession registerProfession(String name, ResourceKey<PoiType> workStation) {
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, name);
+        return Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(PaladinsMod.ID, name), new VillagerProfession(
                 // 1.21.11: `VillagerProfession.id` is a Text (the profession's display name)
-                Text.translatable("entity.minecraft.villager." + id.getNamespace() + "." + id.getPath()),
+                Component.translatable("entity.minecraft.villager." + id.getNamespace() + "." + id.getPath()),
                 (entry) -> {
-                    return entry.matchesKey(workStation);
+                    return entry.is(workStation);
                 },
                 (entry) -> {
-                    return entry.matchesKey(workStation);
+                    return entry.is(workStation);
                 },
                 ImmutableSet.of(),
                 ImmutableSet.of(),
@@ -103,7 +103,7 @@ public class PaladinVillagers {
         }
         PROFESSION = registerProfession(
                 PALADIN_MERCHANT,
-                RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), POI_ID));
+                ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), POI_ID));
 
 //        List<Offer> paladinMerchantOffers = List.of(
 //                Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.HEALING), 8), 2, 128, 1, 0.01f),
@@ -127,35 +127,35 @@ public class PaladinVillagers {
 
         TRADES.clear();
         TRADES.put(1, List.of(
-                new TradeOffers.SellItemFactory(RuneItems.get(RuneItems.RuneType.HEALING), 2, 8, 128, 1, 0.01f),
-                new TradeOffers.SellItemFactory(PaladinWeapons.acolyte_wand.item(), 4, 1, 12, 5),
-                new TradeOffers.SellItemFactory(PaladinWeapons.wooden_great_hammer.item(), 8, 1, 12, 8)
+                new VillagerTrades.ItemsForEmeralds(RuneItems.get(RuneItems.RuneType.HEALING), 2, 8, 128, 1, 0.01f),
+                new VillagerTrades.ItemsForEmeralds(PaladinWeapons.acolyte_wand.item(), 4, 1, 12, 5),
+                new VillagerTrades.ItemsForEmeralds(PaladinWeapons.wooden_great_hammer.item(), 8, 1, 12, 8)
         ));
         TRADES.put(2, List.of(
-                new TradeOffers.BuyItemFactory(Items.WHITE_WOOL, 5, 12, 5, 8),
-                new TradeOffers.BuyItemFactory(Items.IRON_INGOT, 6, 12, 5, 8),
-                new TradeOffers.BuyItemFactory(Items.IRON_CHAIN, 6, 12, 5, 8),
-                new TradeOffers.BuyItemFactory(Items.GOLD_INGOT, 6, 12, 5, 8)
+                new VillagerTrades.EmeraldForItems(Items.WHITE_WOOL, 5, 12, 5, 8),
+                new VillagerTrades.EmeraldForItems(Items.IRON_INGOT, 6, 12, 5, 8),
+                new VillagerTrades.EmeraldForItems(Items.IRON_CHAIN, 6, 12, 5, 8),
+                new VillagerTrades.EmeraldForItems(Items.GOLD_INGOT, 6, 12, 5, 8)
         ));
         TRADES.put(3, List.of(
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.head, 15, 1, 12, 13),
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.feet, 15, 1, 12, 13),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.head, 15, 1, 12, 13),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.feet, 15, 1, 12, 13)
+                new VillagerTrades.ItemsForEmeralds(Armors.paladinArmorSet_t1.head, 15, 1, 12, 13),
+                new VillagerTrades.ItemsForEmeralds(Armors.paladinArmorSet_t1.feet, 15, 1, 12, 13),
+                new VillagerTrades.ItemsForEmeralds(Armors.priestArmorSet_t1.head, 15, 1, 12, 13),
+                new VillagerTrades.ItemsForEmeralds(Armors.priestArmorSet_t1.feet, 15, 1, 12, 13)
         ));
         TRADES.put(4, List.of(
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.chest, 20, 1, 12, 15),
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.legs, 20, 1, 12, 15),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.chest, 20, 1, 12, 15),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.legs, 20, 1, 12, 15)
+                new VillagerTrades.ItemsForEmeralds(Armors.paladinArmorSet_t1.chest, 20, 1, 12, 15),
+                new VillagerTrades.ItemsForEmeralds(Armors.paladinArmorSet_t1.legs, 20, 1, 12, 15),
+                new VillagerTrades.ItemsForEmeralds(Armors.priestArmorSet_t1.chest, 20, 1, 12, 15),
+                new VillagerTrades.ItemsForEmeralds(Armors.priestArmorSet_t1.legs, 20, 1, 12, 15)
         ));
         TRADES.put(5, List.of(
-                (TradeOffers.Factory) (world, entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_holy_staff.item(), 40, 3, 30, 0F).create(world, entity, random),
-                (TradeOffers.Factory) (world, entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_claymore.item(), 40, 3, 30, 0F).create(world, entity, random),
-                (TradeOffers.Factory) (world, entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F).create(world, entity, random)
+                (VillagerTrades.ItemListing) (world, entity, random) -> new VillagerTrades.EnchantedItemForEmeralds(
+                        PaladinWeapons.diamond_holy_staff.item(), 40, 3, 30, 0F).getOffer(world, entity, random),
+                (VillagerTrades.ItemListing) (world, entity, random) -> new VillagerTrades.EnchantedItemForEmeralds(
+                        PaladinWeapons.diamond_claymore.item(), 40, 3, 30, 0F).getOffer(world, entity, random),
+                (VillagerTrades.ItemListing) (world, entity, random) -> new VillagerTrades.EnchantedItemForEmeralds(
+                        PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F).getOffer(world, entity, random)
         ));
     }
 }

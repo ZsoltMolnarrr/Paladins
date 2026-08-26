@@ -1,7 +1,7 @@
 package net.paladins.item;
 
 import net.spell_engine.Platform;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.tags.ItemTags;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSpells;
 import net.spell_engine.rpg_series.config.WeaponConfig;

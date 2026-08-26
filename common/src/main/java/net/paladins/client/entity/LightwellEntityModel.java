@@ -1,67 +1,67 @@
 package net.paladins.client.entity;
 
-import net.minecraft.client.model.Dilation;
-import net.minecraft.client.model.ModelData;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.ModelPartBuilder;
-import net.minecraft.client.model.ModelPartData;
-import net.minecraft.client.model.ModelTransform;
-import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.Identifier;
 import net.paladins.PaladinsMod;
 
 // Made with Blockbench 5.1.4
 // Exported for Minecraft version 1.17+ for Yarn, then wired to the SummonedEntity animation states.
 public class LightwellEntityModel extends EntityModel<LightwellEntityRenderer.State> {
-    public static final EntityModelLayer LAYER = new EntityModelLayer(Identifier.of(PaladinsMod.ID, "lightwell"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(Identifier.fromNamespaceAndPath(PaladinsMod.ID, "lightwell"), "main");
 
     private final ModelPart light;
-    private final Animation spawnAnimation;
-    private final Animation idleAnimation;
-    private final Animation spellReleaseAnimation;
+    private final KeyframeAnimation spawnAnimation;
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation spellReleaseAnimation;
 
     public LightwellEntityModel(ModelPart root) {
         super(root);
         this.light = root.getChild("root").getChild("light");
-        this.spawnAnimation = LightwellEntityAnimations.spawn.createAnimation(root);
-        this.idleAnimation = LightwellEntityAnimations.idle.createAnimation(root);
-        this.spellReleaseAnimation = LightwellEntityAnimations.spell_release.createAnimation(root);
+        this.spawnAnimation = LightwellEntityAnimations.spawn.bake(root);
+        this.idleAnimation = LightwellEntityAnimations.idle.bake(root);
+        this.spellReleaseAnimation = LightwellEntityAnimations.spell_release.bake(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create().uv(0, 23).cuboid(-6.0F, -3.0F, -6.0F, 12.0F, 6.0F, 12.0F, new Dilation(0.0F))
-        .uv(24, 5).cuboid(5.0F, -5.0F, -5.0F, 2.0F, 3.0F, 10.0F, new Dilation(0.0F))
-        .uv(0, 0).cuboid(-7.0F, -5.0F, 5.0F, 14.0F, 3.0F, 2.0F, new Dilation(0.0F))
-        .uv(0, 5).cuboid(-7.0F, -5.0F, -5.0F, 2.0F, 3.0F, 10.0F, new Dilation(0.0F))
-        .uv(0, 18).cuboid(-7.0F, -5.0F, -7.0F, 14.0F, 3.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 21.0F, 0.0F));
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition root = modelPartData.addOrReplaceChild("root", CubeListBuilder.create().texOffs(0, 23).addBox(-6.0F, -3.0F, -6.0F, 12.0F, 6.0F, 12.0F, new CubeDeformation(0.0F))
+        .texOffs(24, 5).addBox(5.0F, -5.0F, -5.0F, 2.0F, 3.0F, 10.0F, new CubeDeformation(0.0F))
+        .texOffs(0, 0).addBox(-7.0F, -5.0F, 5.0F, 14.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
+        .texOffs(0, 5).addBox(-7.0F, -5.0F, -5.0F, 2.0F, 3.0F, 10.0F, new CubeDeformation(0.0F))
+        .texOffs(0, 18).addBox(-7.0F, -5.0F, -7.0F, 14.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 21.0F, 0.0F));
 
-        ModelPartData cube_r1 = root.addChild("cube_r1", ModelPartBuilder.create().uv(48, 0).cuboid(-1.0F, 0.0F, -2.0F, 4.0F, 5.0F, 4.0F, new Dilation(0.0F))
-        .uv(48, 0).cuboid(-1.0F, 0.0F, -2.0F, 4.0F, 5.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(7.0F, -5.0F, 0.0F, 0.0F, 0.0F, 0.3927F));
+        PartDefinition cube_r1 = root.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(48, 0).addBox(-1.0F, 0.0F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.0F))
+        .texOffs(48, 0).addBox(-1.0F, 0.0F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(7.0F, -5.0F, 0.0F, 0.0F, 0.0F, 0.3927F));
 
-        ModelPartData cube_r2 = root.addChild("cube_r2", ModelPartBuilder.create().uv(48, 0).mirrored().cuboid(-3.0F, 0.0F, -2.0F, 4.0F, 5.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-7.0F, -5.0F, 0.0F, 0.0F, 0.0F, -0.3927F));
+        PartDefinition cube_r2 = root.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(48, 0).mirror().addBox(-3.0F, 0.0F, -2.0F, 4.0F, 5.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-7.0F, -5.0F, 0.0F, 0.0F, 0.0F, -0.3927F));
 
-        ModelPartData light = root.addChild("light", ModelPartBuilder.create().uv(3, 44).cuboid(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -5.0F, 0.0F));
-        return TexturedModelData.of(modelData, 64, 64);
+        PartDefinition light = root.addOrReplaceChild("light", CubeListBuilder.create().texOffs(3, 44).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -5.0F, 0.0F));
+        return LayerDefinition.create(modelData, 64, 64);
     }
 
     @Override
-    public void setAngles(LightwellEntityRenderer.State state) {
-        super.setAngles(state);
-        this.spawnAnimation.apply(state.spawnAnimationState,   state.age,  1F);
-        this.spawnAnimation.apply(state.despawnAnimationState, state.age, -1F);
+    public void setupAnim(LightwellEntityRenderer.State state) {
+        super.setupAnim(state);
+        this.spawnAnimation.apply(state.spawnAnimationState,   state.ageInTicks,  1F);
+        this.spawnAnimation.apply(state.despawnAnimationState, state.ageInTicks, -1F);
 
         boolean anyAction = false;
-        if (state.spellReleaseAnimationState.isRunning()) {
-            this.spellReleaseAnimation.apply(state.spellReleaseAnimationState, state.age, state.spellReleaseSpeed);
+        if (state.spellReleaseAnimationState.isStarted()) {
+            this.spellReleaseAnimation.apply(state.spellReleaseAnimationState, state.ageInTicks, state.spellReleaseSpeed);
             anyAction = true;
         }
         if (!anyAction) {
-            this.idleAnimation.apply(state.idleAnimationState, state.age, 1F);
+            this.idleAnimation.apply(state.idleAnimationState, state.ageInTicks, 1F);
         }
     }
 }

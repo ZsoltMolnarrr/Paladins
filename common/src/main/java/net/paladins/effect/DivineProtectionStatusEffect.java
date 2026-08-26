@@ -1,14 +1,14 @@
 package net.paladins.effect;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.spell_engine.api.spell.fx.ParticleGroup;
 import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
 
-public class DivineProtectionStatusEffect extends StatusEffect {
-    public DivineProtectionStatusEffect(StatusEffectCategory statusEffectCategory, int color) {
+public class DivineProtectionStatusEffect extends MobEffect {
+    public DivineProtectionStatusEffect(MobEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
     public static final ParticleGroup particles =

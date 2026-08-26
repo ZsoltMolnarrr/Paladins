@@ -1,18 +1,17 @@
 package net.paladins.item;
 
 import net.spell_engine.Platform;
-import net.minecraft.item.Item;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.spell_engine.rpg_series.config.ShieldConfig;
 import net.spell_engine.rpg_series.item.Equipment;
 import net.spell_engine.rpg_series.item.Shield;
 import net.spell_engine.rpg_series.item.Shields;
-
-import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.spell_engine.rpg_series.config.AttributeModifier;
 
 import org.jetbrains.annotations.Nullable;
@@ -45,11 +44,11 @@ public class PaladinShields {
     }
 
     private static AttributeModifier toughness(float value) {
-        return new AttributeModifier(EntityAttributes.ARMOR_TOUGHNESS.getIdAsString(), value, Operation.ADD_VALUE);
+        return new AttributeModifier(Attributes.ARMOR_TOUGHNESS.getRegisteredName(), value, Operation.ADD_VALUE);
     }
 
     private static AttributeModifier health(float value) {
-        return new AttributeModifier(EntityAttributes.MAX_HEALTH.getIdAsString(), value, Operation.ADD_VALUE);
+        return new AttributeModifier(Attributes.MAX_HEALTH.getRegisteredName(), value, Operation.ADD_VALUE);
     }
 
     private static Shield.Entry create(String name, Equipment.Tier tier, @Nullable TagKey<Item> repairItems) {

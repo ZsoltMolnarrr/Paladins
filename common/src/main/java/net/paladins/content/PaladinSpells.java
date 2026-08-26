@@ -1,6 +1,6 @@
 package net.paladins.content;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.effect.PaladinEffects;
 import net.paladins.entity.PaladinEntities;
@@ -114,7 +114,7 @@ public class PaladinSpells {
 
     public static final Entry FLASH_HEAL = add(flash_heal().book(Book.PALADIN));
     private static Entry flash_heal() {
-        var id = Identifier.of(PaladinsMod.ID, "flash_heal");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "flash_heal");
         var title = "Flash Heal";
         var description = "Heals you or a friendly target by {heal} health points.";
 
@@ -150,7 +150,7 @@ public class PaladinSpells {
 
     public static final Entry BLESSED_STRIKES = add(blessed_strikes().book(Book.PALADIN));
     private static Entry blessed_strikes() {
-        var id = Identifier.of(PaladinsMod.ID, "blessed_strikes");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "blessed_strikes");
         var title = "Blessed Strikes";
         var description = "Channels holy light into your weapon, blessing it up to 5 times. Each melee strike spends a blessing to deal {damage} additional spell damage.";
 
@@ -238,7 +238,7 @@ public class PaladinSpells {
 
     public static final Entry DIVINE_PROTECTION = add(divine_protection().book(Book.PALADIN));
     private static Entry divine_protection() {
-        var id = Identifier.of(PaladinsMod.ID, "divine_protection");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "divine_protection");
         var title = "Divine Protection";
         var description = "Protects you from the next incoming attacks (up to {effect_amplifier_cap}), for {effect_duration} seconds.";
 
@@ -268,7 +268,7 @@ public class PaladinSpells {
 
     public static final Entry JUDGEMENT = add(judgement().book(Book.PALADIN));
     private static Entry judgement() {
-        var id = Identifier.of(PaladinsMod.ID, "judgement");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "judgement");
         var title = "Judgement";
         var description = "Strikes your target and enemies around it, within {impact_range} blocks, causing up to {damage} damage and stunning them for {effect_duration} seconds.";
 
@@ -342,7 +342,7 @@ public class PaladinSpells {
 
     public static final Entry BATTLE_BANNER = add(battle_banner().book(Book.PALADIN));
     private static Entry battle_banner() {
-        var id = Identifier.of(PaladinsMod.ID, "battle_banner");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "battle_banner");
         var title = "Battle Banner";
         var description = "Increases attack speed and knockback resistance for you and allies nearby, within {cloud_radius} blocks, for {cloud_duration} seconds.";
 
@@ -419,7 +419,7 @@ public class PaladinSpells {
 
     public static final Entry IMMOLATION = add(immolation().book(Book.PALADIN));
     private static Entry immolation() {
-        var id = Identifier.of(PaladinsMod.ID, "immolation");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "immolation");
         var title = "Immolation";
         var description = "Erupts in holy fire, dealing {damage} damage to nearby enemies and setting them ablaze, while healing you and nearby allies by {heal}. The longer the cast is held, the harder it hits and the wider it spreads.";
 
@@ -515,7 +515,7 @@ public class PaladinSpells {
 
     public static final Entry HEAL = add(heal().weaponGroup(WeaponGroup.HOLY_WAND));
     private static Entry heal() {
-        var id = Identifier.of(PaladinsMod.ID, "heal");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "heal");
         var title = "Heal";
         var description = "Heals you or a friendly target by {heal} health points.";
 
@@ -553,7 +553,7 @@ public class PaladinSpells {
 
     public static final Entry HOLY_SHOCK = add(holy_shock().weaponGroup(WeaponGroup.HOLY_STAFF));
     private static Entry holy_shock() {
-        var id = Identifier.of(PaladinsMod.ID, "holy_shock");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "holy_shock");
         var title = "Holy Shock";
         var description = "Heals you or a friendly target by {heal}, smites an enemy dealing {damage} spell damage.";
 
@@ -593,7 +593,7 @@ public class PaladinSpells {
 
     public static final Entry HOLY_BEAM = add(holy_beam().book(Book.PRIEST));
     private static Entry holy_beam() {
-        var id = Identifier.of(PaladinsMod.ID, "holy_beam");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "holy_beam");
         var title = "Holy Light";
         var description = "Channels a beam of light, healing friends by {heal}, and dealing {damage} spell damage to enemies every second.";
 
@@ -655,7 +655,7 @@ public class PaladinSpells {
 
     public static final Entry CIRCLE_OF_HEALING = add(circle_of_healing().book(Book.PRIEST));
     private static Entry circle_of_healing() {
-        var id = Identifier.of(PaladinsMod.ID, "circle_of_healing");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "circle_of_healing");
         var title = "Circle of Healing";
         var description = "Heals you and friendly targets around you by {heal}.";
 
@@ -710,7 +710,7 @@ public class PaladinSpells {
 
     public static final Entry BARRIER = add(barrier().book(Book.PRIEST));
     private static Entry barrier() {
-        var id = Identifier.of(PaladinsMod.ID, "barrier");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "barrier");
         var title = "Barrier";
         var description = "Summons a circular barrier, protecting you and allies from projectiles, magic or enemies intruding the area.";
 
@@ -751,7 +751,7 @@ public class PaladinSpells {
 
     public static final Entry LIGHTWELL = add(lightwell().book(Book.PRIEST));
     private static Entry lightwell() {
-        var id = Identifier.of(PaladinsMod.ID, "lightwell");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "lightwell");
         var title = "Lightwell";
         var description = "Summons a Lightwell that heals you and nearby wounded allies. It lasts {summon_duration} sec.";
 
@@ -782,7 +782,7 @@ public class PaladinSpells {
     // summon can cast it (summons can't channel); scales off the well's own healing spell power.
     public static final Entry LIGHTWELL_ORB = add(lightwell_orb());
     private static Entry lightwell_orb() {
-        var id = Identifier.of(PaladinsMod.ID, "lightwell_orb");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "lightwell_orb");
         var title = "Holy Mote";
         var description = "Heals a friendly target by {heal} health points.";
 
@@ -842,7 +842,7 @@ public class PaladinSpells {
 
     public static final Entry LEVITATE = add(levitate().book(Book.PRIEST));
     private static Entry levitate() {
-        var id = Identifier.of(PaladinsMod.ID, "levitate");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "levitate");
         var title = "Levitate";
         var description = "Channel to rise into the air on holy light. When you stop, you keep floating and drift gently back down.";
 
@@ -896,7 +896,7 @@ public class PaladinSpells {
 
     public static final Entry PENANCE = add(penance().book(Book.PRIEST));
     private static Entry penance() {
-        var id = Identifier.of(PaladinsMod.ID, "penance");
+        var id = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "penance");
         var title = "Penance";
         var description = "Channel a volley of holy bolts at an enemy. Each of the three bolts deals {damage} damage and radiates an absorption shield to allies within {impact_range} blocks of your target — your offense is their protection.";
 

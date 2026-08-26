@@ -1,6 +1,6 @@
 package net.paladins.entity;
 
-import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.datagen.SpellBuilder.Placements;
@@ -113,7 +113,7 @@ public class PaladinSummons {
         var entry = new AttributeScaling.Entry();
         entry.attribute_id = targetAttribute;
         entry.modifiers = List.of(new AttributeScaling.Entry.OwnerModifier(
-                ownerAttribute, EntityAttributeModifier.Operation.ADD_VALUE, base, coefficient));
+                ownerAttribute, AttributeModifier.Operation.ADD_VALUE, base, coefficient));
         return entry;
     }
 }

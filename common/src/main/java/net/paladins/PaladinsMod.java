@@ -1,11 +1,11 @@
 package net.paladins;
 
 import net.rpg_foundation.structure_pool.api.StructurePoolConfig;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.config.TweaksConfig;
@@ -79,11 +79,11 @@ public class PaladinsMod {
     }
 
     public static void registerItems() {
-        Group.PALADINS = new ItemGroup.Builder(ItemGroup.Row.TOP, 0)
+        Group.PALADINS = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
                 .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
-                .displayName(Text.translatable("itemGroup.paladins.general"))
+                .title(Component.translatable("itemGroup.paladins.general"))
                 .build();
-        Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, Group.KEY, Group.PALADINS);
         PaladinBooks.register();
 
         PaladinWeapons.register(itemConfig.value.weapons);

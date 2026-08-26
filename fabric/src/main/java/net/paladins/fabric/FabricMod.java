@@ -29,6 +29,6 @@ public final class FabricMod implements ModInitializer {
 
         // Monk workbench into the Paladins creative tab — Fabric API.
         ItemGroupEvents.modifyEntriesEvent(Group.KEY).register(content ->
-                content.add(PaladinBlocks.MONK_WORKBENCH_BLOCK));
+                content.accept(PaladinBlocks.MONK_WORKBENCH_BLOCK));
     }
 }

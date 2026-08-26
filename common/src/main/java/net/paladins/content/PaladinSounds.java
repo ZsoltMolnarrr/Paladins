@@ -1,14 +1,14 @@
 package net.paladins.content;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.paladins.PaladinsMod;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class PaladinSounds {
     public static final class Entry {
         private final Identifier id;
         private final SoundEvent soundEvent;
-        private RegistryEntry<SoundEvent> entry;
+        private Holder<SoundEvent> entry;
         private int variants = 1;
         private String soundFile;
 
@@ -28,15 +28,15 @@ public class PaladinSounds {
         }
 
         public Entry(String name) {
-            this(Identifier.of(PaladinsMod.ID, name));
+            this(Identifier.fromNamespaceAndPath(PaladinsMod.ID, name));
         }
 
         public Entry(Identifier id) {
-            this(id, SoundEvent.of(id));
+            this(id, SoundEvent.createVariableRangeEvent(id));
         }
 
         public Entry travelDistance(float distance) {
-            var copy = new Entry(id, SoundEvent.of(id, distance));
+            var copy = new Entry(id, SoundEvent.createFixedRangeEvent(id, distance));
             copy.variants = variants;
             copy.soundFile = soundFile;
             return copy;
@@ -61,7 +61,7 @@ public class PaladinSounds {
             return soundEvent;
         }
 
-        public RegistryEntry<SoundEvent> entry() {
+        public Holder<SoundEvent> entry() {
             return entry;
         }
 
@@ -111,22 +111,22 @@ public class PaladinSounds {
 
     public static void register() {
         for (var entry: entries) {
-            entry.entry = Registry.registerReference(Registries.SOUND_EVENT, entry.id(), entry.soundEvent());
+            entry.entry = Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, entry.id(), entry.soundEvent());
         }
     }
 
-    public static void playSoundEvent(World world, Entity entity, SoundEvent soundEvent) {
+    public static void playSoundEvent(Level world, Entity entity, SoundEvent soundEvent) {
         playSoundEvent(world, entity, soundEvent, 1, 1);
     }
 
-    public static void playSoundEvent(World world, Entity entity, SoundEvent soundEvent, float volume, float pitch) {
+    public static void playSoundEvent(Level world, Entity entity, SoundEvent soundEvent, float volume, float pitch) {
         world.playSound(
-                (PlayerEntity)null,
+                (Player)null,
                 entity.getX(),
                 entity.getY(),
                 entity.getZ(),
                 soundEvent,
-                SoundCategory.PLAYERS,
+                SoundSource.PLAYERS,
                 volume,
                 pitch);
     }

@@ -6,16 +6,16 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.paladins.content.PaladinSpells;
@@ -57,7 +57,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class SpellGen extends SpellGenerator {
-        public SpellGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        public SpellGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup);
         }
 
@@ -70,40 +70,40 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class SpellTagGenerator extends FabricTagProvider<Spell> {
-        public SpellTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        public SpellTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, SpellRegistry.KEY, registriesFuture);
         }
 
         @Override
-        protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        protected void addTags(HolderLookup.Provider wrapperLookup) {
             var namespace = PaladinsMod.ID;
             var treasureTagBuilder = builder(SpellTags.TREASURE);
             var processedBooks = new HashSet<PaladinSpells.Book>();
             PaladinSpells.entries.forEach(entry -> {
                 if (entry.book() != null) {
                     var bookTagKey = SpellTags.spellBook(namespace, entry.book().toString().toLowerCase());
-                    builder(bookTagKey).addOptional(RegistryKey.of(SpellRegistry.KEY, entry.id()));
+                    builder(bookTagKey).addOptional(ResourceKey.create(SpellRegistry.KEY, entry.id()));
                     var scrollTagKey = SpellTags.spellScroll(namespace, entry.book().toString().toLowerCase());
-                    builder(scrollTagKey).addOptional(RegistryKey.of(SpellRegistry.KEY, entry.id()));
+                    builder(scrollTagKey).addOptional(ResourceKey.create(SpellRegistry.KEY, entry.id()));
                     if (processedBooks.add(entry.book())) {
                         treasureTagBuilder.addOptionalTag(scrollTagKey);
                     }
                 }
                 for (var group : entry.weaponGroups()) {
                     var weaponGroupTagKey = SpellTags.weapon(namespace, group.toString().toLowerCase());
-                    builder(weaponGroupTagKey).addOptional(RegistryKey.of(SpellRegistry.KEY, entry.id()));
+                    builder(weaponGroupTagKey).addOptional(ResourceKey.create(SpellRegistry.KEY, entry.id()));
                 }
             });
         }
     }
 
     public static class ItemTagGenerator extends RPGSeriesDataGen.ItemTagGenerator {
-        public ItemTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        public ItemTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 
         @Override
-        protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        protected void addTags(HolderLookup.Provider wrapperLookup) {
             generateWeaponTags(PaladinWeapons.entries);
             generateArmorTags(
                     Armors.entries.stream().filter(entry -> entry.name().contains("armor")).toList(),
@@ -122,14 +122,14 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             // Anvil repair tags (`minecraft:repairable`), one per material
             for (var repair: PaladinItemTags.REPAIR_TAGS) {
                 var tag = builder(repair.tag());
-                repair.required().forEach(id -> tag.add(RegistryKey.of(RegistryKeys.ITEM, id)));
-                repair.optional().forEach(id -> tag.addOptional(RegistryKey.of(RegistryKeys.ITEM, id)));
+                repair.required().forEach(id -> tag.add(ResourceKey.create(Registries.ITEM, id)));
+                repair.optional().forEach(id -> tag.addOptional(ResourceKey.create(Registries.ITEM, id)));
             }
         }
     }
 
     public static class SoundGen extends SimpleSoundGeneratorV2 {
-        public SoundGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        public SoundGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup);
         }
 
@@ -148,7 +148,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class UnsmeltGenerator extends FabricRecipeProvider {
-        public UnsmeltGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        public UnsmeltGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 
@@ -160,10 +160,10 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         }
 
         @Override
-        protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
-            return new RecipeGenerator(registryLookup, exporter) {
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
+            return new RecipeProvider(registryLookup, exporter) {
                 @Override
-                public void generate() {
+                public void buildRecipes() {
             disassembleArmor(Armors.paladinArmorSet_t1, Items.IRON_NUGGET);
             disassembleArmor(Armors.paladinArmorSet_t2, Items.GOLD_NUGGET);
             disassembleArmor(Armors.paladinArmorSet_t3, Items.NETHERITE_SCRAP);
@@ -174,12 +174,12 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             disassemble(
                     PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("gold"))
-                            .map(entry -> (ItemConvertible) entry.item()).toList(),
+                            .map(entry -> (ItemLike) entry.item()).toList(),
                     Items.GOLD_NUGGET);
             disassemble(
                     PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("iron"))
-                            .map(entry -> (ItemConvertible) entry.item()).toList(),
+                            .map(entry -> (ItemLike) entry.item()).toList(),
                     Items.IRON_NUGGET);
 //            disassemble(
 //                    Weapons.entries.stream()
@@ -189,7 +189,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             disassemble(
                     PaladinWeapons.entries.stream()
                             .filter(entry -> entry.id().getPath().contains("netherite"))
-                            .map(entry -> (ItemConvertible) entry.item()).toList(),
+                            .map(entry -> (ItemLike) entry.item()).toList(),
                     Items.NETHERITE_SCRAP);
 
             disassemble(
@@ -208,16 +208,16 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         }
 
         private void disassembleArmor(Armor.Set<?> armorSet, Item output) {
-            offerSmelting(
-                    List.<ItemConvertible>copyOf(armorSet.pieces()),
+            oreSmelting(
+                    List.<ItemLike>copyOf(armorSet.pieces()),
                     RecipeCategory.MISC,
                     output,
                     0.1f,
                     UNSMELT_TIME,
                     "disassemble"
             );
-            offerBlasting(
-                    List.<ItemConvertible>copyOf(armorSet.pieces()),
+            oreBlasting(
+                    List.<ItemLike>copyOf(armorSet.pieces()),
                     RecipeCategory.MISC,
                     output,
                     0.1f,
@@ -226,8 +226,8 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             );
         }
 
-        private void disassemble(List<ItemConvertible> items, Item output) {
-            offerSmelting(
+        private void disassemble(List<ItemLike> items, Item output) {
+            oreSmelting(
                     items,
                     RecipeCategory.MISC,
                     output,
@@ -235,7 +235,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     UNSMELT_TIME,
                     "disassemble"
             );
-            offerBlasting(
+            oreBlasting(
                     items,
                     RecipeCategory.MISC,
                     output,
@@ -249,7 +249,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class WeaponGen extends WeaponAttributeGenerator {
-        public WeaponGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        public WeaponGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup);
         }
 
@@ -270,12 +270,12 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
      * dedicated content entry.
      */
     public static class LangGen extends NamespacedLangGenerator {
-        public LangGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        public LangGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup, PaladinsMod.ID);
         }
 
         @Override
-        public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, FabricLanguageProvider.TranslationBuilder builder) {
+        public void generateTranslations(HolderLookup.Provider registryLookup, FabricLanguageProvider.TranslationBuilder builder) {
             var namespace = PaladinsMod.ID;
 
             // Creative tab

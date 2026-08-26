@@ -1,25 +1,22 @@
 package net.paladins.client.entity;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Atlases;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.data.AtlasIds;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 import net.paladins.PaladinsMod;
 import net.paladins.entity.BarrierEntity;
 import net.spell_engine.api.render.CustomLayers;
@@ -27,7 +24,9 @@ import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.client.compatibility.ShaderCompatibility;
 import net.spell_engine.client.util.Color;
 import org.joml.Matrix4f;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +38,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         @Nullable public BarrierEntity barrier;
     }
 
-    public static final Identifier blankTextureId = Identifier.of(PaladinsMod.ID, "spell_effect/barrier");
+    public static final Identifier blankTextureId = Identifier.fromNamespaceAndPath(PaladinsMod.ID, "spell_effect/barrier");
     public static final List<BarrierEntity> activeBarriers = new ArrayList<>();
 
     private static final int[] LIGHT_UP_ORDER = {0, 2, 8, 6, 4, 3, 9, 1, 5, 10, 7, 11};
@@ -48,12 +47,12 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
     // each platform's client entrypoint calls this from its own event (Fabric
     // `WorldRenderEvents.AFTER_TRANSLUCENT`; NeoForge `RenderLevelStageEvent` AFTER_TRANSLUCENT_BLOCKS),
     // mirroring SpellEngine's BeamRenderer.renderAfterTranslucent.
-    public static void renderAfterTranslucent(MatrixStack matrices, Camera camera, float tickDelta) {
-        VertexConsumerProvider.Immediate vcProvider = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-        renderAllInWorld(matrices, vcProvider, camera, LightmapTextureManager.MAX_LIGHT_COORDINATE, tickDelta);
+    public static void renderAfterTranslucent(PoseStack matrices, Camera camera, float tickDelta) {
+        MultiBufferSource.BufferSource vcProvider = Minecraft.getInstance().renderBuffers().bufferSource();
+        renderAllInWorld(matrices, vcProvider, camera, LightTexture.FULL_BRIGHT, tickDelta);
     }
 
-    public BarrierEntityRenderer(EntityRendererFactory.Context context) {
+    public BarrierEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
@@ -63,39 +62,39 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
     }
 
     @Override
-    public void updateRenderState(T entity, State state, float tickDelta) {
-        super.updateRenderState(entity, state, tickDelta);
+    public void extractRenderState(T entity, State state, float tickDelta) {
+        super.extractRenderState(entity, state, tickDelta);
         state.barrier = entity;
     }
 
     @Override
-    public void render(State state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+    public void submit(State state, PoseStack matrices, SubmitNodeCollector queue, CameraRenderState cameraState) {
         var entity = state.barrier;
         if (entity != null && entity.isAlive()) {
             activeBarriers.add(entity); // rendering is batched, and instead called AFTER_TRANSLUCENT to correctly apply transparency(issues with transparency may still persist with other objects)
         }
-        super.render(state, matrices, queue, cameraState);
+        super.submit(state, matrices, queue, cameraState);
     }
 
-    public static void renderAllInWorld(MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, Camera camera, int light, float tickDelta) {
-        matrices.push();
-        Vec3d camPos = camera.getCameraPos();
+    public static void renderAllInWorld(PoseStack matrices, MultiBufferSource.BufferSource vertexConsumers, Camera camera, int light, float tickDelta) {
+        matrices.pushPose();
+        Vec3 camPos = camera.position();
         matrices.translate(-camPos.x, -camPos.y, -camPos.z);
         var config = ShaderCompatibility.isShaderPackInUse() ? Config.IRIS : Config.VANILLA;
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(config.layer());
         for (BarrierEntity entity : activeBarriers) {
-            matrices.push();
+            matrices.pushPose();
             matrices.translate(entity.getX(), entity.getY()+1, entity.getZ());
             renderShield(entity, matrices, vertexConsumer, light, tickDelta, config);
-            matrices.pop();
+            matrices.popPose();
         }
-        vertexConsumers.draw();
-        matrices.pop();
+        vertexConsumers.endBatch();
+        matrices.popPose();
         activeBarriers.clear();
     }
 
     private record Config(
-            RenderLayer layer,
+            RenderType layer,
             float red,
             float green,
             float blue,
@@ -108,11 +107,11 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         // 1.21.11: a layer is a `RenderSetup` over a `RenderPipeline`. Same split as 1.21.1: vanilla draws
         // through the beacon-beam program with translucent blending, shader packs through an additive
         // (lightning-style, SRC_ALPHA/ONE) variant so the panels stay vibrant when bloomed.
-        private static final RenderLayer VANILLA_LAYER =
-                CustomLayers.spellObject(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, LightEmission.GLOW, true);
+        private static final RenderType VANILLA_LAYER =
+                CustomLayers.spellObject(TextureAtlas.LOCATION_BLOCKS, LightEmission.GLOW, true);
         // Shader packs: vanilla's lightning pipeline, as on 1.21.1 (flat color, additive; Iris handles it as
         // lightning, not as a full-bright beacon beam, so it does not bloom out)
-        private static final RenderLayer IRIS_LAYER = CustomLayers.spellObjectLightning();
+        private static final RenderType IRIS_LAYER = CustomLayers.spellObjectLightning();
 
         public static final Config VANILLA = new Config(VANILLA_LAYER,
                 shield.red(), shield.green(), shield.blue(), 0.8f, 0.9f, 1f);
@@ -121,7 +120,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                 shield.red(), shield.green(), shield.blue(), 0.5f, 1f, 0.8f);
     }
 
-    public static void renderShield(BarrierEntity entity, MatrixStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {
+    public static void renderShield(BarrierEntity entity, PoseStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {
         if (entity == null) {
             return;
         }
@@ -133,39 +132,39 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
         float radius = spell.range*0.8f;
         float zSlant = (float) (Math.PI/8f); // the amount of slant along the z axis that the segments have
-        float size = (radius*MathHelper.sqrt(3f))/3f; // half of the side length of each segment - calculated using the formula for triangle side length from height
-        float offset = radius*(MathHelper.sin(zSlant)+1); // offset from the center for each segment - the top of each segment should be exactly `radius` blocks away from the middle
+        float size = (radius*Mth.sqrt(3f))/3f; // half of the side length of each segment - calculated using the formula for triangle side length from height
+        float offset = radius*(Mth.sin(zSlant)+1); // offset from the center for each segment - the top of each segment should be exactly `radius` blocks away from the middle
 
-        int overlayUV = OverlayTexture.DEFAULT_UV;
+        int overlayUV = OverlayTexture.NO_OVERLAY;
 
-        Sprite sprite = MinecraftClient.getInstance().getAtlasManager().getAtlasTexture(Atlases.BLOCKS).getSprite(blankTextureId);
-        float u1 = sprite.getMinU();
-        float u2 = sprite.getMaxU();
-        float v1 = sprite.getMinV();
-        float v2 = sprite.getMaxV();
+        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS).getSprite(blankTextureId);
+        float u1 = sprite.getU0();
+        float u2 = sprite.getU1();
+        float v1 = sprite.getV0();
+        float v2 = sprite.getV1();
 
-        double fullTime = entity.getEntityWorld().getTime()/20d;
-        long time = entity.getEntityWorld().getTime()/20;
+        double fullTime = entity.level().getGameTime()/20d;
+        long time = entity.level().getGameTime()/20;
         double delta = (fullTime-time)*2; // delta is how far along the animation is
         if (delta > 1) delta = 2-delta; // send in opposite direction if halfway
         delta = 1 - Math.pow(1 - delta, 4); // ease out interpolation
 
         for (int m = 0; m < 2; m++) { // 2 outer loops, 1 for the top half and 1 for the bottom half
             for (int i = 0; i < 6; i++) { // 6 inner loops, 1 for each segment(since it's a hexagon)
-                matrices.push();
-                if (m == 0) matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.PI)); // flip 180 degrees if doing the bottom half
+                matrices.pushPose();
+                if (m == 0) matrices.mulPose(Axis.XP.rotation((float) Math.PI)); // flip 180 degrees if doing the bottom half
                 matrices.translate(offset, 0, 0);
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) (i/3f*Math.PI)), -offset, 0, 0); // rotate around middle to position segment
-                matrices.multiply(RotationAxis.POSITIVE_Z.rotation(zSlant)); // applying z slant
+                matrices.rotateAround(Axis.YP.rotation((float) (i/3f*Math.PI)), -offset, 0, 0); // rotate around middle to position segment
+                matrices.mulPose(Axis.ZP.rotation(zSlant)); // applying z slant
 
                 float r = config.red();
                 float g = config.green();
                 float b = config.blue();
                 float alpha = config.alpha();
 
-                if (entity.age >= entity.getTimeToLive() - entity.expirationDuration()) {
-                    int relAge = entity.getTimeToLive() - entity.expirationDuration() - entity.age;
-                    alpha = config.expirationPulseAlpha * Math.abs(MathHelper.cos((float) ((relAge*1.25f)/10f * Math.PI))); // simple calculation to flash in and out - the PI and 1.25 multiplications are to make it start at full alpha and end at none
+                if (entity.tickCount >= entity.getTimeToLive() - entity.expirationDuration()) {
+                    int relAge = entity.getTimeToLive() - entity.expirationDuration() - entity.tickCount;
+                    alpha = config.expirationPulseAlpha * Math.abs(Mth.cos((float) ((relAge*1.25f)/10f * Math.PI))); // simple calculation to flash in and out - the PI and 1.25 multiplications are to make it start at full alpha and end at none
                 } else  if (time % 12 == LIGHT_UP_ORDER[i+(m*6)]) {
                     //g+=(float) (0.1f*delta);
                     var glow = (float) (0.5f*delta);
@@ -175,37 +174,37 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                     alpha = blend(alpha, config.panelFlashAlpha(), glow);
                 }
 
-                Matrix4f matrix = new Matrix4f(matrices.peek().getPositionMatrix()); // copying matrix to avoid issue with sodium's matrix optimizations
-                var matrixEntry = matrices.peek();
+                Matrix4f matrix = new Matrix4f(matrices.last().pose()); // copying matrix to avoid issue with sodium's matrix optimizations
+                var matrixEntry = matrices.last();
                 // Matrix3f normalMatrix = matrixEntry.getNormalMatrix();
-                vertexConsumer.vertex(matrix, 0, radius, -size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // main part
-                vertexConsumer.vertex(matrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, radius, -size).setColor(r, g, b, 0f).setUv(u1, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0); // main part
+                vertexConsumer.addVertex(matrix, 0, 0, -size).setColor(r, g, b, alpha).setUv(u1, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, 0, size).setColor(r, g, b, alpha).setUv(u2, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, radius, size).setColor(r, g, b, 0f).setUv(u2, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
 
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // flip side, so that it renders from both the inside and outside
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, 0, -size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, -size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, radius, size).setColor(r, g, b, 0f).setUv(u1, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0); // flip side, so that it renders from both the inside and outside
+                vertexConsumer.addVertex(matrix, 0, 0, size).setColor(r, g, b, alpha).setUv(u1, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, 0, -size).setColor(r, g, b, alpha).setUv(u2, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, radius, -size).setColor(r, g, b, 0f).setUv(u2, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
 
-                matrices.pop();
-                matrices.push(); // finding the position of the next quad, so that we can grab its vertex for a triangle
-                Matrix4f newMatrix = matrices.peek().getPositionMatrix();
-                if (m == 0) matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.PI));
+                matrices.popPose();
+                matrices.pushPose(); // finding the position of the next quad, so that we can grab its vertex for a triangle
+                Matrix4f newMatrix = matrices.last().pose();
+                if (m == 0) matrices.mulPose(Axis.XP.rotation((float) Math.PI));
                 matrices.translate(offset, 0, 0);
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) ((i-1)/3f*Math.PI)), -offset, 0, 0);
-                matrices.multiply(RotationAxis.POSITIVE_Z.rotation(zSlant));
+                matrices.rotateAround(Axis.YP.rotation((float) ((i-1)/3f*Math.PI)), -offset, 0, 0);
+                matrices.mulPose(Axis.ZP.rotation(zSlant));
 
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // rendering main part of the connector triangle
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(newMatrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, radius, size).setColor(r, g, b, 0f).setUv(u2, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0); // rendering main part of the connector triangle
+                vertexConsumer.addVertex(matrix, 0, 0, size).setColor(r, g, b, alpha).setUv(u2, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(newMatrix, 0, 0, -size).setColor(r, g, b, alpha).setUv(u1, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, radius, size).setColor(r, g, b, 0f).setUv(u1, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
 
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // flip side, so that it renders from both the inside and outside
-                vertexConsumer.vertex(newMatrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                matrices.pop();
+                vertexConsumer.addVertex(matrix, 0, radius, size).setColor(r, g, b, 0f).setUv(u2, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0); // flip side, so that it renders from both the inside and outside
+                vertexConsumer.addVertex(newMatrix, 0, 0, -size).setColor(r, g, b, alpha).setUv(u1, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, 0, size).setColor(r, g, b, alpha).setUv(u2, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                vertexConsumer.addVertex(matrix, 0, radius, size).setColor(r, g, b, 0f).setUv(u1, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);
+                matrices.popPose();
             }
         }
     }

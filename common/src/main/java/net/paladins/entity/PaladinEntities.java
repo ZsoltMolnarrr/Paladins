@@ -1,14 +1,14 @@
 package net.paladins.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
 import net.paladins.PaladinsMod;
 import net.spell_engine.api.spell.summon.SummonedEntities;
 import net.spell_engine.api.spell.summon.SummonedEntityConfig;
@@ -45,8 +45,8 @@ public class PaladinEntities {
         }
     }
 
-    private static RegistryKey<EntityType<?>> entityKey(String path) {
-        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(PaladinsMod.ID, path));
+    private static ResourceKey<EntityType<?>> entityKey(String path) {
+        return ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(PaladinsMod.ID, path));
     }
 
     public static final List<Entry<?>> entries = new ArrayList<>();
@@ -56,37 +56,37 @@ public class PaladinEntities {
     }
 
     public static final Entry<BarrierEntity> BARRIER = add(new Entry<>(
-            Identifier.of(PaladinsMod.ID, "barrier"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "barrier"),
             "Barrier",
-            EntityType.Builder.<BarrierEntity>create(BarrierEntity::new, SpawnGroup.MISC)
+            EntityType.Builder.<BarrierEntity>of(BarrierEntity::new, MobCategory.MISC)
                     // was fixed(); vanilla builder only yields `changing`, which is equivalent
                     // here since this entity carries no GENERIC_SCALE attribute.
-                    .dimensions(1F, 1F)
-                    .makeFireImmune()
-                    .maxTrackingRange(128)
-                    .trackingTickInterval(20)
+                    .sized(1F, 1F)
+                    .fireImmune()
+                    .clientTrackingRange(128)
+                    .updateInterval(20)
                     // Vanilla build(RegistryKey) — the no-arg build() is a Fabric API interface-injected
                     // default (FabricEntityType.Builder) absent on NeoForge at runtime.
                     .build(entityKey("barrier"))));
 
     public static final Entry<BannerEntity> BANNER = add(new Entry<>(
-            Identifier.of(PaladinsMod.ID, "battle_banner"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "battle_banner"),
             "Battle Banner",
-            EntityType.Builder.<BannerEntity>create(BannerEntity::new, SpawnGroup.MISC)
-                    .dimensions(6F, 0.5F) // dimensions in Minecraft units of the render; changing
-                    .makeFireImmune()
-                    .maxTrackingRange(128)
-                    .trackingTickInterval(20)
+            EntityType.Builder.<BannerEntity>of(BannerEntity::new, MobCategory.MISC)
+                    .sized(6F, 0.5F) // dimensions in Minecraft units of the render; changing
+                    .fireImmune()
+                    .clientTrackingRange(128)
+                    .updateInterval(20)
                     .build(entityKey("battle_banner"))));
 
     public static final Entry<LightwellEntity> LIGHTWELL = add(new Entry<>(
-            Identifier.of(PaladinsMod.ID, "lightwell"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "lightwell"),
             "Lightwell",
-            EntityType.Builder.<LightwellEntity>create(LightwellEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.9F, 1.4F)
-                    .makeFireImmune()
-                    .maxTrackingRange(64)
-                    .trackingTickInterval(3)
+            EntityType.Builder.<LightwellEntity>of(LightwellEntity::new, MobCategory.MISC)
+                    .sized(0.9F, 1.4F)
+                    .fireImmune()
+                    .clientTrackingRange(64)
+                    .updateInterval(3)
                     .build(entityKey("lightwell")),
             lightwellDefaults()));
 
@@ -131,7 +131,7 @@ public class PaladinEntities {
     public static void register() {
         summonConfig.refresh(); // load (or write) Paladins' own config file before reading values from it
         for (var entry : entries) {
-            Registry.register(Registries.ENTITY_TYPE, entry.id, entry.type);
+            Registry.register(BuiltInRegistries.ENTITY_TYPE, entry.id, entry.type);
             if (entry.summonConfig != null) {
                 // Only summoned (living) entities carry a config; safe by construction.
                 @SuppressWarnings("unchecked")

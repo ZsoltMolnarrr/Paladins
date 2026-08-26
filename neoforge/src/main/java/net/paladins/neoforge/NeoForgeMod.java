@@ -1,9 +1,9 @@
 package net.paladins.neoforge;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
@@ -28,36 +28,36 @@ public final class NeoForgeMod {
     }
 
     public static void register(RegisterEvent event) {
-        event.register(RegistryKeys.SOUND_EVENT, reg -> {
+        event.register(Registries.SOUND_EVENT, reg -> {
             PaladinsMod.registerSounds();
         });
-        event.register(RegistryKeys.ITEM, reg -> {
+        event.register(Registries.ITEM, reg -> {
             PaladinsMod.registerItems();
         });
-        event.register(RegistryKeys.BLOCK, reg -> {
+        event.register(Registries.BLOCK, reg -> {
             PaladinsMod.registerBlocks();
         });
-        event.register(RegistryKeys.STATUS_EFFECT, reg -> {
+        event.register(Registries.MOB_EFFECT, reg -> {
             PaladinsMod.registerEffects();
         });
-        event.register(RegistryKeys.POINT_OF_INTEREST_TYPE, reg -> {
+        event.register(Registries.POINT_OF_INTEREST_TYPE, reg -> {
             // POI registration — vanilla registry insert. NeoForge's POI registry callback wires the
             // block-state -> POI mapping from the type's block states, so no Fabric API helper is needed.
             // Not sure why errors are thrown, but this seems to fix it.
             try {
-                Registry.register(Registries.POINT_OF_INTEREST_TYPE, PaladinVillagers.POI_ID,
-                        new PointOfInterestType(PaladinVillagers.poiBlockStates(),
+                Registry.register(BuiltInRegistries.POINT_OF_INTEREST_TYPE, PaladinVillagers.POI_ID,
+                        new PoiType(PaladinVillagers.poiBlockStates(),
                                 PaladinVillagers.POI_TICKET_COUNT, PaladinVillagers.POI_SEARCH_DISTANCE));
             } catch (Exception e) { }
         });
-        event.register(RegistryKeys.VILLAGER_PROFESSION, reg -> {
+        event.register(Registries.VILLAGER_PROFESSION, reg -> {
             PaladinsMod.registerVillagers(); // registers the profession + builds PaladinVillagers.TRADES
         });
     }
 
     private static void buildTabContents(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey().equals(Group.KEY)) {
-            event.add(PaladinBlocks.MONK_WORKBENCH_BLOCK);
+            event.accept(PaladinBlocks.MONK_WORKBENCH_BLOCK);
         }
     }
 

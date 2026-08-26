@@ -1,17 +1,16 @@
 package net.paladins.item.armor;
 
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.item.Item;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.item.equipment.EquipmentAssetKeys;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.paladins.PaladinsMod;
 import net.paladins.item.Group;
 import net.paladins.content.PaladinSounds;
@@ -52,15 +51,15 @@ public class Armors {
     public static ArmorMaterial material(
             String name, int durability,
             int protectionHead, int protectionChest, int protectionLegs, int protectionFeet,
-            int enchantability, RegistryEntry<SoundEvent> equipSound, TagKey<Item> repairIngredient) {
+            int enchantability, Holder<SoundEvent> equipSound, TagKey<Item> repairIngredient) {
 
         return new ArmorMaterial(
                 durability,
                 Map.of(
-                        EquipmentType.HELMET, protectionHead,
-                        EquipmentType.CHESTPLATE, protectionChest,
-                        EquipmentType.LEGGINGS, protectionLegs,
-                        EquipmentType.BOOTS, protectionFeet),
+                        ArmorType.HELMET, protectionHead,
+                        ArmorType.CHESTPLATE, protectionChest,
+                        ArmorType.LEGGINGS, protectionLegs,
+                        ArmorType.BOOTS, protectionFeet),
                 enchantability,
                 equipSound,
                 0F,
@@ -70,25 +69,25 @@ public class Armors {
         );
     }
 
-    private static RegistryKey<EquipmentAsset> assetKey(String name) {
-        return RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Identifier.of(PaladinsMod.ID, name));
+    private static ResourceKey<EquipmentAsset> assetKey(String name) {
+        return ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(PaladinsMod.ID, name));
     }
 
     
-    private static final Identifier ATTACK_DAMAGE_ID = Identifier.ofVanilla("attack_damage");
-    private static final Identifier ARMOR_TOUGHNESS_ID = Identifier.ofVanilla("armor_toughness");
+    private static final Identifier ATTACK_DAMAGE_ID = Identifier.withDefaultNamespace("attack_damage");
+    private static final Identifier ARMOR_TOUGHNESS_ID = Identifier.withDefaultNamespace("armor_toughness");
     private static AttributeModifier damageMultiplier(float value) {
         return new AttributeModifier(
                 ATTACK_DAMAGE_ID.toString(),
                 value,
-                EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 
     private static AttributeModifier toughnessBonus(float value) {
         return new AttributeModifier(
                 ARMOR_TOUGHNESS_ID.toString(),
                 value,
-                EntityAttributeModifier.Operation.ADD_VALUE);
+                net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE);
     }
 
     public static ArmorMaterial paladin_armor = material(
@@ -140,7 +139,7 @@ public class Armors {
 
     public static final Armor.Set paladinArmorSet_t1 = create(
             paladin_armor,
-            Identifier.of(PaladinsMod.ID, "paladin_armor"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "paladin_armor"),
             15,
             PaladinArmor::new,
             ArmorSetConfig.with(
@@ -158,7 +157,7 @@ public class Armors {
 
     public static final Armor.Set paladinArmorSet_t2 = create(
             crusader_armor,
-            Identifier.of(PaladinsMod.ID, "crusader_armor"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "crusader_armor"),
             25,
             PaladinArmor::new,
             ArmorSetConfig.with(
@@ -176,7 +175,7 @@ public class Armors {
 
     public static final Armor.Set paladinArmorSet_t3 = create(
             netherite_crusader_armor,
-            Identifier.of(PaladinsMod.ID, "netherite_crusader_armor"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "netherite_crusader_armor"),
             37,
             PaladinArmor::new,
             ArmorSetConfig.with(
@@ -205,7 +204,7 @@ public class Armors {
 
     public static final Armor.Set priestArmorSet_t1 = create(
             priest_robe,
-            Identifier.of(PaladinsMod.ID, "priest_robe"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "priest_robe"),
             10,
             PriestArmor::new,
             ArmorSetConfig.with(
@@ -223,7 +222,7 @@ public class Armors {
 
     public static final Armor.Set priestArmorSet_t2 = create(
             prior_robe,
-            Identifier.of(PaladinsMod.ID, "prior_robe"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "prior_robe"),
             20,
             PriestArmor::new,
             ArmorSetConfig.with(
@@ -253,7 +252,7 @@ public class Armors {
 
     public static final Armor.Set priestArmorSet_t3 = create(
             netherite_prior_robe,
-            Identifier.of(PaladinsMod.ID, "netherite_prior_robe"),
+            Identifier.fromNamespaceAndPath(PaladinsMod.ID, "netherite_prior_robe"),
             30,
             PriestArmor::new,
             ArmorSetConfig.with(

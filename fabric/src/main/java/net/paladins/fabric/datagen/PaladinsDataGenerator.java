@@ -2,13 +2,14 @@ package net.paladins.fabric.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.Identifier;
@@ -57,7 +58,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class SpellGen extends SpellGenerator {
-        public SpellGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        public SpellGen(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup);
         }
 
@@ -69,8 +70,8 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
         }
     }
 
-    public static class SpellTagGenerator extends FabricTagProvider<Spell> {
-        public SpellTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public static class SpellTagGenerator extends FabricTagsProvider<Spell> {
+        public SpellTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, SpellRegistry.KEY, registriesFuture);
         }
 
@@ -98,7 +99,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class ItemTagGenerator extends RPGSeriesDataGen.ItemTagGenerator {
-        public ItemTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        public ItemTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 
@@ -129,7 +130,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class SoundGen extends SimpleSoundGeneratorV2 {
-        public SoundGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        public SoundGen(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup);
         }
 
@@ -148,7 +149,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class UnsmeltGenerator extends FabricRecipeProvider {
-        public UnsmeltGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        public UnsmeltGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 
@@ -211,6 +212,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             oreSmelting(
                     List.<ItemLike>copyOf(armorSet.pieces()),
                     RecipeCategory.MISC,
+                    CookingBookCategory.MISC,
                     output,
                     0.1f,
                     UNSMELT_TIME,
@@ -219,6 +221,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             oreBlasting(
                     List.<ItemLike>copyOf(armorSet.pieces()),
                     RecipeCategory.MISC,
+                    CookingBookCategory.MISC,
                     output,
                     0.1f,
                     UNSMELT_TIME / 2,
@@ -230,6 +233,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             oreSmelting(
                     items,
                     RecipeCategory.MISC,
+                    CookingBookCategory.MISC,
                     output,
                     0.1f,
                     UNSMELT_TIME,
@@ -238,6 +242,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             oreBlasting(
                     items,
                     RecipeCategory.MISC,
+                    CookingBookCategory.MISC,
                     output,
                     0.1f,
                     UNSMELT_TIME / 2,
@@ -249,7 +254,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
     }
 
     public static class WeaponGen extends WeaponAttributeGenerator {
-        public WeaponGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        public WeaponGen(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup);
         }
 
@@ -270,7 +275,7 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
      * dedicated content entry.
      */
     public static class LangGen extends NamespacedLangGenerator {
-        public LangGen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        public LangGen(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
             super(dataOutput, registryLookup, PaladinsMod.ID);
         }
 

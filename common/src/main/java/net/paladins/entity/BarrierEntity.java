@@ -30,7 +30,7 @@ import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.target.EntityRelations;
 import net.spell_engine.utils.SoundPlayerWorld;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class BarrierEntity extends Entity implements SpellEntity.Spawned {
 

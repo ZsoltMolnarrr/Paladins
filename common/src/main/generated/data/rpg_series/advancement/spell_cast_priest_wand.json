@@ -14,7 +14,6 @@
       "translate": "advancements.rpg_series.spell_cast_priest_wand.description"
     },
     "icon": {
-      "count": 1,
       "id": "paladins:acolyte_wand"
     },
     "show_toast": false,

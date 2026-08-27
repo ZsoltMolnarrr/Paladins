@@ -1,9 +1,8 @@
 package net.paladins.fabric;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.object.builder.v1.world.poi.PoiHelper;
 import net.paladins.PaladinsMod;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.item.Group;
@@ -18,17 +17,16 @@ public final class FabricMod implements ModInitializer {
         PaladinsMod.registerItems();
         PaladinsMod.registerEffects();
 
-        // Villager POI + trades — Fabric API registration (loader-specific; NeoForge does its own).
-        PointOfInterestHelper.register(PaladinVillagers.POI_ID,
+        // Villager POI — Fabric API registration (loader-specific; NeoForge does its own).
+        // Trades are data-driven since 26.1 (`data/paladins/{villager_trade,trade_set}/monk/**`),
+        // so there is nothing to register here any more (`TradeOfferHelper` is gone).
+        PoiHelper.register(PaladinVillagers.POI_ID,
                 PaladinVillagers.POI_TICKET_COUNT, PaladinVillagers.POI_SEARCH_DISTANCE,
                 PaladinVillagers.poiBlockStates());
-        PaladinsMod.registerVillagers(); // registers the profession + builds PaladinVillagers.TRADES
-        PaladinVillagers.TRADES.forEach((tier, factories) ->
-                TradeOfferHelper.registerVillagerOffers(PaladinVillagers.PROFESSION_KEY, tier,
-                        list -> list.addAll(factories)));
+        PaladinsMod.registerVillagers();
 
         // Monk workbench into the Paladins creative tab — Fabric API.
-        ItemGroupEvents.modifyEntriesEvent(Group.KEY).register(content ->
+        CreativeModeTabEvents.modifyOutputEvent(Group.KEY).register(content ->
                 content.accept(PaladinBlocks.MONK_WORKBENCH_BLOCK));
     }
 }

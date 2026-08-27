@@ -29,13 +29,13 @@ public class NeoForgeClientMod {
 
         // Batched barrier rendering, replayed after the particle pass (see BarrierEntityRenderer).
         // Game-bus event, subscribed here since this class is on the mod bus.
-        // NOTE: must be AFTER_PARTICLES, not AFTER_TRANSLUCENT_BLOCKS. Vanilla renders particles
+        // NOTE: must be AfterTranslucentParticles, not AfterTranslucentBlocks. Vanilla renders particles
         // *after* translucent terrain, so AFTER_TRANSLUCENT_BLOCKS fires before particles and any
         // particle would paint over the barrier model. AFTER_PARTICLES matches where Fabric's
-        // WorldRenderEvents.AFTER_TRANSLUCENT injects (just before clouds, after particles).
-        // 21.11: the stages are event subclasses, and camera / tick progress are no longer carried
-        // by the event — they come from the client (same as SpellEngine's BeamRenderer hook).
-        NeoForge.EVENT_BUS.addListener(RenderLevelStageEvent.AfterParticles.class, render -> {
+        // LevelRenderEvents.END_MAIN injects (just before weather/clouds, after particles).
+        // 26.1: `AfterParticles` was renamed `AfterTranslucentParticles`; camera / tick progress are
+        // still not carried by the event — they come from the client (as SpellEngine's BeamRenderer hook does).
+        NeoForge.EVENT_BUS.addListener(RenderLevelStageEvent.AfterTranslucentParticles.class, render -> {
             var client = Minecraft.getInstance();
             BarrierEntityRenderer.renderAfterTranslucent(render.getPoseStack(), client.gameRenderer.getMainCamera(),
                     client.getDeltaTracker().getGameTimeDeltaPartialTick(true));

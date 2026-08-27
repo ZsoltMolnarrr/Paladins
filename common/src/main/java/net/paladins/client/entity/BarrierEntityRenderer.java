@@ -2,14 +2,14 @@ package net.paladins.client.entity;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -29,7 +29,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import java.util.ArrayList;
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRenderer<T, BarrierEntityRenderer.State> {
     /// Rendering was split into extraction and render in 1.21.2; the barrier is drawn from a
@@ -49,7 +49,7 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
     // mirroring SpellEngine's BeamRenderer.renderAfterTranslucent.
     public static void renderAfterTranslucent(PoseStack matrices, Camera camera, float tickDelta) {
         MultiBufferSource.BufferSource vcProvider = Minecraft.getInstance().renderBuffers().bufferSource();
-        renderAllInWorld(matrices, vcProvider, camera, LightTexture.FULL_BRIGHT, tickDelta);
+        renderAllInWorld(matrices, vcProvider, camera, LightCoordsUtil.FULL_BRIGHT, tickDelta);
     }
 
     public BarrierEntityRenderer(EntityRendererProvider.Context context) {

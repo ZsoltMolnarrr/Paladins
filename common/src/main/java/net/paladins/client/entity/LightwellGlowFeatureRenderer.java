@@ -1,7 +1,7 @@
 package net.paladins.client.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -30,6 +30,6 @@ public class LightwellGlowFeatureRenderer
     public void submit(PoseStack matrices, SubmitNodeCollector queue, int light,
                        LightwellEntityRenderer.State state, float limbAngle, float limbDistance) {
         queue.submitModel(this.getParentModel(), state, matrices, LAYER,
-                LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
+                LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
     }
 }

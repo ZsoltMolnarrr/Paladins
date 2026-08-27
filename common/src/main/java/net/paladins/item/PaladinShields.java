@@ -14,7 +14,7 @@ import net.spell_engine.rpg_series.item.Shield;
 import net.spell_engine.rpg_series.item.Shields;
 import net.spell_engine.rpg_series.config.AttributeModifier;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

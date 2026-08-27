@@ -6,9 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.paladins.PaladinsMod;
 import net.paladins.block.PaladinBlocks;
@@ -23,8 +21,8 @@ public final class NeoForgeMod {
         modBus.addListener(RegisterEvent.class, NeoForgeMod::register);
         // Monk workbench into the Paladins creative tab — NeoForge mod-bus event (replaces ItemGroupEvents).
         modBus.addListener(BuildCreativeModeTabContentsEvent.class, NeoForgeMod::buildTabContents);
-        // Villager trades — game-bus event (fired per profession); replaces Fabric API's TradeOfferHelper.
-        NeoForge.EVENT_BUS.addListener(VillagerTradesEvent.class, NeoForgeMod::onVillagerTrades);
+        // Villager trades are data-driven since 26.1 (`data/paladins/{villager_trade,trade_set}/monk/**`);
+        // `VillagerTradesEvent` no longer exists, so there is nothing to hook here.
     }
 
     public static void register(RegisterEvent event) {
@@ -51,7 +49,7 @@ public final class NeoForgeMod {
             } catch (Exception e) { }
         });
         event.register(Registries.VILLAGER_PROFESSION, reg -> {
-            PaladinsMod.registerVillagers(); // registers the profession + builds PaladinVillagers.TRADES
+            PaladinsMod.registerVillagers();
         });
     }
 
@@ -59,17 +57,5 @@ public final class NeoForgeMod {
         if (event.getTabKey().equals(Group.KEY)) {
             event.accept(PaladinBlocks.MONK_WORKBENCH_BLOCK);
         }
-    }
-
-    private static void onVillagerTrades(VillagerTradesEvent event) {
-        if (!PaladinVillagers.PROFESSION_KEY.equals(event.getType())) {
-            return;
-        }
-        PaladinVillagers.TRADES.forEach((tier, factories) -> {
-            var tierList = event.getTrades().get(tier.intValue());
-            if (tierList != null) {
-                tierList.addAll(factories);
-            }
-        });
     }
 }

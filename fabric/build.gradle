@@ -54,44 +54,31 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+    common(project(path: ':common')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    modImplementation("com.zigythebird.playeranim:PlayerAnimationLibFabric:${project.player_anim_version}")
-    modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
-    //    modImplementation("maven.modrinth:armor-model-api:${project.armor_model_api_version}-${platform}")
-    modImplementation("net.rpg_foundation:armor_model_api-${platform}:${project.armor_model_api_version}")
-    modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
+    implementation("com.zigythebird.playeranim:PlayerAnimationLibFabric:${project.player_anim_version}")
+    implementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
+    //    implementation("maven.modrinth:armor-model-api:${project.armor_model_api_version}-${platform}")
+    implementation("net.rpg_foundation:armor_model_api-${platform}:${project.armor_model_api_version}")
+    implementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
 
-//    // Trinkets
-//    // Trinkets: Modrinth Maven serves minimal POMs (no transitive deps) and
-//    // TerraformersMC has been unreliable in CI. Use Modrinth on CI; use dev.emi
-//    // locally so runClient gets Trinkets' full transitive graph.
-//    if (System.getenv("CI")) {
-//        modImplementation("maven.modrinth:trinkets:${project.trinkets_version}")
-//
-//    } else {
-//        modImplementation("dev.emi:trinkets:${project.trinkets_version}")
-//        modImplementation("maven.modrinth:trinkets:${project.trinkets_version}")
-//        modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.3")
-//        modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.3")
-//    }
-    modImplementation("maven.modrinth:trinkets-updated:${project.trinkets_version}") // Trinkets Updated (Patbox); mod id + API package unchanged
-    // Trinkets Updated JiJs Cardinal Components in production; the dev runtime needs it on the classpath explicitly
-    modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cardinal_components_version}")
-    modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_version}")
+    // Trinkets Updated 4.0 (Patbox): mod id `trinkets_updated`, `provides: trinkets`.
+    // No Cardinal Components any more — it nests `yumi_mc_core`, which loads from this dependency
+    // in the dev runtime. Not used from Java here; present so the dev client exercises the SE slot compat.
+    implementation("maven.modrinth:trinkets-updated:${project.trinkets_version}")
 
 
-//    modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
-    modImplementation("net.rpg_foundation:structure_pool_api-${platform}:${project.structure_pool_api_version}")
-//    modImplementation("maven.modrinth:runes:${project.runes_version}-${platform}")
-    modImplementation("net.rpg_series:runes-${platform}:${project.runes_version}")
-//    modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
-    modImplementation("net.spell_power:spell_power-${platform}:${project.spell_power_version}")
-//    modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
-    modImplementation("net.spell_engine:spell_engine-${platform}:${project.spell_engine_version}")
+//    implementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
+    implementation("net.rpg_foundation:structure_pool_api-${platform}:${project.structure_pool_api_version}")
+//    implementation("maven.modrinth:runes:${project.runes_version}-${platform}")
+    implementation("net.rpg_series:runes-${platform}:${project.runes_version}")
+//    implementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
+    implementation("net.spell_power:spell_power-${platform}:${project.spell_power_version}")
+//    implementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
+    implementation("net.spell_engine:spell_engine-${platform}:${project.spell_engine_version}")
 }
 
 processResources {
@@ -103,13 +90,27 @@ processResources {
     }
 }
 
-shadowJar {
-    configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
+// 26.1+ is unobfuscated: no remapJar, the shadow jar is the final (shipped + published) artifact.
+jar {
+    archiveClassifier = 'dev'
 }
 
-remapJar {
-    inputFile.set shadowJar.archiveFile
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = null
+}
+
+assemble.dependsOn shadowJar
+
+configurations {
+    apiElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
+    runtimeElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
 }
 
 // Publishing is configured unconditionally: tasks only *run* when explicitly invoked
@@ -124,7 +125,7 @@ tasks.register("publishMod") {
 }
 
 publishMods {
-    file = remapJar.archiveFile          // Loom production jar (NOT the dev-shadow jar)
+    file = shadowJar.archiveFile         // shaded jar is the shipped artifact on no-remap Loom
     changelog = providers.provider { changelog_last_section() }   // lazy: read only at publish
     type = releaseTypeName == "release" ? me.modmuss50.mpp.ReleaseType.STABLE
             : releaseTypeName == "alpha" ? me.modmuss50.mpp.ReleaseType.ALPHA

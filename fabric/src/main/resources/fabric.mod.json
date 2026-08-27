@@ -44,10 +44,10 @@
     "runes": ">=${runes_version}",
     "structure_pool_api": "*",
     "fabric-api": "*",
-    "java": ">=21"
+    "java": ">=25"
   },
   "suggests": {
-    "trinkets": "*"
+    "trinkets_updated": "*"
   },
   "custom": {
     "modmenu": {

@@ -25,7 +25,6 @@ import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
 import net.spell_engine.api.entity.LivingEntityImmunity;
 import net.spell_engine.api.entity.SpellEntity;
-import net.spell_engine.api.entity.TwoWayCollisionChecker;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.target.EntityRelations;
@@ -39,11 +38,6 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
     private int timeToLive = 20;
     public BarrierEntity(EntityType<? extends BarrierEntity> entityType, Level world) {
         super(entityType, world);
-        ((TwoWayCollisionChecker)this).setReverseCollisionChecker(entity -> {
-            return this.canCollideWith(entity)
-                    ? TwoWayCollisionChecker.CollisionResult.COLLIDE
-                    : TwoWayCollisionChecker.CollisionResult.PASS;
-        });
     }
 
     public int getTimeToLive() {
@@ -63,9 +57,21 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         this.getEntityData().set(TIME_TO_LIVE_TRACKER, this.timeToLive);
     }
 
+    /// Decides who the barrier is solid to. Vanilla asks the *target* — `Entity#canCollideWith(other)`
+    /// is `other.canBeCollidedWith(mover)` — so this single override is what makes protected entities
+    /// walk through the barrier while everyone else is stopped by it. (Before 26.1 the same rule was
+    /// installed as a SpellEngine `TwoWayCollisionChecker`, which no longer exists.)
     @Override
-    public boolean canBeCollidedWith(@Nullable Entity entity) {
-        return true;
+    public boolean canBeCollidedWith(@Nullable Entity other) {
+        // `null` is `EntitySelector.CAN_BE_COLLIDED_WITH` asking without a mover (source-less collision
+        // queries): the barrier is not solid on its own, only against the entities it holds back.
+        if (other == null) {
+            return false;
+        }
+        if (this.getOwner() == null) {
+            return false;
+        }
+        return other instanceof LivingEntity otherLiving && !isProtected(otherLiving);
     }
 
     @Override

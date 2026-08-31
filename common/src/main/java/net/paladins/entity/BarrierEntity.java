@@ -28,7 +28,6 @@ import net.spell_engine.api.entity.SpellEntity;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.target.EntityRelations;
-import net.spell_engine.utils.SoundPlayerWorld;
 import org.jspecify.annotations.Nullable;
 
 public class BarrierEntity extends Entity implements SpellEntity.Spawned {
@@ -191,7 +190,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         if (world.isClientSide()) {
             // Client
             if (!idleSoundFired) {
-                ((SoundPlayerWorld)world).playSoundFromEntity(this, PaladinSounds.holy_barrier_idle.soundEvent(), SoundSource.PLAYERS, 1F, 1F);
+                world.playLocalSound(this, PaladinSounds.holy_barrier_idle.soundEvent(), SoundSource.PLAYERS, 1F, 1F);
                 idleSoundFired = true;
             }
         } else if (world instanceof ServerLevel serverWorld) {

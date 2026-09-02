@@ -3,7 +3,6 @@ package net.paladins.client.entity;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.LightCoordsUtil;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -33,7 +32,7 @@ import org.jspecify.annotations.Nullable;
 
 public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRenderer<T, BarrierEntityRenderer.State> {
     /// Rendering was split into extraction and render in 1.21.2; the barrier is drawn from a
-    /// deferred batch (see {@link #renderAfterTranslucent}), so the state only carries the entity.
+    /// deferred batch (see {@link #submit}), so the state only carries the entity.
     public static class State extends EntityRenderState {
         @Nullable public BarrierEntity barrier;
     }
@@ -43,13 +42,14 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
     private static final int[] LIGHT_UP_ORDER = {0, 2, 8, 6, 4, 3, 9, 1, 5, 10, 7, 11};
 
-    // Replays the batched barrier renders during the world's after-translucent pass. Loader-neutral —
-    // each platform's client entrypoint calls this from its own event (Fabric
-    // `WorldRenderEvents.AFTER_TRANSLUCENT`; NeoForge `RenderLevelStageEvent` AFTER_TRANSLUCENT_BLOCKS),
-    // mirroring SpellEngine's BeamRenderer.renderAfterTranslucent.
-    public static void renderAfterTranslucent(PoseStack matrices, Camera camera, float tickDelta) {
-        MultiBufferSource.BufferSource vcProvider = Minecraft.getInstance().renderBuffers().bufferSource();
-        renderAllInWorld(matrices, vcProvider, camera, LightCoordsUtil.FULL_BRIGHT, tickDelta);
+    /// Submits the batched barrier geometry. Loader-neutral — each platform's client entrypoint calls this
+    /// from its own hook (Fabric `LevelRenderEvents.COLLECT_SUBMITS`; NeoForge `SubmitCustomGeometryEvent`),
+    /// mirroring SpellEngine's `BeamRenderer.submit`. Both hooks run at the end of
+    /// `LevelRenderer#submitFeatures`, i.e. after `submitEntities` has filled {@link #activeBarriers},
+    /// and hand out the same camera-relative identity pose stack the entity submits get.
+    /// (26.2 removed `MultiBufferSource`; up to 26.1 this drew immediately in an after-translucent event.)
+    public static void submit(PoseStack matrices, SubmitNodeCollector collector, Camera camera, float tickDelta) {
+        renderAllInWorld(matrices, collector, camera, LightCoordsUtil.FULL_BRIGHT, tickDelta);
     }
 
     public BarrierEntityRenderer(EntityRendererProvider.Context context) {
@@ -76,19 +76,23 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         super.submit(state, matrices, queue, cameraState);
     }
 
-    public static void renderAllInWorld(PoseStack matrices, MultiBufferSource.BufferSource vertexConsumers, Camera camera, int light, float tickDelta) {
+    public static void renderAllInWorld(PoseStack matrices, SubmitNodeCollector vertexConsumers, Camera camera, int light, float tickDelta) {
+        if (activeBarriers.isEmpty()) {
+            return;
+        }
         matrices.pushPose();
         Vec3 camPos = camera.position();
         matrices.translate(-camPos.x, -camPos.y, -camPos.z);
         var config = ShaderCompatibility.isShaderPackInUse() ? Config.IRIS : Config.VANILLA;
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(config.layer());
         for (BarrierEntity entity : activeBarriers) {
             matrices.pushPose();
             matrices.translate(entity.getX(), entity.getY()+1, entity.getZ());
-            renderShield(entity, matrices, vertexConsumer, light, tickDelta, config);
+            // One custom-geometry submit per barrier: the collector copies the pose now, the lambda writes
+            // the vertices when the feature renderer builds the frame (vanilla `BeaconRenderer` idiom).
+            vertexConsumers.submitCustomGeometry(matrices, config.layer(), (pose, vertices) ->
+                    renderShield(entity, pose, vertices, light, tickDelta, config));
             matrices.popPose();
         }
-        vertexConsumers.endBatch();
         matrices.popPose();
         activeBarriers.clear();
     }
@@ -120,10 +124,13 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                 shield.red(), shield.green(), shield.blue(), 0.5f, 1f, 0.8f);
     }
 
-    public static void renderShield(BarrierEntity entity, PoseStack matrices, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {
+    public static void renderShield(BarrierEntity entity, PoseStack.Pose base, VertexConsumer vertexConsumer, int light, float tickDelta, Config config) {
         if (entity == null) {
             return;
         }
+        // The submit node handed us a copy of the pose; the segment transforms below are local to it.
+        var matrices = new PoseStack();
+        matrices.last().set(base);
         var entry = entity.getSpellEntry();
         if (entry == null) {
             return;

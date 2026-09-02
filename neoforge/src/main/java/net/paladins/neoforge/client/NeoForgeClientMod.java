@@ -7,7 +7,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.paladins.PaladinsMod;
@@ -27,17 +27,17 @@ public class NeoForgeClientMod {
         PaladinsClientMod.init();
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (modContainer, parent) -> new ConfigMenuScreen(parent));
 
-        // Batched barrier rendering, replayed after the particle pass (see BarrierEntityRenderer).
-        // Game-bus event, subscribed here since this class is on the mod bus.
-        // NOTE: must be AfterTranslucentParticles, not AfterTranslucentBlocks. Vanilla renders particles
-        // *after* translucent terrain, so AFTER_TRANSLUCENT_BLOCKS fires before particles and any
-        // particle would paint over the barrier model. AFTER_PARTICLES matches where Fabric's
-        // LevelRenderEvents.END_MAIN injects (just before weather/clouds, after particles).
-        // 26.1: `AfterParticles` was renamed `AfterTranslucentParticles`; camera / tick progress are
-        // still not carried by the event — they come from the client (as SpellEngine's BeamRenderer hook does).
-        NeoForge.EVENT_BUS.addListener(RenderLevelStageEvent.AfterTranslucentParticles.class, render -> {
+        // Batched barrier rendering (see BarrierEntityRenderer). Game-bus event, subscribed here since this
+        // class is on the mod bus.
+        // 26.2: `MultiBufferSource` is gone, so the barrier geometry is submitted rather than drawn, and the
+        // render-stage events no longer apply. `SubmitCustomGeometryEvent` is posted from
+        // `LevelRenderer#submitFeatures` after the entity submits that fill the batch — the NeoForge twin of
+        // Fabric's `LevelRenderEvents.COLLECT_SUBMITS`, and what SpellEngine's BeamRenderer hook uses.
+        // Camera / tick progress are still not carried by the event — they come from the client.
+        NeoForge.EVENT_BUS.addListener(SubmitCustomGeometryEvent.class, render -> {
             var client = Minecraft.getInstance();
-            BarrierEntityRenderer.renderAfterTranslucent(render.getPoseStack(), client.gameRenderer.getMainCamera(),
+            BarrierEntityRenderer.submit(render.getPoseStack(), render.getSubmitNodeCollector(),
+                    client.gameRenderer.mainCamera(),
                     client.getDeltaTracker().getGameTimeDeltaPartialTick(true));
         });
     }

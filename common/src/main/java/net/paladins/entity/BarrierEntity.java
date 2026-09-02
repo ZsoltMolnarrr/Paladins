@@ -205,8 +205,14 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
                         if (isProtected(livingEntity)) {
                             LivingEntityImmunity.apply(livingEntity, null, BARRIER_PROTECTS, null, true, checkInterval + 1);
                         } else {
+                            // 26.2: the 3-arg `knockback` is gone; the terminal overload takes the damage
+                            // source and dealt damage (unused by the vanilla body, they exist for the
+                            // NeoForge event and for mixins). The barrier pushes without dealing damage, so
+                            // pass a magic source with 0 damage and `comesFromEffect = true` — this push
+                            // comes from a spell effect, not from an attack.
                             livingEntity.knockback(PaladinsMod.tweaksConfig.value.barrier_knockback_strength,
-                                    this.getX() - livingEntity.getX(), this.getZ() - livingEntity.getZ());
+                                    this.getX() - livingEntity.getX(), this.getZ() - livingEntity.getZ(),
+                                    serverWorld.damageSources().magic(), 0F, true);
                             if (livingEntity instanceof ServerPlayer serverPlayer) {
                                 serverPlayer.connection.send(
                                         new ClientboundSetEntityMotionPacket(serverPlayer.getId(), serverPlayer.getDeltaMovement()),

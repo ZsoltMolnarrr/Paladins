@@ -28,11 +28,13 @@ public final class FabricModClient implements ClientModInitializer {
         // 26.1 derives the chunk-section layer from the block model, which already declares
         // `"render_type": "minecraft:cutout"` — `BlockRenderLayerMap` is gone and not needed.
 
-        // Batched barrier rendering, replayed after translucent terrain (see BarrierEntityRenderer).
-        // 1.21.9+ split the world render events into extraction/main; AFTER_TRANSLUCENT is gone,
-        // END_MAIN is the equivalent injection point (SpellEngine's beams use the same one).
-        LevelRenderEvents.END_MAIN.register(context ->
-                BarrierEntityRenderer.renderAfterTranslucent(context.poseStack(), context.gameRenderer().getMainCamera(),
+        // Batched barrier rendering (see BarrierEntityRenderer). 26.2 removed `MultiBufferSource`, so the
+        // geometry is submitted instead of drawn: COLLECT_SUBMITS fires at the end of
+        // `LevelRenderer#submitFeatures` (after the entity submits that fill the batch), and carries the
+        // submit node collector. SpellEngine's beams use the same hook.
+        LevelRenderEvents.COLLECT_SUBMITS.register(context ->
+                BarrierEntityRenderer.submit(context.poseStack(), context.submitNodeCollector(),
+                        context.gameRenderer().mainCamera(),
                         Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true)));
     }
 }

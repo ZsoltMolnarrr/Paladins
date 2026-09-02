@@ -11,12 +11,12 @@ authors = "Daedelus"
 description = '''
 Protect and heal your friends as a Paladin or a Priest.
 '''
-logoFile = "icon.png"
+iconFile = "icon.png"
 
 [[dependencies.paladins]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.1,)"
+versionRange = "[26.2,)"
 ordering = "NONE"
 side = "BOTH"
 

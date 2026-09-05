@@ -1,3 +1,8 @@
+# 3.1.2
+
+- Updated for Minecraft 26.1.2 (Java 25)
+- Repair ingredients are now vanilla repairable tags
+
 # 3.1.1
 
 - Replaced armor rendering dependency AzureLibArmor with ArmorModelAPI

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:diamond"
+    },
+    "H": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "  B",
+    "BB ",
+    "HB "
+  ],
+  "result": {
+    "item": "paladins:diamond_claymore"
+  },
+  "show_notification": true
+}

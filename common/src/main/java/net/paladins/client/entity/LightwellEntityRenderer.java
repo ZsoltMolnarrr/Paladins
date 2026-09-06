@@ -10,7 +10,7 @@ import net.paladins.entity.LightwellEntity;
 
 public class LightwellEntityRenderer extends MobEntityRenderer<LightwellEntity, LightwellEntityModel> {
     public static final Identifier TEXTURE =
-            Identifier.of(PaladinsMod.ID, "textures/entity/lightwell_base.png");
+            new Identifier(PaladinsMod.ID, "textures/entity/lightwell_base.png");
 
     private static final float FLOAT_AMPLITUDE = 0.1F;
     private static final float FLOAT_FREQUENCY = (float)(Math.PI / 20.0); // 2-second cycle (40 ticks)
@@ -21,8 +21,8 @@ public class LightwellEntityRenderer extends MobEntityRenderer<LightwellEntity, 
     }
 
     @Override
-    protected void setupTransforms(LightwellEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta, float scale) {
-        super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta, scale);
+    protected void setupTransforms(LightwellEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta) {
+        super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta);
         // Lift off the ground plus a gentle levitation bob, mirroring the Frost Elemental's float.
         var groundOffset = entity.getWidth() * 0.25F;
         matrices.translate(0.0, groundOffset + MathHelper.sin(animationProgress * FLOAT_FREQUENCY) * FLOAT_AMPLITUDE, 0.0);

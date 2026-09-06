@@ -1,7 +1,9 @@
 package net.paladins.effect;
 
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.registry.Registries;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
@@ -23,55 +25,55 @@ public class PaladinEffects {
         return entry;
     }
 
+    /// 1.20.1 `EntityAttribute` is a raw object with no id accessor (1.21's `getIdAsString()`), so the
+    /// registry has to be asked.
+    private static String attributeId(EntityAttribute attribute) {
+        return Registries.ATTRIBUTE.getId(attribute).toString();
+    }
+
     public static final Effects.Entry DIVINE_PROTECTION = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "divine_protection"),
+            new Identifier(PaladinsMod.ID, "divine_protection"),
             "Divine Protection",
             "Protects you from the incoming attack",
             new DivineProtectionStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff)
     ));
 
     public static final Effects.Entry BATTLE_BANNER = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "battle_banner"),
+            new Identifier(PaladinsMod.ID, "battle_banner"),
             "Battle Banner",
             "Increases attack speed and knockback resistance",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x66ccff),
             new EffectConfig(List.of(
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_ATTACK_SPEED.getIdAsString(),
+                            attributeId(EntityAttributes.GENERIC_ATTACK_SPEED),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            EntityAttributeModifier.Operation.MULTIPLY_BASE
                     ),
                     new AttributeModifier(
                             SpellPowerMechanics.HASTE.id.toString(),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            EntityAttributeModifier.Operation.MULTIPLY_BASE
                     ),
                     new AttributeModifier(
-                            EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE.getIdAsString(),
+                            attributeId(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            EntityAttributeModifier.Operation.MULTIPLY_BASE
                     ),
                     new AttributeModifier(
-                            Identifier.of("ranged_weapon", "haste").toString(),
+                            new Identifier("ranged_weapon", "haste").toString(),
                             0.4F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            EntityAttributeModifier.Operation.MULTIPLY_BASE
                     )
             ))
     ));
 
     public static final Effects.Entry JUDGEMENT = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "judgement"),
+            new Identifier(PaladinsMod.ID, "judgement"),
             "Stunned",
             "Prevents movement and actions",
-            new JudgementStatusEffect(StatusEffectCategory.HARMFUL, 0xffffcc),
-            new EffectConfig(List.of(
-                    new AttributeModifier(
-                            EntityAttributes.GENERIC_JUMP_STRENGTH.getIdAsString(),
-                            0,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-                    )
-                )
-            )
+            // 1.20.1 has no living-entity jump-strength attribute (only HORSE_JUMP_STRENGTH), so the
+            // jump lock-out is carried entirely by `EntityActionsAllowed.STUN` (configured in register()).
+            new JudgementStatusEffect(StatusEffectCategory.HARMFUL, 0xffffcc)
     ));
 
     /// Charges the wielded weapon with holy light. Applied as a stacking stash effect by
@@ -79,7 +81,7 @@ public class PaladinEffects {
     /// holy damage. Rendered by {@link GlowingItemStatusEffect} — the glow brightens as the blessings are
     /// channeled on, and dims again as they are spent.
     public static final Effects.Entry BLESSED_STRIKES = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "blessed_strikes"),
+            new Identifier(PaladinsMod.ID, "blessed_strikes"),
             "Blessed Strikes",
             "Your weapon is charged with holy light, searing enemies you strike",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
@@ -91,31 +93,21 @@ public class PaladinEffects {
     /// stops normal gravity from clawing the caster back down — and, since it outlives the channel, keeps
     /// them afloat afterwards until it fades and they settle gently to the ground.
     public static final Effects.Entry LEVITATE = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "levitate"),
+            new Identifier(PaladinsMod.ID, "levitate"),
             "Levitate",
             "You drift gently through the air.",
-            new LevitateStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
-            new EffectConfig(List.of(
-                    new AttributeModifier(
-                            EntityAttributes.GENERIC_GRAVITY.getIdAsString(),
-                            -0.99F,
-                            EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-                    )
-            ))
+            // 1.20.1 has no GENERIC_GRAVITY attribute; the float is carried by vanilla Slow Falling,
+            // which LevitateStatusEffect maintains for as long as this effect lasts (gravity 0.08 -> 0.01).
+            new LevitateStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
     ));
 
     public static final Effects.Entry ABSORPTION = add(new Effects.Entry(
-            Identifier.of(PaladinsMod.ID, "priest_absorption"),
+            new Identifier(PaladinsMod.ID, "priest_absorption"),
             "Absorption",
             "Absorbs some damage you would take",
-            new PriestAbsorptionStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc),
-            new EffectConfig(List.of(
-                    new AttributeModifier(
-                            EntityAttributes.GENERIC_MAX_ABSORPTION.getIdAsString(),
-                            2,
-                            EntityAttributeModifier.Operation.ADD_VALUE
-                    )
-            ))
+            // 1.20.1 has no GENERIC_MAX_ABSORPTION attribute (absorption is uncapped there); the shield
+            // amount is granted directly by PriestAbsorptionStatusEffect#onApplied.
+            new PriestAbsorptionStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
     ));
 
     public static void register(ConfigFile.Effects config) {

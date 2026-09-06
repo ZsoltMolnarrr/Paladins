@@ -107,13 +107,13 @@ public class PaladinSummons {
         return summon;
     }
 
-    /// A single attribute-scaling entry: `targetAttribute += base + ownerAttribute * coefficient` (ADD_VALUE).
+    /// A single attribute-scaling entry: `targetAttribute += base + ownerAttribute * coefficient` (ADDITION).
     private static AttributeScaling.Entry scalingEntry(String targetAttribute, String ownerAttribute,
                                                        double base, double coefficient) {
         var entry = new AttributeScaling.Entry();
         entry.attribute_id = targetAttribute;
         entry.modifiers = List.of(new AttributeScaling.Entry.OwnerModifier(
-                ownerAttribute, EntityAttributeModifier.Operation.ADD_VALUE, base, coefficient));
+                ownerAttribute, EntityAttributeModifier.Operation.ADDITION, base, coefficient));
         return entry;
     }
 }

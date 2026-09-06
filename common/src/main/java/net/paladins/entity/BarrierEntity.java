@@ -8,6 +8,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
@@ -107,10 +108,12 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
     private static final TrackedData<Integer> OWNER_ID_TRACKER  = DataTracker.registerData(BarrierEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> TIME_TO_LIVE_TRACKER  = DataTracker.registerData(BarrierEntity.class, TrackedDataHandlerRegistry.INTEGER);
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        builder.add(SPELL_ID_TRACKER, "");
-        builder.add(OWNER_ID_TRACKER, 0);
-        builder.add(TIME_TO_LIVE_TRACKER, 0);
+    protected void initDataTracker() {
+        // 1.20.1: `initDataTracker` is param-less and registers through the tracker itself
+        // (`DataTracker.Builder` arrives in 1.20.5).
+        this.dataTracker.startTracking(SPELL_ID_TRACKER, "");
+        this.dataTracker.startTracking(OWNER_ID_TRACKER, 0);
+        this.dataTracker.startTracking(TIME_TO_LIVE_TRACKER, 0);
     }
 
     @Override
@@ -118,7 +121,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         super.onTrackedDataSet(data);
         var rawSpellId = this.getDataTracker().get(SPELL_ID_TRACKER);
         if (rawSpellId != null && !rawSpellId.isEmpty()) {
-            this.spellId = Identifier.of(rawSpellId);
+            this.spellId = new Identifier(rawSpellId);
         }
         this.timeToLive = this.getDataTracker().get(TIME_TO_LIVE_TRACKER);
         this.calculateDimensions();
@@ -139,7 +142,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.spellId = Identifier.of(nbt.getString(NBTKey.SPELL_ID.key));
+        this.spellId = new Identifier(nbt.getString(NBTKey.SPELL_ID.key));
         this.ownerId = nbt.getInt(NBTKey.OWNER_ID.key);
         this.timeToLive = nbt.getInt(NBTKey.TIME_TO_LIVE.key);
 
@@ -159,7 +162,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
         return false;
     }
 
-    private static final TagKey<DamageType> BARRIER_PROTECTS = TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of("paladins", "barrier_protects"));
+    private static final TagKey<DamageType> BARRIER_PROTECTS = TagKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier("paladins", "barrier_protects"));
 
     private boolean idleSoundFired = false;
     private static final int checkInterval = 4;
@@ -194,10 +197,8 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
                             livingEntity.takeKnockback(PaladinsMod.tweaksConfig.value.barrier_knockback_strength,
                                     this.getX() - livingEntity.getX(), this.getZ() - livingEntity.getZ());
                             if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
-                                serverPlayer.networkHandler.send(
-                                        new EntityVelocityUpdateS2CPacket(serverPlayer.getId(), serverPlayer.getVelocity()),
-                                        null
-                                );
+                                serverPlayer.networkHandler.sendPacket(
+                                        new EntityVelocityUpdateS2CPacket(serverPlayer.getId(), serverPlayer.getVelocity()));
                             }
                         }
                     }
@@ -235,7 +236,7 @@ public class BarrierEntity extends Entity implements SpellEntity.Spawned {
     }
 
     @Nullable public RegistryEntry<Spell> getSpellEntry() {
-        return SpellRegistry.from(this.getWorld()).getEntry(this.spellId).orElse(null);
+        return SpellRegistry.from(this.getWorld()).getEntry(RegistryKey.of(SpellRegistry.KEY, this.spellId)).orElse(null);
     }
 
     private LivingEntity cachedOwner = null;

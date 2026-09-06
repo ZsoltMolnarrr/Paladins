@@ -24,7 +24,7 @@ import java.util.List;
 import static net.minecraft.client.render.RenderPhase.*;
 
 public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRenderer<T> {
-    public static final Identifier blankTextureId = Identifier.of(PaladinsMod.ID, "item/barrier");
+    public static final Identifier blankTextureId = new Identifier(PaladinsMod.ID, "item/barrier");
     public static final List<BarrierEntity> activeBarriers = new ArrayList<>();
 
     private static final int[] LIGHT_UP_ORDER = {0, 2, 8, 6, 4, 3, 9, 1, 5, 10, 7, 11};
@@ -165,16 +165,15 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
 
                 Matrix4f matrix = new Matrix4f(matrices.peek().getPositionMatrix()); // copying matrix to avoid issue with sodium's matrix optimizations
                 var matrixEntry = matrices.peek();
-                // Matrix3f normalMatrix = matrixEntry.getNormalMatrix();
-                vertexConsumer.vertex(matrix, 0, radius, -size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // main part
-                vertexConsumer.vertex(matrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, -size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0); // main part
+                vertexConsumer.vertex(matrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
 
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // flip side, so that it renders from both the inside and outside
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, 0, -size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, -size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0); // flip side, so that it renders from both the inside and outside
+                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, 0, -size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, -size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
 
                 matrices.pop();
                 matrices.push(); // finding the position of the next quad, so that we can grab its vertex for a triangle
@@ -184,15 +183,15 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                 matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) ((i-1)/3f*Math.PI)), -offset, 0, 0);
                 matrices.multiply(RotationAxis.POSITIVE_Z.rotation(zSlant));
 
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // rendering main part of the connector triangle
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(newMatrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0); // rendering main part of the connector triangle
+                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(newMatrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
 
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0); // flip side, so that it renders from both the inside and outside
-                vertexConsumer.vertex(newMatrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
-                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry, 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u2, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0); // flip side, so that it renders from both the inside and outside
+                vertexConsumer.vertex(newMatrix, 0, 0, -size).color(r, g, b, alpha).texture(u1, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, 0, size).color(r, g, b, alpha).texture(u2, v1).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
+                vertexConsumer.vertex(matrix, 0, radius, size).color(r, g, b, 0f).texture(u1, v2).overlay(overlayUV).light(light).normal(matrixEntry.getNormalMatrix(), 0, 0, 0);
                 matrices.pop();
             }
         }

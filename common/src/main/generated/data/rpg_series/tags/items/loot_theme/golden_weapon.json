@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "paladins:golden_claymore",
+      "required": false
+    },
+    {
+      "id": "paladins:golden_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:golden_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:golden_kite_shield",
+      "required": false
+    }
+  ]
+}

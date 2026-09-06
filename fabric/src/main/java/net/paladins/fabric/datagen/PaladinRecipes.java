@@ -2,12 +2,11 @@ package net.paladins.fabric.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.paladins.item.armor.Armors;
 import net.spell_engine.rpg_series.item.Armor;
@@ -16,7 +15,7 @@ import net.paladins.item.PaladinWeapons;
 import net.paladins.item.PaladinShields;
 import net.paladins.block.PaladinBlocks;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 /**
  * Generates all crafting recipes for the Paladins mod using Fabric's built-in API.
@@ -24,12 +23,14 @@ import java.util.concurrent.CompletableFuture;
  */
 public class PaladinRecipes extends FabricRecipeProvider {
 
-    public PaladinRecipes(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
+    /// 1.20.1 / Fabric API 0.92: `FabricRecipeProvider` takes only the data output, and recipes are
+    /// exported through a `Consumer<RecipeJsonProvider>` (the `RecipeExporter` interface arrived in 1.20.2).
+    public PaladinRecipes(FabricDataOutput output) {
+        super(output);
     }
 
     @Override
-    public void generate(RecipeExporter exporter) {
+    public void generate(Consumer<RecipeJsonProvider> exporter) {
         generateWandRecipes(exporter);
         generateStaffRecipes(exporter);
         generateClaymoreRecipes(exporter);
@@ -45,7 +46,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // WAND RECIPES
     // ========================================
 
-    private void generateWandRecipes(RecipeExporter exporter) {
+    private void generateWandRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Acolyte Wand - string + sticks
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.acolyte_wand.item())
                 .pattern(" HH")
@@ -79,7 +80,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // STAFF RECIPES
     // ========================================
 
-    private void generateStaffRecipes(RecipeExporter exporter) {
+    private void generateStaffRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Holy Staff - gold + iron
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.holy_staff.item())
                 .pattern(" AA")
@@ -105,7 +106,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // CLAYMORE RECIPES
     // ========================================
 
-    private void generateClaymoreRecipes(RecipeExporter exporter) {
+    private void generateClaymoreRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Stone Claymore
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.stone_claymore.item())
                 .pattern("  A")
@@ -151,7 +152,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // GREAT HAMMER RECIPES
     // ========================================
 
-    private void generateGreatHammerRecipes(RecipeExporter exporter) {
+    private void generateGreatHammerRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Wooden Great Hammer
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.wooden_great_hammer.item())
                 .pattern(" BB")
@@ -207,7 +208,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // MACE RECIPES
     // ========================================
 
-    private void generateMaceRecipes(RecipeExporter exporter) {
+    private void generateMaceRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Iron Mace
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinWeapons.iron_mace.item())
                 .pattern(" B")
@@ -240,7 +241,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // SHIELD RECIPES
     // ========================================
 
-    private void generateShieldRecipes(RecipeExporter exporter) {
+    private void generateShieldRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Iron Kite Shield
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, PaladinShields.iron_kite_shield.item())
                 .pattern("MLM")
@@ -276,7 +277,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // ARMOR RECIPES
     // ========================================
 
-    private void generateArmorRecipes(RecipeExporter exporter) {
+    private void generateArmorRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Paladin Armor - copper + iron
         generatePaladinArmorSet(exporter, Armors.paladinArmorSet_t1, Items.COPPER_INGOT, Items.IRON_INGOT);
 
@@ -293,7 +294,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     /**
      * Generate Paladin armor set (simple pattern with two materials)
      */
-    private void generatePaladinArmorSet(RecipeExporter exporter, Armor.Set armorSet, Item primary, Item secondary) {
+    private void generatePaladinArmorSet(Consumer<RecipeJsonProvider> exporter, Armor.Set armorSet, Item primary, Item secondary) {
         // Helmet - pattern: "ICI" / "I I"
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, armorSet.head)
                 .pattern("ICI")
@@ -336,7 +337,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     /**
      * Generate Crusader armor set (uses gold, ghast tear, and iron)
      */
-    private void generateCrusaderArmorSet(RecipeExporter exporter, Armor.Set armorSet, Item gold, Item tear, Item iron) {
+    private void generateCrusaderArmorSet(Consumer<RecipeJsonProvider> exporter, Armor.Set armorSet, Item gold, Item tear, Item iron) {
         // Helmet - pattern: "GTG" / "I I" / "III"
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, armorSet.head)
                 .pattern("GTG")
@@ -383,7 +384,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     /**
      * Generate simple robe set (chain + wool)
      */
-    private void generateRobeSet(RecipeExporter exporter, Armor.Set armorSet, Item specialIngredient) {
+    private void generateRobeSet(Consumer<RecipeJsonProvider> exporter, Armor.Set armorSet, Item specialIngredient) {
         // Helmet - pattern: "W W" / "WLW"
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, armorSet.head)
                 .pattern("W W")
@@ -426,7 +427,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     /**
      * Generate Prior robe set (gold + ghast_tear + wool)
      */
-    private void generatePriorRobeSet(RecipeExporter exporter, Armor.Set armorSet, Item gold, Item tear) {
+    private void generatePriorRobeSet(Consumer<RecipeJsonProvider> exporter, Armor.Set armorSet, Item gold, Item tear) {
         // Helmet - pattern: "G G" / "WTW"
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, armorSet.head)
                 .pattern("G G")
@@ -473,7 +474,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // OTHER RECIPES
     // ========================================
 
-    private void generateOtherRecipes(RecipeExporter exporter) {
+    private void generateOtherRecipes(Consumer<RecipeJsonProvider> exporter) {
         // Monk Workbench
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, PaladinBlocks.MONK_WORKBENCH_BLOCK)
                 .pattern("GTG")
@@ -490,7 +491,7 @@ public class PaladinRecipes extends FabricRecipeProvider {
     // NETHERITE UPGRADE RECIPES
     // ========================================
 
-    private void generateNetheriteUpgrades(RecipeExporter exporter) {
+    private void generateNetheriteUpgrades(Consumer<RecipeJsonProvider> exporter) {
         // Weapon upgrades
         offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_holy_wand.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_holy_wand.item());
         offerNetheriteUpgradeRecipe(exporter, PaladinWeapons.diamond_holy_staff.item(), RecipeCategory.COMBAT, PaladinWeapons.netherite_holy_staff.item());

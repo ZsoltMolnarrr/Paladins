@@ -1,0 +1,41 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "paladins:ruby_holy_staff",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_claymore",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:aeternium_claymore",
+      "required": false
+    },
+    {
+      "id": "paladins:aeternium_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:aeternium_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:aeternium_kite_shield",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_kite_shield",
+      "required": false
+    }
+  ]
+}

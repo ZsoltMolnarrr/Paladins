@@ -1,0 +1,59 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+issueTrackerURL = "https://github.com/ZsoltMolnarrr/Paladins/issues"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "paladins"
+version = "${version}"
+displayName = "Paladins & Priests (RPG Series)"
+authors = "Daedelus"
+description = '''
+Protect and heal your friends as a Paladin or a Priest.
+'''
+logoFile = "icon.png"
+
+[[dependencies.paladins]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.paladins]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.paladins]]
+modId = "armor_model_api"
+mandatory = true
+versionRange = "[1.0.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.paladins]]
+modId = "spell_engine"
+mandatory = true
+versionRange = "[1.10.5,)"
+ordering = "AFTER"
+side = "BOTH"
+
+# Runes has no Forge artifact on 1.20.1. Paladins no longer compiles against it — the monk-merchant
+# rune trade and the rune drops in monk-sanctuary chests are resolved by registry id / tag and simply
+# stay inert when it is absent.
+[[dependencies.paladins]]
+modId = "runes"
+mandatory = false
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"
+
+# ShieldAPI has no Forge artifact on 1.20.1 — kite shields are Fabric-only (see paladins-port-notes.md).
+# StructurePoolAPI has no Forge artifact either; vanilla-village sanctuary injection is Fabric-only
+# (Repurposed Structures / Lithostitched data-driven injection still works on both loaders).
+
+# Mixin configs are declared in the jar MANIFEST (`MixinConfigs:`) by Loom (`loom.forge.mixinConfig`),
+# not in this file — the `[[mixins]]` table is NeoForge-only.

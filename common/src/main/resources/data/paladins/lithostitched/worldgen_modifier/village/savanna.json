@@ -1,14 +1,16 @@
 {
 	"type": "lithostitched:add_template_pool_elements",
-	"fabric:load_conditions": {
-		"condition": "fabric:all_mods_loaded",
-		"values": [
-			"paladins"
-		]
-	},
-	"neoforge:conditions": [
+	"fabric:load_conditions": [
 		{
-			"type": "neoforge:mod_loaded",
+			"condition": "fabric:all_mods_loaded",
+			"values": [
+				"paladins"
+			]
+		}
+	],
+	"forge:conditions": [
+		{
+			"type": "forge:mod_loaded",
 			"modid": "paladins"
 		}
 	],

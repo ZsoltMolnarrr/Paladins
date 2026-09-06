@@ -33,6 +33,6 @@ public final class FabricModClient implements ClientModInitializer {
         // Batched barrier rendering, replayed after translucent terrain (see BarrierEntityRenderer).
         WorldRenderEvents.AFTER_TRANSLUCENT.register(context ->
                 BarrierEntityRenderer.renderAfterTranslucent(context.matrixStack(), context.camera(),
-                        context.tickCounter().getTickDelta(true)));
+                        context.tickDelta()));
     }
 }

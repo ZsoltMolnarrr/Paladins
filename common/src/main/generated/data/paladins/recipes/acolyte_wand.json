@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    " HH",
+    " SH",
+    "H  "
+  ],
+  "result": {
+    "item": "paladins:acolyte_wand"
+  },
+  "show_notification": true
+}

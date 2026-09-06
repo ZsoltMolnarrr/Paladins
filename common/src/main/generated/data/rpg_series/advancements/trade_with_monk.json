@@ -1,0 +1,40 @@
+{
+  "parent": "rpg_series:misc_items",
+  "criteria": {
+    "trade_with_monk": {
+      "conditions": {
+        "villager": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "nbt": "{VillagerData:{profession:\"paladins:monk\"}}"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:villager_trade"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.rpg_series.trade_with_monk.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:emerald"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rpg_series.trade_with_monk.title"
+    }
+  },
+  "requirements": [
+    [
+      "trade_with_monk"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

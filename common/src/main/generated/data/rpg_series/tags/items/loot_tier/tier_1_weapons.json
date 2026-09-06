@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "paladins:iron_claymore",
+      "required": false
+    },
+    {
+      "id": "paladins:iron_great_hammer",
+      "required": false
+    },
+    {
+      "id": "paladins:iron_mace",
+      "required": false
+    },
+    {
+      "id": "paladins:holy_wand",
+      "required": false
+    },
+    {
+      "id": "paladins:holy_staff",
+      "required": false
+    },
+    {
+      "id": "paladins:iron_kite_shield",
+      "required": false
+    }
+  ]
+}

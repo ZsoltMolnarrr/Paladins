@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "runes:healing_stone",
+      "required": false
+    }
+  ]
+}

@@ -28,7 +28,7 @@ public class PaladinSounds {
         }
 
         public Entry(String name) {
-            this(Identifier.of(PaladinsMod.ID, name));
+            this(new Identifier(PaladinsMod.ID, name));
         }
 
         public Entry(Identifier id) {

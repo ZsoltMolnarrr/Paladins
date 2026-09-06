@@ -17,7 +17,7 @@ import net.spell_engine.api.render.LightEmission;
 /// light column reads as radiant regardless of world light. Mirrors the Frost Elemental's glow layer.
 public class LightwellGlowFeatureRenderer extends FeatureRenderer<LightwellEntity, LightwellEntityModel> {
     public static final Identifier TEXTURE =
-            Identifier.of(PaladinsMod.ID, "textures/entity/lightwell_glow.png");
+            new Identifier(PaladinsMod.ID, "textures/entity/lightwell_glow.png");
     // No-cull emissive layer (DISABLE_CULLING), unlike vanilla's culled `getEyes`: the glow shell has
     // faces the base model doesn't, and culling was dropping the ones facing away from the camera.
     private static final RenderLayer LAYER = CustomLayers.spellObject(TEXTURE, LightEmission.RADIATE, true);
@@ -31,6 +31,6 @@ public class LightwellGlowFeatureRenderer extends FeatureRenderer<LightwellEntit
                        float limbAngle, float limbDistance, float tickDelta, float animationProgress,
                        float headYaw, float headPitch) {
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(LAYER);
-        this.getContextModel().render(matrices, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV);
+        this.getContextModel().render(matrices, vertexConsumer, 15728640, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
     }
 }

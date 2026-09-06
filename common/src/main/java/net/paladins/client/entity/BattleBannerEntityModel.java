@@ -52,7 +52,7 @@ public class BattleBannerEntityModel extends SinglePartEntityModel<BannerEntity>
 
 	// HAND-WRITTEN CODE
 
-	public static final EntityModelLayer LAYER = new EntityModelLayer(Identifier.of(PaladinsMod.ID, "battle_banner"), "main");
+	public static final EntityModelLayer LAYER = new EntityModelLayer(new Identifier(PaladinsMod.ID, "battle_banner"), "main");
 
 	@Override
 	public ModelPart getPart() {

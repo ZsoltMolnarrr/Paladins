@@ -1,9 +1,10 @@
 package net.paladins.village;
 
 import com.google.common.collect.ImmutableSet;
-import net.fabric_extras.structure_pool.api.StructurePoolAPI;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.village.TradeOffer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -16,8 +17,6 @@ import net.paladins.block.PaladinBlocks;
 import net.paladins.item.PaladinWeapons;
 import net.paladins.item.armor.Armors;
 import net.paladins.content.PaladinSounds;
-import net.runes.api.RuneItems;
-import net.spell_engine.Platform;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.Set;
 
 public class PaladinVillagers {
     public static final String PALADIN_MERCHANT = "monk";
-    public static final Identifier POI_ID = Identifier.of(PaladinsMod.ID, PALADIN_MERCHANT);
+    public static final Identifier POI_ID = new Identifier(PaladinsMod.ID, PALADIN_MERCHANT);
     public static final int POI_TICKET_COUNT = 1;
     public static final int POI_SEARCH_DISTANCE = 10;
 
@@ -46,8 +45,8 @@ public class PaladinVillagers {
     public static final LinkedHashMap<Integer, List<TradeOffers.Factory>> TRADES = new LinkedHashMap<>();
 
     public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> workStation) {
-        var id = Identifier.of(PaladinsMod.ID, name);
-        return Registry.register(Registries.VILLAGER_PROFESSION, Identifier.of(PaladinsMod.ID, name), new VillagerProfession(
+        var id = new Identifier(PaladinsMod.ID, name);
+        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(PaladinsMod.ID, name), new VillagerProfession(
                 id.toString(),
                 (entry) -> {
                     return entry.matchesKey(workStation);
@@ -88,10 +87,9 @@ public class PaladinVillagers {
 //    }
 
     public static void registerVillagers() {
-        if (!Platform.util().isModLoaded("lithostitched")) {
-            // Only inject the village if the Lithostitched is not present
-            StructurePoolAPI.injectAll(PaladinsMod.villageConfig.value);
-        }
+        // StructurePoolAPI is Fabric-only on 1.20.1 — the injector is installed by the Fabric entrypoint
+        // and stays absent on Forge (see net.paladins.village.VillageStructures).
+        VillageStructures.injectIfAvailable();
         PROFESSION = registerProfession(
                 PALADIN_MERCHANT,
                 RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), POI_ID));
@@ -118,15 +116,19 @@ public class PaladinVillagers {
 
         TRADES.clear();
         TRADES.put(1, List.of(
-                new TradeOffers.SellItemFactory(RuneItems.get(RuneItems.RuneType.HEALING), 2, 8, 128, 1, 0.01f),
+                // Runes is optional on this line (no Forge artifact on 1.20.1) and is not on the compile
+                // classpath. Resolve the healing stone by registry id at offer-creation time; a null offer
+                // is how vanilla says "no trade", so the tier simply loses this entry when Runes is absent.
+                sellIfPresent("runes:healing_stone", 8, 2, 128, 1, 0.01f),
                 new TradeOffers.SellItemFactory(PaladinWeapons.acolyte_wand.item(), 4, 1, 12, 5),
                 new TradeOffers.SellItemFactory(PaladinWeapons.wooden_great_hammer.item(), 8, 1, 12, 8)
         ));
         TRADES.put(2, List.of(
-                new TradeOffers.BuyItemFactory(Items.WHITE_WOOL, 5, 12, 5, 8),
-                new TradeOffers.BuyItemFactory(Items.IRON_INGOT, 6, 12, 5, 8),
-                new TradeOffers.BuyItemFactory(Items.CHAIN, 6, 12, 5, 8),
-                new TradeOffers.BuyItemFactory(Items.GOLD_INGOT, 6, 12, 5, 8)
+                // 1.20.1's TradeOffers has no BuyItemFactory — rebuilt on the raw TradeOffer ctor.
+                buy(Items.WHITE_WOOL, 5, 12, 5, 8),
+                buy(Items.IRON_INGOT, 6, 12, 5, 8),
+                buy(Items.CHAIN, 6, 12, 5, 8),
+                buy(Items.GOLD_INGOT, 6, 12, 5, 8)
         ));
         TRADES.put(3, List.of(
                 new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.head, 15, 1, 12, 13),
@@ -148,5 +150,28 @@ public class PaladinVillagers {
                 (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
                         PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F).create(entity, random)
         ));
+    }
+
+    /// 1.20.1 `TradeOffers` has no `BuyItemFactory`; this rebuilds it on the raw `TradeOffer` constructor.
+    /// Sells `emeralds` emeralds for `count` of `item`.
+    private static TradeOffers.Factory buy(net.minecraft.item.Item item, int count, int maxUses, int xp, int emeralds) {
+        return (entity, random) -> new TradeOffer(
+                new ItemStack(item, count), new ItemStack(Items.EMERALD, emeralds), maxUses, xp, 0.05F);
+    }
+
+    /// Sells `count` of the item registered under `itemId` for `price` emeralds — resolved lazily, at
+    /// offer-creation time, so an optional mod's item can be missing without any init-order requirement.
+    /// Returning null is how vanilla expresses "no offer".
+    private static TradeOffers.Factory sellIfPresent(String itemId, int count, int price,
+                                                     int maxUses, int xp, float multiplier) {
+        var id = new Identifier(itemId);
+        return (entity, random) -> {
+            var item = Registries.ITEM.get(id);
+            if (item == null || item == Items.AIR) {
+                return null;
+            }
+            return new TradeOffer(new ItemStack(Items.EMERALD, price), new ItemStack(item, count),
+                    maxUses, xp, multiplier);
+        };
     }
 }

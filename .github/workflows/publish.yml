@@ -7,7 +7,7 @@ on:
         type: boolean
         description: 'Loader: Fabric'
         default: true
-      neoforge:
+      forge:
         type: boolean
         description: 'Loader: NeoForge'
         default: true
@@ -50,7 +50,7 @@ jobs:
 
           loaders=""
           if [ "${{ inputs.fabric }}"   = "true" ]; then loaders="$loaders fabric";   fi
-          if [ "${{ inputs.neoforge }}" = "true" ]; then loaders="$loaders neoforge"; fi
+          if [ "${{ inputs.forge }}" = "true" ]; then loaders="$loaders forge"; fi
 
           destinations=""
           if [ "${{ inputs.curseforge }}" = "true" ]; then destinations="$destinations publishCurseforge"; fi

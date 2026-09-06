@@ -1,0 +1,38 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "paladins:aeternium_kite_shield"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "betterend"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "M": {
+      "item": "betterend:aeternium_ingot"
+    }
+  },
+  "pattern": [
+    "MLM",
+    "MMM",
+    " M "
+  ],
+  "result": {
+    "item": "paladins:aeternium_kite_shield"
+  }
+}

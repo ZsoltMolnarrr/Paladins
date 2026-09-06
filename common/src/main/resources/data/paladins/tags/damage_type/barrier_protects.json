@@ -1,6 +1,6 @@
 {
   "values": [
-    "#minecraft:is_player_attack",
+    "minecraft:player_attack",
     "#minecraft:is_explosion",
     "#c:is_magic"
   ]

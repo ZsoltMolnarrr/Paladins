@@ -50,12 +50,12 @@ public class PaladinEntities {
     }
 
     public static final Entry<BarrierEntity> BARRIER = add(new Entry<>(
-            Identifier.of(PaladinsMod.ID, "barrier"),
+            new Identifier(PaladinsMod.ID, "barrier"),
             "Barrier",
             EntityType.Builder.<BarrierEntity>create(BarrierEntity::new, SpawnGroup.MISC)
                     // was fixed(); vanilla builder only yields `changing`, which is equivalent
                     // here since this entity carries no GENERIC_SCALE attribute.
-                    .dimensions(1F, 1F)
+                    .setDimensions(1F, 1F)
                     .makeFireImmune()
                     .maxTrackingRange(128)
                     .trackingTickInterval(20)
@@ -64,20 +64,20 @@ public class PaladinEntities {
                     .build("barrier")));
 
     public static final Entry<BannerEntity> BANNER = add(new Entry<>(
-            Identifier.of(PaladinsMod.ID, "battle_banner"),
+            new Identifier(PaladinsMod.ID, "battle_banner"),
             "Battle Banner",
             EntityType.Builder.<BannerEntity>create(BannerEntity::new, SpawnGroup.MISC)
-                    .dimensions(6F, 0.5F) // dimensions in Minecraft units of the render; changing
+                    .setDimensions(6F, 0.5F) // dimensions in Minecraft units of the render; changing
                     .makeFireImmune()
                     .maxTrackingRange(128)
                     .trackingTickInterval(20)
                     .build("battle_banner")));
 
     public static final Entry<LightwellEntity> LIGHTWELL = add(new Entry<>(
-            Identifier.of(PaladinsMod.ID, "lightwell"),
+            new Identifier(PaladinsMod.ID, "lightwell"),
             "Lightwell",
             EntityType.Builder.<LightwellEntity>create(LightwellEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.9F, 1.4F)
+                    .setDimensions(0.9F, 1.4F)
                     .makeFireImmune()
                     .maxTrackingRange(64)
                     .trackingTickInterval(3)

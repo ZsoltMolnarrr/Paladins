@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 
 public class Armors {
     public static final ArrayList<Armor.Entry> entries = new ArrayList<>();
-    private static Armor.Entry create(RegistryEntry<ArmorMaterial> material, Identifier id, int durability,
+    private static Armor.Entry create(ArmorMaterial material, Identifier id, int durability,
                                       Armor.Set.ItemFactory factory, ArmorSetConfig defaults, int tier) {
         var entry = Armor.Entry.create(
                 material,
@@ -42,71 +42,72 @@ public class Armors {
         return entry;
     }
 
-    public static RegistryEntry<ArmorMaterial> material(
+    /// 1.20.1 has no armor-material registry and no `ArmorMaterial.Layer`: the material is a plain
+    /// interface implementation and its `id` doubles as the texture (layer) id.
+    public static ArmorMaterial material(
             String name, int protectionHead, int protectionChest, int protectionLegs, int protectionFeet,
             int enchantability, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredient) {
 
-        var material = new ArmorMaterial(
+        return Armor.material(
+                new Identifier(PaladinsMod.ID, name),
                 Map.of(
                         ArmorItem.Type.HELMET, protectionHead,
                         ArmorItem.Type.CHESTPLATE, protectionChest,
                         ArmorItem.Type.LEGGINGS, protectionLegs,
                         ArmorItem.Type.BOOTS, protectionFeet),
                 enchantability, equipSound, repairIngredient,
-                List.of(new ArmorMaterial.Layer(Identifier.of(PaladinsMod.ID, name))),
-                0,0
+                0, 0
         );
-        return Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(PaladinsMod.ID, name), material);
     }
 
     
-    private static final Identifier ATTACK_DAMAGE_ID = Identifier.ofVanilla("generic.attack_damage");
-    private static final Identifier ARMOR_TOUGHNESS_ID = Identifier.ofVanilla("generic.armor_toughness");
+    private static final Identifier ATTACK_DAMAGE_ID = new Identifier("minecraft", "generic.attack_damage");
+    private static final Identifier ARMOR_TOUGHNESS_ID = new Identifier("minecraft", "generic.armor_toughness");
     private static AttributeModifier damageMultiplier(float value) {
         return new AttributeModifier(
                 ATTACK_DAMAGE_ID.toString(),
                 value,
-                EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                EntityAttributeModifier.Operation.MULTIPLY_BASE);
     }
 
     private static AttributeModifier toughnessBonus(float value) {
         return new AttributeModifier(
                 ARMOR_TOUGHNESS_ID.toString(),
                 value,
-                EntityAttributeModifier.Operation.ADD_VALUE);
+                EntityAttributeModifier.Operation.ADDITION);
     }
 
-    public static RegistryEntry<ArmorMaterial> paladin_armor = material(
+    public static ArmorMaterial paladin_armor = material(
             "paladin_armor",
             2, 6, 5, 2,
             9,
             PaladinSounds.paladin_armor_equip.entry(), () -> { return Ingredient.ofItems(Items.IRON_INGOT); });
 
-    public static RegistryEntry<ArmorMaterial> crusader_armor = material(
+    public static ArmorMaterial crusader_armor = material(
             "crusader_armor",
             3, 8, 6, 3,
             10,
             PaladinSounds.paladin_armor_equip.entry(), () -> { return Ingredient.ofItems(Items.GOLD_INGOT); });
 
-    public static RegistryEntry<ArmorMaterial> netherite_crusader_armor = material(
+    public static ArmorMaterial netherite_crusader_armor = material(
             "netherite_crusader_armor",
             3, 8, 6, 3,
             15,
             PaladinSounds.paladin_armor_equip.entry(), () -> { return Ingredient.ofItems(Items.NETHERITE_INGOT); });
 
-    public static RegistryEntry<ArmorMaterial> priest_robe = material(
+    public static ArmorMaterial priest_robe = material(
             "priest_robe",
             1, 3, 2, 1,
             9,
             PaladinSounds.priest_robe_equip.entry(), () -> { return Ingredient.fromTag(ItemTags.WOOL); });
 
-    public static RegistryEntry<ArmorMaterial> prior_robe = material(
+    public static ArmorMaterial prior_robe = material(
             "prior_robe",
             1, 3, 2, 1,
             10,
             PaladinSounds.priest_robe_equip.entry(), () -> { return Ingredient.ofItems(Items.GOLD_INGOT); });
 
-    public static RegistryEntry<ArmorMaterial> netherite_prior_robe = material(
+    public static ArmorMaterial netherite_prior_robe = material(
             "netherite_prior_robe",
             1, 3, 2, 1,
             15,
@@ -119,7 +120,7 @@ public class Armors {
 
     public static final Armor.Set paladinArmorSet_t1 = create(
             paladin_armor,
-            Identifier.of(PaladinsMod.ID, "paladin_armor"),
+            new Identifier(PaladinsMod.ID, "paladin_armor"),
             15,
             PaladinArmor::new,
             ArmorSetConfig.with(
@@ -137,7 +138,7 @@ public class Armors {
 
     public static final Armor.Set paladinArmorSet_t2 = create(
             crusader_armor,
-            Identifier.of(PaladinsMod.ID, "crusader_armor"),
+            new Identifier(PaladinsMod.ID, "crusader_armor"),
             25,
             PaladinArmor::new,
             ArmorSetConfig.with(
@@ -155,7 +156,7 @@ public class Armors {
 
     public static final Armor.Set paladinArmorSet_t3 = create(
             netherite_crusader_armor,
-            Identifier.of(PaladinsMod.ID, "netherite_crusader_armor"),
+            new Identifier(PaladinsMod.ID, "netherite_crusader_armor"),
             37,
             PaladinArmor::new,
             ArmorSetConfig.with(
@@ -184,7 +185,7 @@ public class Armors {
 
     public static final Armor.Set priestArmorSet_t1 = create(
             priest_robe,
-            Identifier.of(PaladinsMod.ID, "priest_robe"),
+            new Identifier(PaladinsMod.ID, "priest_robe"),
             10,
             PriestArmor::new,
             ArmorSetConfig.with(
@@ -202,7 +203,7 @@ public class Armors {
 
     public static final Armor.Set priestArmorSet_t2 = create(
             prior_robe,
-            Identifier.of(PaladinsMod.ID, "prior_robe"),
+            new Identifier(PaladinsMod.ID, "prior_robe"),
             20,
             PriestArmor::new,
             ArmorSetConfig.with(
@@ -232,7 +233,7 @@ public class Armors {
 
     public static final Armor.Set priestArmorSet_t3 = create(
             netherite_prior_robe,
-            Identifier.of(PaladinsMod.ID, "netherite_prior_robe"),
+            new Identifier(PaladinsMod.ID, "netherite_prior_robe"),
             30,
             PriestArmor::new,
             ArmorSetConfig.with(

@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "paladins:holy_staff",
+      "required": false
+    },
+    {
+      "id": "paladins:diamond_holy_staff",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_holy_staff",
+      "required": false
+    },
+    {
+      "id": "paladins:ruby_holy_staff",
+      "required": false
+    },
+    {
+      "id": "paladins:aether_holy_staff",
+      "required": false
+    }
+  ]
+}

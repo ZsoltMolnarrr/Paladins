@@ -1,3 +1,10 @@
+# 3.1.1.001
+
+- Ported to Minecraft 1.20.1 (Fabric + Forge 47)
+- Kite shields are Fabric-only on this version: ShieldAPI has no 1.20.1 Forge build
+- Monk sanctuaries are injected into vanilla villages on Fabric only (StructurePoolAPI has no 1.20.1 Forge build); the Repurposed Structures / Lithostitched data-driven paths still work on both loaders
+- Runes is now optional on both loaders
+
 # 3.1.1
 
 - Replaced armor rendering dependency AzureLibArmor with ArmorModelAPI

@@ -1,0 +1,33 @@
+{
+  "parent": "rpg_series:spell_novice_paladin",
+  "criteria": {
+    "cast": {
+      "conditions": {
+        "spell": "#paladins:spell_book/paladin"
+      },
+      "trigger": "spell_engine:spell_cast"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.rpg_series.spell_cast_paladin_book.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "spell_engine:spell_book",
+      "nbt": "{spell_engine:{item_model:\"paladins:item/spell_book/paladin\"}}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.rpg_series.spell_cast_paladin_book.title"
+    }
+  },
+  "requirements": [
+    [
+      "cast"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

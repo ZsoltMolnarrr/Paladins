@@ -13,7 +13,7 @@ import net.paladins.entity.BannerEntity;
 
 public class BannerEntityRenderer<T extends BannerEntity> extends EntityRenderer<T> {
     public static final Identifier TEXTURE =
-            Identifier.of(PaladinsMod.ID, "textures/entity/battle_banner.png");
+            new Identifier(PaladinsMod.ID, "textures/entity/battle_banner.png");
 
     private final BattleBannerEntityModel model;
 
@@ -37,7 +37,7 @@ public class BannerEntityRenderer<T extends BannerEntity> extends EntityRenderer
         matrices.translate(0, -1.5, 0);
         model.setAngles(entity, 0F, 0F, entity.age + tickDelta, 0F, 0F);
         var vertices = vertexConsumers.getBuffer(model.getLayer(TEXTURE));
-        model.render(matrices, vertices, light, OverlayTexture.DEFAULT_UV, -1);
+        model.render(matrices, vertices, light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
         matrices.pop();
     }
 

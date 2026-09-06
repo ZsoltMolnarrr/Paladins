@@ -18,7 +18,7 @@ import net.paladins.entity.LightwellEntity;
 // Made with Blockbench 5.1.4
 // Exported for Minecraft version 1.17+ for Yarn, then wired to the SummonedEntity animation states.
 public class LightwellEntityModel extends SinglePartEntityModel<LightwellEntity> {
-    public static final EntityModelLayer LAYER = new EntityModelLayer(Identifier.of(PaladinsMod.ID, "lightwell"), "main");
+    public static final EntityModelLayer LAYER = new EntityModelLayer(new Identifier(PaladinsMod.ID, "lightwell"), "main");
 
     private final ModelPart root;
     private final ModelPart light;
@@ -69,7 +69,8 @@ public class LightwellEntityModel extends SinglePartEntityModel<LightwellEntity>
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        root.render(matrices, vertices, light, overlay, color);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay,
+                       float red, float green, float blue, float alpha) {
+        root.render(matrices, vertices, light, overlay, red, green, blue, alpha);
     }
 }

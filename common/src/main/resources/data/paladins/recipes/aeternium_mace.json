@@ -1,0 +1,38 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "betterend"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "betterend:aeternium_ingot"
+    },
+    "H": [
+      {
+        "tag": "c:wood_sticks"
+      },
+      {
+        "item": "minecraft:stick"
+      }
+    ]
+  },
+  "pattern": [
+    " B",
+    "HB"
+  ],
+  "result": {
+    "item": "paladins:aeternium_mace"
+  }
+}

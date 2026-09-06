@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "item": "minecraft:chain"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "L L",
+    "WWW",
+    "WWW"
+  ],
+  "result": {
+    "item": "paladins:priest_robe_chest"
+  },
+  "show_notification": true
+}

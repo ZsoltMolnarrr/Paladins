@@ -19,8 +19,8 @@ public final class PaladinArmorRenderer {
 
     private static GeoArmorRenderer make(String modelName, String textureName) {
         return GeoArmorRenderer.of(
-                Identifier.of(PaladinsMod.ID, "geo/" + modelName + ".geo.json"),
-                Identifier.of(PaladinsMod.ID, "textures/armor/" + textureName + ".png"))
-                .trim(Identifier.of(PaladinsMod.ID, "armor/trim/" + textureName + "_generic"), false);
+                new Identifier(PaladinsMod.ID, "geo/" + modelName + ".geo.json"),
+                new Identifier(PaladinsMod.ID, "textures/armor/" + textureName + ".png"))
+                .trim(new Identifier(PaladinsMod.ID, "armor/trim/" + textureName + "_generic"), false);
     }
 }

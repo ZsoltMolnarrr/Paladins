@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crusader_armor_legs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "paladins:crusader_armor_legs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:gold_nugget_from_smelting_crusader_armor_legs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_crusader_armor_legs",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:gold_nugget_from_smelting_crusader_armor_legs"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "rpg_series:classes",
+  "criteria": {
+    "book": {
+      "conditions": {
+        "spell_pool": "paladins:spell_book/paladin"
+      },
+      "trigger": "spell_engine:spell_book_creation"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.rpg_series.path_choose_paladin.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "spell_engine:spell_book",
+      "nbt": "{spell_engine:{item_model:\"paladins:item/spell_book/paladin\"}}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.rpg_series.path_choose_paladin.title"
+    }
+  },
+  "requirements": [
+    [
+      "book"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

@@ -1,21 +1,9 @@
 {
   "values": [
-    {
-      "id": "paladins:iron_kite_shield",
-      "required": false
-    },
-    {
-      "id": "paladins:golden_kite_shield",
-      "required": false
-    },
-    {
-      "id": "paladins:diamond_kite_shield",
-      "required": false
-    },
-    {
-      "id": "paladins:netherite_kite_shield",
-      "required": false
-    },
+    "paladins:iron_kite_shield",
+    "paladins:golden_kite_shield",
+    "paladins:diamond_kite_shield",
+    "paladins:netherite_kite_shield",
     {
       "id": "paladins:aeternium_kite_shield",
       "required": false

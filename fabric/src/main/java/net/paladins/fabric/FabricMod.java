@@ -13,7 +13,7 @@ public final class FabricMod implements ModInitializer {
     @Override
     public void onInitialize() {
         PaladinsMod.init();
-        // ShieldAPI is Fabric-only on 1.20.1 — install the shield item factory before the items register.
+        // Install the shield item factory before the items register (mirrors ForgeMod).
         PaladinShields.factory = CustomShieldItem::new;
         // StructurePoolAPI is Fabric-only on 1.20.1 — install the village injector before the villagers
         // are registered (PaladinVillagers.registerVillagers() calls it).

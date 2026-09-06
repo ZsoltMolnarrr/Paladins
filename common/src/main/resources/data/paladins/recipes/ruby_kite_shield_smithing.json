@@ -9,10 +9,6 @@
   ],
   "conditions": [
     {
-      "type": "forge:item_exists",
-      "item": "paladins:ruby_kite_shield"
-    },
-    {
       "type": "forge:mod_loaded",
       "modid": "betternether"
     }

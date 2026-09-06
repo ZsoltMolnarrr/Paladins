@@ -41,6 +41,14 @@ versionRange = "[1.10.5,)"
 ordering = "AFTER"
 side = "BOTH"
 
+# Kite shields are `net.fabric_extras.shield_api.item.CustomShieldItem` instances (see PaladinShields).
+[[dependencies.paladins]]
+modId = "shield_api"
+mandatory = true
+versionRange = "[2.2.0,)"
+ordering = "AFTER"
+side = "BOTH"
+
 # Runes has no Forge artifact on 1.20.1. Paladins no longer compiles against it — the monk-merchant
 # rune trade and the rune drops in monk-sanctuary chests are resolved by registry id / tag and simply
 # stay inert when it is absent.
@@ -51,8 +59,7 @@ versionRange = "*"
 ordering = "AFTER"
 side = "BOTH"
 
-# ShieldAPI has no Forge artifact on 1.20.1 — kite shields are Fabric-only (see paladins-port-notes.md).
-# StructurePoolAPI has no Forge artifact either; vanilla-village sanctuary injection is Fabric-only
+# StructurePoolAPI has no Forge artifact on 1.20.1; vanilla-village sanctuary injection is Fabric-only
 # (Repurposed Structures / Lithostitched data-driven injection still works on both loaders).
 
 # Mixin configs are declared in the jar MANIFEST (`MixinConfigs:`) by Loom (`loom.forge.mixinConfig`),

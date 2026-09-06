@@ -82,18 +82,14 @@ dependencies {
     // `localRuntime` keeps it out of the published POM.
     localRuntime("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}")
 
-    // ShieldAPI, StructurePoolAPI and Runes have no Forge artifact on 1.20.1 — see paladins-port-notes.md.
+    // ShieldAPI 2.2.0.001 from mavenLocal (1.20.1-modern port, Fabric + Forge). JiJ'd, as on Fabric.
+    include(modImplementation("net.fabric_extras:shield_api-${platform}:${rootProject.shield_api_version}"))
+
+    // StructurePoolAPI and Runes have no Forge artifact on 1.20.1 — see paladins-port-notes.md.
 }
 
 processResources {
     inputs.property 'version', project.version
-
-    // ShieldAPI has no Forge build on 1.20.1, so the kite shields are never registered on this loader
-    // (see PaladinShields.factory). Their recipes and recipe-unlock advancements would then reference an
-    // unknown item and be logged as parse errors on every server start, so drop them from the Forge jar.
-    // The item tags that mention them already use `"required": false` entries.
-    exclude 'data/paladins/recipes/**/*kite_shield*'
-    exclude 'data/paladins/advancements/recipes/**/*kite_shield*'
 
     filesMatching('META-INF/mods.toml') {
         // Forge rejects the `+<mc>` build metadata in a Maven version range, so publish the bare mod version.

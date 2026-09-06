@@ -9,10 +9,6 @@
   ],
   "conditions": [
     {
-      "type": "forge:item_exists",
-      "item": "paladins:aeternium_kite_shield"
-    },
-    {
       "type": "forge:mod_loaded",
       "modid": "betterend"
     }

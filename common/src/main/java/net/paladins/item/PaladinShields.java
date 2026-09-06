@@ -21,14 +21,12 @@ import java.util.function.Supplier;
 public class PaladinShields {
     /// Loader seam for the shield item factory.
     ///
-    /// On 1.20.1 ShieldAPI is a **Fabric-only** artifact (`maven.modrinth:shield-api:1.0.0+1.20.1-fabric`;
-    /// Modrinth publishes no Forge build), so `net.fabric_extras.shield_api.item.CustomShieldItem` may not be
-    /// referenced from `common`. The Fabric entrypoint installs `CustomShieldItem::new` here before
-    /// `PaladinsMod.registerItems()`; on Forge the factory stays null and no kite shields are registered
-    /// (their data files are excluded from the Forge jar — see forge/build.gradle).
+    /// ShieldAPI ships a jar per loader, so `common` stays free of a `net.fabric_extras` compile dependency:
+    /// **both** entrypoints install `CustomShieldItem::new` here before `PaladinsMod.registerItems()`.
+    /// The null guard in `register(...)` remains as a safety net for a loader without a ShieldAPI build.
     @Nullable public static Shield.ShieldFactory factory = null;
 
-    /// Whether kite shields exist on this loader. False on Forge until a 1.20.1 ShieldAPI Forge build exists.
+    /// Whether kite shields exist on this loader. True on Fabric and Forge since ShieldAPI 2.2.0.001.
     public static boolean available() {
         return factory != null;
     }
@@ -66,7 +64,7 @@ public class PaladinShields {
 
     public static void register(Map<String, ShieldConfig> configs) {
         if (factory == null) {
-            // No ShieldAPI on this loader — skip shield registration entirely.
+            // No ShieldAPI factory installed — skip shield registration entirely.
             return;
         }
         if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || Platform.util().isModLoaded(BETTER_NETHER)) {

@@ -12,8 +12,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.registries.RegisterEvent;
+import net.fabric_extras.shield_api.item.CustomShieldItem;
 import net.paladins.PaladinsMod;
 import net.paladins.forge.client.ForgeClientMod;
+import net.paladins.item.PaladinShields;
 import net.paladins.village.PaladinVillagers;
 
 @Mod(PaladinsMod.ID)
@@ -22,6 +24,8 @@ public final class ForgeMod {
     public ForgeMod() {
         // Run our common setup (configs only — registers nothing).
         PaladinsMod.init();
+        // Install the shield item factory before anything registers items (mirrors FabricMod).
+        PaladinShields.factory = CustomShieldItem::new;
         var modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener(EventPriority.NORMAL, false, RegisterEvent.class, ForgeMod::register);
         // Villager trades — game-bus event (fired per profession); replaces Fabric API's TradeOfferHelper.

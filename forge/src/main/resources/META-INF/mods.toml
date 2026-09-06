@@ -49,7 +49,7 @@ versionRange = "[2.2.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-# Runes has no Forge artifact on 1.20.1. Paladins no longer compiles against it — the monk-merchant
+# Runes is optional. Paladins does not compile against it — the monk-merchant
 # rune trade and the rune drops in monk-sanctuary chests are resolved by registry id / tag and simply
 # stay inert when it is absent.
 [[dependencies.paladins]]

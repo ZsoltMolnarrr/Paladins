@@ -85,7 +85,14 @@ dependencies {
     // ShieldAPI 2.2.0.001 from mavenLocal (1.20.1-modern port, Fabric + Forge). JiJ'd, as on Fabric.
     include(modImplementation("net.fabric_extras:shield_api-${platform}:${rootProject.shield_api_version}"))
 
-    // StructurePoolAPI and Runes have no Forge artifact on 1.20.1 — see paladins-port-notes.md.
+    // Runes: dev runtime ONLY (Paladins does not compile against it — `runes:*` ids only).
+    // `modLocalRuntime` on the *production* jar, so Loom remaps it into this Yarn dev env. Do NOT use the
+    // `dev-shadow` classifier here: that jar still carries Mojmap/SRG class references, and FML's
+    // EventSubclassTransformer then dies with `NoClassDefFoundError: net/minecraft/world/item/Item`
+    // while building the ITEM RegisterEvent, taking every other mod's item registration down with it.
+    modLocalRuntime("net.rpg_series:runes-forge:${rootProject.runes_version}")
+
+    // StructurePoolAPI has no Forge artifact on 1.20.1 — see paladins-port-notes.md.
 }
 
 processResources {

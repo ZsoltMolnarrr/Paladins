@@ -89,6 +89,16 @@ public class PaladinsMod {
                 .build();
         Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
         registerBlockItems();
+
+        // The monk workbench block item into the Paladins creative tab. Dispatched by SpellEngine on both
+        // loaders (Fabric `ItemGroupEvents` / Forge `BuildCreativeModeTabContentsEvent`).
+        //
+        // ORDER MATTERS: on both loaders the group modifiers run in *registration* order, so this listener
+        // is installed BEFORE the book/weapon/shield/armor registrations install SpellEngine's own listeners
+        // — that is what puts the block at the front of the tab.
+        PlatformEvents.onItemGroupModify(Group.KEY, (content, context) ->
+                content.add(PaladinBlocks.MONK_WORKBENCH_BLOCK));
+
         PaladinBooks.register();
 
         PaladinWeapons.register(itemConfig.value.weapons);
@@ -96,11 +106,6 @@ public class PaladinsMod {
         Armors.register(itemConfig.value.armor_sets);
         shieldConfig.save();
         itemConfig.save();
-
-        // The monk workbench block item into the Paladins creative tab. Dispatched by SpellEngine on both
-        // loaders (Fabric `ItemGroupEvents` / Forge `BuildCreativeModeTabContentsEvent`).
-        PlatformEvents.onItemGroupModify(Group.KEY, (content, context) ->
-                content.add(PaladinBlocks.MONK_WORKBENCH_BLOCK));
     }
 
     /// Entity types live in their own registry: on Forge 47 exactly one registry is unfrozen per

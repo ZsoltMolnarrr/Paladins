@@ -87,9 +87,6 @@ public class PaladinVillagers {
 //    }
 
     public static void registerVillagers() {
-        // StructurePoolAPI is Fabric-only on 1.20.1 — the injector is installed by the Fabric entrypoint
-        // and stays absent on Forge (see net.paladins.village.VillageStructures).
-        VillageStructures.injectIfAvailable();
         PROFESSION = registerProfession(
                 PALADIN_MERCHANT,
                 RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), POI_ID));

@@ -77,8 +77,8 @@ dependencies {
     // ShieldAPI 2.2.0.001 from mavenLocal (1.20.1-modern port, Fabric + Forge). JiJ'd, as on the legacy branch.
     include(modImplementation("net.fabric_extras:shield_api-${platform}:${rootProject.shield_api_version}"))
 
-    // StructurePoolAPI: legacy Fabric-only artifact, used by the Fabric-side village injector.
-    modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}")
+    // StructurePoolAPI (1.20.1-modern port; mavenLocal). NOT JiJ'd - standalone library mod.
+    modImplementation("net.foundation:structure_pool_api-${platform}:${rootProject.structure_pool_api_version}")
 
     // Runes: dev runtime ONLY (Paladins does not compile against it — `runes:*` ids only).
     modLocalRuntime("net.rpg_series:runes-fabric:${rootProject.runes_version}")

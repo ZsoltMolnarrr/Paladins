@@ -37,9 +37,12 @@ dependencies {
     modImplementation("net.spell_power:spell_power-${platform}:${rootProject.spell_power_version}")
     modImplementation("net.spell_engine:spell_engine-${platform}:${rootProject.spell_engine_version}") { transitive = false }
 
-    // StructurePoolAPI and ShieldAPI: legacy published Fabric-only artifacts (no Forge port on 1.20.1).
-    // Both therefore live behind seams whose only implementation is wired from the Fabric entrypoint:
-    //  - `net.paladins.village.VillageStructures` (village injection)
-    //  - `net.paladins.item.PaladinShields.factory` (kite shield item factory)
+    // StructurePoolAPI 1.2.1+ ships a Forge artifact too, and its `injectAll` touches no loader API,
+    // so the village injection and the `config/paladins/villages.json` config live here in `common`.
+    // The `-common` artifact carries the whole API surface and no loader dependency. NOT JiJ'd: it is
+    // a standalone library mod the player installs.
+    modImplementation("net.foundation:structure_pool_api-common:${rootProject.structure_pool_api_version}")
+
+    // ShieldAPI stays behind the `net.paladins.item.PaladinShields.factory` seam, wired per platform.
     // Runes is NOT on the compile classpath any more (registry-id lookups only) — see paladins-port-notes.md.
 }

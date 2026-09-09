@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.paladins.PaladinsMod;
 import net.paladins.content.PaladinSounds;
@@ -63,9 +64,17 @@ public class PaladinShields {
     public static Shield.Entry netherite_kite_shield = add(Shields.createStandard(PaladinsMod.ID, "netherite_kite_shield", Equipment.Tier.TIER_3, () -> Ingredient.ofItems(Items.NETHERITE_INGOT), PaladinSounds.shield_equip.entry()).translatedName("Netherite Kite Shield"));
 
     public static void register(Map<String, ShieldConfig> configs) {
+        itemsToRegister(configs).forEach((id, item) -> Registry.register(Registries.ITEM, id, item));
+    }
+
+    /// Adds the compat-gated shield entries, then creates and configures every kite shield, keyed by the id
+    /// it registers under. Creation only — nothing is written into the ITEM registry here, so a loader that
+    /// registers items itself (Forge) iterates this instead of calling {@link #register(Map)}.
+    /// **Must run inside the ITEM registration window.** Empty when no ShieldAPI factory is installed.
+    public static Map<Identifier, Item> itemsToRegister(Map<String, ShieldConfig> configs) {
         if (factory == null) {
             // No ShieldAPI factory installed — skip shield registration entirely.
-            return;
+            return Map.of();
         }
         if (PaladinsMod.tweaksConfig.value.ignore_items_required_mods || Platform.util().isModLoaded(BETTER_NETHER)) {
             var repair = ingredient("betternether:nether_ruby", Platform.util().isModLoaded(BETTER_NETHER), Items.NETHERITE_INGOT);
@@ -80,6 +89,6 @@ public class PaladinShields {
             add(Shields.createStandard(PaladinsMod.ID, "aether_kite_shield", Equipment.Tier.TIER_4, repair, PaladinSounds.shield_equip.entry())
                     .loot(-1, "aether"));
         }
-        Shield.register(configs, entries, Group.KEY, factory);
+        return Shield.itemsToRegister(configs, entries, Group.KEY, factory);
     }
 }

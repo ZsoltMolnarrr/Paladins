@@ -2,6 +2,8 @@ package net.paladins.village;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.village.TradeOffer;
@@ -25,6 +27,8 @@ import java.util.Set;
 public class PaladinVillagers {
     public static final String PALADIN_MERCHANT = "monk";
     public static final Identifier POI_ID = new Identifier(PaladinsMod.ID, PALADIN_MERCHANT);
+    /// The villager profession's own id. Same path as {@link #POI_ID}, but a different registry.
+    public static final Identifier PROFESSION_ID = new Identifier(PaladinsMod.ID, PALADIN_MERCHANT);
     public static final int POI_TICKET_COUNT = 1;
     public static final int POI_SEARCH_DISTANCE = 10;
 
@@ -44,9 +48,9 @@ public class PaladinVillagers {
     /// with the game is loader-specific and lives in each platform's entrypoint.
     public static final LinkedHashMap<Integer, List<TradeOffers.Factory>> TRADES = new LinkedHashMap<>();
 
-    public static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> workStation) {
+    public static VillagerProfession createProfession(String name, RegistryKey<PointOfInterestType> workStation) {
         var id = new Identifier(PaladinsMod.ID, name);
-        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(PaladinsMod.ID, name), new VillagerProfession(
+        return new VillagerProfession(
                 id.toString(),
                 (entry) -> {
                     return entry.matchesKey(workStation);
@@ -56,8 +60,35 @@ public class PaladinVillagers {
                 },
                 ImmutableSet.of(),
                 ImmutableSet.of(),
-                PaladinSounds.paladin_armor_equip.soundEvent())
+                PaladinSounds.paladin_armor_equip.soundEvent()
         );
+    }
+
+    private static VillagerProfession monkProfession;
+
+    /// Builds the monk profession once, keyed by {@link #PROFESSION_ID}. Creation only — nothing is
+    /// registered here, so a loader that registers the profession itself hands this to its own
+    /// registration API instead of duplicating the construction.
+    public static VillagerProfession professionToRegister() {
+        if (monkProfession == null) {
+            monkProfession = createProfession(
+                    PALADIN_MERCHANT,
+                    RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), POI_ID));
+        }
+        return monkProfession;
+    }
+
+    /// Reads {@link #PROFESSION} back out of the registry, for a loader that registered the profession
+    /// itself (Forge's `RegisterEvent` helper returns void where `Registry.register` returns the value).
+    /// `VillagerTradesEvent` filters on this field, so it has to be set on both loaders. Throws if the
+    /// profession is missing — which is also what catches a silently mis-keyed `event.register` block.
+    public static void linkProfessionEntry() {
+        if (PROFESSION == null) {
+            PROFESSION = Registries.VILLAGER_PROFESSION
+                    .getOrEmpty(PROFESSION_ID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Villager profession " + PROFESSION_ID + " is not in the registry — register it first"));
+        }
     }
 
 //    private static class Offer {
@@ -87,9 +118,15 @@ public class PaladinVillagers {
 //    }
 
     public static void registerVillagers() {
-        PROFESSION = registerProfession(
-                PALADIN_MERCHANT,
-                RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), POI_ID));
+        PROFESSION = Registry.register(Registries.VILLAGER_PROFESSION, PROFESSION_ID, professionToRegister());
+        buildTrades();
+    }
+
+    /// Populates {@link #TRADES}. Creation only — actual registration with the game is loader-specific
+    /// (Fabric `TradeOfferHelper` / Forge `VillagerTradesEvent`) and lives in each platform's entrypoint.
+    /// Reads the ITEM registry through the weapon and armor entries, so it must run after items register
+    /// (`item` is Forge event 7, `villager_profession` event 28).
+    public static void buildTrades() {
 
 //        List<Offer> paladinMerchantOffers = List.of(
 //                Offer.sell(1, new ItemStack(RuneItems.get(RuneItems.RuneType.HEALING), 8), 2, 128, 1, 0.01f),
@@ -117,43 +154,67 @@ public class PaladinVillagers {
                 // classpath. Resolve the healing stone by registry id at offer-creation time; a null offer
                 // is how vanilla says "no trade", so the tier simply loses this entry when Runes is absent.
                 sellIfPresent("runes:healing_stone", 8, 2, 128, 1, 0.01f),
-                new TradeOffers.SellItemFactory(PaladinWeapons.acolyte_wand.item(), 4, 1, 12, 5),
-                new TradeOffers.SellItemFactory(PaladinWeapons.wooden_great_hammer.item(), 8, 1, 12, 8)
+                sell(PaladinWeapons.acolyte_wand.item(), 4, 1, 12, 5),
+                sell(PaladinWeapons.wooden_great_hammer.item(), 8, 1, 12, 8)
         ));
         TRADES.put(2, List.of(
-                // 1.20.1's TradeOffers has no BuyItemFactory — rebuilt on the raw TradeOffer ctor.
                 buy(Items.WHITE_WOOL, 5, 12, 5, 8),
                 buy(Items.IRON_INGOT, 6, 12, 5, 8),
                 buy(Items.CHAIN, 6, 12, 5, 8),
                 buy(Items.GOLD_INGOT, 6, 12, 5, 8)
         ));
         TRADES.put(3, List.of(
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.head, 15, 1, 12, 13),
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.feet, 15, 1, 12, 13),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.head, 15, 1, 12, 13),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.feet, 15, 1, 12, 13)
+                sell(Armors.paladinArmorSet_t1.head, 15, 1, 12, 13),
+                sell(Armors.paladinArmorSet_t1.feet, 15, 1, 12, 13),
+                sell(Armors.priestArmorSet_t1.head, 15, 1, 12, 13),
+                sell(Armors.priestArmorSet_t1.feet, 15, 1, 12, 13)
         ));
         TRADES.put(4, List.of(
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.chest, 20, 1, 12, 15),
-                new TradeOffers.SellItemFactory(Armors.paladinArmorSet_t1.legs, 20, 1, 12, 15),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.chest, 20, 1, 12, 15),
-                new TradeOffers.SellItemFactory(Armors.priestArmorSet_t1.legs, 20, 1, 12, 15)
+                sell(Armors.paladinArmorSet_t1.chest, 20, 1, 12, 15),
+                sell(Armors.paladinArmorSet_t1.legs, 20, 1, 12, 15),
+                sell(Armors.priestArmorSet_t1.chest, 20, 1, 12, 15),
+                sell(Armors.priestArmorSet_t1.legs, 20, 1, 12, 15)
         ));
         TRADES.put(5, List.of(
-                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_holy_staff.item(), 40, 3, 30, 0F).create(entity, random),
-                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_claymore.item(), 40, 3, 30, 0F).create(entity, random),
-                (entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                        PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F).create(entity, random)
+                sellEnchanted(PaladinWeapons.diamond_holy_staff.item(), 40, 3, 30, 0F),
+                sellEnchanted(PaladinWeapons.diamond_claymore.item(), 40, 3, 30, 0F),
+                sellEnchanted(PaladinWeapons.diamond_great_hammer.item(), 40, 3, 30, 0F)
         ));
     }
 
-    /// 1.20.1 `TradeOffers` has no `BuyItemFactory`; this rebuilds it on the raw `TradeOffer` constructor.
-    /// Sells `emeralds` emeralds for `count` of `item`.
-    private static TradeOffers.Factory buy(net.minecraft.item.Item item, int count, int maxUses, int xp, int emeralds) {
+    // MARK: Trade factories
+    //
+    // 1.20.1's `TradeOffers` has no `BuyItemFactory` at all, and `SellItemFactory` / `SellEnchantedToolFactory`
+    // — public in the decompiled tree — are *package-private* classes in the real 1.20.1 jar, and stay so
+    // even after Forge's access transformer. This module compiles against them only because another
+    // dependency on `common`'s classpath contributes an access widener that the production runtime lacks;
+    // on a Forge server that is an `IllegalAccessError: VillagerTrades$ItemsForEmeralds` at trade-build time.
+    // All three are therefore rebuilt on the raw `TradeOffer` constructor, reproducing vanilla's arithmetic
+    // exactly (including its 0.05 default price multiplier).
+
+    /// Mirrors vanilla's buy offer: `count` of `item` for `price` emeralds.
+    private static TradeOffers.Factory buy(ItemConvertible item, int count, int maxUses, int experience, int price) {
         return (entity, random) -> new TradeOffer(
-                new ItemStack(item, count), new ItemStack(Items.EMERALD, emeralds), maxUses, xp, 0.05F);
+                new ItemStack(item, count), new ItemStack(Items.EMERALD, price), maxUses, experience, 0.05F);
+    }
+
+    /// Mirrors `TradeOffers.SellItemFactory(Item, price, count, maxUses, experience)`.
+    private static TradeOffers.Factory sell(ItemConvertible item, int price, int count, int maxUses, int experience) {
+        return (entity, random) -> new TradeOffer(
+                new ItemStack(Items.EMERALD, price), new ItemStack(item, count), maxUses, experience, 0.05F);
+    }
+
+    /// Mirrors `TradeOffers.SellEnchantedToolFactory(Item, basePrice, maxUses, experience, multiplier)`:
+    /// a random enchantment level in `[5, 20)`, no treasure enchantments, and — the rule that is easy to
+    /// drop — **that level is added to the price**, capped at a stack of 64 emeralds.
+    private static TradeOffers.Factory sellEnchanted(net.minecraft.item.Item item, int basePrice,
+                                                     int maxUses, int experience, float multiplier) {
+        return (entity, random) -> {
+            int level = 5 + random.nextInt(15);
+            var enchanted = EnchantmentHelper.enchant(random, new ItemStack(item), level, false);
+            int price = Math.min(basePrice + level, 64);
+            return new TradeOffer(new ItemStack(Items.EMERALD, price), enchanted, maxUses, experience, multiplier);
+        };
     }
 
     /// Sells `count` of the item registered under `itemId` for `price` emeralds — resolved lazily, at

@@ -111,6 +111,16 @@ public class PaladinEffects {
     ));
 
     public static void register(ConfigFile.Effects config) {
+        configureEffects();
+        Effects.register(entries, config.effects);
+        installBehaviours();
+    }
+
+    /// Effect behaviour that does **not** read a `RegistryEntry`: synchronization flags, action impairing
+    /// and the item glow. Creation only — nothing is written into a registry, so a loader that registers
+    /// the effects itself (Forge) calls this before its registration loop, exactly as
+    /// {@link #register(ConfigFile.Effects)} does.
+    public static void configureEffects() {
         Synchronized.configure(DIVINE_PROTECTION.effect, true);
         Synchronized.configure(JUDGEMENT.effect, true);
         Synchronized.configure(ABSORPTION.effect, true);
@@ -123,9 +133,12 @@ public class PaladinEffects {
         // full 5 stacks land on exactly 1.0 (fully opaque) — a dark weapon at 0 blessings, blazing at 5.
         // register() also marks the effect Synchronized (clients can only glow what they know about).
         GlowingItemStatusEffect.register(BLESSED_STRIKES.effect, Color.HOLY, 0.2F);
+    }
 
-        Effects.register(entries, config.effects);
-
+    /// Effect behaviour that reads an `Effects.Entry#entry` — a `RegistryEntry` that only exists once the
+    /// effect is in the registry. **Must run after `Effects.linkEntries(entries)`** (on the vanilla path
+    /// `Effects.register` links them itself), or `DIVINE_PROTECTION.entry` is still null here.
+    public static void installBehaviours() {
         Protection.register(DIVINE_PROTECTION.entry, new Protection.Pop(
                 List.of(DivineProtectionStatusEffect.particles),
                 PaladinSounds.divine_protection_impact.soundEvent()

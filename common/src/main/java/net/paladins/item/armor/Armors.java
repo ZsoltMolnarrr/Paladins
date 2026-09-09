@@ -264,5 +264,13 @@ public class Armors {
     public static void register(Map<String, ArmorSetConfig> configs) {
         Armor.register(configs, entries, Group.KEY);
     }
+
+    /// Configures every armor piece and returns them keyed by the id they register under. Creation only —
+    /// nothing is written into the ITEM registry here, so a loader that registers items itself (Forge)
+    /// iterates this instead of calling {@link #register(Map)}.
+    /// **Must run inside the ITEM registration window.**
+    public static Map<Identifier, net.minecraft.item.Item> itemsToRegister(Map<String, ArmorSetConfig> configs) {
+        return Armor.itemsToRegister(configs, entries, Group.KEY);
+    }
 }
 

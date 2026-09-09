@@ -4,6 +4,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -12,7 +14,9 @@ import net.minecraft.world.World;
 import net.paladins.PaladinsMod;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PaladinSounds {
     public static final class Entry {
@@ -110,8 +114,33 @@ public class PaladinSounds {
     public static final Entry blessed_strike_release = add(new Entry("blessed_strike_release"));
 
     public static void register() {
+        soundsToRegister().forEach((id, soundEvent) -> Registry.register(Registries.SOUND_EVENT, id, soundEvent));
+        linkEntries();
+    }
+
+    /// Every sound that still needs registering, keyed by the id it registers under. Creation only —
+    /// nothing is written here, so a loader that registers sounds itself (Forge) iterates this instead of
+    /// calling {@link #register()}. Follow it with {@link #linkEntries()}: the armor materials in
+    /// `Armors` and the kite shields in `PaladinShields` read `Entry#entry()`, which only the
+    /// register-reference path fills in.
+    public static Map<Identifier, SoundEvent> soundsToRegister() {
+        var sounds = new LinkedHashMap<Identifier, SoundEvent>();
         for (var entry: entries) {
-            entry.entry = Registry.registerReference(Registries.SOUND_EVENT, entry.id(), entry.soundEvent());
+            if (entry.entry != null || Registries.SOUND_EVENT.containsId(entry.id())) { continue; }
+            sounds.put(entry.id(), entry.soundEvent());
+        }
+        return sounds;
+    }
+
+    /// Reads every `entry` field back out of the registry, for a loader that registered the sounds itself
+    /// (Forge's `RegisterEvent` helper returns void where `Registry.registerReference` returns the entry).
+    /// Idempotent; throws naming the id if a sound never reached the registry.
+    public static void linkEntries() {
+        for (var entry: entries) {
+            if (entry.entry != null) { continue; }
+            entry.entry = Registries.SOUND_EVENT.getEntry(RegistryKey.of(RegistryKeys.SOUND_EVENT, entry.id()))
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Sound event " + entry.id() + " is not in the registry — register it first"));
         }
     }
 

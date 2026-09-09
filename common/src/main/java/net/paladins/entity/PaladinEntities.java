@@ -16,7 +16,9 @@ import net.tiny_config.ConfigManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PaladinEntities {
 
@@ -123,9 +125,31 @@ public class PaladinEntities {
     }
 
     public static void register() {
+        entityTypesToRegister().forEach((id, type) -> Registry.register(Registries.ENTITY_TYPE, id, type));
+        attachSummonAttributes();
+    }
+
+    /// Paladins' entity types keyed by the id they register under. Creation only — nothing is written into
+    /// the ENTITY_TYPE registry here, so a loader that registers entity types itself (Forge) iterates this
+    /// instead of calling {@link #register()}. Follow it with {@link #attachSummonAttributes()}.
+    ///
+    /// The types themselves are built by this class's `<clinit>`; `EntityType.Builder#build` constructs an
+    /// intrusive registry holder, so the first touch of this class has to fall inside the `RegisterEvent`
+    /// sequence (it does — `PaladinSpells` reaches it from the ITEM window at the latest).
+    public static Map<Identifier, EntityType<?>> entityTypesToRegister() {
         summonConfig.refresh(); // load (or write) Paladins' own config file before reading values from it
+        var types = new LinkedHashMap<Identifier, EntityType<?>>();
         for (var entry : entries) {
-            Registry.register(Registries.ENTITY_TYPE, entry.id, entry.type);
+            types.put(entry.id, entry.type);
+        }
+        return types;
+    }
+
+    /// Buffers the summoned entities' default attribute containers. Not a registry write — the platform
+    /// layer applies them later (Fabric imperatively, Forge from `EntityAttributeCreationEvent`) — but it
+    /// reads {@link #summonConfig}, so it belongs after {@link #entityTypesToRegister()}.
+    public static void attachSummonAttributes() {
+        for (var entry : entries) {
             if (entry.summonConfig != null) {
                 // Only summoned (living) entities carry a config; safe by construction.
                 @SuppressWarnings("unchecked")

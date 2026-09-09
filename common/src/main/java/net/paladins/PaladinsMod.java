@@ -1,10 +1,12 @@
 package net.paladins;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.paladins.block.PaladinBlocks;
 import net.paladins.config.Default;
 import net.paladins.config.TweaksConfig;
@@ -23,6 +25,9 @@ import net.spell_engine.Platform;
 import net.spell_engine.PlatformEvents;
 import net.spell_engine.rpg_series.config.ConfigFile;
 import net.tiny_config.ConfigManager;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class PaladinsMod {
     public static final String ID = "paladins";
@@ -90,22 +95,41 @@ public class PaladinsMod {
         PaladinBlocks.register();
     }
 
-    /// The monk workbench's `BlockItem` — registered from the ITEM window on Forge, one registry per
-    /// `RegisterEvent` window.
-    public static void registerBlockItems() {
-        PaladinBlocks.registerBlockItems();
+    public static void registerItems() {
+        registerItemGroup();
+        itemsToRegister().forEach((id, item) -> Registry.register(Registries.ITEM, id, item));
     }
 
-    public static void registerItems() {
-        // `ItemGroup.Builder` is a vanilla type on this line (the 1.21 `ItemGroup.builder()` static is a
-        // Fabric API interface injection); the ITEM_GROUP registry is vanilla-only and stays unfrozen for
-        // the whole Forge RegisterEvent phase, so registering it from the ITEM window is fine.
-        Group.PALADINS = new ItemGroup.Builder(ItemGroup.Row.TOP, 0)
-                .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
-                .displayName(Text.translatable("itemGroup.paladins.general"))
-                .build();
-        Registry.register(Registries.ITEM_GROUP, Group.KEY, Group.PALADINS);
-        registerBlockItems();
+    /// Builds the `paladins:generic` creative tab. Creation only — nothing is registered here, so a loader
+    /// that registers item groups itself (Forge) hands this to its own helper. Built once.
+    ///
+    /// `ItemGroup.Builder` is a vanilla type on this line (the 1.21 `ItemGroup.builder()` static is a
+    /// Fabric API interface injection). The icon is a lazy supplier, so this does not depend on the armor
+    /// items already existing.
+    public static ItemGroup createItemGroup() {
+        if (Group.PALADINS == null) {
+            Group.PALADINS = new ItemGroup.Builder(ItemGroup.Row.TOP, 0)
+                    .icon(() -> new ItemStack(Armors.paladinArmorSet_t2.head))
+                    .displayName(Text.translatable("itemGroup.paladins.general"))
+                    .build();
+        }
+        return Group.PALADINS;
+    }
+
+    public static void registerItemGroup() {
+        Registry.register(Registries.ITEM_GROUP, Group.KEY, createItemGroup());
+    }
+
+    /// Every item Paladins adds, keyed by the id it registers under. Creation only — nothing is written
+    /// into the ITEM registry here, so a loader that registers items itself (Forge) iterates this instead
+    /// of calling {@link #registerItems()}. **Must run inside the ITEM registration window**: `Item`'s
+    /// constructor creates an intrusive registry holder.
+    ///
+    /// Also installs the creative-tab contents callbacks — the group *contents*, not the group itself,
+    /// which is a separate registry (`creative_mode_tab` is Forge event 65, `item` is event 7).
+    public static Map<Identifier, Item> itemsToRegister() {
+        var items = new LinkedHashMap<Identifier, Item>();
+        items.putAll(blockItemsToRegister());
 
         // The monk workbench block item into the Paladins creative tab. Dispatched by SpellEngine on both
         // loaders (Fabric `ItemGroupEvents` / Forge `BuildCreativeModeTabContentsEvent`).
@@ -118,11 +142,17 @@ public class PaladinsMod {
 
         PaladinBooks.register();
 
-        PaladinWeapons.register(itemConfig.value.weapons);
-        PaladinShields.register(shieldConfig.value.shields);
-        Armors.register(itemConfig.value.armor_sets);
+        items.putAll(PaladinWeapons.itemsToRegister(itemConfig.value.weapons));
+        items.putAll(PaladinShields.itemsToRegister(shieldConfig.value.shields));
+        items.putAll(Armors.itemsToRegister(itemConfig.value.armor_sets));
         shieldConfig.save();
         itemConfig.save();
+        return items;
+    }
+
+    /// The monk workbench's `BlockItem`, keyed by its registration id. Creation only.
+    public static Map<Identifier, Item> blockItemsToRegister() {
+        return Map.of(PaladinBlocks.MONK_WORKBENCH_ID, PaladinBlocks.MONK_WORKBENCH_BLOCK);
     }
 
     /// Entity types live in their own registry: on Forge 47 exactly one registry is unfrozen per

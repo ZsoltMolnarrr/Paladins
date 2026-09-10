@@ -87,11 +87,10 @@ public class PaladinEffects {
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0xffffcc)
     ));
 
-    /// Nearly cancels the holder's gravity (GENERIC_GRAVITY default 0.08, clamped [-1, 1]), leaving them
-    /// hanging in the air and drifting down only very slowly: 0.08 * (1 - 0.95) = +0.004. Used by Levitate
-    /// (see PaladinSpells.levitate): the spell's upward velocity kicks provide the ascent, while this just
-    /// stops normal gravity from clawing the caster back down — and, since it outlives the channel, keeps
-    /// them afloat afterwards until it fades and they settle gently to the ground.
+    /// Nearly cancels the holder's gravity, leaving them hanging in the air and drifting down only very
+    /// slowly. Used by Levitate (see PaladinSpells.levitate): the spell's upward velocity kicks provide
+    /// the ascent, while this just stops normal gravity from clawing the caster back down — and, since it
+    /// outlives the channel, keeps them afloat afterwards until it fades and they settle gently down.
     public static final Effects.Entry LEVITATE = add(new Effects.Entry(
             new Identifier(PaladinsMod.ID, "levitate"),
             "Levitate",

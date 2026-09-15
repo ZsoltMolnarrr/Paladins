@@ -90,7 +90,7 @@ dependencies {
     // `dev-shadow` classifier here: that jar still carries Mojmap/SRG class references, and FML's
     // EventSubclassTransformer then dies with `NoClassDefFoundError: net/minecraft/world/item/Item`
     // while building the ITEM RegisterEvent, taking every other mod's item registration down with it.
-    modLocalRuntime("net.rpg_series:runes-forge:${rootProject.runes_version}")
+    modLocalRuntime("maven.modrinth:runes:${rootProject.runes_version}-${platform}")
 
     // StructurePoolAPI from the Modrinth maven. NOT JiJ'd - standalone library mod.
     modImplementation("maven.modrinth:structure-pool-api:${rootProject.structure_pool_api_version}-${platform}")
@@ -142,7 +142,6 @@ publishMods {
         projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")   // numeric id
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
         client = true                    // >=1 of client/server REQUIRED by CurseForge (Error 1021)
         server = true
         changelogType = "markdown"
@@ -154,7 +153,6 @@ publishMods {
         projectId = providers.environmentVariable("MODRINTH_PROJECT_RAW_ID")
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
         minecraftVersions.add(project.minecraft_version)
-        minecraftVersions.add(project.minecraft_compat_version)
         requires { slug = "armor-model-api" }
         requires { slug = "spell-engine" }
         requires { slug = "structure-pool-api" }

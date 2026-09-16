@@ -14,7 +14,6 @@
 > **Back up your world before updating.**
 
 - Ported to Minecraft 1.20.1 (Fabric + Forge 47)
-- Runes is now an optional dependency
 
 ### What's new since 1.4.0
 

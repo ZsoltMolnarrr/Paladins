@@ -14,9 +14,41 @@
 > **Back up your world before updating.**
 
 - Ported to Minecraft 1.20.1 (Fabric + Forge 47)
-- Kite shields are Fabric-only on this version: ShieldAPI has no 1.20.1 Forge build
-- Monk sanctuaries are injected into vanilla villages on Fabric only (StructurePoolAPI has no 1.20.1 Forge build); the Repurposed Structures / Lithostitched data-driven paths still work on both loaders
-- Runes is now optional on both loaders
+- Runes is now an optional dependency
+
+### What's new since 1.4.0
+
+Everything below was released between 1.4.0 and 3.1.1 on newer Minecraft versions only.
+
+#### New spells
+
+- Paladin and Priest spell books now offer **6 spells** each: two choices across three tiers
+- New Paladin spells: **Seal of Righteousness**, **Immolation**, **Blessed Strikes**
+- New Priest spells: **Levitate**, **Penance**, **Lightwell**
+- **Holy Shock** is granted by all Holy Staff variants; **Flash Heal** is a spell book choice
+- Paladin melee weapons (claymores, great hammers, maces) come with their own weapon skills
+
+#### New items & equipment
+
+- Aether dungeon loot: **Holy Claymore**, **Valkyrie Great Hammer**, **Silver Staff of the Valkyrie**, **Sun's Mace** and the **Valkyrie Bulwark** shield
+- Redrawn paladin armor models, with armor trim support
+- All recipes in the vanilla recipe book; smelting recipes disassemble paladin and priest weapons and armor
+- Armor and weapon attributes rebalanced
+
+#### Progression & world
+
+- **Skill Tree** support: paladin and priest branches with passive skills and spell modifiers
+- New advancements for spell casting, spell binding and monk trading
+- Monk sanctuaries gained a snowy village variant, and also generate through Lithostitched and Repurposed Structures
+
+#### Gameplay & balance
+
+- Holy spells always critically strike undead; **Judgement** deals +50% damage to them and no longer stuns bosses
+- Healing spells no longer work on Iron Golems
+- **Divine Protection** scales with Healing Power
+- Offensive paladin spells and priest healing output rebalanced
+- Reworked visuals for Judgement, Blessed Strikes, Circle of Healing, Holy Light and the Battle Banner
+- Fully translated into 20 languages
 
 # 3.1.1
 

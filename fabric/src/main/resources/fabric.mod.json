@@ -37,7 +37,7 @@
   ],
   "depends": {
     "minecraft": ">=${minecraft_min_version}",
-    "fabricloader": ">=0.19.3",
+    "fabricloader": ">=0.19.5",
     "armor_model_api": ">=${armor_model_api_version}",
     "spell_engine": ">=${spell_engine_version}",
     "spell_power": "*",

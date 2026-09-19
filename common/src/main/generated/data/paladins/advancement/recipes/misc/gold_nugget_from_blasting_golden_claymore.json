@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:gold_nugget_from_blasting_golden_claymore"
+        "recipes": "paladins:gold_nugget_from_blasting_golden_claymore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

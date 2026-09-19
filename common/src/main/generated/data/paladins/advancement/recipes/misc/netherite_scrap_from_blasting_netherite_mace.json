@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:netherite_scrap_from_blasting_netherite_mace"
+        "recipes": "paladins:netherite_scrap_from_blasting_netherite_mace"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

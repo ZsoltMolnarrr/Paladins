@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:prior_robe_feet"
+        "recipes": "paladins:prior_robe_feet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

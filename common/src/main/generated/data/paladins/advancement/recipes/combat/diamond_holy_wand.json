@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:diamond_holy_wand"
+        "recipes": "paladins:diamond_holy_wand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

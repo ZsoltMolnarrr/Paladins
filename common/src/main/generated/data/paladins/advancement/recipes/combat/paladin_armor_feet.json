@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:paladin_armor_feet"
+        "recipes": "paladins:paladin_armor_feet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:gold_nugget_from_smelting_prior_robe_feet"
+        "recipes": "paladins:gold_nugget_from_smelting_prior_robe_feet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

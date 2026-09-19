@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:gold_nugget_from_smelting_crusader_armor_chest"
+        "recipes": "paladins:gold_nugget_from_smelting_crusader_armor_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

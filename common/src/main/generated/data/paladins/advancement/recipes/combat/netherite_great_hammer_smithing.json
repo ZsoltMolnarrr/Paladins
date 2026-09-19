@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:netherite_great_hammer_smithing"
+        "recipes": "paladins:netherite_great_hammer_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

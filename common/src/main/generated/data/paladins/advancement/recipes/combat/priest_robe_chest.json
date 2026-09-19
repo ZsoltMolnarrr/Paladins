@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:priest_robe_chest"
+        "recipes": "paladins:priest_robe_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

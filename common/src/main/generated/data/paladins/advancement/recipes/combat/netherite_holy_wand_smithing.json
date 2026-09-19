@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:netherite_holy_wand_smithing"
+        "recipes": "paladins:netherite_holy_wand_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

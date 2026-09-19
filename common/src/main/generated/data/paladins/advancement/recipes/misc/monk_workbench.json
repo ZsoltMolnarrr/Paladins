@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:monk_workbench"
+        "recipes": "paladins:monk_workbench"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

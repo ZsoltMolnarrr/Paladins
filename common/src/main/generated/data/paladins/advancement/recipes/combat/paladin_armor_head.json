@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:paladin_armor_head"
+        "recipes": "paladins:paladin_armor_head"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

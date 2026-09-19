@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:netherite_scrap_from_smelting_netherite_prior_robe_legs"
+        "recipes": "paladins:netherite_scrap_from_smelting_netherite_prior_robe_legs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

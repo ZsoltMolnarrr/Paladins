@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:iron_nugget_from_smelting_paladin_armor_legs"
+        "recipes": "paladins:iron_nugget_from_smelting_paladin_armor_legs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

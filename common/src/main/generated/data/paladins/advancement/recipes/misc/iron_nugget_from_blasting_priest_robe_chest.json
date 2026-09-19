@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:iron_nugget_from_blasting_priest_robe_chest"
+        "recipes": "paladins:iron_nugget_from_blasting_priest_robe_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

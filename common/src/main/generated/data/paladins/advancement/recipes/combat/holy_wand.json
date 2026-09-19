@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:holy_wand"
+        "recipes": "paladins:holy_wand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

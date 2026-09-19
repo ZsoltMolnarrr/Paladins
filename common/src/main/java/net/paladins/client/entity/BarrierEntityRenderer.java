@@ -159,10 +159,10 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
         for (int m = 0; m < 2; m++) { // 2 outer loops, 1 for the top half and 1 for the bottom half
             for (int i = 0; i < 6; i++) { // 6 inner loops, 1 for each segment(since it's a hexagon)
                 matrices.pushPose();
-                if (m == 0) matrices.mulPose(Axis.XP.rotation((float) Math.PI)); // flip 180 degrees if doing the bottom half
+                if (m == 0) matrices.rotate(Axis.XP.rotation((float) Math.PI)); // flip 180 degrees if doing the bottom half
                 matrices.translate(offset, 0, 0);
                 matrices.rotateAround(Axis.YP.rotation((float) (i/3f*Math.PI)), -offset, 0, 0); // rotate around middle to position segment
-                matrices.mulPose(Axis.ZP.rotation(zSlant)); // applying z slant
+                matrices.rotate(Axis.ZP.rotation(zSlant)); // applying z slant
 
                 float r = config.red();
                 float g = config.green();
@@ -197,10 +197,10 @@ public class BarrierEntityRenderer<T extends BarrierEntity> extends EntityRender
                 matrices.popPose();
                 matrices.pushPose(); // finding the position of the next quad, so that we can grab its vertex for a triangle
                 Matrix4f newMatrix = matrices.last().pose();
-                if (m == 0) matrices.mulPose(Axis.XP.rotation((float) Math.PI));
+                if (m == 0) matrices.rotate(Axis.XP.rotation((float) Math.PI));
                 matrices.translate(offset, 0, 0);
                 matrices.rotateAround(Axis.YP.rotation((float) ((i-1)/3f*Math.PI)), -offset, 0, 0);
-                matrices.mulPose(Axis.ZP.rotation(zSlant));
+                matrices.rotate(Axis.ZP.rotation(zSlant));
 
                 vertexConsumer.addVertex(matrix, 0, radius, size).setColor(r, g, b, 0f).setUv(u2, v2).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0); // rendering main part of the connector triangle
                 vertexConsumer.addVertex(matrix, 0, 0, size).setColor(r, g, b, alpha).setUv(u2, v1).setOverlay(overlayUV).setLight(light).setNormal(matrixEntry, 0, 0, 0);

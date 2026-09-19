@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:crusader_armor_chest"
+        "recipes": "paladins:crusader_armor_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

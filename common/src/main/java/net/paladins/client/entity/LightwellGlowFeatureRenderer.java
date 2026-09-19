@@ -29,7 +29,8 @@ public class LightwellGlowFeatureRenderer
     @Override
     public void submit(PoseStack matrices, SubmitNodeCollector queue, int light,
                        LightwellEntityRenderer.State state, float limbAngle, float limbDistance) {
+        // 26.3: `submitModel` lost the trailing crumbling-overlay argument (now `submitCrumblingOverlay`).
         queue.submitModel(this.getParentModel(), state, matrices, LAYER,
-                LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
+                LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, state.outlineColor);
     }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:diamond_holy_staff"
+        "recipes": "paladins:diamond_holy_staff"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

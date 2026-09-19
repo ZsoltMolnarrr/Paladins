@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:iron_mace"
+        "recipes": "paladins:iron_mace"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

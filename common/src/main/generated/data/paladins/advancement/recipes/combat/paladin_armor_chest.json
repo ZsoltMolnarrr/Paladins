@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:paladin_armor_chest"
+        "recipes": "paladins:paladin_armor_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

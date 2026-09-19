@@ -154,11 +154,11 @@ public class PaladinsAdvancements extends FabricAdvancementProvider {
         // so keep them untelemetered rather than using the telemetered Advancement.Builder.create().
         var entry = Advancement.Builder.recipeAdvancement()
                 .parent(Identifier.parse(parent))
+                // 26.3: `display(..)` no longer takes a background (that overload is `rootDisplay(..)`).
                 .display(
                         icon,
                         Component.translatable(translationKey(id, "title")),
                         Component.translatable(translationKey(id, "description")),
-                        null,
                         frame,
                         showToast,
                         announceToChat,

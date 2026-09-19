@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:netherite_crusader_armor_chest_smithing"
+        "recipes": "paladins:netherite_crusader_armor_chest_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

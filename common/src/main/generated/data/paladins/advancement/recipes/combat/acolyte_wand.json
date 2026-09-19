@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:acolyte_wand"
+        "recipes": "paladins:acolyte_wand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

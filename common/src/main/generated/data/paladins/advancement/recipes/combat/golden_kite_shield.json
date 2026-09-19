@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:golden_kite_shield"
+        "recipes": "paladins:golden_kite_shield"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

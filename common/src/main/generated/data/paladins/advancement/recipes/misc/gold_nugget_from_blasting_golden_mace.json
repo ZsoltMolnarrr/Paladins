@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:gold_nugget_from_blasting_golden_mace"
+        "recipes": "paladins:gold_nugget_from_blasting_golden_mace"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

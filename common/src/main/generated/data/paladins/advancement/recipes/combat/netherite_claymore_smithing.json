@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:netherite_claymore_smithing"
+        "recipes": "paladins:netherite_claymore_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

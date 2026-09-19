@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:gold_nugget_from_smelting_holy_wand"
+        "recipes": "paladins:gold_nugget_from_smelting_holy_wand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

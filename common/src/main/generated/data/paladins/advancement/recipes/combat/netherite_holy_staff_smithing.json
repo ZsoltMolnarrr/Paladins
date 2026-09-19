@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:netherite_holy_staff_smithing"
+        "recipes": "paladins:netherite_holy_staff_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:diamond_claymore"
+        "recipes": "paladins:diamond_claymore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

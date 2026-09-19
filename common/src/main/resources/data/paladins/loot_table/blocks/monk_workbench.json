@@ -3,18 +3,16 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "paladins:monk_workbench"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

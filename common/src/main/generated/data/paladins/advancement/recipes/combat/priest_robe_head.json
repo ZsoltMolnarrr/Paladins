@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:priest_robe_head"
+        "recipes": "paladins:priest_robe_head"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

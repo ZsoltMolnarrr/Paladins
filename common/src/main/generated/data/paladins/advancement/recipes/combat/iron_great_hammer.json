@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:iron_great_hammer"
+        "recipes": "paladins:iron_great_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

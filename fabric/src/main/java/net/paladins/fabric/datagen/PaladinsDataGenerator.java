@@ -6,11 +6,13 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.crafting.CookingBookCategory;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -160,9 +162,12 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             return "Paladin Unsmelting Recipes";
         }
 
+        // 26.3: recipes and their advancements are written through `BootstrapContext`s instead of a `RecipeOutput`.
         @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
-            return new RecipeProvider(registryLookup, exporter) {
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup,
+                                                      BootstrapContext<Recipe<?>> recipeOutput,
+                                                      BootstrapContext<Advancement> advancementOutput) {
+            return new RecipeProvider(recipeOutput, advancementOutput) {
                 @Override
                 public void buildRecipes() {
             disassembleArmor(Armors.paladinArmorSet_t1, Items.IRON_NUGGET);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "paladins:holy_staff"
+        "recipes": "paladins:holy_staff"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -2,11 +2,13 @@ package net.paladins.fabric.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.paladins.item.armor.Armors;
@@ -28,9 +30,12 @@ public class PaladinRecipes extends FabricRecipeProvider {
         super(output, registriesFuture);
     }
 
+    // 26.3: recipes and their advancements are written through `BootstrapContext`s instead of a `RecipeOutput`.
     @Override
-    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
-        return new RecipeProvider(registryLookup, exporter) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup,
+                                                  BootstrapContext<Recipe<?>> recipeOutput,
+                                                  BootstrapContext<Advancement> advancementOutput) {
+        return new RecipeProvider(recipeOutput, advancementOutput) {
         @Override
         public void buildRecipes() {
             generateWandRecipes();

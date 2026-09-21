@@ -1,4 +1,4 @@
-# 3.1.2
+# 3.1.3
 
 - Lightwell now heals allies directly, instead of lobbing a projectile that often missed them
 - Paladin and Priest equipment is now affiliated loot: it drops more often for players carrying the matching spell book

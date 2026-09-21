@@ -8,53 +8,6 @@
       "id": "#rpg_series:weapon_type/healing_wand",
       "required": false
     },
-    {
-      "id": "paladins:priest_robe_head",
-      "required": false
-    },
-    {
-      "id": "paladins:priest_robe_chest",
-      "required": false
-    },
-    {
-      "id": "paladins:priest_robe_legs",
-      "required": false
-    },
-    {
-      "id": "paladins:priest_robe_feet",
-      "required": false
-    },
-    {
-      "id": "paladins:prior_robe_head",
-      "required": false
-    },
-    {
-      "id": "paladins:prior_robe_chest",
-      "required": false
-    },
-    {
-      "id": "paladins:prior_robe_legs",
-      "required": false
-    },
-    {
-      "id": "paladins:prior_robe_feet",
-      "required": false
-    },
-    {
-      "id": "paladins:netherite_prior_robe_head",
-      "required": false
-    },
-    {
-      "id": "paladins:netherite_prior_robe_chest",
-      "required": false
-    },
-    {
-      "id": "paladins:netherite_prior_robe_legs",
-      "required": false
-    },
-    {
-      "id": "paladins:netherite_prior_robe_feet",
-      "required": false
-    }
+    "#paladins:armor_type/priest_robes"
   ]
 }

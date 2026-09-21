@@ -118,27 +118,41 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
             ).toList();
             generateShieldTags(shieldEntries);
 
+            var paladinArmor = generateClassArmorTag("paladin_armor",
+                    Armors.entries.stream().filter(entry -> entry.name().contains("armor")).toList());
+            var priestRobes = generateClassArmorTag("priest_robes",
+                    Armors.entries.stream().filter(entry -> entry.name().contains("robe")).toList());
             generateLootAffiliation("paladin",
                     List.of(Equipment.WeaponType.CLAYMORE, Equipment.WeaponType.HAMMER, Equipment.WeaponType.MACE,
                             Equipment.WeaponType.GLAIVE, Equipment.WeaponType.SHIELD),
-                    Armors.entries.stream().filter(entry -> entry.name().contains("armor")).toList());
+                    List.of(paladinArmor));
             generateLootAffiliation("priest",
                     List.of(Equipment.WeaponType.HEALING_STAFF, Equipment.WeaponType.HEALING_WAND),
-                    Armors.entries.stream().filter(entry -> entry.name().contains("robe")).toList());
+                    List.of(priestRobes));
+        }
+
+        /// Class armor tag: `paladins:armor_type/<name>`, holding every piece of the given armor sets
+        private TagKey<Item> generateClassArmorTag(String name, List<Armor.Entry> armors) {
+            var tagKey = TagKey.of(RegistryKeys.ITEM, Identifier.of(PaladinsMod.ID, "armor_type/" + name));
+            var tag = getOrCreateTagBuilder(tagKey);
+            for (var armor: armors) {
+                for (var id: armor.armorSet().pieceIds()) {
+                    tag.addOptional((Identifier) id);
+                }
+            }
+            return tagKey;
         }
 
         /// Loot affiliation: items relevant for the wearer of the given spell book
         /// (`paladins:spell_book/<book>` -> `paladins:loot_affiliation/<book>`), these drop more often
         /// for them from the loot injected by Spell Engine.
-        private void generateLootAffiliation(String book, List<Equipment.WeaponType> weaponTypes, List<Armor.Entry> armors) {
+        private void generateLootAffiliation(String book, List<Equipment.WeaponType> weaponTypes, List<TagKey<Item>> armorTags) {
             var tag = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(PaladinsMod.ID, "loot_affiliation/" + book)));
             for (var type: weaponTypes) {
                 tag.addOptionalTag(RPGSeriesItemTags.WeaponType.get(type));
             }
-            for (var armor: armors) {
-                for (var id: armor.armorSet().pieceIds()) {
-                    tag.addOptional((Identifier) id);
-                }
+            for (var armorTag: armorTags) {
+                tag.addTag(armorTag);
             }
         }
     }

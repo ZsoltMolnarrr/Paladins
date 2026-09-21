@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitate",
   "spell.paladins.lightwell.description": "Summons a Lightwell that heals you and nearby wounded allies. It lasts {summon_duration} sec.",
   "spell.paladins.lightwell.name": "Lightwell",
-  "spell.paladins.lightwell_orb.description": "Heals a friendly target by {heal} health points.",
-  "spell.paladins.lightwell_orb.name": "Holy Mote",
+  "spell.paladins.lightwell_heal.description": "Heals a friendly target by {heal} health points.",
+  "spell.paladins.lightwell_heal.name": "Heal",
   "spell.paladins.penance.description": "Channel a volley of holy bolts at an enemy. Each of the three bolts deals {damage} damage and radiates an absorption shield to allies within {impact_range} blocks of your target — your offense is their protection.",
   "spell.paladins.penance.name": "Penance"
 }

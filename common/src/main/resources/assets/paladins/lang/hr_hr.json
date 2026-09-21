@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitacija",
   "spell.paladins.lightwell.description": "Priziva Zdenac svjetlosti koji iscjeljuje tebe i obližnje ranjene saveznike. Traje {summon_duration} sek.",
   "spell.paladins.lightwell.name": "Zdenac svjetlosti",
-  "spell.paladins.lightwell_orb.description": "Iscjeljuje prijateljsku metu za {heal} zdravlja.",
-  "spell.paladins.lightwell_orb.name": "Sveta iskra",
+  "spell.paladins.lightwell_heal.description": "Iscjeljuje prijateljsku metu za {heal} zdravlja.",
+  "spell.paladins.lightwell_heal.name": "Iscjeljenje",
   "spell.paladins.penance.description": "Kanaliziraj plotun svetih strijela prema neprijatelju. Svaka od tri strijele nanosi {damage} štete i zrači štitom apsorpcije saveznicima unutar {impact_range} blokova od tvoje mete — tvoj napad je njihova zaštita.",
   "spell.paladins.penance.name": "Pokora"
 }

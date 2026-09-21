@@ -1,0 +1,72 @@
+{
+  "values": [
+    {
+      "id": "#rpg_series:weapon_type/claymore",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/hammer",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/mace",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/glaive",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/shield",
+      "required": false
+    },
+    {
+      "id": "paladins:paladin_armor_head",
+      "required": false
+    },
+    {
+      "id": "paladins:paladin_armor_chest",
+      "required": false
+    },
+    {
+      "id": "paladins:paladin_armor_legs",
+      "required": false
+    },
+    {
+      "id": "paladins:paladin_armor_feet",
+      "required": false
+    },
+    {
+      "id": "paladins:crusader_armor_head",
+      "required": false
+    },
+    {
+      "id": "paladins:crusader_armor_chest",
+      "required": false
+    },
+    {
+      "id": "paladins:crusader_armor_legs",
+      "required": false
+    },
+    {
+      "id": "paladins:crusader_armor_feet",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_crusader_armor_head",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_crusader_armor_chest",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_crusader_armor_legs",
+      "required": false
+    },
+    {
+      "id": "paladins:netherite_crusader_armor_feet",
+      "required": false
+    }
+  ]
+}

@@ -1,5 +1,8 @@
 package net.paladins.fabric.datagen;
 
+import net.spell_engine.rpg_series.item.Equipment;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.registry.RegistryKeys;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -114,6 +117,29 @@ public class PaladinsDataGenerator implements DataGeneratorEntrypoint {
                     new RPGSeriesDataGen.ShieldEntry(entry.id(), entry.lootProperties)
             ).toList();
             generateShieldTags(shieldEntries);
+
+            generateLootAffiliation("paladin",
+                    List.of(Equipment.WeaponType.CLAYMORE, Equipment.WeaponType.HAMMER, Equipment.WeaponType.MACE,
+                            Equipment.WeaponType.GLAIVE, Equipment.WeaponType.SHIELD),
+                    Armors.entries.stream().filter(entry -> entry.name().contains("armor")).toList());
+            generateLootAffiliation("priest",
+                    List.of(Equipment.WeaponType.HEALING_STAFF, Equipment.WeaponType.HEALING_WAND),
+                    Armors.entries.stream().filter(entry -> entry.name().contains("robe")).toList());
+        }
+
+        /// Loot affiliation: items relevant for the wearer of the given spell book
+        /// (`paladins:spell_book/<book>` -> `paladins:loot_affiliation/<book>`), these drop more often
+        /// for them from the loot injected by Spell Engine.
+        private void generateLootAffiliation(String book, List<Equipment.WeaponType> weaponTypes, List<Armor.Entry> armors) {
+            var tag = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(PaladinsMod.ID, "loot_affiliation/" + book)));
+            for (var type: weaponTypes) {
+                tag.addOptionalTag(RPGSeriesItemTags.WeaponType.get(type));
+            }
+            for (var armor: armors) {
+                for (var id: armor.armorSet().pieceIds()) {
+                    tag.addOptional((Identifier) id);
+                }
+            }
         }
     }
 

@@ -1,3 +1,8 @@
+# 3.1.2
+
+- Lightwell now heals allies directly, instead of lobbing a projectile that often missed them
+- Paladin and Priest equipment is now affiliated loot: it drops more often for players carrying the matching spell book
+
 # 3.1.1
 
 - Replaced armor rendering dependency AzureLibArmor with ArmorModelAPI

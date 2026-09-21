@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "공중부양",
   "spell.paladins.lightwell.description": "빛의 샘을 소환하여 자신과 주변의 부상당한 아군을 치유합니다. {summon_duration}초 동안 지속됩니다.",
   "spell.paladins.lightwell.name": "빛의 샘",
-  "spell.paladins.lightwell_orb.description": "아군 대상을 체력 {heal}만큼 치유합니다.",
-  "spell.paladins.lightwell_orb.name": "빛의 파편",
+  "spell.paladins.lightwell_heal.description": "아군 대상을 체력 {heal}만큼 치유합니다.",
+  "spell.paladins.lightwell_heal.name": "치유",
   "spell.paladins.penance.description": "적에게 신성한 화살 세례를 시전합니다. 세 발의 화살은 각각 {damage}의 피해를 주며, 대상으로부터 {impact_range}블록 이내의 아군에게 흡수 효과를 발산합니다 — 당신의 공격이 곧 그들의 보호가 됩니다.",
   "spell.paladins.penance.name": "고해"
 }

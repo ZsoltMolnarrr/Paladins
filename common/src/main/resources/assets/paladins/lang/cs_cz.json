@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitace",
   "spell.paladins.lightwell.description": "Vyvolá Studnu světla, která léčí vás a okolní zraněné spojence. Vydrží {summon_duration} s.",
   "spell.paladins.lightwell.name": "Studna světla",
-  "spell.paladins.lightwell_orb.description": "Vyléčí přátelský cíl o {heal} bodů zdraví.",
-  "spell.paladins.lightwell_orb.name": "Svatá jiskra",
+  "spell.paladins.lightwell_heal.description": "Vyléčí přátelský cíl o {heal} bodů zdraví.",
+  "spell.paladins.lightwell_heal.name": "Léčení",
   "spell.paladins.penance.description": "Vysílá na nepřítele salvu svatých šípů. Každý ze tří šípů způsobí {damage} poškození a vyzáří absorpční štít spojencům do vzdálenosti {impact_range} bloků od vašeho cíle — váš útok je jejich ochranou.",
   "spell.paladins.penance.name": "Pokání"
 }

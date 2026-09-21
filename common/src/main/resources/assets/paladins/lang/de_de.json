@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitation",
   "spell.paladins.lightwell.description": "Beschwört einen Lichtquell, der dich und nahe verwundete Verbündete heilt. Er hält {summon_duration} Sek. an.",
   "spell.paladins.lightwell.name": "Lichtquell",
-  "spell.paladins.lightwell_orb.description": "Heilt ein befreundetes Ziel um {heal} Gesundheitspunkte.",
-  "spell.paladins.lightwell_orb.name": "Heiliger Funke",
+  "spell.paladins.lightwell_heal.description": "Heilt ein befreundetes Ziel um {heal} Gesundheitspunkte.",
+  "spell.paladins.lightwell_heal.name": "Heilung",
   "spell.paladins.penance.description": "Kanalisiere eine Salve heiliger Blitze auf einen Feind. Jeder der drei Blitze verursacht {damage} Schaden und strahlt einen Absorptionsschild auf Verbündete im Umkreis von {impact_range} Blöcken um dein Ziel aus — dein Angriff ist ihr Schutz.",
   "spell.paladins.penance.name": "Buße"
 }

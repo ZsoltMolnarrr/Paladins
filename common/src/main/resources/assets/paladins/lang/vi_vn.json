@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Bay Lượn",
   "spell.paladins.lightwell.description": "Triệu hồi một Giếng Ánh Sáng hồi phục cho bạn và đồng minh bị thương gần đó. Nó tồn tại trong {summon_duration} giây.",
   "spell.paladins.lightwell.name": "Giếng Ánh Sáng",
-  "spell.paladins.lightwell_orb.description": "Hồi phục cho một mục tiêu đồng minh {heal} máu.",
-  "spell.paladins.lightwell_orb.name": "Hạt Sáng Thánh",
+  "spell.paladins.lightwell_heal.description": "Hồi phục cho một mục tiêu đồng minh {heal} máu.",
+  "spell.paladins.lightwell_heal.name": "Hồi Phục",
   "spell.paladins.penance.description": "Duy trì bắn một loạt tia thánh vào kẻ địch. Mỗi trong ba tia gây {damage} sát thương và tỏa ra một khiên hấp thụ cho đồng minh trong phạm vi {impact_range} ô quanh mục tiêu — đòn tấn công của bạn chính là sự bảo vệ cho họ.",
   "spell.paladins.penance.name": "Sám Hối"
 }

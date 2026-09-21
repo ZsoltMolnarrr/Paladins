@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitazione",
   "spell.paladins.lightwell.description": "Evoca un Pozzo di luce che cura te e gli alleati feriti nelle vicinanze. Dura {summon_duration} sec.",
   "spell.paladins.lightwell.name": "Pozzo di luce",
-  "spell.paladins.lightwell_orb.description": "Cura un bersaglio amico di {heal} punti salute.",
-  "spell.paladins.lightwell_orb.name": "Scintilla sacra",
+  "spell.paladins.lightwell_heal.description": "Cura un bersaglio amico di {heal} punti salute.",
+  "spell.paladins.lightwell_heal.name": "Cura",
   "spell.paladins.penance.description": "Incanala una raffica di dardi sacri contro un nemico. Ognuno dei tre dardi infligge {damage} danni e irradia uno scudo d'assorbimento agli alleati entro {impact_range} blocchi dal tuo bersaglio: la tua offesa è la loro protezione.",
   "spell.paladins.penance.name": "Penitenza"
 }

@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitation",
   "spell.paladins.lightwell.description": "Frammanar en ljusbrunn som läker dig och närliggande sårade allierade. Den varar i {summon_duration} sek.",
   "spell.paladins.lightwell.name": "Ljusbrunn",
-  "spell.paladins.lightwell_orb.description": "Läker ett vänligt sinnat mål med {heal} hälsopoäng.",
-  "spell.paladins.lightwell_orb.name": "Helig gnista",
+  "spell.paladins.lightwell_heal.description": "Läker ett vänligt sinnat mål med {heal} hälsopoäng.",
+  "spell.paladins.lightwell_heal.name": "Läkning",
   "spell.paladins.penance.description": "Kanalisera en salva heliga strålar mot en fiende. Var och en av de tre strålarna orsakar {damage} skada och utstrålar en absorptionssköld till allierade inom {impact_range} block från ditt mål — din offensiv är deras skydd.",
   "spell.paladins.penance.name": "Botgöring"
 }

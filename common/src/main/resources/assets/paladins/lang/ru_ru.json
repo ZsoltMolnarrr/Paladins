@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Левитация",
   "spell.paladins.lightwell.description": "Призывает Колодец света, что исцеляет Вас и находящихся поблизости раненых союзников. Действует в течение {summon_duration} сек.",
   "spell.paladins.lightwell.name": "Колодец света",
-  "spell.paladins.lightwell_orb.description": "Исцеляет дружелюбную цель на {heal} ед. здоровья.",
-  "spell.paladins.lightwell_orb.name": "Святая частица",
+  "spell.paladins.lightwell_heal.description": "Исцеляет дружелюбную цель на {heal} ед. здоровья.",
+  "spell.paladins.lightwell_heal.name": "Исцеление",
   "spell.paladins.penance.description": "Канализирует очередь святых снарядов во врага. Каждый из трёх снарядов наносит {damage} ед. урона и создаёт поглощающий щит для союзников в пределах {impact_range} блоков от цели — Ваша атака становится их защитой.",
   "spell.paladins.penance.name": "Покаяние"
 }

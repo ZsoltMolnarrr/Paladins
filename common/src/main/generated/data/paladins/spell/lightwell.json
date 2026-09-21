@@ -101,7 +101,7 @@
               {
                 "type": "SPELL_CAST",
                 "spell_cast": {
-                  "spell_id": "paladins:lightwell_orb",
+                  "spell_id": "paladins:lightwell_heal",
                   "cooldown": 30
                 }
               }

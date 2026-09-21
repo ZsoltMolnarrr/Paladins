@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Левітація",
   "spell.paladins.lightwell.description": "Скликає Колодязь світла, який зцілює вас і поранених союзників поблизу. Триває {summon_duration} сек.",
   "spell.paladins.lightwell.name": "Колодязь світла",
-  "spell.paladins.lightwell_orb.description": "Зцілює дружню ціль на {heal} очок здоров'я.",
-  "spell.paladins.lightwell_orb.name": "Священна іскра",
+  "spell.paladins.lightwell_heal.description": "Зцілює дружню ціль на {heal} очок здоров'я.",
+  "spell.paladins.lightwell_heal.name": "Зцілення",
   "spell.paladins.penance.description": "Спрямуйте залп священних зарядів у ворога. Кожен із трьох зарядів завдає {damage} шкоди та випромінює щит поглинання на союзників у радіусі {impact_range} блоків від вашої цілі — ваш напад є їхнім захистом.",
   "spell.paladins.penance.name": "Спокута"
 }

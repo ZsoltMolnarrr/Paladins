@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "ลอยตัว",
   "spell.paladins.lightwell.description": "เรียกบ่อแสงที่จะฟื้นฟูคุณและพันธมิตรที่บาดเจ็บใกล้เคียง คงอยู่เป็นเวลา {summon_duration} วินาที",
   "spell.paladins.lightwell.name": "บ่อแสง",
-  "spell.paladins.lightwell_orb.description": "ฟื้นฟูเป้าหมายฝ่ายเดียวกัน {heal} หน่วยพลังชีวิต",
-  "spell.paladins.lightwell_orb.name": "ธุลีศักดิ์สิทธิ์",
+  "spell.paladins.lightwell_heal.description": "ฟื้นฟูเป้าหมายฝ่ายเดียวกัน {heal} หน่วยพลังชีวิต",
+  "spell.paladins.lightwell_heal.name": "ฟื้นฟู",
   "spell.paladins.penance.description": "ร่ายชุดกระสุนศักดิ์สิทธิ์ใส่ศัตรู กระสุนแต่ละลูกจากทั้งสามลูกสร้างดาเมจ {damage} และแผ่เกราะดูดซับให้กับพันธมิตรภายในระยะ {impact_range} บล็อกจากเป้าหมายของคุณ — การโจมตีของคุณคือการปกป้องของพวกเขา",
   "spell.paladins.penance.name": "การลงทัณฑ์"
 }

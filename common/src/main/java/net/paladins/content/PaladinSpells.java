@@ -8,6 +8,7 @@ import net.paladins.entity.PaladinSummons;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
+import net.spell_engine.api.spell.fx.Easing;
 import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.fx.Fx;
@@ -110,6 +111,17 @@ public class PaladinSpells {
     private static ParticleGroup holySparks(float count, float minSpeed, float maxSpeed) {
         return ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
                 .batch(b -> b.shape(ParticleGroup.Shape.SPHERE).count(count).speed(minSpeed, maxSpeed));
+    }
+
+    /// A stream of holy sparks thrown along the caster's aim. Directly delivered spells have no
+    /// travelling entity of their own, so this is what shows where the magic went — slowed playback
+    /// (= longer lived sparks) lets the stream carry across the gap before it fades. `DECELERATE`
+    /// drag makes the sparks surge out and settle where they land, rather than sailing on forever.
+    private static ParticleGroup holySparkStream(float count, float speed, float angle) {
+        return ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.DECELERATE, Color.HOLY)
+                .playbackSpeed(0.6F)
+                .fadeOut(0.5F, Easing.LINEAR)
+                .batch(Batches.cone(count, speed, angle));
     }
 
     public static final Entry FLASH_HEAL = add(flash_heal().book(Book.PALADIN));
@@ -757,13 +769,16 @@ public class PaladinSpells {
 
     // Heal cast by the Lightwell summon on nearby wounded allies. Not learnable and bound to no
     // book/weapon — it exists only to be referenced by PaladinSummons.lightwell()'s SpellCast action.
-    // Same heal payload as the priest's Heal, but lobbed as a holy orb (Celestial-Orbs model) that
-    // arcs upward and homes back down onto the ally, bouncing once off terrain. Must be instant so the
-    // summon can cast it (summons can't channel); scales off the well's own healing spell power.
-    public static final Entry LIGHTWELL_ORB = add(lightwell_orb());
-    private static Entry lightwell_orb() {
-        var id = Identifier.of(PaladinsMod.ID, "lightwell_orb");
-        var title = "Holy Mote";
+    // Same heal payload as the priest's Heal, delivered DIRECTly: a lobbed projectile missed its
+    // friendly target too often (it bounced, clipped terrain, or the ally simply walked on), and a
+    // heal that fails to land is a dead cast. The well locks its rotation onto the ally before firing
+    // (MobCastController.TrackedAim), so the release spark stream reads as the well reaching out to
+    // the one it heals. Must be instant so the summon can cast it (summons can't channel); scales off
+    // the well's own healing spell power.
+    public static final Entry LIGHTWELL_HEAL = add(lightwell_heal());
+    private static Entry lightwell_heal() {
+        var id = Identifier.of(PaladinsMod.ID, "lightwell_heal");
+        var title = "Heal";
         var description = "Heals a friendly target by {heal} health points.";
 
         var spell = SpellBuilder.createSpellActive();
@@ -777,32 +792,17 @@ public class PaladinSpells {
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_healing_release");
         spell.release.sound = Sound.of(SpellEngineSounds.GENERIC_HEALING_RELEASE_2.id());
+        // The stand-in for the removed projectile: a narrow cone of holy sparks flung along the well's
+        // aim, which by release points straight at the ally. Thrown hard enough (and in enough number)
+        // to read as a burst of light crossing the gap before the drag settles it.
+        spell.release.visuals = Fx.Visuals.of(holySparkStream(28, 1.0F, 8F));
 
         SpellBuilder.Target.aim(spell);
         spell.target.aim.required = true;
 
-        // Delivery: a holy orb lobbed 40° above the aim line, arcing back down onto the ally via homing,
-        // and able to ricochet once off terrain along the way.
-        spell.deliver.type = Spell.Delivery.Type.PROJECTILE;
-        spell.deliver.projectile = new Spell.Delivery.ShootProjectile();
-        spell.deliver.projectile.direction_offsets = new Spell.Delivery.ShootProjectile.DirectionOffset[] {
-                new Spell.Delivery.ShootProjectile.DirectionOffset(0, -30) // negative pitch = aim upwards
-        };
-        spell.deliver.projectile.launch_properties.velocity = 1.0F;
-
-        var projectile = new Spell.ProjectileData();
-        projectile.homing_angle = 16F;
-        projectile.homing_after_relative_distance = 0.15F; // fly up first, then curve toward the ally
-        projectile.perks.bounce = 1;
-        projectile.client_data = new Spell.ProjectileData.Client();
-        projectile.client_data.light_level = 12;
-        projectile.client_data.travel_particles = List.of(
-                ParticleGroupBuilder.magic(SpellEngineParticles.magic_spark, ParticleGroup.Motion.FLOAT, Color.HOLY)
-                        .batch(Batches.travel(5, 0.1F).andThen(b -> b.speed(0, 0.1F)))
-        );
-        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single(
-                "paladins:spell_projectile/lightwell_orb", 1.0F, LightEmission.GLOW);
-        spell.deliver.projectile.projectile = projectile;
+        // Delivery: DIRECT — the heal lands on the acquired ally the moment the well fires, no travel
+        // to go wrong. The spark stream above carries the visual instead.
+        spell.deliver.type = Spell.Delivery.Type.DIRECT;
 
         var heal = SpellBuilder.Impacts.heal(0.35F);
         heal.visuals = Fx.Visuals.of(healPillar(15), holyGlimmer(12, 0.2F, 0.25F));

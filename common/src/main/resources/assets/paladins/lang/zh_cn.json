@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "悬浮",
   "spell.paladins.lightwell.description": "召唤一个采光井，为你和附近受伤的队友提供治疗。采光井持续{summon_duration}秒。",
   "spell.paladins.lightwell.name": "采光井",
-  "spell.paladins.lightwell_orb.description": "为友方目标恢复{heal}点生命值。",
-  "spell.paladins.lightwell_orb.name": "神圣微粒",
+  "spell.paladins.lightwell_heal.description": "为友方目标恢复{heal}点生命值。",
+  "spell.paladins.lightwell_heal.name": "治疗术",
   "spell.paladins.penance.description": "向敌人发射圣光弹幕。3道弹幕中的每一道都会造成{damage}点伤害，并使目标周围{impact_range}格内的队友获得生命吸收的生命值；你的进攻保护了他们。",
   "spell.paladins.penance.name": "忏悔"
 }

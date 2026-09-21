@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Melayang",
   "spell.paladins.lightwell.description": "Memanggil sebuah Sumur Cahaya yang menyembuhkanmu dan sekutu terluka di sekitar. Bertahan selama {summon_duration} detik.",
   "spell.paladins.lightwell.name": "Sumur Cahaya",
-  "spell.paladins.lightwell_orb.description": "Menyembuhkan target ramah sebesar {heal} poin nyawa.",
-  "spell.paladins.lightwell_orb.name": "Percikan Suci",
+  "spell.paladins.lightwell_heal.description": "Menyembuhkan target ramah sebesar {heal} poin nyawa.",
+  "spell.paladins.lightwell_heal.name": "Sembuhkan",
   "spell.paladins.penance.description": "Salurkan rentetan panah cahaya suci ke arah musuh. Setiap dari tiga panah memberikan {damage} kerusakan dan memancarkan perisai penyerapan kepada sekutu dalam jarak {impact_range} blok dari targetmu — seranganmu adalah perlindungan mereka.",
   "spell.paladins.penance.name": "Tobat"
 }

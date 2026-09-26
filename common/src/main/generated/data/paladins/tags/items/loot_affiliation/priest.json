@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#rpg_series:weapon_type/healing_staff",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/healing_wand",
+      "required": false
+    },
+    "#paladins:armor_type/priest_robes"
+  ]
+}

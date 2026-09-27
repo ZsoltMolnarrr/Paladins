@@ -43,7 +43,7 @@
     "armor_model_api": ">=1.0.0",
     "spell_engine": ">=1.10.5",
     "spell_power": "*",
-    "shield_api": "*",
+    "shield_api": ">1.1.0",
     "structure_pool_api": "*"
   },
   "recommends": {

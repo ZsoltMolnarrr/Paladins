@@ -74,7 +74,7 @@ dependencies {
     modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${rootProject.cardinal_components_version}")
     modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${rootProject.cardinal_components_version}")
 
-    // ShieldAPI 2.2.0+1.20.1 from the Modrinth maven (Fabric + Forge). JiJ'd, as on the legacy branch.
+    // ShieldAPI 1.1.0+1.20.1 from the Modrinth maven (Fabric + Forge). JiJ'd, as on the legacy branch.
     include(modImplementation("maven.modrinth:shield-api:${rootProject.shield_api_version}-${platform}"))
 
     // StructurePoolAPI from the Modrinth maven. NOT JiJ'd - standalone library mod.

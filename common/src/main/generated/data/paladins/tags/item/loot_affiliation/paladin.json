@@ -1,0 +1,25 @@
+{
+  "values": [
+    {
+      "id": "#rpg_series:weapon_type/claymore",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/hammer",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/mace",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/glaive",
+      "required": false
+    },
+    {
+      "id": "#rpg_series:weapon_type/shield",
+      "required": false
+    },
+    "#paladins:armor_type/paladin_armor"
+  ]
+}

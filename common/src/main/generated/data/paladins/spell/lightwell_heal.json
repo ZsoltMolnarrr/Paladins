@@ -8,6 +8,31 @@
     "animation": {
       "id": "spell_engine:one_handed_healing_release"
     },
+    "visuals": {
+      "particles": [
+        {
+          "id": "spell_engine:magic_spark",
+          "appearance": {
+            "playback_speed": 0.6,
+            "color": 4294954239,
+            "opacity_curve": {
+              "out": "LINEAR",
+              "hold": 0.5
+            },
+            "motion": "DECELERATE"
+          },
+          "batch": {
+            "count": 28.0,
+            "shape": "CONE",
+            "anchor": "ENTITY",
+            "alignment": "LOOK",
+            "min_speed": 0.5,
+            "max_speed": 1.0,
+            "angle": 8.0
+          }
+        }
+      ]
+    },
     "sound": {
       "id": "spell_engine:generic_healing_release_2"
     }
@@ -16,51 +41,6 @@
     "type": "AIM",
     "aim": {
       "required": true
-    }
-  },
-  "deliver": {
-    "type": "PROJECTILE",
-    "projectile": {
-      "direction_offsets": [
-        {
-          "pitch": -30.0
-        }
-      ],
-      "projectile": {
-        "homing_angle": 16.0,
-        "homing_after_relative_distance": 0.15,
-        "perks": {
-          "bounce": 1
-        },
-        "client_data": {
-          "light_level": 12,
-          "travel_particles": [
-            {
-              "id": "spell_engine:magic_spark",
-              "appearance": {
-                "color": 4294954239,
-                "motion": "FLOAT"
-              },
-              "batch": {
-                "count": 5.0,
-                "shape": "CIRCLE",
-                "anchor": "ENTITY",
-                "alignment": "LOOK",
-                "max_speed": 0.1
-              }
-            }
-          ],
-          "composite_model": {
-            "models": [
-              {
-                "fx": {
-                  "model_id": "paladins:spell_projectile/lightwell_orb"
-                }
-              }
-            ]
-          }
-        }
-      }
     }
   },
   "impacts": [

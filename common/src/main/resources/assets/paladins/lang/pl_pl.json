@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Lewitacja",
   "spell.paladins.lightwell.description": "Przyzywa Studnię Światła, która leczy ciebie i pobliskich rannych sojuszników. Trwa {summon_duration} sek.",
   "spell.paladins.lightwell.name": "Studnia Światła",
-  "spell.paladins.lightwell_orb.description": "Leczy sprzymierzony cel o {heal} punktów zdrowia.",
-  "spell.paladins.lightwell_orb.name": "Święta Drobina",
+  "spell.paladins.lightwell_heal.description": "Leczy sprzymierzony cel o {heal} punktów zdrowia.",
+  "spell.paladins.lightwell_heal.name": "Leczenie",
   "spell.paladins.penance.description": "Kanałuj serię świętych pocisków w wroga. Każdy z trzech pocisków zadaje {damage} obrażeń i emituje tarczę absorpcji sojusznikom w promieniu {impact_range} bloków od twojego celu — twój atak jest ich ochroną.",
   "spell.paladins.penance.name": "Pokuta"
 }

@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitatie",
   "spell.paladins.lightwell.description": "Roept een Lichtbron op die jou en nabije gewonde bondgenoten geneest. Deze houdt {summon_duration} sec stand.",
   "spell.paladins.lightwell.name": "Lichtbron",
-  "spell.paladins.lightwell_orb.description": "Geneest een bevriend doelwit voor {heal} levenspunten.",
-  "spell.paladins.lightwell_orb.name": "Heilige Vonk",
+  "spell.paladins.lightwell_heal.description": "Geneest een bevriend doelwit voor {heal} levenspunten.",
+  "spell.paladins.lightwell_heal.name": "Genezing",
   "spell.paladins.penance.description": "Kanaliseer een salvo heilige schichten op een vijand. Elk van de drie schichten brengt {damage} schade toe en straalt een absorptieschild uit naar bondgenoten binnen {impact_range} blokken van je doelwit — jouw aanval is hun bescherming.",
   "spell.paladins.penance.name": "Boetedoening"
 }

@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Lebegés",
   "spell.paladins.lightwell.description": "Megidéz egy Fénykutat, amely meggyógyít téged és a közeli sebesült szövetségeseidet. {summon_duration} másodpercig tart.",
   "spell.paladins.lightwell.name": "Fénykút",
-  "spell.paladins.lightwell_orb.description": "Meggyógyít egy baráti célpontot {heal} életerőponttal.",
-  "spell.paladins.lightwell_orb.name": "Szent Szikra",
+  "spell.paladins.lightwell_heal.description": "Meggyógyít egy baráti célpontot {heal} életerőponttal.",
+  "spell.paladins.lightwell_heal.name": "Gyógyítás",
   "spell.paladins.penance.description": "Csatornázz egy sorozat szent lövedéket egy ellenségre. A három lövedék mindegyike {damage} sebzést okoz, és elnyelő pajzsot sugároz a célpontod {impact_range} blokkos körzetében lévő szövetségeknek — támadásod az ő védelmük.",
   "spell.paladins.penance.name": "Vezeklés"
 }

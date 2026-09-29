@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Lévitation",
   "spell.paladins.lightwell.description": "Invoque un Puits de Lumière qui vous soigne, vous et les alliés blessés proches. Il dure {summon_duration} sec.",
   "spell.paladins.lightwell.name": "Puits de Lumière",
-  "spell.paladins.lightwell_orb.description": "Soigne une cible alliée de {heal} points de vie.",
-  "spell.paladins.lightwell_orb.name": "Éclat Sacré",
+  "spell.paladins.lightwell_heal.description": "Soigne une cible alliée de {heal} points de vie.",
+  "spell.paladins.lightwell_heal.name": "Soin",
   "spell.paladins.penance.description": "Canalisez une volée de projectiles sacrés sur un ennemi. Chacun des trois projectiles inflige {damage} dégâts et diffuse un bouclier d’absorption aux alliés dans un rayon de {impact_range} blocs autour de votre cible — votre attaque est leur protection.",
   "spell.paladins.penance.name": "Pénitence"
 }

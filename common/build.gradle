@@ -31,14 +31,10 @@ dependencies {
     implementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
     implementation("maven.modrinth:armor-model-api:${project.armor_model_api_version}-${platform}")
     implementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
-    // TODO 26.3: SpellEngine back to maven.modrinth once released for 26.3.
     implementation("maven.modrinth:runes:${project.runes_version}-${platform}")
     implementation("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
-    // The Modrinth artifact has no pom, so nothing is transitive. On the mavenLocal line
-    // below, `transitive = false` is required: the local-maven pom drags in Cardinal Components, whose Loom-injected
-    // interfaces on `Entity` then fail to resolve here. Everything SpellEngine needs is declared above.
-//    implementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
-    implementation("net.spell_engine:spell_engine-${platform}:${project.spell_engine_version}") { transitive = false }
+    // The Modrinth artifact has no pom, so nothing is transitive.
+    implementation("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
 
     // Compatibility
     // Fabric specific

@@ -24,7 +24,7 @@ import java.util.List;
 /// spawns and configures it. See {@code WizardSummons} for the reference pattern.
 public class PaladinSummons {
 
-    private static final String LIGHTWELL_ORB = PaladinsMod.ID + ":lightwell_orb";
+    private static final String LIGHTWELL_HEAL = PaladinsMod.ID + ":lightwell_heal";
 
     /// A stationary holy well that heals nearby wounded allies (and its owner). It never moves, can't
     /// be pushed or collided with, and is untargetable/invulnerable — a pure support fixture. It scales
@@ -62,9 +62,9 @@ public class PaladinSummons {
         b.targeting.clear_condition = clear;
 
         // Action: lob the healing orb at the acquired ally. No target = don't fire. The real cadence
-        // comes from the spell's own haste-affected cooldown (see lightwell_orb); this action-level
+        // comes from the spell's own haste-affected cooldown (see lightwell_heal); this action-level
         // cooldown is only the fallback used when a spell defines none, so it never applies here.
-        var heal = new SummonBehaviour.Action.SpellCast(LIGHTWELL_ORB, 30);
+        var heal = new SummonBehaviour.Action.SpellCast(LIGHTWELL_HEAL, 30);
         heal.aiming.accept_target = true;
         heal.aiming.fallback = SummonBehaviour.Action.SpellCast.Aiming.Fallback.NONE;
         heal.release_animation_variants = List.of(1);

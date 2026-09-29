@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitação",
   "spell.paladins.lightwell.description": "Invoca um Poço de luz que cura você e aliados feridos próximos. Dura {summon_duration} seg.",
   "spell.paladins.lightwell.name": "Poço de luz",
-  "spell.paladins.lightwell_orb.description": "Cura um alvo amigo em {heal} pontos de vida.",
-  "spell.paladins.lightwell_orb.name": "Partícula sagrada",
+  "spell.paladins.lightwell_heal.description": "Cura um alvo amigo em {heal} pontos de vida.",
+  "spell.paladins.lightwell_heal.name": "Cura",
   "spell.paladins.penance.description": "Canalize uma rajada de raios sagrados contra um inimigo. Cada um dos três raios causa {damage} de dano e irradia um escudo de absorção para aliados a até {impact_range} blocos do seu alvo — seu ataque é a proteção deles.",
   "spell.paladins.penance.name": "Penitência"
 }

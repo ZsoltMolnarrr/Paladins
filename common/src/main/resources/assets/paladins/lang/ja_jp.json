@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "浮遊",
   "spell.paladins.lightwell.description": "光の泉を召喚し、あなたと近くの負傷した味方を回復させる。持続時間は{summon_duration}秒。",
   "spell.paladins.lightwell.name": "光の泉",
-  "spell.paladins.lightwell_orb.description": "味方対象の体力を{heal}回復させる。",
-  "spell.paladins.lightwell_orb.name": "神聖の光粒",
+  "spell.paladins.lightwell_heal.description": "味方対象の体力を{heal}回復させる。",
+  "spell.paladins.lightwell_heal.name": "回復",
   "spell.paladins.penance.description": "敵に向けて神聖な弾を連続で放つ詠唱。3発それぞれが{damage}のダメージを与え、対象の周囲{impact_range}ブロック以内にいる味方に衝撃吸収シールドを付与する——あなたの攻撃が、彼らの守りとなる。",
   "spell.paladins.penance.name": "贖罪"
 }

@@ -139,8 +139,8 @@
   "spell.paladins.levitate.name": "Levitasyon",
   "spell.paladins.lightwell.description": "Seni ve yakındaki yaralı müttefikleri iyileştiren bir Işık Kuyusu çağırır. {summon_duration} saniye sürer.",
   "spell.paladins.lightwell.name": "Işık Kuyusu",
-  "spell.paladins.lightwell_orb.description": "Dost bir hedefi {heal} can puanı kadar iyileştirir.",
-  "spell.paladins.lightwell_orb.name": "Kutsal Zerre",
+  "spell.paladins.lightwell_heal.description": "Dost bir hedefi {heal} can puanı kadar iyileştirir.",
+  "spell.paladins.lightwell_heal.name": "İyileştir",
   "spell.paladins.penance.description": "Bir düşmana kutsal ok yağmuru kanalize et. Üç okun her biri {damage} hasar verir ve hedefinin {impact_range} blok yakınındaki müttefiklere bir emilim kalkanı yayar — saldırın onların korumasıdır.",
   "spell.paladins.penance.name": "Kefaret"
 }

@@ -17,10 +17,7 @@
   "category": "equipment",
   "key": {
     "B": "betterend:aeternium_ingot",
-    "H": [
-      "#c:wood_sticks",
-      "minecraft:stick"
-    ]
+    "H": "minecraft:stick"
   },
   "pattern": [
     "  B",
